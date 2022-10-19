@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="mealController" enctype="multipart/form-data" id="form1">
+    <div>
+        <label>輸入菜單名稱：</label><input type="text" name="mealName"><br><br>
+        <label>輸入食材內容：</label><input type="text" name="mealContent"><br><br>
+        <label>輸入熱量：</label><input type="text" name="mealCal"><br><br>
+        <label>輸入可能過敏源：</label><input type="text" name="mealAllergen"><br><br>
+        <label>輸入售價：</label><input type="text" name="maelPrice"><br><br>
+        <label>輸入食譜：</label><textarea name="mealRecipe"></textarea><br><br>
+        <label>上傳照片：</label><input type="file" name="mealPhoto" ><br><br>
+        <button type="submit" form="form1">送出資料</button>
+        <button type="reset" form="form1">清除資料</button>
+    </div>
+</form>
+</body>
+</html>
