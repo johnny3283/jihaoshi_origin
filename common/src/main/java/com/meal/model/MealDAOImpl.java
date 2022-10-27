@@ -1,90 +1,83 @@
 package com.meal.model;
 
-import static com.common.DBConstants.PASSWORD;
-import static com.common.DBConstants.URL;
-import static com.common.DBConstants.USER;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class MealDAOImpl implements MealDAO {
+    public static DataSource ds = null;
 
-
-    private static final String GET_ALL_SQL = "select * from meal_product";
-    public static final String INSERT_SQL = "insert into meal_product (meal_name, meal_content, meal_cal, meal_allergen, meal_price, meal_photo, meal_recipe, launch) values (?,?,?,?,?,?,?,?);";
-    public static final String UPDATE_SQL = "update meal_product set meal_name=?, meal_content=?, meal_cal=?, meal_allergen=?, meal_price=?, meal_photo=?, meal_recipe=?, launch=? where meal_no=? ;";
-    public static final String LAUNCH_SQL = "update meal_product set launch = ? where meal_no = ? ;";
-    public static final String FINDBYLAST_SQL="select * from meal_product where meal_no=(select max(meal_no) from meal_product);";
-    public static final String FINDBY_MEALNO = "select * from meal_product where meal_no=? ;";
-    @Override
-    public void insert(MealVO meal) {
+    static {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try( Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps= conn.prepareStatement(INSERT_SQL);) {
-            ps.setString(1,meal.getMealName());
-            ps.setString(2, meal.getMealContent());
-            ps.setInt(3, meal.getMealCal());
-            ps.setString(4, meal.getMealAllergen());
-            ps.setInt(5, meal.getMealPrice());
-            ps.setBinaryStream(6, meal.getMealPhoto());
-            ps.setString(7,meal.getMealRecipe());
-            ps.setInt(8,meal.getLaunch());
-            ps.executeUpdate();
-        } catch (SQLException e) {
+            Context ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/jihaoshi");
+        } catch (NamingException e) {
             e.printStackTrace();
         }
     }
 
+
+    private static final String GET_ALL_SQL = "SELECT MEAL_NO, MEAL_NAME, MEAL_CONTENT, MEAL_PRICE,MEAL_PHOTO, LAUNCH,MEAL_RECIPE FROM MEAL_PRODUCT";
+    public static final String INSERT_SQL = "INSERT INTO MEAL_PRODUCT (MEAL_NAME, MEAL_CONTENT, MEAL_CAL, MEAL_ALLERGEN, MEAL_PRICE, MEAL_PHOTO, MEAL_RECIPE, LAUNCH) VALUES (?,?,?,?,?,?,?,?);";
+    public static final String UPDATE_SQL = "UPDATE MEAL_PRODUCT SET MEAL_NAME=?, MEAL_CONTENT=?, MEAL_CAL=?, MEAL_ALLERGEN=?, MEAL_PRICE=?, MEAL_PHOTO=?, MEAL_RECIPE=?, LAUNCH=? WHERE MEAL_NO=? ;";
+    public static final String UPDATE_WITHOUT_PHOTO_SQL = "UPDATE MEAL_PRODUCT SET MEAL_NAME=?, MEAL_CONTENT=?, MEAL_CAL=?, MEAL_ALLERGEN=?, MEAL_PRICE=?,  MEAL_RECIPE=?, LAUNCH=? WHERE MEAL_NO=? ;";
+
+    public static final String LAUNCH_SQL = "UPDATE MEAL_PRODUCT SET LAUNCH = ? WHERE MEAL_NO = ? ;";
+    public static final String FINDBY_MEALNO = "SELECT * FROM MEAL_PRODUCT WHERE MEAL_NO=? ;";
+    public static final String GET_POHOTO_BY_MEALNO = "select meal_photo from meal_product where meal_no= ?";
+
     @Override
-    public MealVO findByLastUpdate() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try( Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps= conn.prepareStatement(FINDBYLAST_SQL);) {
-            ResultSet rs = ps.executeQuery();
-            MealVO meal =null;
-            if (rs.next()) {
-                meal=new MealVO
-                        (rs.getInt(1), rs.getString(2),rs.getString(3),
-                                rs.getInt(4),rs.getString(5),rs.getInt(6),
-                                rs.getBinaryStream(7),rs.getInt(8),rs.getString(9),
-                                rs.getInt(10),rs.getInt(11),rs.getInt(12),
-                                rs.getDate(13));
-                return meal;
+    public MealVO insert(MealVO meal) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS);) {
+            conn.setAutoCommit(false);
+            ps.setString(1, meal.getMealName());
+            ps.setString(2, meal.getMealContent());
+            ps.setInt(3, meal.getMealCal());
+            ps.setString(4, meal.getMealAllergen());
+            ps.setInt(5, meal.getMealPrice());
+            ps.setBytes(6, meal.getMealPhoto());
+            ps.setString(7, meal.getMealRecipe());
+            ps.setInt(8, meal.getLaunch());
+            ps.executeUpdate();
+            conn.commit();
+            var generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                meal.setMealNo(generatedKeys.getInt(1));
             }
+            return findByMealNo(meal.getMealNo());
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
         return null;
     }
 
     @Override
     public MealVO findByMealNo(Integer mealNo) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try( Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps= conn.prepareStatement(FINDBY_MEALNO);) {
-            ps.setInt(1,mealNo);
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(FINDBY_MEALNO);) {
+            ps.setInt(1, mealNo);
             ResultSet rs = ps.executeQuery();
-            MealVO meal =null;
+            MealVO meal = null;
             if (rs.next()) {
-                meal=new MealVO
-                        (rs.getInt(1), rs.getString(2),rs.getString(3),
-                                rs.getInt(4),rs.getString(5),rs.getInt(6),
-                                rs.getBinaryStream(7),rs.getInt(8),rs.getString(9),
-                                rs.getInt(10),rs.getInt(11),rs.getInt(12),
+                meal = new MealVO
+                        (rs.getInt(1), rs.getString(2), rs.getString(3),
+                                rs.getInt(4), rs.getString(5), rs.getInt(6),
+                                rs.getBytes(7), rs.getInt(8), rs.getString(9),
+                                rs.getInt(10), rs.getInt(11), rs.getInt(12),
                                 rs.getDate(13));
+                meal.setShowPhoto(Base64.getEncoder().encodeToString(meal.getMealPhoto()));
                 return meal;
             }
         } catch (SQLException e) {
@@ -93,24 +86,36 @@ public class MealDAOImpl implements MealDAO {
         return null;
     }
 
+//    @Override
+//    public BufferedInputStream showMealphoto(Integer mealNo) {
+//        try (Connection conn = ds.getConnection();
+//             PreparedStatement ps = conn.prepareStatement(GET_POHOTO_BY_MEALNO);) {
+//            ps.setInt(1, mealNo);
+//            ResultSet rs = ps.executeQuery();
+//            MealVO meal = null;
+//            if (rs.next()) {
+//                BufferedInputStream mealPhoto = new BufferedInputStream(rs.getBinaryStream(1));
+//                return mealPhoto;
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
     @Override
     public void update(MealVO meal) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try( Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps= conn.prepareStatement(UPDATE_SQL);) {
-            ps.setString(1,meal.getMealName());
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(UPDATE_SQL);) {
+            ps.setString(1, meal.getMealName());
             ps.setString(2, meal.getMealContent());
             ps.setInt(3, meal.getMealCal());
             ps.setString(4, meal.getMealAllergen());
             ps.setInt(5, meal.getMealPrice());
-            ps.setBinaryStream(6, meal.getMealPhoto());
-            ps.setString(7,meal.getMealRecipe());
-            ps.setInt(8,meal.getLaunch());
-            ps.setInt(9,meal.getMealNo());
+            ps.setBytes(6, meal.getMealPhoto());
+            ps.setString(7, meal.getMealRecipe());
+            ps.setInt(8, meal.getLaunch());
+            ps.setInt(9, meal.getMealNo());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,44 +123,39 @@ public class MealDAOImpl implements MealDAO {
     }
 
     @Override
-    public Integer launchOn(Integer mealNo) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try( Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-
-             PreparedStatement ps= conn.prepareStatement(LAUNCH_SQL);) {
-            ps.setInt(1, 1);
-            ps.setInt(2,mealNo);
+    public void updateWithoutPhoto(MealVO meal) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(UPDATE_WITHOUT_PHOTO_SQL);) {
+            ps.setString(1, meal.getMealName());
+            ps.setString(2, meal.getMealContent());
+            ps.setInt(3, meal.getMealCal());
+            ps.setString(4, meal.getMealAllergen());
+            ps.setInt(5, meal.getMealPrice());
+            ps.setString(6, meal.getMealRecipe());
+            ps.setInt(7, meal.getLaunch());
+            ps.setInt(8, meal.getMealNo());
             ps.executeUpdate();
-            return 1;
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;
         }
     }
-    public Integer launchOff(Integer mealNo){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try( Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 
-             PreparedStatement ps= conn.prepareStatement(LAUNCH_SQL);) {
-            ps.setInt(1, 0);
-            ps.setInt(2,mealNo);
-            ps.executeUpdate();
-            return 1;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
     @Override
-    public MealVO findBymealName(String mealName) {
+    public Integer launchSwitch(Integer mealNo, Integer launch) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(LAUNCH_SQL);) {
+            ps.setInt(1, launch);
+            ps.setInt(2, mealNo);
+            ps.executeUpdate();
+            return 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public MealVO findByMealName(String mealName) {
         return null;
     }
 
@@ -166,8 +166,20 @@ public class MealDAOImpl implements MealDAO {
 
     @Override
     public List<MealVO> getAll() {
-        List<MealVO> meal = new ArrayList<>();
-
+        List<MealVO> meals = new ArrayList<>();
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(GET_ALL_SQL)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                MealVO meal = new MealVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(6));
+                meal.setShowPhoto(Base64.getEncoder().encodeToString(rs.getBytes(5)));
+                meal.setMealRecipe(rs.getString(7));
+                meals.add(meal);
+            }
+            return meals;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

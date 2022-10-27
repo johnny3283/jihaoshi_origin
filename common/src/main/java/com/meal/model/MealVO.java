@@ -1,6 +1,5 @@
 package com.meal.model;
 
-import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -11,7 +10,17 @@ public class MealVO implements Serializable {
     private Integer mealCal;
     private String mealAllergen;
     private Integer mealPrice;
-    private InputStream mealPhoto;
+    private byte[] mealPhoto;
+    private String showPhoto;
+
+    public String getShowPhoto() {
+        return showPhoto;
+    }
+
+    public void setShowPhoto(String showPhoto) {
+        this.showPhoto = showPhoto;
+    }
+
     private Integer saleVolume;
     private String mealRecipe;
     private Integer commentPeople;
@@ -22,7 +31,7 @@ public class MealVO implements Serializable {
     public MealVO() {
     }
 
-     public MealVO (String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, InputStream mealPhoto, String mealRecipe, Integer launch) {
+     public MealVO (String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, byte[] mealPhoto, String mealRecipe, Integer launch) {
         this.mealName = mealName;
         this.mealContent = mealContent;
         this.mealCal = mealCal;
@@ -33,7 +42,7 @@ public class MealVO implements Serializable {
         this.launch = launch;
     }
 
-    public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, InputStream mealPhoto, Integer saleVolume, String mealRecipe, Integer commentPeople, Integer commentScore, Integer launch, Date updateTime) {
+    public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, byte[] mealPhoto, Integer saleVolume, String mealRecipe, Integer commentPeople, Integer commentScore, Integer launch, Date updateTime) {
         this.mealNo = mealNo;
         this.mealName = mealName;
         this.mealContent = mealContent;
@@ -49,7 +58,7 @@ public class MealVO implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, InputStream mealPhoto, String mealRecipe, Integer launch) {
+    public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, byte[] mealPhoto, String mealRecipe, Integer launch) {
         this.mealNo = mealNo;
         this.mealName = mealName;
         this.mealContent = mealContent;
@@ -57,6 +66,25 @@ public class MealVO implements Serializable {
         this.mealAllergen = mealAllergen;
         this.mealPrice = mealPrice;
         this.mealPhoto = mealPhoto;
+        this.mealRecipe = mealRecipe;
+        this.launch = launch;
+    }
+
+    public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealPrice, Integer launch) {
+        this.mealNo = mealNo;
+        this.mealName = mealName;
+        this.mealContent = mealContent;
+        this.mealPrice = mealPrice;
+        this.launch = launch;
+    }
+
+    public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, String mealRecipe, Integer launch) {
+        this.mealNo = mealNo;
+        this.mealName = mealName;
+        this.mealContent = mealContent;
+        this.mealCal = mealCal;
+        this.mealAllergen = mealAllergen;
+        this.mealPrice = mealPrice;
         this.mealRecipe = mealRecipe;
         this.launch = launch;
     }
@@ -109,11 +137,11 @@ public class MealVO implements Serializable {
         this.mealPrice = mealPrice;
     }
 
-    public InputStream getMealPhoto() {
+    public byte[] getMealPhoto() {
         return mealPhoto;
     }
 
-    public void setMealPhoto(InputStream mealPhoto) {
+    public void setMealPhoto(byte[] mealPhoto) {
         this.mealPhoto = mealPhoto;
     }
 
