@@ -66,7 +66,7 @@
                                     <br>
                                     <span style="font-size: 18px">${meal.mealRecipe}</span>
                                     <br>
-                                    <span style="font-size: 18px">狀態：${meal.launch eq 0?"未上架":"上架中"}</span>
+                                    <span style="font-size: 18px">狀態：${launchStatus[meal.launch]}</span>
                                     <ul id="bookInfo"></ul>
                                 </dd>
                                 <dd class="c3f" id="button_DRAA0A-A900BUT82">
