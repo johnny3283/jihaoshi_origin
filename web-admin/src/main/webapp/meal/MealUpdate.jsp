@@ -1,10 +1,10 @@
 <%@ page import="com.meal.model.MealVO" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-  MealVO meal =(MealVO) request.getAttribute("meal");
+  MealVO meal = (MealVO) request.getAttribute("meal");
 
 %>
 <html>
@@ -13,7 +13,7 @@
   <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
 
   <style>
-    #pageHead{
+    #pageHead {
       width: 100%;
       height: 30%;
     }
@@ -21,6 +21,27 @@
 </head>
 <body>
 <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
+<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
+  <div id="CONTENT" class="layout-wrapper">
+    <div class="layout-center" style="text-align:center">
+      <!--側邊欄區塊開始-->
+      <dl class="block_W">
+        <dd id="CategoryContainer">
+          <ul class="treeview">
+            <li id="cate_D" class="expanded"><H1>功能列表</H1>
+              <ul class="main">
+                <li>
+                  <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                </li>
+              </ul>
+          </ul>
+        </dd>
+      </dl>
+      <!--側邊欄區塊結束-->
+      <div class="block_C s_list">
+        <div class="Cm">
+          <div id="ItemContainer" class="Cm_C">
+<span class="mealDescription">
 <c:if test="${not empty errMsgs}">
   <font style="color:red">請修正以下錯誤:</font>
   <ul>
@@ -30,7 +51,7 @@
   </ul>
 </c:if>
 <form method="post" action="mealController" enctype="multipart/form-data" id="form1">
-  <div>
+
     <p><label>菜單編號：</label><%= request.getParameter("mealNo") %></p>
     <input type="text" name="action" value="update" hidden>
     <input type="text" value="<%= request.getParameter("mealNo")%>" name="mealNo" hidden>
@@ -44,7 +65,7 @@
     <label>過敏物質：</label>
     <input type="text" name="mealAllergen" value="<%= meal.getMealAllergen()%>"><br><br>
     <label>輸入售價：</label>
-    <input type="text" name="maelPrice" value="<%= meal.getMealPrice() %>" ><br><br>
+    <input type="text" name="maelPrice" value="<%= meal.getMealPrice() %>"><br><br>
     <label>輸入食譜：</label>
     <textarea name="mealRecipe"><%= meal.getMealRecipe()%></textarea><br><br>
     <label>上傳照片：</label><input type="file" name="mealPhoto" accept="image/*"><br><br>
@@ -56,10 +77,14 @@
     <br>
     <button type="submit" form="form1">送出資料</button>
     <button type="reset" form="form1">清除資料</button>
-  </div>
-</form>
-<script>
 
-</script>
+</form>
+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <%@ page import="com.meal.model.MealVO" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
     MealVO meal = (MealVO) request.getAttribute("MealVO");
@@ -12,7 +12,7 @@
     <title>新增菜單商品</title>
     <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
-        #pageHead{
+        #pageHead {
             width: 100%;
             height: 30%;
         }
@@ -46,6 +46,7 @@
                     <div id="ItemContainer" class="Cm_C">
                         <!--商品欄開始-->
                         <br>
+                        <span class="mealDescription">
                         <h1 style="font-size: 18px">新增菜單商品</h1>
                         <c:if test="${not empty errMsgs}">
                             <font style="color:red">請修正以下錯誤:</font>
@@ -60,19 +61,24 @@
                                     <div>
                                         <input type="text" name="action" value="insert" hidden>
                                         <label>菜單名稱：</label>
-                                        <input type="text" name="mealName" value="<%=(meal==null)? "":meal.getMealName() %>"><br><br>
+                                        <input type="text" name="mealName"
+                                               value="<%=(meal==null)? "":meal.getMealName() %>"><br><br>
                                         <label>食材內容：</label>
-                                        <input type="text" name="mealContent" value="<%=(meal==null)? "":meal.getMealContent()%>"><br><br>
+                                        <input type="text" name="mealContent"
+                                               value="<%=(meal==null)? "":meal.getMealContent()%>"><br><br>
                                         <label>食品熱量：</label>
                                         <input type="text" name="mealCal">
                                         <br><br>
                                         <label>過敏物質：</label>
-                                        <input type="text" name="mealAllergen" value="<%=(meal==null)? "":meal.getMealAllergen()%>"><br><br>
+                                        <input type="text" name="mealAllergen"
+                                               value="<%=(meal==null)? "":meal.getMealAllergen()%>"><br><br>
                                         <label>輸入售價：</label>
-                                        <input type="text" name="maelPrice" ><br><br>
+                                        <input type="text" name="maelPrice"><br><br>
                                         <label>輸入食譜：</label>
-                                        <textarea name="mealRecipe" value="<%=(meal==null)? "":meal.getMealRecipe()%>"></textarea><br><br>
-                                        <label>上傳照片：</label><input type="file" name="mealPhoto" accept="image/*"><br><br>
+                                        <textarea name="mealRecipe"
+                                                  value="<%=(meal==null)? "":meal.getMealRecipe()%>"></textarea><br><br>
+                                        <label>上傳照片：</label><input type="file" name="mealPhoto"
+                                                                   accept="image/*"><br><br>
                                         <label>是否上架：</label>
                                         <input type="radio" name="launch" value="1" id="launchYes" checked>
                                         <label for="launchYes">是</label>
@@ -84,6 +90,7 @@
                                     </div>
 
                                 </form>
+                            </span>
                         <!--商品欄結束-->
                     </div>
                 </div>

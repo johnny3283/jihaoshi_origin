@@ -12,7 +12,7 @@
 </head>
 <body>
 <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
-
+<p></p>
 <div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
     <div id="CONTENT" class="layout-wrapper">
         <div class="layout-center" style="text-align:center">
@@ -41,33 +41,35 @@
                         </div>
 
                         <div class="div_productPage" style="text-align: left">
-                            <p class="mealDescription"><label>菜單名稱：</label><%=meal.getMealName()%>
-                            </p> <br>
-                            <p class="mealDescription"><label>內容物：</label><%=meal.getMealContent()%>
-                            </p> <br>
-                            <p class="mealDescription"><label>熱量：</label><%=meal.getMealCal()%>
-                            </p> <br>
-                            <p class="mealDescription"><label>過敏源：</label><%=meal.getMealAllergen()%>
-                            </p> <br>
-                            <p class="mealDescription"><label>價格：</label><%=meal.getMealPrice()%>
-                            </p> <br>
-                            <p class="mealDescription"><label>食譜：</label><%=meal.getMealRecipe()%>
-                            </p> <br>
-                            <p class="mealDescription"><label>銷售量：</label><%=meal.getSaleVolume()%>
-                            </p> <br>
-                            <p class="mealDescription"><label>評論人數：</label><%=meal.getCommentPeople()%>
-                            </p> <br>
-                            <p class="mealDescription"><label>評分：</label><%=meal.getCommentScore()%>
-                            </p> <br>
-                            <p class="mealDescription">
-                                <label>是否上架：</label><%=(meal.getLaunch() == 1) ? "上架中" : "未上架"%>
-                            </p> <br>
-                            <p class="mealDescription"><label>更新時間：</label><%=meal.getUpdateTime()%>
-                            </p> <br>
+                            <span class="mealDescription">
+                            <label>菜單名稱：</label><span><%=meal.getMealName()%></span>
+                                </p> <br>
+                            <label>內容物：</label><span><%=meal.getMealContent()%></span>
+                                </p> <br>
+                            <label>熱量：</label><span><%=meal.getMealCal()%></span>
+                                </p> <br>
+                            <label>過敏源：</label><span><%=meal.getMealAllergen()%></span>
+                                </p> <br>
+                            <label>價格：</label><span><%=meal.getMealPrice()%></span>
+                                </p> <br>
+                            <label>食譜：</label><span><%=meal.getMealRecipe()%></span>
+                                </p> <br>
+                            <label>銷售量：</label><span><%=meal.getSaleVolume()%></span>
+                                </p> <br>
+                            <label>評論人數：</label><span><%=meal.getCommentPeople()%></span>
+                                </p> <br>
+                            <label>評分：</label><span><%=meal.getCommentScore()%></span>
+                                </p> <br>
+
+                                <label>是否上架：</label><span><%=(meal.getLaunch() == 1) ? "上架中" : "未上架"%></span>
+                                </p> <br>
+                            <span><label>更新時間：</label><%=meal.getUpdateTime()%></span>
+                                </p> <br>
                             <form method="post" action="mealController?action=toUpdate" id="form1">
                                 <input type="text" value="<%=meal.getMealNo()%>" name="mealNo" hidden>
                                 <button type="submit" form="form1">修改資料</button>
                             </form>
+                                </span>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,6 @@
 <%@ page import="com.meal.model.MealVO" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     MealVO meal = (MealVO) request.getAttribute("meal");
@@ -42,31 +41,35 @@
                         </div>
 
                         <div class="div_productPage" style="text-align: left;line-height: 35px">
-                            <p class="mealDescription"><label>菜單名稱：</label><%=meal.getMealName()%>
-                            </ class=mealDescriptionp> <br>
-                            <p class="mealDescription"><label>內容物：</label><%=meal.getMealContent()%>
-                            </ class=mealDescriptionp> <br>
-                            <p class="mealDescription" id="cal"><label>熱量：</label><%=meal.getMealCal()%>
-                            </ class=mealDescriptionp> <br>
-                            <p class="mealDescription"><label>過敏源：</label><%=meal.getMealAllergen()%>
-                            </ class=mealDescriptionp> <br>
-                            <p class="mealDescription" id="price"><label>價格：</label><%=meal.getMealPrice()%>
-                            </ class=mealDescriptionp> <br>
-                            <p class="mealDescription"><label>食譜：</label><%=meal.getMealRecipe()%>
-                            </ class=mealDescriptionp> <br>
-                            <p class="mealDescription"><label>評論人數：</label><%=meal.getCommentPeople()%>
-                            </ class=mealDescriptionp> <br>
-                            <p class="mealDescription">
-                                <label>評分：</label><%=(meal.getCommentPeople() != 0) ? (meal.getCommentScore() / meal.getCommentPeople()) : "尚無人評分"%>
-                            </p> <br>
-                            <p class="mealDescription"><label>調整分量：</label> </p>
-                            <p class="mealDescription"><input type="radio" name="quantity" value="1" id="quantity1" class="quantity">
+                            <span class="mealDescription">
+                            <label>菜單名稱：</label><span><%=meal.getMealName()%></span>
+                            <br>
+                            <label>內容物：</label><span><%=meal.getMealContent()%></span>
+                            <br>
+                            <label>熱量：</label><span id="cal"><%=meal.getMealCal()%></span>
+                            <br>
+                            <label>過敏源：</label><span><%=meal.getMealAllergen()%></span>
+                            <br>
+                            <label>價格：</label><span id="price"><%=meal.getMealPrice()%></span>
+                            <br>
+                            <label>食譜：</label><span><%=meal.getMealRecipe()%></span>
+                            <br>
+                            <label>評論人數：</label><span><%=meal.getCommentPeople()%></span>
+                            <br>
+
+                            <label>評分：</label><span><%=(meal.getCommentPeople() != 0) ? (meal.getCommentScore() / meal.getCommentPeople()) : "尚無人評分"%> </span>
+                           <br>
+                            <label>調整分量：</label> </p>
+                                <span>
+                                    <input type="radio" name="quantity" value="1" id="quantity1" class="quantity"
+                                           checked>
                             <label for="quantity1">原始分量</label>
                             <input type="radio" name="quantity" value="1.2" id="quantity1.2" class="quantity">
                             <label for="quantity1.2">1.2倍</label>
                             <input type="radio" name="quantity" value="1.5" id="quantity1.5" class="quantity">
-                            <label for="quantity1.5">1.5倍</label></p>
-                            <form method="post" action="#" id="formCart">
+                            <label for="quantity1.5">1.5倍</label>
+                                </span></p>
+                                <form method="post" action="#" id="formCart">
                                 <input type="text" value="<%=meal.getMealNo()%>" name="mealNo" hidden>
 
                             </form>
@@ -74,6 +77,7 @@
                                 <input type="text" value="<%=meal.getMealNo()%>" name="mealNo" hidden>
 
                             </form>
+                            </span>
                             <button type="submit" form="formCart">加入購物車</button>
                             <button type="submit" form="formCheckout">直接購買</button>
                         </div>
@@ -98,14 +102,12 @@
             $('#price').text(price);
         });
         $('#quantity1\\.2').click(function () {
-
             let cal =
             <%=meal.getMealCal()%> *
             $('#quantity1\\.2').val()
             let price =
             <%=meal.getMealPrice()%> *
             $('#quantity1\\.2').val()
-
             $('#cal').text(cal);
             $('#price').text(price);
         });
@@ -116,7 +118,6 @@
             let price =
             <%=meal.getMealPrice()%> *
             $('#quantity1\\.5').val()
-
             $('#cal').text(cal);
             $('#price').text(price);
         });
