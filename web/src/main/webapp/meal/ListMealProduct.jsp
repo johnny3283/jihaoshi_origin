@@ -12,12 +12,7 @@
 <head>
     <title>Title</title>
     <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
-    <style>
-        #pageHead {
-            width: 100%;
-            height: 30%;
-        }
-    </style>
+
 </head>
 <body>
 <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
@@ -61,9 +56,8 @@
                                     <img src="data:image/png;base64,${meal.showPhoto}"></a></dd>
                                 <dd class="c2f">
                                     <ul class="tag_box s_label"></ul>
-                                    <h5 class="prod_name"><a
-                                            href="mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a></h5>
-
+                                    <h5 class="prod_name"><a href="mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a>
+                                    </h5>
                                     <br>
                                     <span style="font-size: 18px">簡易食譜：${meal.mealRecipe}</span>
                                     <br>
@@ -77,11 +71,14 @@
                                         <li><span style="font-size: 18px">價格NT$${meal.mealPrice}</span>
                                         </li>
                                     </ul>
-                                    <form method="post" action="#" enctype="application/x-www-form-urlencoded" id="cart${meal.mealNo}">
+
+                                    <form method="post" action="#" enctype="application/x-www-form-urlencoded"
+                                          id="cart${meal.mealNo}">
                                         <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
                                     </form>
                                     <br>
-                                    <form method="post" action="#" enctype="application/x-www-form-urlencoded" id="checkout${meal.mealNo}">
+                                    <form method="post" action="#" enctype="application/x-www-form-urlencoded"
+                                          id="checkout${meal.mealNo}">
                                         <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
 
                                     </form>
