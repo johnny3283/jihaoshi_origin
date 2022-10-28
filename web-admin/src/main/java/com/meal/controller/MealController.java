@@ -21,14 +21,24 @@ import com.meal.model.MealVO;
 @WebServlet("/meal/mealController")
 @MultipartConfig(fileSizeThreshold = 0, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class MealController extends HttpServlet {
+    MealService mealSV = new MealService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        doPost(req,res);
+        doPost(req, res);
+    }
+
+    private String getParameter(String parameterName, String validationMessage, HttpServletRequest req, List<String> errMsgs) {
+        String parameterValue = req.getParameter(parameterName);
+        if (parameterValue == null || parameterValue.isBlank()) {
+            errMsgs.add(validationMessage);
+        }
+        return parameterValue;
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
         req.setCharacterEncoding("UTF-8");
         Integer mealNo = null;
         String mealName = null;
@@ -45,13 +55,14 @@ public class MealController extends HttpServlet {
             req.setAttribute("errMsgs", errMsgs);
             mealName = req.getParameter("mealName");
             if (mealName == null || mealName.isBlank()) {
-
                 errMsgs.add("菜單名稱不得空白");
             }
+            mealName = getParameter("mealName", "菜單名稱不得空白", req, errMsgs);
             mealContent = req.getParameter("mealContent").trim();
             if (mealContent == null || mealContent.length() == 0) {
                 errMsgs.add("菜單內容不得空白");
             }
+            mealContent = getParameter("mealContent", "菜單內容不得空白", req, errMsgs);
             try {
                 mealCal = Integer.valueOf(req.getParameter("mealCal").trim());
                 if (mealCal <= 0) {
@@ -87,12 +98,9 @@ public class MealController extends HttpServlet {
                 failureView.forward(req, res);
                 return; //程式中斷
             }
-            MealService mealSV=new MealService();
-            MealVO lastMeal =  mealSV.addMeal(mealName, mealContent, mealCal, mealAllergen, mealPrice, mealPhoto, mealRecipe, launch);
+            MealVO lastMeal = mealSV.addMeal(mealName, mealContent, mealCal, mealAllergen, mealPrice, mealPhoto, mealRecipe, launch);
 
             if (lastMeal != null) {
-//                String photo = Base64.getEncoder().encodeToString(mealPhoto);
-//                lastMeal.setShowPhoto(photo);
                 req.setAttribute("meal", lastMeal);
                 RequestDispatcher productPage = req.getRequestDispatcher("/meal/ProductPage.jsp");
                 productPage.forward(req, res);
@@ -146,15 +154,14 @@ public class MealController extends HttpServlet {
                 return; //程式中斷
             }
 
-            MealService meslSV=new MealService();
-            String photoBase64= Base64.getEncoder().encodeToString(IOUtils.toByteArray(req.getPart("mealPhoto").getInputStream()));
+            String photoBase64 = Base64.getEncoder().encodeToString(IOUtils.toByteArray(req.getPart("mealPhoto").getInputStream()));
 
             if (!photoBase64.isEmpty()) {
-                meslSV.updateMeal(mealNo, mealName, mealContent, mealCal, mealAllergen, mealPrice, mealPhoto, mealRecipe, launch);
-            }else {
-                meslSV.updateMeal(mealNo, mealName, mealContent, mealCal, mealAllergen, mealPrice, mealRecipe, launch);
+                mealSV.updateMeal(mealNo, mealName, mealContent, mealCal, mealAllergen, mealPrice, mealPhoto, mealRecipe, launch);
+            } else {
+                mealSV.updateMeal(mealNo, mealName, mealContent, mealCal, mealAllergen, mealPrice, mealRecipe, launch);
             }
-            MealVO updatedMeal = meslSV.findByMealNo(mealNo);
+            MealVO updatedMeal = mealSV.findByMealNo(mealNo);
             if (updatedMeal != null) {
                 req.setAttribute("meal", updatedMeal);
                 RequestDispatcher productPage = req.getRequestDispatcher("/meal/ProductPage.jsp");
@@ -162,8 +169,7 @@ public class MealController extends HttpServlet {
             }
         }
         if ("listAll".equals(action)) {
-            MealService meslSV=new MealService();
-            List<MealVO> meals=meslSV.getAll();
+            List<MealVO> meals = mealSV.getAll();
             if (meals != null) {
                 req.setAttribute("lastAllMeal", meals);
                 RequestDispatcher productPage = req.getRequestDispatcher("/meal/ListMealProduct.jsp");
@@ -172,7 +178,6 @@ public class MealController extends HttpServlet {
         }
         if ("toUpdate".equals(action)) {
             mealNo = Integer.valueOf(req.getParameter("mealNo"));
-            MealService mealSV =new MealService();
             MealVO meal = mealSV.findByMealNo(mealNo);
             if (meal != null) {
                 req.setAttribute("meal", meal);
@@ -182,26 +187,22 @@ public class MealController extends HttpServlet {
         }
         if ("findByprod".equals(action)) {
             mealNo = Integer.valueOf(req.getParameter("mealNo"));
-            MealService mealSV =new MealService();
             MealVO meal = mealSV.findByMealNo(mealNo);
             if (meal != null) {
                 req.setAttribute("meal", meal);
                 RequestDispatcher productPage = req.getRequestDispatcher("/meal/ProductPage.jsp");
-                System.out.println("我有到這喔");
                 productPage.forward(req, res);
 
             }
         }
-        System.out.println(action);
         if ("launch".equals(action)) {
             mealNo = Integer.valueOf(req.getParameter("mealNo"));
             launch = Integer.valueOf(req.getParameter("launch"));
-             MealService mealSV =new MealService();
-            int launchOK=mealSV.launchSwitch(mealNo, launch);
-            if (launchOK == 1) {
-                System.out.println("我有執行喔");
-                RequestDispatcher listMealProductPage = req.getRequestDispatcher("/meal/mealController?action=listAll");
-                listMealProductPage.forward(req, res);
+            boolean launchOK = mealSV.launchSwitch(mealNo, launch);
+            if (launchOK) {
+                res.sendRedirect(req.getHeader("referer"));
+            } else {
+                // TODO: 2022/10/27  做錯誤頁面
             }
         }
     }

@@ -22,6 +22,15 @@
 <body>
 <img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 <div class="block_N" style="margin:0px auto;">
+  <!--搜尋欄開始-->
+  <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
+    <ul class="searchfield">
+      <li><input id="keyword" type="text" class="text ac_input" placeholder="請輸入關鍵字" autocomplete="off">
+      </li>
+      <li><input id="btn_search" type="button" class="button" value="找菜單"></li>
+    </ul>
+  </div>
+  <!--搜尋欄結束-->
 </div>
 <div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
   <div id="CONTENT" class="layout-wrapper">
@@ -33,31 +42,7 @@
             <li id="cate_D" class="expanded"><H1>功能列表</H1>
               <ul class="main">
                 <li>
-                  <a href="#">會員專區</a>
-                </li>
-                <li>
-                  <a href="#">網站簡介</a>
-                </li>
-                <li>
-                  <a href="#">最新消息</a>
-                </li>
-                <li>
-                  <a href="<%=request.getContextPath()%>/meal/MealProductIndex.jsp">好食產品專區</a>
-                </li>
-                <li>
-                  <a href="#" >菜單商品購物車</a>
-                </li>
-                <li>
-                  <a href="#">線上課程購物車</a>
-                </li>
-                <li>
-                  <a href="#">最新消息</a>
-                </li>
-                <li>
-                  <a href="#">康健新知論壇</a>
-                </li>
-                <li>
-                  <a href="#">FAQ及客服專區</a>
+                  <a href="mealController?action=listAll">產品清單</a>
                 </li>
               </ul>
           </ul>

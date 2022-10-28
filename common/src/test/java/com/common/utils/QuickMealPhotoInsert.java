@@ -1,4 +1,9 @@
-package com.common;
+package com.common.utils;
+
+import static com.common.DBConstants.PASSWORD;
+import static com.common.DBConstants.URL;
+import static com.common.DBConstants.USER;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,9 +12,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import static com.common.DBConstants.URL;
-import static com.common.DBConstants.USER;
-import static com.common.DBConstants.PASSWORD;
 public class QuickMealPhotoInsert {
     public static void main(String[] args) throws IOException {
         String INSERT_PHOTO = "UPDATE MEAL_PRODUCT SET MEAL_PHOTO = ? WHERE MEAL_NO = ? ;";

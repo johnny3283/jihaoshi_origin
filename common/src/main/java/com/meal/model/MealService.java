@@ -30,7 +30,7 @@ public class MealService {
         return dao.getAll();
     }
 
-    public Integer launchSwitch(Integer mealNo, Integer launch) {
+    public boolean launchSwitch(Integer mealNo, Integer launch) {
         return dao.launchSwitch(mealNo,launch);
     }
 }

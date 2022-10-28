@@ -63,10 +63,13 @@
                                     <ul class="tag_box s_label"></ul>
                                     <h5 class="prod_name"><a
                                             href="mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a></h5>
+
                                     <br>
-                                    <span style="font-size: 18px">${meal.mealRecipe}</span>
+                                    <span style="font-size: 18px">簡易食譜：${meal.mealRecipe}</span>
                                     <br>
-                                    <span style="font-size: 18px">狀態：${launchStatus[meal.launch]}</span>
+                                    <span style="font-size: 18px">熱量：${meal.mealCal}</span>
+                                    <br>
+                                    <span style="font-size: 18px">可能過敏原：${meal.mealAllergen}</span>
                                     <ul id="bookInfo"></ul>
                                 </dd>
                                 <dd class="c3f" id="button_DRAA0A-A900BUT82">
@@ -74,18 +77,19 @@
                                         <li><span style="font-size: 18px">價格NT$${meal.mealPrice}</span>
                                         </li>
                                     </ul>
-                                    <form method="post" action="mealController?action=toUpdate"
-                                          enctype="application/x-www-form-urlencoded" id="edit${meal.mealNo}">
+                                    <form method="post" action="#" enctype="application/x-www-form-urlencoded" id="cart${meal.mealNo}">
                                         <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
-                                        <button type="submit" form="edit${meal.mealNo}">修改商品</button>
                                     </form>
                                     <br>
-                                    <form method="post" action="mealController" enctype="application/x-www-form-urlencoded" id="launch${meal.mealNo}">
-                                        <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
-                                        <input type="text" name="launch" value="${meal.launch eq 0?1:0}" hidden>
-                                        <input type="text" name="action" value="launch" hidden>
-                                        <button type="submit" form="launch${meal.mealNo}" class="launchSwitch">${meal.launch eq 0?"上架":"下架"}</button>
+                                    <form method="post" action="#" enctype="application/x-www-form-urlencoded" id="checkout${meal.mealNo}">
+                                        <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
+
                                     </form>
+                                    <button type="submit" form="cart${meal.mealNo}">加入購物車</button>
+                                    <button type="submit" form="checkout${meal.mealNo}">直接購買</button>
+                                    <br>
+                                    <P>評論人數：${meal.commentPeople}</P>
+                                    <p>產品評價：${meal.commentPeople==0?"尚無人評分":(meal.commentScore/meal.commentPeople)}</p>
                                 </dd>
                             </dl>
                         </c:forEach>
@@ -98,7 +102,5 @@
 
     </div>
 </div>
-<script>
-</script>
 </body>
 </html>

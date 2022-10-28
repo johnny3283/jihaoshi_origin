@@ -27,14 +27,13 @@ public class MealDAOImpl implements MealDAO {
     }
 
 
-    private static final String GET_ALL_SQL = "SELECT MEAL_NO, MEAL_NAME, MEAL_CONTENT, MEAL_PRICE,MEAL_PHOTO, LAUNCH,MEAL_RECIPE FROM MEAL_PRODUCT";
+    private static final String GET_ALL_SQL = "SELECT * FROM MEAL_PRODUCT";
     public static final String INSERT_SQL = "INSERT INTO MEAL_PRODUCT (MEAL_NAME, MEAL_CONTENT, MEAL_CAL, MEAL_ALLERGEN, MEAL_PRICE, MEAL_PHOTO, MEAL_RECIPE, LAUNCH) VALUES (?,?,?,?,?,?,?,?);";
     public static final String UPDATE_SQL = "UPDATE MEAL_PRODUCT SET MEAL_NAME=?, MEAL_CONTENT=?, MEAL_CAL=?, MEAL_ALLERGEN=?, MEAL_PRICE=?, MEAL_PHOTO=?, MEAL_RECIPE=?, LAUNCH=? WHERE MEAL_NO=? ;";
     public static final String UPDATE_WITHOUT_PHOTO_SQL = "UPDATE MEAL_PRODUCT SET MEAL_NAME=?, MEAL_CONTENT=?, MEAL_CAL=?, MEAL_ALLERGEN=?, MEAL_PRICE=?,  MEAL_RECIPE=?, LAUNCH=? WHERE MEAL_NO=? ;";
 
     public static final String LAUNCH_SQL = "UPDATE MEAL_PRODUCT SET LAUNCH = ? WHERE MEAL_NO = ? ;";
     public static final String FINDBY_MEALNO = "SELECT * FROM MEAL_PRODUCT WHERE MEAL_NO=? ;";
-    public static final String GET_POHOTO_BY_MEALNO = "select meal_photo from meal_product where meal_no= ?";
 
     @Override
     public MealVO insert(MealVO meal) {
@@ -57,6 +56,7 @@ public class MealDAOImpl implements MealDAO {
             }
             return findByMealNo(meal.getMealNo());
         } catch (SQLException e) {
+
             e.printStackTrace();
 
         }
@@ -141,17 +141,18 @@ public class MealDAOImpl implements MealDAO {
     }
 
     @Override
-    public Integer launchSwitch(Integer mealNo, Integer launch) {
+    public boolean launchSwitch(Integer mealNo, Integer launch) {
         try (Connection conn = ds.getConnection();
              PreparedStatement ps = conn.prepareStatement(LAUNCH_SQL);) {
             ps.setInt(1, launch);
             ps.setInt(2, mealNo);
             ps.executeUpdate();
-            return 1;
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;
+            return false;
         }
+
     }
 
     @Override
@@ -171,9 +172,12 @@ public class MealDAOImpl implements MealDAO {
              PreparedStatement ps = conn.prepareStatement(GET_ALL_SQL)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                MealVO meal = new MealVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(6));
-                meal.setShowPhoto(Base64.getEncoder().encodeToString(rs.getBytes(5)));
-                meal.setMealRecipe(rs.getString(7));
+                MealVO meal = new MealVO(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getInt(4), rs.getString(5), rs.getInt(6),
+                        rs.getBytes(7), rs.getInt(8), rs.getString(9),
+                        rs.getInt(10), rs.getInt(11), rs.getInt(12),
+                        rs.getDate(13));
+                meal.setShowPhoto(Base64.getEncoder().encodeToString(rs.getBytes(7)));
                 meals.add(meal);
             }
             return meals;
