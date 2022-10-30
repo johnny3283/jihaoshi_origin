@@ -12,6 +12,24 @@ public class MealVO implements Serializable {
     private Integer mealPrice;
     private byte[] mealPhoto;
     private String showPhoto;
+    private Double quantity;
+    private Integer amount;
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
 
     public String getShowPhoto() {
         return showPhoto;

@@ -3,7 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    List<MealVO> meals = (List<MealVO>) request.getAttribute("lastAllMeal");
+    List<MealVO> meals = (List<MealVO>) request.getAttribute("listMeals");
     request.setAttribute("meals", meals);
 
 %>
@@ -19,11 +19,17 @@
 <div class="block_N" style="margin:0px auto;">
     <!--搜尋欄開始-->
     <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
-        <ul class="searchfield">
-            <li><input id="keyword" type="text" class="text ac_input" placeholder="請輸入關鍵字" autocomplete="off">
-            </li>
-            <li><input id="btn_search" type="button" class="button" value="找菜單"></li>
-        </ul>
+        <form method="post" action="mealController" enctype="application/x-www-form-urlencoded" id="keywordSearch">
+            <ul class="searchfield">
+
+                <li><input id="keyword" type="text" class="text ac_input" placeholder="請輸入關鍵字" autocomplete="off"></li>
+                <li><input type="text" name="action" value="keywordSearch" hidden></li>
+                <li><button id="btn_search" type="submit" class="button" form="keywordSearch">搜尋</button></li>
+
+            </ul>
+
+        </form>
+
     </div>
     <!--搜尋欄結束-->
 </div>
@@ -52,11 +58,13 @@
                         <c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>"
                                    end="<%= pageIndex+rowsPerPage-1 %>">
                             <dl class="col3f" id="DRAA0A-A900BUT82">
-                                <dd class="c1f"><a class="prod_img" href="mealController?action=findByprod&mealNo=${meal.mealNo}">
+                                <dd class="c1f"><a class="prod_img"
+                                                   href="mealController?action=findByprod&mealNo=${meal.mealNo}">
                                     <img src="data:image/png;base64,${meal.showPhoto}"></a></dd>
                                 <dd class="c2f">
                                     <ul class="tag_box s_label"></ul>
-                                    <h5 class="prod_name"><a href="mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a>
+                                    <h5 class="prod_name"><a
+                                            href="mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a>
                                     </h5>
                                     <br>
                                     <span style="font-size: 18px">簡易食譜：${meal.mealRecipe}</span>

@@ -65,7 +65,8 @@
                                 </p> <br>
                             <span><label>更新時間：</label><%=meal.getUpdateTime()%></span>
                                 </p> <br>
-                            <form method="post" action="mealController?action=toUpdate" id="form1">
+                            <form method="post" action="mealController" id="form1">
+                                <input type="text" name="action" value="toUpdate" hidden>
                                 <input type="text" value="<%=meal.getMealNo()%>" name="mealNo" hidden>
                                 <button type="submit" form="form1">修改資料</button>
                             </form>
