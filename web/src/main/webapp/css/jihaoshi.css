@@ -330,15 +330,7 @@ button {
     background-position: 0 -25px
 }
 
-.addBigCart
-button {
-    background-position: 0 -50px
-}
 
-.add24hCart
-button {
-    background-position: 0 -75px
-}
 
 @media screen and (max-width: 1280px) {
     .layout-center {

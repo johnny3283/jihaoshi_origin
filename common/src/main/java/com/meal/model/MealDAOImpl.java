@@ -35,7 +35,7 @@ public class MealDAOImpl implements MealDAO {
     public static final String LAUNCH_SQL = "UPDATE MEAL_PRODUCT SET LAUNCH = ? WHERE MEAL_NO = ? ;";
     public static final String FINDBY_MEALNO = "SELECT * FROM MEAL_PRODUCT WHERE MEAL_NO=? ;";
     public static final String FINDBY_MEALNO_CART = "SELECT MEAL_NO, MEAL_NAME, MEAL_CONTENT, MEAL_CAL, MEAL_ALLERGEN, MEAL_PRICE FROM MEAL_PRODUCT WHERE MEAL_NO=? ;";
-
+    public static final String GET_ALL_LAUNCH = "SELECT * FROM MEAL_PRODUCT WHERE LAUNCH=1;";
     @Override
     public MealVO insert(MealVO meal) {
         try (Connection conn = ds.getConnection();
@@ -176,6 +176,28 @@ public class MealDAOImpl implements MealDAO {
         List<MealVO> meals = new ArrayList<>();
         try (Connection conn = ds.getConnection();
              PreparedStatement ps = conn.prepareStatement(GET_ALL_SQL)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                MealVO meal = new MealVO(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getInt(4), rs.getString(5), rs.getInt(6),
+                        rs.getBytes(7), rs.getInt(8), rs.getString(9),
+                        rs.getInt(10), rs.getInt(11), rs.getInt(12),
+                        rs.getDate(13));
+                meal.setShowPhoto(Base64.getEncoder().encodeToString(rs.getBytes(7)));
+                meals.add(meal);
+            }
+            return meals;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<MealVO> getAllLaunch() {
+        List<MealVO> meals = new ArrayList<>();
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(GET_ALL_LAUNCH)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 MealVO meal = new MealVO(rs.getInt(1), rs.getString(2), rs.getString(3),

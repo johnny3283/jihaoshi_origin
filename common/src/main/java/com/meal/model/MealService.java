@@ -36,4 +36,8 @@ public class MealService {
     public boolean launchSwitch(Integer mealNo, Integer launch) {
         return dao.launchSwitch(mealNo,launch);
     }
+
+    public List<MealVO> getAllLaunch() {
+        return dao.getAllLaunch();
+    }
 }

@@ -19,4 +19,6 @@ public interface MealDAO {
     MealVO findByMealNo(Integer mealNo, Double quantity);
 
     List<MealVO> getAll();
+
+    List<MealVO> getAllLaunch();
 }

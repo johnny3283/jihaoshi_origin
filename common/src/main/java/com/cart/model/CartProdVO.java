@@ -1,8 +1,10 @@
 package com.cart.model;
 
+import java.io.Serializable;
+
 import com.meal.model.MealVO;
 
-public class CartProdVO {
+public class CartProdVO implements Serializable {
     private MealVO meal;
     private Double quantity;
     private Integer amount;

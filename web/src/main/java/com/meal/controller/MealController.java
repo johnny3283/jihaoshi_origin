@@ -33,12 +33,13 @@ public class MealController extends HttpServlet {
         List<CartProdVO> cartProds = (ArrayList<CartProdVO>) session.getAttribute("cartProds");
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        RequestDispatcher productPage=null;
         if ("listAll".equals(action)) {
 
-            List<MealVO> listMeals = mealSV.getAll();
+            List<MealVO> listMeals = mealSV.getAllLaunch();
             if (listMeals != null) {
                 req.setAttribute("listMeals", listMeals);
-                RequestDispatcher productPage = req.getRequestDispatcher("/meal/ListMealProduct.jsp");
+                productPage = req.getRequestDispatcher("/meal/ListMealProduct.jsp");
                 productPage.forward(req, res);
             }
         }
@@ -46,11 +47,15 @@ public class MealController extends HttpServlet {
         if ("findByprod".equals(action)) {
             Integer mealNo = Integer.valueOf(req.getParameter("mealNo"));
             MealVO meal = mealSV.findByMealNo(mealNo);
-            if (meal != null) {
+            if (meal != null&& meal.getLaunch().equals(1)) {
                 req.setAttribute("meal", meal);
-                RequestDispatcher productPage = req.getRequestDispatcher("/meal/ProductPage.jsp");
+                productPage = req.getRequestDispatcher("/meal/ProductPage.jsp");
                 productPage.forward(req, res);
+                return;
+            }else {
+                res.sendRedirect("ProductNotFound.jsp");
             }
+
         }
         if ("cartAdd".equals(action)) {
 
@@ -73,7 +78,7 @@ public class MealController extends HttpServlet {
             } else { // 購物車內有東西時
                 for (int i = 0; i < cartProds.size(); i++) { // 尋找是否有同編號同份量商品
                      prod = cartProds.get(i);
-                    if (prod.getMeal().getMealNo() == mealNo && prod.getQuantity().equals(quantity)) {
+                    if (prod.getMeal().getMealNo().equals(mealNo) && prod.getQuantity().equals(quantity)) {
                         prod.setAmount(prod.getAmount() + amount); // 找到就改變數量跟價格
                         prod.setPrice((int) (meal.getMealPrice() * quantity * amount));
                         session.setAttribute("cartProds", cartProds);
