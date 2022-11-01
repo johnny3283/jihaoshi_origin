@@ -9,7 +9,7 @@ public class Forum_articleVO implements java.io.Serializable{
 	private Integer member_no;
 	private Date article_time;
 	private String article_content;
-	private Integer article_status ;
+	private Integer article_status;
 	
 	
 	
