@@ -42,6 +42,9 @@
                                 <li>
                                     <a href="meal/mealController?action=listAll" >菜單商品列表</a>
                                 </li>
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/faqservlet?action=selectFAQ" >FAQ列表</a>
+                                </li>
                             </ul>
                     </ul>
                 </dd>
