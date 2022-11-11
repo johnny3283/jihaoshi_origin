@@ -3,9 +3,9 @@
 <%@page import="com.forum_article.model.Forum_articleVO"%>
 
 <%
-Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_articleVO"); //Forum_articleVOServlet.java (Concroller) 存入req的forum_articleVO物件 (包括幫忙取出的forum_articleVO, 也包括輸入資料錯誤時的forum_articleVO物件)
+Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_articleVO"); //Forum_articleServlet.java (Concroller) 存入req的forum_articleVO物件 (包括幫忙取出的forum_articleVO, 也包括輸入資料錯誤時的forum_articleVO物件)
 %>
- 
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -75,28 +75,28 @@ th, td {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="/third/Forum_articleServlet" name="form1">
+	<FORM METHOD="post" ACTION="/web-admin/Forum_articleServlet" name="form1">
 		<table>
 
 
 			<tr>
 				<td>文章標題:</td>
 				<td><input type="TEXT" name="article_name" size="45"
-					value="<%=forum_articleVO.getArticle_name()%>" /></td>
+					value="<%=forum_articleVO.getArticle_name()%>"  required/></td>
 			</tr>
 
 			<tr>
 				<td>文章內容:</td>
 				<td><textarea type="TEXT" name="article_content" size="45"
-						value="<%=forum_articleVO.getArticle_content()%>" /></textarea></td>
+						value="<%=forum_articleVO.getArticle_content()%>"  required/></textarea></td>
 			</tr>
 
 		
-			<tr>
-				<td>文章狀態:</td>
-				<td><textarea type="TEXT" name="article_status" size="45"
-						value="<%=forum_articleVO.getArticle_status()%>" /></textarea></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>文章狀態:</td> -->
+<!-- 				<td><input type="TEXT" name="article_status" size="45" -->
+<%-- 						value="<%=forum_articleVO.getArticle_status()%>" /></td> --%>
+<!-- 			</tr> -->
 
 
 		</table>

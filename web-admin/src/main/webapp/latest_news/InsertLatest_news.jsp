@@ -12,12 +12,12 @@
 
 <body>
 <h1>最新消息新增:</h1>
-    <form method="post" action="/third/Latest_newsServlet" enctype="application/x-www-form-urlencoded" id="form1">
+    <form method="post" action="/web-admin/Latest_newsServlet" enctype="application/x-www-form-urlencoded" id="form1">
         <div>
 <!--             <label>輸入消息編號：</label><input type="text" name="news_no"><br><br> -->
-            <label>輸入消息標題：</label><input type="text" name="news_name" value="${param.news_name}"><br><br>
+            <label>輸入消息標題：</label><input type="text" name="news_name" value="${param.news_name}" required><br><br>
 <!--             <label>輸入編輯時間：</label><input type="text" name="update_date"><br><br> -->
-            <label>輸入消息內文：</label><textarea name="news_content" value="${param.news_content}"></textarea><br><br>
+            <label>輸入消息內文：</label><textarea name="news_content" value="${param.news_content}" required></textarea><br><br>
            
 			<input type="hidden" name="action" value="insert">
 <!-- 			<input type="hidden" name="news_no" value=1> -->

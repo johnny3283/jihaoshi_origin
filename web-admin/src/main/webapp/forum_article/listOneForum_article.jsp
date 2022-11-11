@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.forum_article.model.*"%>
 
-<% 
+<%
 Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_articleVO"); //Forum_articleServlet.java(Concroller), 存入req的latest_newsVO物件
 %>
 
@@ -61,7 +61,7 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
 		<th>會員編號</th>
 		<th>編輯時間</th>
 		<th>文章內容</th>
-		<th>文章狀態</th>
+		
 	</tr>
 	<tr>
 		<td><%=forum_articleVO.getArticle_no()%></td>
@@ -69,7 +69,7 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
 		<td><%=forum_articleVO.getMember_no()%></td>
 		<td><%=forum_articleVO.getArticle_time()%></td>
 		<td><%=forum_articleVO.getArticle_content()%></td>
-		<td><%=forum_articleVO.getArticle_status()%></td>
+		
 	</tr>
 </table>
 

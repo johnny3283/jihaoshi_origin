@@ -52,7 +52,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="/third/Forum_articleServlet" >
+    <FORM METHOD="post" ACTION="/web-admin/Forum_articleServlet" >
         <b>輸入論壇文章編號 (如:1):</b>
         <input type="text" name="article_no">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -63,7 +63,7 @@
   <jsp:useBean id="forum_articleSvc" scope="page" class="com.forum_article.model.Forum_articleService" />
    
 <!--   <li> -->
-<!--      <FORM METHOD="post" ACTION="/third/Forum_articleServlet" > -->
+<!--      <FORM METHOD="post" ACTION="/web-admin/Forum_articleServlet" > -->
 <!--        <b>選擇論壇文章編號:</b> -->
 <!--        <select size="1" name="article_no"> -->
 <%--          <c:forEach var="Forum_articleVO" items="${forum_articleSvc.all}" >  --%>
@@ -76,7 +76,7 @@
 <!--   </li> -->
   
   <li>
-     <FORM METHOD="post" ACTION="/third/Forum_articleServlet" >
+     <FORM METHOD="post" ACTION="/web-admin/Forum_articleServlet" >
        <b>選擇文章標題:</b>
        <select size="1" name="article_no">
          <c:forEach var="forum_articleVO" items="${forum_articleSvc.all}" > 
@@ -88,7 +88,7 @@
      </FORM>
   </li>
 </ul>
- 
+
 
 <h3>論壇文章管理</h3>
 

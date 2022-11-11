@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forum_article.model.Forum_articleService;
 import com.forum_article.model.Forum_articleVO;
-import com.latest_news.model.Latest_newsService;
-import com.latest_news.model.Latest_newsVO;
+
 
 @WebServlet("/Forum_articleServlet")
 //@MultipartConfig(fileSizeThreshold = 0, maxFileSize = 5)
@@ -100,7 +99,7 @@ public class Forum_articleServlet extends HttpServlet {
 			String article_content = req.getParameter("article_content").trim();
 			if (article_content == null || article_content.trim().length() == 0) {
 				errorMsgs.put("article_content", "論壇文章內容請勿空白");
-				System.out.println("2");
+				
 			}
 
 			Forum_articleVO forum_articleVO = new Forum_articleVO();
@@ -114,7 +113,7 @@ public class Forum_articleServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/forum_article/InsertForum_article.jsp");
 				System.out.println("失敗");
 				failureView.forward(req, res);
-				System.out.println("3");
+				
 				return;
 			}
 
@@ -175,12 +174,11 @@ public class Forum_articleServlet extends HttpServlet {
 				errorMsgs.put("article_content", "文章內容請勿空白");
 			}
 
-			Integer article_status = Integer.valueOf(req.getParameter("article_status").trim());
+//			Integer article_status = Integer.valueOf(req.getParameter("article_status").trim());
 
 			Forum_articleVO forum_articleVO = new Forum_articleVO();
 			forum_articleVO.setArticle_name(article_name);
 			forum_articleVO.setArticle_content(article_content);
-			forum_articleVO.setArticle_status(article_status);
 			forum_articleVO.setArticle_no(article_no);
 
 			// Send the use back to the form, if there were errors
@@ -192,7 +190,7 @@ public class Forum_articleServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 ****************************************/
 			Forum_articleService forum_articleSvc = new Forum_articleService();
-			forum_articleVO = forum_articleSvc.updateForum_article(article_name, article_content, article_status, article_no);
+			forum_articleVO = forum_articleSvc.updateForum_article(article_name, article_content, article_no);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("forum_articleVO", forum_articleVO); // 資料庫update成功後,正確的的latest_newsVO物件,存入req
 			String url = "/forum_article/listAllForum_article.jsp";
@@ -211,6 +209,33 @@ public class Forum_articleServlet extends HttpServlet {
 			String url = "/forum_article/listAllForum_article.jsp";
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
+		}
+		
+		if ("change_status_0".equals(action)) { // 來自listAllForum_article.jsp
+
+			/*************************** 1.接收請求參數 ***************************************/
+			Integer article_no = Integer.valueOf(req.getParameter("article_no"));
+			/*************************** 2.開始刪除資料 ***************************************/
+			Forum_articleService forum_articleSvc = new Forum_articleService();
+			forum_articleSvc.change_status_0(article_no);
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url = "/forum_article/listAllForum_article_3.jsp";
+			RequestDispatcher successview = req.getRequestDispatcher(url);
+			successview.forward(req, res);
+			
+		}
+		if ("change_status_1".equals(action)) { // 來自listAllForum_article.jsp
+
+			/*************************** 1.接收請求參數 ***************************************/
+			Integer article_no = Integer.valueOf(req.getParameter("article_no"));
+			/*************************** 2.開始刪除資料 ***************************************/
+			Forum_articleService forum_articleSvc = new Forum_articleService();
+			forum_articleSvc.change_status_1(article_no);
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url = "/forum_article/listAllForum_article_3.jsp";
+			RequestDispatcher successview = req.getRequestDispatcher(url);
+			successview.forward(req, res);
+			
 		}
 	}
 }

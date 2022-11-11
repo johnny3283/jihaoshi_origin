@@ -58,6 +58,9 @@ public class Latest_newsServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/latest_news/select_page.jsp");
 				failureView.forward(req, res);
+				
+				
+
 				return;// 程式中斷
 
 			}
@@ -69,8 +72,9 @@ public class Latest_newsServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/latest_news/Latest_newsSelectpage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/latest_news/select_page.jsp");
 				failureView.forward(req, res);
+				System.out.println(5);
 				return;// 程式中斷
 			}
 
@@ -90,13 +94,13 @@ public class Latest_newsServlet extends HttpServlet {
 			String news_name = req.getParameter("news_name");
 			if (news_name == null || news_name.trim().length() == 0) {
 				errorMsgs.put("news_name", "消息標題請勿空白");
-				System.out.println(1);
+				
 			}
 			
 			String news_content = req.getParameter("news_content").trim();
 			if (news_content == null || news_content.trim().length() == 0) {
 				errorMsgs.put("news_content", "消息內容請勿空白");
-				System.out.println(2);
+				
 			}
 
 			// Send the use back to the form, if there were errors
@@ -104,7 +108,7 @@ public class Latest_newsServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/latest_news/InsertLatest_news.jsp");
 				System.out.println("失敗");
 				failureView.forward(req, res);
-				System.out.println(3);
+				
 				return;
 			}
 
@@ -205,4 +209,4 @@ public class Latest_newsServlet extends HttpServlet {
 		}
 		
 	}
-	}
+}

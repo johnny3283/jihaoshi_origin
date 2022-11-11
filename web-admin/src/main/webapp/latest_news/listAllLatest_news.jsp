@@ -61,8 +61,7 @@ th, td {
 			<td>
 				<h3>所有最新消息資料</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/latest_news/select_page.jsp"><img
-						src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
+					<a href="<%=request.getContextPath()%>/latest_news/select_page.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -88,7 +87,7 @@ th, td {
 				<td>${latest_newsVO.news_content}</td>
 
 				<td>
-					<FORM METHOD="post" ACTION="/third/Latest_newsServlet"
+					<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="修改"> <input type="hidden"
 							name="news_no" value="${latest_newsVO.news_no}"> <input
@@ -96,7 +95,7 @@ th, td {
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post" ACTION="/third/Latest_newsServlet"
+					<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="刪除"> <input type="hidden"
 							name="news_no" value="${latest_newsVO.news_no}"> <input

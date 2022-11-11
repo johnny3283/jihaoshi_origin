@@ -49,7 +49,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>最新消息修改</h3>
-		 <h4><a href="<%= request.getContextPath() %>/latest_news/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="<%= request.getContextPath() %>/latest_news/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -65,7 +65,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="/third/Latest_newsServlet" name="form1">
+<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet" name="form1">
 <table>
 <!-- 	<tr> -->
 <!-- 		<td>消息編號:<font color=red><b>*</b></font></td> -->
@@ -73,7 +73,7 @@
 <!-- 	</tr> -->
 	<tr>
 		<td>消息標題:</td>
-		<td><input type="TEXT" name="news_name" size="45" value="<%=latest_newsVO.getNews_name()%>" /></td>
+		<td><input type="TEXT" name="news_name" size="45" value="<%=latest_newsVO.getNews_name()%>" required/></td>
 	</tr>
 <!-- 	<tr> -->
 <!-- 		<td>編輯時間:</td> -->
@@ -81,7 +81,7 @@
 <!-- 	</tr> -->
 	<tr>
 		<td>消息內文:</td>
-		<td><textarea type="TEXT" name="news_content" size="45"	value="<%=latest_newsVO.getNews_content()%>" /></textarea></td>
+		<td><textarea type="TEXT" name="news_content" size="45"	value="<%=latest_newsVO.getNews_content()%>" required/></textarea></td>
 	</tr>
 
 	

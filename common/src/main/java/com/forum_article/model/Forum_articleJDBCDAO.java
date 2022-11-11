@@ -25,8 +25,11 @@ public class Forum_articleJDBCDAO implements Forum_articleDAO_interface {
 	private static final String DELETE = 
 			"DELETE FROM forum_article where article_no = ?";
 	private static final String UPDATE = 
-			"UPDATE forum_article set article_name=?, article_content=?, article_status=? where article_no = ?";
-
+			"UPDATE forum_article set article_name=?, article_content=? where article_no = ?";
+private static final String change_status_0 = 
+			"UPDATE forum_article set article_status=0 where article_no = ?";
+private static final String change_status_1 = 
+			"UPDATE forum_article set article_status=1 where article_no = ?";
 	@Override
 	public void insert(Forum_articleVO forum_articleVO) {
 		Connection con = null;
@@ -89,8 +92,7 @@ public class Forum_articleJDBCDAO implements Forum_articleDAO_interface {
 
 			pstmt.setString(1, forum_articleVO.getArticle_name());
 			pstmt.setString(2, forum_articleVO.getArticle_content());
-			pstmt.setInt(3, forum_articleVO.getArticle_status());
-			pstmt.setInt(4, forum_articleVO.getArticle_no());
+			pstmt.setInt(3, forum_articleVO.getArticle_no());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -184,7 +186,7 @@ public class Forum_articleJDBCDAO implements Forum_articleDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// latest_newsVo 也稱為 Domain objects
+				// forum_articleVO 也稱為 Domain objects
 				forum_articleVO = new Forum_articleVO();
 				forum_articleVO.setArticle_no(rs.getInt("article_no"));
 				forum_articleVO.setArticle_name(rs.getString("article_name"));
@@ -247,7 +249,7 @@ public class Forum_articleJDBCDAO implements Forum_articleDAO_interface {
 			rs = pstmt.executeQuery();
 	
 			while (rs.next()) {
-				// latest_newsVO 也稱為 Domain objects
+				// forum_articleVO 也稱為 Domain objects
 				forum_articleVO = new Forum_articleVO();
 				forum_articleVO.setArticle_no(rs.getInt("article_no"));
 				forum_articleVO.setArticle_name(rs.getString("article_name"));
@@ -297,42 +299,131 @@ public class Forum_articleJDBCDAO implements Forum_articleDAO_interface {
 	
 	
 	
+	@Override
+	public void change_status_0(Integer article_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(change_status_0);
+
+			pstmt.setInt(1, article_no);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
+	@Override
+	public void change_status_1(Integer article_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(change_status_1);
+
+			pstmt.setInt(1, article_no);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
 	public static void main(String[] args) {
 		Forum_articleJDBCDAO dao = new Forum_articleJDBCDAO();
 		
 		// 新增
-		Forum_articleVO forum_articleVO1 = new Forum_articleVO();
+//		Forum_articleVO forum_articleVO1 = new Forum_articleVO();
+//		
+//		forum_articleVO1.setArticle_name("論壇文章超棒");
+//		forum_articleVO1.setMember_no(2);
+//		forum_articleVO1.setArticle_content("首要追求的就是蔬食、健康、養生、綠色友善的地球環境，並且期待希望達到身、心、靈的平衡與美善。");
+//
+//		dao.insert(forum_articleVO1);
+//		
+//		// 修改
+//		Forum_articleVO forum_articleVO2 = new Forum_articleVO();
+//		
+//		forum_articleVO2.setArticle_name("文章名稱1文章名稱1");
+//		forum_articleVO2.setArticle_content("文章內容1文章內容1");
+//		
+//		forum_articleVO2.setArticle_no(1);
+//		dao.update(forum_articleVO2);
+//		
+//		
+//		
+//		// 刪除
+//		dao.delete(5);
 		
-		forum_articleVO1.setArticle_name("論壇文章超棒");
-		forum_articleVO1.setMember_no(2);
-		forum_articleVO1.setArticle_content("首要追求的就是蔬食、健康、養生、綠色友善的地球環境，並且期待希望達到身、心、靈的平衡與美善。");
-
-		dao.insert(forum_articleVO1);
-		
-		// 修改
-		Forum_articleVO forum_articleVO2 = new Forum_articleVO();
-		
-		forum_articleVO2.setArticle_name("文章名稱1文章名稱1");
-		forum_articleVO2.setArticle_content("文章內容1文章內容1");
-		forum_articleVO2.setArticle_status(0);
-		forum_articleVO2.setArticle_no(1);
-		dao.update(forum_articleVO2);
-		
-		
-		
-		// 刪除
-		dao.delete(5);
+		dao.change_status_0(2);
+		dao.change_status_1(4);
 		
 		// 查詢
-		Forum_articleVO forum_articleVO3 = dao.findByPrimarykey(1);
-		System.out.print(forum_articleVO3.getArticle_no() + ",");
-		System.out.print(forum_articleVO3.getArticle_name() + ",");
-		System.out.print(forum_articleVO3.getMember_no() + ",");
-		System.out.print(forum_articleVO3.getArticle_time() + ",");
-		System.out.print(forum_articleVO3.getArticle_content() + ",");
-		System.out.print(forum_articleVO3.getArticle_status() + ",");
-		
-		System.out.println("---------------------");
+//		Forum_articleVO forum_articleVO3 = dao.findByPrimarykey(1);
+//		System.out.print(forum_articleVO3.getArticle_no() + ",");
+//		System.out.print(forum_articleVO3.getArticle_name() + ",");
+//		System.out.print(forum_articleVO3.getMember_no() + ",");
+//		System.out.print(forum_articleVO3.getArticle_time() + ",");
+//		System.out.print(forum_articleVO3.getArticle_content() + ",");
+//		System.out.print(forum_articleVO3.getArticle_status() + ",");
+//		
+//		System.out.println("---------------------");
 		
 		// 查詢
 				List<Forum_articleVO> list = dao.getAll();

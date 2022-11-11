@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
-
+ 
 <FORM METHOD="post" ACTION="mealController?action=listAll">
     <%if (rowsPerPage < rowNumber) {%>
     <%if (pageIndex >= rowsPerPage) {%>
