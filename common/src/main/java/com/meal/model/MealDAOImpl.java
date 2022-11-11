@@ -34,7 +34,6 @@ public class MealDAOImpl implements MealDAO {
 
     public static final String LAUNCH_SQL = "UPDATE MEAL_PRODUCT SET LAUNCH = ? WHERE MEAL_NO = ? ;";
     public static final String FINDBY_MEALNO = "SELECT * FROM MEAL_PRODUCT WHERE MEAL_NO=? ;";
-    public static final String FINDBY_MEALNO_CART = "SELECT MEAL_NO, MEAL_NAME, MEAL_CONTENT, MEAL_CAL, MEAL_ALLERGEN, MEAL_PRICE FROM MEAL_PRODUCT WHERE MEAL_NO=? ;";
     public static final String GET_ALL_LAUNCH = "SELECT * FROM MEAL_PRODUCT WHERE LAUNCH=1;";
     @Override
     public MealVO insert(MealVO meal) {
@@ -79,28 +78,6 @@ public class MealDAOImpl implements MealDAO {
                                 rs.getInt(10), rs.getInt(11), rs.getInt(12),
                                 rs.getDate(13));
                 meal.setShowPhoto(Base64.getEncoder().encodeToString(meal.getMealPhoto()));
-                return meal;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public MealVO findByMealNo(Integer mealNo, Double quantity) {
-        try (Connection conn = ds.getConnection();
-             PreparedStatement ps = conn.prepareStatement(FINDBY_MEALNO_CART);) {
-            ps.setInt(1, mealNo);
-            ResultSet rs = ps.executeQuery();
-            MealVO meal = null;
-            if (rs.next()) {
-                meal.setMealNo(rs.getInt(1));
-                meal.setMealName(rs.getString(2));
-                meal.setMealContent(rs.getString(3));
-                meal.setMealCal(rs.getInt(4));
-                meal.setMealAllergen(rs.getString(5));
-                meal.setMealPrice(rs.getInt(6));
                 return meal;
             }
         } catch (SQLException e) {

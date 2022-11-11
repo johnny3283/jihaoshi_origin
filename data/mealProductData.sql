@@ -1,5 +1,7 @@
 INSERT INTO MEAL_PRODUCT
-(MEAL_NAME,MEAL_CONTENT, MEAL_CAL, MEAL_ALLERGEN, MEAL_PRICE, MEAL_RECIPE, LAUNCH)
+
+(MEAL_NAME,  MEAL_CONTENT, MEAL_CAL, MEAL_ALLERGEN, MEAL_PRICE, MEAL_RECIPE, LAUNCH)
+
 VALUES
 ('百里香牛排', '1.牛里肌 2.百里香葉 3.鹽5g', 500, '無', 350,'1. 將牛肉取出解凍 2.充分煎烤至中心溫度72度', 1),
 ('起司義大利餃','1.麵粉 2.起司 3.豬肉', 350, '1.麩質 2.起司', 150, '1.微波爐中火微波3分鐘即可享用',1),

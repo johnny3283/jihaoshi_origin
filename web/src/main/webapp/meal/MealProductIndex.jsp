@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
-  session.getAttribute("account");
-
-%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
   <title>Jihaoshi</title>
-  <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+  <link type="text/css" href="${ctxPath}/css/jihaoshi.css" rel="stylesheet">
   <style>
     #pageHead {
       width: 100%;
@@ -20,7 +17,7 @@
   </style>
 </head>
 <body>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+<img src="${ctxPath}/images/JihaoshiPageHead.jpg" id="pageHead">
 <div class="block_N" style="margin:0px auto;">
   <!--搜尋欄開始-->
   <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
@@ -43,6 +40,9 @@
               <ul class="main">
                 <li>
                   <a href="mealController?action=listAll">產品清單</a>
+                </li>
+                <li>
+                  <a href="<%=request.getContextPath()%>/cart/MealCart.jsp">菜單商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                 </li>
               </ul>
           </ul>

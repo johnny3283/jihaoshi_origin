@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+
+    <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead {
+            width: 100%;
+            height: 30%;
+        }
+
+        div.divflex2 {
+            display: flex;
+            position: absolute;
+            top: 41%;
+            left: 50%;
+            translate: -50%;
+            gap: 5rem;
+            width: 100%;
+            justify-content: center;
+            background-color: #fffcec;
+            z-index: -999;
+            min-height: 200vh;
+            padding-top: 20px;
+        }
+    </style>
+
+
+
+
+</head>
+
+<body bgcolor='white'>
+    <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
+
+    <div id="WRAPPER" class="">
+        <div class="divflex">
+            <div class=""
+                style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;z-index: 999;">
+                <!--側邊欄區塊開始-->
+                <ul class="treeview" style="list-style-type: none;">
+                    <li id="cate_D" class="expanded">
+                        <H1>功能列表</H1>
+                        <ul class="main" style="list-style-type: none;">
+
+                            <li>
+                                <a href="ManageCourse.jsp">回會員線上課程管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+            <!--側邊欄區塊結束-->
+            <div id="cardWrapper"></div>
+            <script>
+                const cardWrapper = document.querySelector('#cardWrapper');
+                const id = sessionStorage.getItem('courseNo');
+                const url = '../onlineCourse/detail?courseNo=' + id;
+                fetch(url)
+                    .then(resp => resp.json())
+                    .then(onlineCourse => {
+                        cardWrapper.insertAdjacentHTML('beforeend', `
+						<div class="block divflex2" onclick="showDetail(${onlineCourse.courseNo})">
+							<div class="photo">
+								<img style="border-radius:10px" src="data:image/png;base64,${onlineCourse.onlineCoursePhotoBaseStr64}">
+							</div>
+							<div class="content">
+								課程編號 : <div>${onlineCourse.courseNo}</div>
+								<div>${onlineCourse.courseName}</div>
+								<div>${onlineCourse.coursePrice}</div>
+                                <div>${onlineCourse.courseHr}</div>
+                                <div>${onlineCourse.courseTeacher}</div>
+                                <div>${onlineCourse.courseInfo}</div>
+                                <div>${onlineCourse.commentPeople}</div>
+                                <div>${onlineCourse.commentScore}</div>
+							</div>
+						</div>
+					`);
+                    }
+                    );
+                // coursePhoto
+
+                function showDetail(courseNo) {
+                    sessionStorage.setItem('courseNo', courseNo);
+                    location = 'onlineCourseDetail.html';
+                }
+
+            </script>
+
+</body>
+
+</html>

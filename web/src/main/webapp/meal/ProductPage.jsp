@@ -1,9 +1,10 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="com.meal.model.MealVO" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     MealVO meal = (MealVO) request.getAttribute("meal");
+
 %>
 <html>
 <head>
@@ -20,8 +21,14 @@
             <dl class="block_W">
                 <dd id="CategoryContainer">
                     <ul class="treeview">
-                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
+                        <li id="cate_D" class="expanded"><H1>功能列表</H1></li>
                             <ul class="main">
+                                <li>
+                                    <a href="mealController?action=listAll">產品清單</a>
+                                </li>
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/cart/MealCart.jsp">菜單商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
+                                </li>
                                 <li>
                                     <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
                                 </li>
@@ -39,21 +46,21 @@
 
                         <div class="div_productPage" style="text-align: left;line-height: 35px">
                             <span class="mealDescription">
-                            <label>菜單名稱：</label><span><%=meal.getMealName()%></span>
+                            <label>菜單名稱：</label><span>${meal.mealName}</span>
                             <br>
-                            <label>內容物：</label><span><%=meal.getMealContent()%></span>
+                            <label>內容物：</label><span>${meal.mealContent}</span>
                             <br>
-                            <label>熱量：</label><span id="cal"><%=meal.getMealCal()%></span>
+                            <label>熱量：</label><span id="cal">${meal.mealCal}</span>
                             <br>
-                            <label>過敏源：</label><span><%=meal.getMealAllergen()%></span>
+                            <label>過敏源：</label><span>${meal.mealAllergen}</span>
                             <br>
-                            <label>價格：</label><span id="price"><%=meal.getMealPrice()%></span>
+                            <label>價格：</label><span id="price">${meal.mealPrice}</span>
                             <br>
-                            <label>食譜：</label><span><%=meal.getMealRecipe()%></span>
+                            <label>食譜：</label><span>${meal.mealRecipe}</span>
                             <br>
-                            <label>評論人數：</label><span><%=meal.getCommentPeople()%></span>
+                            <label>評論人數：</label><span>${meal.commentPeople}</span>
                             <br>
-                            <label>評分：</label><span><%=(meal.getCommentPeople() != 0) ? (meal.getCommentScore() / meal.getCommentPeople()) : "尚無人評分"%> </span>
+                            <label>評分：</label><span>${meal.commentPeople==0?"尚無人評分":(meal.commentScore/meal.commentPeople)}</span>
                            <br>
                             <label>調整分量：</label><br>
                             <input type="radio" name="quantity" value="1" id="quantity1" class="quantity" checked>
@@ -63,24 +70,13 @@
                             <input type="radio" name="quantity" value="1.5" id="quantity1.5" class="quantity">
                             <label for="quantity1.5">1.5倍</label>
                             </span><br>
-                            <form method="post" action="mealController" id="formCart">
-                                <input type="text" name="mealNo" value="<%=meal.getMealNo()%>" hidden>
+                            <form method="post" action="${ctxPath}/cart/cartController" id="formCart">
                                 <input type="text" name="action" value="cartAdd" hidden>
+                                <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
                                 <input type="text" name="quantityCart" id="quantityCart" value="1" hidden>
                                 <label style="font-size: 18px">請輸入購買數量：</label>
-                                <select name="amount" style="font-size: 18px">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                </select>
-
+                                <input name="amount" type="range" min="1" max="99" value="1" id="amount">
+                                <span id="amount_value">1</span>
                             </form>
                             <form method="post" action="#" id="formCheckout">
                                 <input type="text" value="<%=meal.getMealNo()%>" name="mealNo" hidden>
@@ -101,6 +97,9 @@
 
 <script>
     $(document).ready(function () {
+        $('#amount').mousemove(function () {
+            $('#amount_value').html($('#amount').val());
+        });
         $('#quantity1').click(function () {
             let cal =
             <%=meal.getMealCal()%> *
@@ -137,6 +136,7 @@
             $('#quantityCart').attr('value', $('#quantity1\\.5').val());
             $('#quantityCheckout').attr('value', $('#quantity1\\.5').val());
         });
+
     });
 </script>
 </body>

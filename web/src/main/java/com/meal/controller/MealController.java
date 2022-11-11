@@ -29,8 +29,7 @@ public class MealController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        List<CartProdVO> cartProds = (ArrayList<CartProdVO>) session.getAttribute("cartProds");
+
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         RequestDispatcher productPage=null;
@@ -57,44 +56,6 @@ public class MealController extends HttpServlet {
             }
 
         }
-        if ("cartAdd".equals(action)) {
 
-            Integer mealNo = Integer.valueOf(req.getParameter("mealNo"));
-            Double quantity = Double.valueOf(req.getParameter("quantityCart"));
-            Integer amount = Integer.valueOf(req.getParameter("amount"));
-
-            MealVO meal = mealSV.findByMealNo(mealNo);
-            CartProdVO prod = null;
-
-            if (cartProds == null) { // 購物車內沒有東西時
-                cartProds = new ArrayList<>();
-                prod=new CartProdVO();
-                prod.setMeal(meal);
-                prod.setQuantity(quantity);
-                prod.setAmount(amount);
-                prod.setPrice((int) (meal.getMealPrice() * quantity * amount));
-                cartProds.add(prod);
-                session.setAttribute("cartProds", cartProds);
-            } else { // 購物車內有東西時
-                for (int i = 0; i < cartProds.size(); i++) { // 尋找是否有同編號同份量商品
-                     prod = cartProds.get(i);
-                    if (prod.getMeal().getMealNo().equals(mealNo) && prod.getQuantity().equals(quantity)) {
-                        prod.setAmount(prod.getAmount() + amount); // 找到就改變數量跟價格
-                        prod.setPrice((int) (meal.getMealPrice() * quantity * amount));
-                        session.setAttribute("cartProds", cartProds);
-                        return;
-                    }
-                }
-                // 查無同編號同份量商品時
-                prod=new CartProdVO();
-                prod.setMeal(meal);
-                prod.setQuantity(quantity);
-                prod.setAmount(amount);
-                prod.setPrice((int) (meal.getMealPrice() * quantity * amount));
-                cartProds.add(prod);
-                session.setAttribute("cartProds", cartProds);
-            }
-
-        }
     }
 }

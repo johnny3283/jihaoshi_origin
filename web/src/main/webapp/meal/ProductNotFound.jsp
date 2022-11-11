@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+  <link type="text/css" href="${ctxPath}/css/jihaoshi.css" rel="stylesheet">
   <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>Title</title>
 </head>
 <body>
-<img src="<%= request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+<img src="${ctxPath}/images/JihaoshiPageHead.jpg" id="pageHead">
 <div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
   <div id="CONTENT" class="layout-wrapper">
     <div class="layout-center" style="text-align:center">
@@ -17,7 +17,7 @@
             <li id="cate_D" class="expanded"><H1>功能列表</H1>
               <ul class="main">
                 <li>
-                  <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                  <a href="${ctxPath}/index.jsp">回首頁</a>
                 </li>
               </ul>
           </ul>
