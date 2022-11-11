@@ -32,7 +32,7 @@
             <!--側邊欄區塊結束-->
             <div class="block_C s_list">
                 <div class="Cm">
-                    <div class="prod_area">
+                    <div class="prod_area" >
                         <div class="div_productPage">
                             <img src="data:image/png;base64,<%= meal.getShowPhoto()%>" id="productPhoto"/>
                         </div>
