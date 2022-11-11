@@ -1,12 +1,14 @@
 <%@ page import="com.meal.model.MealVO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%
     MealVO meal = (MealVO) request.getAttribute("meal");
 %>
 <html>
 <head>
-    <title><%=meal.getMealName()%>
+    <title>${meal.mealName}
     </title>
     <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
 </head>
@@ -26,7 +28,7 @@
                                     <a href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
                                 </li>
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                                    <a href="<%=request.getContextPath()%>/meal/MealManagerIndex.jsp">回菜單商品管理首頁</a>
                                 </li>
                             </ul>
                     </ul>
@@ -37,37 +39,37 @@
                 <div class="Cm">
                     <div class="prod_area">
                         <div class="div_productPage">
-                            <img src="data:image/png;base64,<%= meal.getShowPhoto()%>" id="productPhoto"/>
+                            <img src="${meal.showPhoto}" id="productPhoto"/>
                         </div>
 
                         <div class="div_productPage" style="text-align: left">
                             <span class="mealDescription">
-                            <label>菜單名稱：</label><span><%=meal.getMealName()%></span>
+                            <label>菜單名稱：</label><span>${meal.mealName}</span>
                                 </p> <br>
-                            <label>內容物：</label><span><%=meal.getMealContent()%></span>
+                            <label>內容物：</label><span>${meal.mealContent}</span>
                                 </p> <br>
-                            <label>熱量：</label><span><%=meal.getMealCal()%></span>
+                            <label>熱量：</label><span>${meal.mealCal}</span>
                                 </p> <br>
-                            <label>過敏源：</label><span><%=meal.getMealAllergen()%></span>
+                            <label>過敏源：</label><span>${meal.mealAllergen}</span>
                                 </p> <br>
-                            <label>價格：</label><span><%=meal.getMealPrice()%></span>
+                            <label>價格：</label><span>${meal.mealPrice}</span>
                                 </p> <br>
-                            <label>食譜：</label><span><%=meal.getMealRecipe()%></span>
+                            <label>食譜：</label><span>${meal.mealRecipe}</span>
                                 </p> <br>
-                            <label>銷售量：</label><span><%=meal.getSaleVolume()%></span>
+                            <label>銷售量：</label><span>${meal.saleVolume}</span>
                                 </p> <br>
-                            <label>評論人數：</label><span><%=meal.getCommentPeople()%></span>
+                            <label>評論人數：</label><span>${meal.commentPeople}</span>
                                 </p> <br>
-                            <label>評分：</label><span><%=meal.getCommentScore()%></span>
+                            <label>評分：</label><span>${meal.commentScore}</span>
                                 </p> <br>
 
-                                <label>是否上架：</label><span><%=(meal.getLaunch() == 1) ? "上架中" : "未上架"%></span>
+                                <label>是否上架：</label><span>${meal.launch==1?"上架中" : "未上架"}</span>
                                 </p> <br>
-                            <span><label>更新時間：</label><%=meal.getUpdateTime()%></span>
+                            <span><label>更新時間：</label><fmt:formatDate value="${meal.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                 </p> <br>
                             <form method="post" action="mealController" id="form1">
                                 <input type="text" name="action" value="toUpdate" hidden>
-                                <input type="text" value="<%=meal.getMealNo()%>" name="mealNo" hidden>
+                                <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
                                 <button type="submit" form="form1">修改資料</button>
                             </form>
                                 </span>

@@ -1,5 +1,6 @@
 package com.meal.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface MealDAO {
@@ -20,4 +21,7 @@ public interface MealDAO {
     List<MealVO> getAll();
 
     List<MealVO> getAllLaunch();
+
+
+    MealVO findByMealNo(Integer mealNot, Connection conn);
 }

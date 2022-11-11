@@ -50,7 +50,7 @@ width:100%
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                                    <a href="<%=request.getContextPath()%>/MealManagerIndex.jsp">回菜單商品管理首頁</a>
                                 </li>
                             </ul>
                     </ul>
@@ -66,7 +66,7 @@ width:100%
 <%--                                    end="<%= pageIndex+rowsPerPage-1 %>"> --%>
                             <dl class="col3f" id="DRAA0A-A900BUT82">
                                 <dd class="c1f"><a class="prod_img" href="mealController?action=findByprod&mealNo=${meal.mealNo}">
-                                    <img src="data:image/png;base64,${meal.showPhoto}"></a></dd>
+                                    <img src="${meal.showPhoto}"></a></dd>
                                 <dd class="c2f">
                                     <ul class="tag_box s_label"></ul>
                                     <h5 class="prod_name"><a

@@ -44,6 +44,9 @@
                 <li>
                   <a href="<%=request.getContextPath()%>/cart/MealCart.jsp">菜單商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                 </li>
+                <li>
+                  <a href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
+                </li>
               </ul>
           </ul>
         </dd>

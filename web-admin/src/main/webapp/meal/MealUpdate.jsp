@@ -31,7 +31,7 @@
             <li id="cate_D" class="expanded"><H1>功能列表</H1>
               <ul class="main">
                 <li>
-                  <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                  <a href="<%=request.getContextPath()%>/meal/MealManagerIndex.jsp">回菜單商品管理首頁</a>
                 </li>
               </ul>
           </ul>

@@ -1,7 +1,7 @@
 package com.meal.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,9 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.cart.model.CartProdVO;
 import com.meal.model.MealService;
 import com.meal.model.MealVO;
 
@@ -37,8 +35,11 @@ public class MealController extends HttpServlet {
 
             List<MealVO> listMeals = mealSV.getAllLaunch();
             if (listMeals != null) {
+                for (MealVO meal : listMeals) {
+                    meal.setShowPhoto("data:image/png;base64,"+ Base64.getEncoder().encodeToString(meal.getMealPhoto()));
+                }
                 req.setAttribute("listMeals", listMeals);
-                productPage = req.getRequestDispatcher("/meal/ListMealProduct.jsp");
+                productPage = req.getRequestDispatcher("ListMealProduct.jsp");
                 productPage.forward(req, res);
             }
         }
@@ -47,8 +48,9 @@ public class MealController extends HttpServlet {
             Integer mealNo = Integer.valueOf(req.getParameter("mealNo"));
             MealVO meal = mealSV.findByMealNo(mealNo);
             if (meal != null&& meal.getLaunch().equals(1)) {
+                meal.setShowPhoto("data:image/png;base64,"+ Base64.getEncoder().encodeToString(meal.getMealPhoto()));
                 req.setAttribute("meal", meal);
-                productPage = req.getRequestDispatcher("/meal/ProductPage.jsp");
+                productPage = req.getRequestDispatcher("ProductPage.jsp");
                 productPage.forward(req, res);
                 return;
             }else {

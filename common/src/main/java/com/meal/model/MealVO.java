@@ -1,7 +1,7 @@
 package com.meal.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MealVO implements Serializable {
     private Integer mealNo;
@@ -14,7 +14,12 @@ public class MealVO implements Serializable {
     private String showPhoto;
     private Double quantity;
     private Integer amount;
-
+    private Integer saleVolume;
+    private String mealRecipe;
+    private Integer commentPeople;
+    private Integer commentScore;
+    private Integer launch;
+    private Timestamp updateTime;
     public Integer getAmount() {
         return amount;
     }
@@ -39,12 +44,7 @@ public class MealVO implements Serializable {
         this.showPhoto = showPhoto;
     }
 
-    private Integer saleVolume;
-    private String mealRecipe;
-    private Integer commentPeople;
-    private Integer commentScore;
-    private Integer launch;
-    private Date updateTime;
+
 
     public MealVO() {
     }
@@ -60,7 +60,7 @@ public class MealVO implements Serializable {
         this.launch = launch;
     }
 
-    public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, byte[] mealPhoto, Integer saleVolume, String mealRecipe, Integer commentPeople, Integer commentScore, Integer launch, Date updateTime) {
+    public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, byte[] mealPhoto, Integer saleVolume, String mealRecipe, Integer commentPeople, Integer commentScore, Integer launch, Timestamp updateTime) {
         this.mealNo = mealNo;
         this.mealName = mealName;
         this.mealContent = mealContent;
@@ -203,11 +203,11 @@ public class MealVO implements Serializable {
         this.launch = launch;
     }
 
-    public Date getUpdateTime() {
+    public Timestamp getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
     }
 }

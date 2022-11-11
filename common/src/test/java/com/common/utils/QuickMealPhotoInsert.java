@@ -27,5 +27,6 @@ public class QuickMealPhotoInsert {
                 e.printStackTrace();
             }
         }
+
     }
 }

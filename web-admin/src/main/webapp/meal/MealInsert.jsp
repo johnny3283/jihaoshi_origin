@@ -34,7 +34,7 @@
                                     <a href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
                                 </li>
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                                    <a href="<%=request.getContextPath()%>/meal/MealManagerIndex.jsp">回菜單商品管理首頁</a>
                                 </li>
                             </ul>
                     </ul>

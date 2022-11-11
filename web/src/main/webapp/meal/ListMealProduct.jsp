@@ -44,8 +44,8 @@
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
                                 <li>
-                                    <a href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車<c:if
-                                            test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
+                                    <a href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車
+                                        <c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                                 </li>
                                 <li>
                                     <a href="${ctxPath}/index.jsp">回首頁</a>
@@ -65,7 +65,7 @@
                             <dl class="col3f" id="DRAA0A-A900BUT82">
                                 <dd class="c1f"><a class="prod_img"
                                                    href="mealController?action=findByprod&mealNo=${meal.mealNo}">
-                                    <img src="data:image/png;base64,${meal.showPhoto}"></a></dd>
+                                    <img src="${not empty meal.showPhoto? meal.showPhoto:"../images/noImg.jpg"}"></a></dd>
                                 <dd class="c2f">
                                     <ul class="tag_box s_label"></ul>
                                     <h5 class="prod_name"><a
@@ -95,13 +95,7 @@
                                         <p>(若需調整份量，請進入商品頁面)</p>
                                     </form>
                                     <br>
-                                    <form method="post" action="#" enctype="application/x-www-form-urlencoded"
-                                          id="checkout${meal.mealNo}">
-                                        <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
-
-                                    </form>
                                     <button type="submit" form="cart${meal.mealNo}">加入購物車</button>
-                                    <button type="submit" form="checkout${meal.mealNo}">直接購買</button>
                                     <br><br>
                                     <P>評論人數：${meal.commentPeople}</P>
                                     <p>產品評價：${meal.commentPeople==0?"尚無人評分":(meal.commentScore/meal.commentPeople)}</p>
@@ -121,6 +115,9 @@
     $(document).ready(function () {
     <c:forEach var="meal" items="${listMeals}" varStatus="loop">
         $('#amount${loop.index}').mousemove(function () {
+            $('#amount_value_${loop.index}').html($('#amount${loop.index}').val());
+        });
+        $('#amount${loop.index}').change(function () {
             $('#amount_value_${loop.index}').html($('#amount${loop.index}').val());
         });
     </c:forEach>
