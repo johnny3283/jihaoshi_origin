@@ -25,16 +25,19 @@
     color: blue;
     display: inline;
   }
+  #pageHead {
+    width: 450px;
+    height: 19%;
+  }
 </style>
 
 </head>
 <body bgcolor='white'>
+<img src="<%= request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
 <table id="table-1">
-   <tr><td><h3>JiHaoJa Physical Course : Home</h3></td></tr>
+   <tr><td><h3>JiHaoJa 實體課程</h3></td></tr>
 </table>
-
-<p>This is the Home page for JiHaoJa Physical Course: Home</p>
 
 <h3>課程資料查詢:</h3>
 	
@@ -49,12 +52,12 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllCou.jsp'>List</a> all Courses.  <br><br></li>
+  <li><a href='listAllCou.jsp'>列出</a> 所有實體課程  <br><br></li>
   
   
   <li>
     <FORM METHOD="post" ACTION="cou.do" >
-        <b>輸入 course_no (如3):</b>
+        <b>輸入實體課程編號(如3):</b>
         <input type="text" name="course_no">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
@@ -65,7 +68,7 @@
    
   <li>
      <FORM METHOD="post" ACTION="cou.do" >
-       <b>選擇 course_no:</b>
+       <b>選擇實體課程編號:</b>
        <select size="1" name="course_no">
          <c:forEach var="phyCouVO" items="${phyCouSvc.all}" > 
           <option value="${phyCouVO.course_no}">${phyCouVO.course_no}
@@ -78,7 +81,7 @@
   
   <li>
      <FORM METHOD="post" ACTION="cou.do" >
-       <b>選擇 course_name:</b>
+       <b>選擇實體課程名稱:</b>
        <select size="1" name="course_no">
          <c:forEach var="phyCouVO" items="${phyCouSvc.all}" > 
           <option value="${phyCouVO.course_no}">${phyCouVO.course_name}
@@ -91,7 +94,7 @@
 </ul>
 
 <%-- 萬用複合查詢-以下欄位-可隨意增減 --%>
-<ul>  
+<%-- <ul>  
   <li>   
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/cou.do" name="form1">
         <b><font color=blue>萬用複合查詢:</font></b> <br>
@@ -108,12 +111,10 @@
         <input type="hidden" name="action" value="listCous_ByCompositeQuery">
      </FORM>
   </li>
-</ul>
-
-<h3>課程管理</h3>
+</ul> --%>
 
 <ul>
-  <li><a href='addCou.jsp'>Add</a> a new Course.</li>
+  <li><a href='addCou.jsp'>新增</a>  一個實體課程</li>
 </ul>
 
 </body>

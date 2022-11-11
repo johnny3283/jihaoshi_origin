@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/course/DBGifReader")
+@WebServlet("/signup/DBGifReader")
 public class DBGifReader extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

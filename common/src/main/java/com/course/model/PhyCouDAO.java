@@ -26,26 +26,28 @@ public class PhyCouDAO implements PhyCouDAO_interface {
     static {
         try {
             Context ctx = new InitialContext();
-            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/JihaoshiDB");
+            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/jihaoshi");
         } catch (NamingException e) {
             e.printStackTrace();
         }
     }
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO Physical_course (course_name, course_hr, course_price, course_teacher, course_date, course_location, course_info, course_status, sign_up_start_day, sign_up_end_day, max_sign_up_people, min_sign_up_people,	current_sign_up_people, pic) VALUES ( ?, ?, ?, ?,   ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?)";
+		"INSERT INTO PHYSICAL_COURSE (COURSE_NAME, COURSE_HR, COURSE_PRICE, COURSE_TEACHER, COURSE_DATE, COURSE_LOCATION, COURSE_INFO, COURSE_STATUS, SIGN_UP_START_DAY, SIGN_UP_END_DAY, MAX_SIGN_UP_PEOPLE, MIN_SIGN_UP_PEOPLE,	CURRENT_SIGN_UP_PEOPLE, PIC) VALUES ( ?, ?, ?, ?,   ?, ?, ?, ?,  ?, ?, ?, ?,  ?, ?)";
 	private static final String INSERT_STMT_NOPIC = 
-		"INSERT INTO Physical_course (course_name, course_hr, course_price, course_teacher, course_date, course_location, course_info, course_status, sign_up_start_day, sign_up_end_day, max_sign_up_people, min_sign_up_people,	current_sign_up_people) VALUES      ( ?, ?, ?, ?,   ?, ?, ?, ?,  ?, ?, ?, ?,  ?)";
+		"INSERT INTO PHYSICAL_COURSE (COURSE_NAME, COURSE_HR, COURSE_PRICE, COURSE_TEACHER, COURSE_DATE, COURSE_LOCATION, COURSE_INFO, COURSE_STATUS, SIGN_UP_START_DAY, SIGN_UP_END_DAY, MAX_SIGN_UP_PEOPLE, MIN_SIGN_UP_PEOPLE,	CURRENT_SIGN_UP_PEOPLE) VALUES      ( ?, ?, ?, ?,   ?, ?, ?, ?,  ?, ?, ?, ?,  ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT * FROM Physical_course order by course_no";
+		"SELECT * FROM PHYSICAL_COURSE ORDER BY COURSE_NO";
 	private static final String GET_ONE_STMT = 
-		"SELECT * FROM Physical_course where course_no = ?";
+		"SELECT * FROM PHYSICAL_COURSE WHERE COURSE_NO = ?";
+	private static final String GET_CAN_SIGNUP_STMT = 
+		"SELECT * FROM PHYSICAL_COURSE WHERE CURRENT_SIGN_UP_PEOPLE < MAX_SIGN_UP_PEOPLE ;";
 	private static final String DELETE = 
-		"update Physical_course set course_status = ? where course_no= ?" ;
+		"UPDATE PHYSICAL_COURSE SET COURSE_STATUS = ? WHERE COURSE_NO= ?" ;
 	private static final String UPDATE = 
-		"UPDATE Physical_course set course_name=?, course_hr=?, course_price=?, course_teacher=?, course_date=?, course_location=?, course_info=?, course_status=?, create_date=?, update_time=?, sign_up_start_day=?, sign_up_end_day=?, max_sign_up_people=?, min_sign_up_people=?,	current_sign_up_people=?, pic=? where course_no=? ";
+		"UPDATE PHYSICAL_COURSE SET COURSE_NAME=?, COURSE_HR=?, COURSE_PRICE=?, COURSE_TEACHER=?, COURSE_DATE=?, COURSE_LOCATION=?, COURSE_INFO=?, COURSE_STATUS=?, CREATE_DATE=?, UPDATE_TIME=?, SIGN_UP_START_DAY=?, SIGN_UP_END_DAY=?, MAX_SIGN_UP_PEOPLE=?, MIN_SIGN_UP_PEOPLE=?,	CURRENT_SIGN_UP_PEOPLE=?, PIC=? WHERE COURSE_NO=? ";
 	private static final String UPDATE_NOPIC = 
-		"UPDATE Physical_course set course_name=?, course_hr=?, course_price=?, course_teacher=?, course_date=?, course_location=?, course_info=?, course_status=?, create_date=?, update_time=?, sign_up_start_day=?, sign_up_end_day=?, max_sign_up_people=?, min_sign_up_people=?,	current_sign_up_people=? where course_no=? ";
+		"UPDATE PHYSICAL_COURSE SET COURSE_NAME=?, COURSE_HR=?, COURSE_PRICE=?, COURSE_TEACHER=?, COURSE_DATE=?, COURSE_LOCATION=?, COURSE_INFO=?, COURSE_STATUS=?, CREATE_DATE=?, UPDATE_TIME=?, SIGN_UP_START_DAY=?, SIGN_UP_END_DAY=?, MAX_SIGN_UP_PEOPLE=?, MIN_SIGN_UP_PEOPLE=?,	CURRENT_SIGN_UP_PEOPLE=? WHERE COURSE_NO=? ";
 
 	@Override
 	public void insert(PhyCouVO phyCouVO) {
@@ -410,6 +412,49 @@ public class PhyCouDAO implements PhyCouDAO_interface {
 				}
 			}
 		}
+		return list;
+	}
+
+	@Override
+	public List<PhyCouVO> getCanSignUp() {
+		List<PhyCouVO> list = new ArrayList<PhyCouVO>();
+		PhyCouVO phyCouVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_CAN_SIGNUP_STMT);
+			rs = pstmt.executeQuery();
+			
+			while ( rs.next()) {
+				phyCouVO = new PhyCouVO();
+				phyCouVO.setCourse_no(rs.getInt("course_no"));
+				phyCouVO.setCourse_name(rs.getString("course_name"));
+				phyCouVO.setCourse_hr(rs.getInt("course_hr"));
+				phyCouVO.setCourse_price(rs.getInt("course_price"));
+				phyCouVO.setCourse_teacher(rs.getString("course_teacher"));
+				phyCouVO.setCourse_date(rs.getDate("course_date"));
+				phyCouVO.setCourse_location(rs.getString("course_location"));
+				phyCouVO.setCourse_info(rs.getString("course_info"));
+				phyCouVO.setCourse_status(rs.getInt("course_status"));
+				phyCouVO.setCreate_date(rs.getDate("create_date"));
+				phyCouVO.setUpdate_time(rs.getDate("update_time"));
+				phyCouVO.setSign_up_start_day(rs.getDate("sign_up_start_day"));
+				phyCouVO.setSign_up_end_day(rs.getDate("sign_up_end_day"));
+				phyCouVO.setMax_sign_up_people(rs.getInt("max_sign_up_people"));
+				phyCouVO.setMin_sign_up_people(rs.getInt("min_sign_up_people"));
+				phyCouVO.setCurrent_sign_up_people(rs.getInt("current_sign_up_people"));
+				phyCouVO.setPic(rs.getBytes("pic"));
+				list.add(phyCouVO); // Store the row in the list
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
 		return list;
 	}
 

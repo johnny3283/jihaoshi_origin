@@ -5,15 +5,14 @@
 
 <%
     PhyCouService phyCouSvc = new PhyCouService();
-    List<PhyCouVO> list = phyCouSvc.getAll();
+    List<PhyCouVO> list = phyCouSvc.getCanSignUp();
     pageContext.setAttribute("list",list);
-    
 %>
 
 
 <html>
 <head>
-<title>所有課程資料</title>
+<title>所有實體課程資料</title>
 
 <style>
   table#table-1 {
@@ -34,7 +33,7 @@
 
 <style>
   table {
-	width: 2000px;
+	width: 1500px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -51,7 +50,7 @@
   }
   #pageHead {
     width: 2000px;
-    height: 28%;
+    height: 30%;
   }
 </style>
 
@@ -61,35 +60,40 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>所有課程資料 <a href="select_page.jsp"> ~回首頁</a></h3> 
+		 <h3>所有實體課程開課資料<a href="SignUpCouMgn.jsp"> <br>回首頁</a></h3>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>實體課程編號</th>
-		<th>實體課程名稱</th>
+		<th>報名欄</th>
+		<th>課程編號</th>
+		<th>諌程名稱</th>
 		<th>上課時數</th>
-		<th>課程費用</th>
-		<th>授課教師</th>
+		<th>價格</th>
+		<th>授課老師</th>
 		<th>開課日期</th>
-		<th>上課教室</th>
+		<th>上課地點</th>
 		<th id="info">課程簡介</th>
-		<th>課程狀態</th>		
-		<th>上架日期</th>		
-		<th>編輯時間</th>		
+		<th>課程狀態</th>
 		<th>報名開始日期</th>
 		<th>報名結束日期</th>
 		<th>人數上限</th>
-		<th>人數下限</th>
+		<th>最少開課人數</th>
 		<th>目前報名人數</th>
-		<th>照片</th>	
-		
+		<th>照片</th>		
 	</tr>
 	<%-- <%@ include file="page1.file" %>  --%> 
 	<c:forEach var="phyCouVO" items="${list}"> 
 		
 		<tr>
+			<td>
+			   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/signup/cou.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="報名">
+			     <input type="hidden" name="course_no"  value="${phyCouVO.course_no}">
+			     <input type="hidden" name="phyCouVO.current_sign_up_people"  value="${phyCouVO.current_sign_up_people}">
+			     <input type="hidden" name="action"	value="apply"></FORM>
+			</td>		
 			<td>${phyCouVO.course_no}</td>
 			<td>${phyCouVO.course_name}</td>
 			<td>${phyCouVO.course_hr}</td>
@@ -99,30 +103,20 @@
 			<td>${phyCouVO.course_location}</td>
 			<td>${phyCouVO.course_info}</td>
 			<td>${phyCouVO.course_status}</td>
-			<td>${phyCouVO.create_date}</td>
-			<td>${phyCouVO.update_time}</td>
 			<td>${phyCouVO.sign_up_start_day}</td>
 			<td>${phyCouVO.sign_up_end_day}</td>
 			<td>${phyCouVO.max_sign_up_people}</td>
 			<td>${phyCouVO.min_sign_up_people}</td>
 			<td>${phyCouVO.current_sign_up_people}</td>
-			<td><img src="<%=request.getContextPath()%>/course/DBGifReader?course_no=${phyCouVO.course_no}" width="100px"></td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/cou.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="course_no"  value="${phyCouVO.course_no}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/cou.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="course_no"  value="${phyCouVO.course_no}">
-			     <input type="hidden" name="action" value="delete"></FORM>
-			</td>
+			<td><img src="<%=request.getContextPath()%>/signup/DBGifReader?course_no=${phyCouVO.course_no}" width="100px"></td>
 		</tr>
 	</c:forEach>
 </table>
 <%-- <%@ include file="page2.file" %> --%>
+<script>
+
+
+</script>
 
 </body>
 </html>

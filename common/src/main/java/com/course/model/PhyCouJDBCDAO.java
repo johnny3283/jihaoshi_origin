@@ -398,6 +398,12 @@ public class PhyCouJDBCDAO implements PhyCouDAO_interface {
 		return null;
 	}
 
+	@Override
+	public List<PhyCouVO> getCanSignUp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 //	public static void main(String[] args) {
 
 //		PhyCouDAO dao = new PhyCouDAO();

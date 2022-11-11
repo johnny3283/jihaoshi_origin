@@ -77,6 +77,10 @@ public class PhyCouService {
 		return dao.getAll();
 	}
 	
+	public List<PhyCouVO> getCanSignUp() {
+		return dao.getCanSignUp();
+	}
+	
 	public List<PhyCouVO> getAll(Map<String, String[]> map) {
 		return dao.getAll(map);
 	}
