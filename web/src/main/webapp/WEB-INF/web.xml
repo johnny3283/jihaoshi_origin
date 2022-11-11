@@ -9,4 +9,29 @@
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
+
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>com.mem.Filters.loginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/member/onlyLogin.jsp</url-pattern>
+
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/member/LoginSuccess.jsp</url-pattern>
+
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>checkoutFilter</filter-name>
+        <filter-class>com.testcheckout.Filters.checkoutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>checkoutFilter</filter-name>
+        <url-pattern>/testCart/testCheckout</url-pattern>
+
+    </filter-mapping>
 </web-app>
