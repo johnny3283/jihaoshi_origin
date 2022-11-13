@@ -1,13 +1,9 @@
 package com.nutrientFeature.model;
 
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
-public interface NutrientFeatureDAO {
-    void insert();
+public interface NutrientFeatureDAO extends CrudRepository<NutrientFeatureVO,Integer> {
 
-    void delete();
 
-    NutrientFeatureVO findByPk();
 
-    List<NutrientFeatureVO> getAll();
 }

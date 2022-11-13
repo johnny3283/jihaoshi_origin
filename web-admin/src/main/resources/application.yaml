@@ -1,0 +1,9 @@
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://localhost:3306/JIHAOSHI?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei
+    username: root
+    password: password

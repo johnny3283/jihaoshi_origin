@@ -41,13 +41,14 @@ public class CheckoutController extends HttpServlet {
             String tradeDate = sdf.format(new Date(System.currentTimeMillis()));
             AllInOne allInOne = new AllInOne("");
             AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
-            String itemName="";
+            StringBuilder itemName=new StringBuilder("");
             for (CartProdVO prod : cartProds) {
-                itemName+="品名："+prod.getMeal().getMealName()+" 份量："+prod.getQuantity()+" 數量："+prod.getAmount()+"#";
+                itemName.append("品名："+prod.getMeal().getMealName()+" 份量："+prod.getQuantity()+" 數量："+prod.getAmount()+"#");
             }
             if (itemName.length()>=200) {
-                itemName = "Jihaoshi商品一批";
+                itemName = new StringBuilder("Jihaoshi商品一批");
             }
+
             String ranAlphabet = RandomStringUtils.randomAlphabetic(2).toUpperCase();
             int ranNum = (int) (Math.random() * 8999+ 1000);
             String merchantTradeNo=ranAlphabet+tradeDate.replace("/", "").replace(":", "").replace(" ", "")+ranNum;
@@ -59,7 +60,7 @@ public class CheckoutController extends HttpServlet {
             aioCheckOutALL.setOrderResultURL(req.getRequestURL()+"?action=callBack");
             aioCheckOutALL.setClientBackURL("http://localhost:8081/web");
             aioCheckOutALL.setNeedExtraPaidInfo("N");
-            aioCheckOutALL.setItemName(itemName);
+            aioCheckOutALL.setItemName(String.valueOf(itemName));
             String checkoutPage=allInOne.aioCheckOut(aioCheckOutALL,null);
             req.setAttribute("checkoutPage",checkoutPage);
             RequestDispatcher goCheckout = req

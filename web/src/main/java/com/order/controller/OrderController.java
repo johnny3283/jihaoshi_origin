@@ -2,7 +2,6 @@ package com.order.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -53,8 +52,6 @@ public class OrderController extends HttpServlet {
             session.removeAttribute("totalPrice");
             Integer memberNo=1;
             List<OrderVO> orders = orderSV.listOrsers(memberNo);
-            Date date=new Date();
-//            SimpleDateFormat format=new SimpleDateFormat()
             req.setAttribute("orders",orders);
             RequestDispatcher orderPage= req.getRequestDispatcher("ListOrder.jsp");
             orderPage.forward(req,res);
