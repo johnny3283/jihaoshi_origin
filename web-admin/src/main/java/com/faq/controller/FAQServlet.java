@@ -152,7 +152,7 @@ public class FAQServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("faqVO", faqVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/faq/indexFAQ.jsp";
+			String url ="/faqservlet?action=getAll";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneFAQ.jsp
 			successView.forward(req, res);
 		}
@@ -178,26 +178,6 @@ public class FAQServlet extends HttpServlet {
 			/*************************** 2.開始查詢資料 *****************************************/
 			FAQService faqSvc = new FAQService();
 			List<FAQVO> list = faqSvc.getAll();
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("lists", list); // 資料庫取出的物件,存入req
-			String url = "/faq/indexFAQ.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listClassFAQ.jsp
-			successView.forward(req, res);
-		}
-
-		if("selectFAQ".equals(action)) {
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-
-			String faqClass = req.getParameter("faqClass");
-
-			/*************************** 2.開始查詢資料 *****************************************/
-			FAQService faqSvc = new FAQService();
-			List<FAQVO> list;
-			if(faqClass==null) {
-				list = faqSvc.selectFAQ();
-			}else {
-				list = faqSvc.selectFAQ(faqClass);
-			}
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("lists", list); // 資料庫取出的物件,存入req
 			String url = "/faq/indexFAQ.jsp";

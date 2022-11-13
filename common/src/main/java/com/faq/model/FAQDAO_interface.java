@@ -15,6 +15,4 @@ public interface FAQDAO_interface {
 	    public List<FAQVO> getAll();
 	    //�d�߬Y���O��FAQ(�@��h)(�^�� Set)
 	    public List<FAQVO> getFAQsByFAQClass(String faqClass);
-	    public List<FAQVO> selectFAQ();
-	    public List<FAQVO> selectFAQ(String faqClass);
 }

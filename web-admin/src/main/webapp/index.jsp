@@ -47,8 +47,16 @@
                                 <li><a
                                         href="${pageContext.request.contextPath}/onlineCourse/AddOnlineCourse.jsp">新增線上課程</a>
                                 </li>
+
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/faqservlet?action=getAll" >FAQ列表</a>
+                                </li>
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet?action=getAll" >線上課程評論檢舉</a>
+
                                 <li><a
                                         href="${pageContext.request.contextPath}/onlineCourse/searchAll">線上課程管理</a>
+
                                 </li>
 
 

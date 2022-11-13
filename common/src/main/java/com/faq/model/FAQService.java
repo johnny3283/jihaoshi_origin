@@ -50,10 +50,4 @@ public class FAQService {
 	public List<FAQVO> getAll() {
 		return dao.getAll();
 	}
-	public List<FAQVO> selectFAQ() {
-	 return dao.selectFAQ();
-	}
-	public List<FAQVO> selectFAQ(String faqClass){
-		return dao.selectFAQ(faqClass);
-	}
 }

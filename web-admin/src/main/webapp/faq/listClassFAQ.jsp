@@ -3,7 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.faq.model.*"%>
 <%
-List<FAQVO> list = (List<FAQVO>) request.getAttribute("list"); //EmpServlet.java(Concroller), 存入req的empVO物件
+List<FAQVO> list = (List<FAQVO>) request.getAttribute("lists"); //EmpServlet.java(Concroller), 存入req的empVO物件
 %>
 <html>
 <head>
@@ -69,7 +69,7 @@ th, td {
 								<ul class="main">
 									<li><a href="<%=request.getContextPath()%>/faq/addFAQ.jsp">新增FAQ</a>
 									</li>
-									<li><a href="<%=request.getContextPath()%>/faqservlet?action=selectFAQ">FAQ列表</a>
+									<li><a href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ列表</a>
 									</li>
 								</ul>
 						</ul>
@@ -88,7 +88,7 @@ th, td {
 									<th>修改</th>
 									<th>刪除</th>
 								</tr>		
-								<c:forEach var="faqVO" items="${list}">
+								<c:forEach var="faqVO" items="${lists}">
 									<tr>
 										<td>${faqVO.faqNo}</td>
 										<td>${faqVO.faqQue}</td>
@@ -115,7 +115,7 @@ th, td {
 									</tr>
 								</c:forEach>
 							</table>
-							<c:if test="${empty list}">
+							<c:if test="${empty lists}">
 									<br>
 									<h3>查無資料</h3>
 							</c:if>

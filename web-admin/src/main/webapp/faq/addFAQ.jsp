@@ -44,10 +44,11 @@ h3 {
 						<ul class="treeview">
 							<li id="cate_D" class="expanded"><H1>功能列表</H1>
 								<ul class="main">
-									<li><a href="<%=request.getContextPath()%>/faq/addFAQ.jsp">新增FAQ</a>
+									<li>
+									<a href="<%=request.getContextPath()%>/faq/addFAQ.jsp">新增FAQ</a>
 									</li>
-									<li><a
-										href="<%=request.getContextPath()%>/faq/indexFAQ.jsp">FAQ列表</a>
+									<li>
+									<a href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ列表</a>
 									</li>
 								</ul>
 						</ul>

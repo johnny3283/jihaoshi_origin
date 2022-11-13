@@ -4,7 +4,6 @@
 <%@ page import="com.faq.model.*"%>
 <%
 List<FAQVO> list = (List<FAQVO>) request.getAttribute("lists"); //EmpServlet.java(Concroller), 存入req的empVO物件
-request.setAttribute("list", list);
 %>
 <html>
 <head>
@@ -69,7 +68,7 @@ th, td {
 							<li id="cate_D" class="expanded"><H1>功能列表</H1>
 								<ul class="main">
 									<li><a
-										href="<%=request.getContextPath()%>/faq/indexFAQ.jsp">FAQ列表</a>
+										href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ列表</a>
 									</li>
 								</ul>
 						</ul>
@@ -85,9 +84,8 @@ th, td {
 									<th>FAQ問題</th>
 									<th>FAQ答案</th>
 									<th>FAQ類別</th>
-								</tr>
-								<%@ include file="page1FAQ.file" %> 		
-								<c:forEach var="faqVO" items="${list}" begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>">
+								</tr>	
+								<c:forEach var="faqVO" items="${lists}">
 									<tr>
 										<td>${faqVO.faqNo}</td>
 										<td>${faqVO.faqQue}</td>
@@ -96,8 +94,7 @@ th, td {
 									</tr>
 								</c:forEach>
 							</table>
-							<%@ include file="page2FAQ.file" %> 
-							<c:if test="${empty list}">
+							<c:if test="${empty lists}">
 									<br>
 									<h3>查無資料</h3>
 							</c:if>
@@ -111,9 +108,6 @@ th, td {
 		</div>
 	</div>
 	<script type="text/javascript">
-		function doubleCheck() {
-			alert("確定刪除?");
-		}
 	</script>
 </body>
 </html>

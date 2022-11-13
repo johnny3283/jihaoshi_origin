@@ -66,8 +66,11 @@ th, td {
 							<li id="cate_D" class="expanded"><H1>功能列表</H1>
 								<ul class="main">
 									<li><a
-										href="<%=request.getContextPath()%>/faq/indexFAQ.jsp">FAQ列表</a>
+										href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ列表</a>
 									</li>
+									<li>
+                                    <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                                	</li>
 								</ul>
 						</ul>
 					</dd>
@@ -104,9 +107,6 @@ th, td {
 		</div>
 	</div>
 <script type="text/javascript">
-	function check() {
-  		alert("確定刪除?");
-	}
 </script>
 </body>
 </html>

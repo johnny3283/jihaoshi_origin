@@ -82,7 +82,6 @@ a {
 									</c:forEach>
 								</ul><br>
 							</c:if>
-
 							<FORM METHOD="post"
 								ACTION="<%=request.getContextPath()%>/faqservlet"
 								name="updateFAQ">

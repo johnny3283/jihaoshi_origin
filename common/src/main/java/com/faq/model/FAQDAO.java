@@ -25,8 +25,6 @@ public class FAQDAO implements FAQDAO_interface {
 	private static final String DELETE = "DELETE FROM FAQ where FAQ_no = ?";
 
 	private static final String UPDATE = "UPDATE FAQ Set FAQ_que=?, FAQ_ans=?, FAQ_class=? where FAQ_no = ?";
-	private static final String GET_ALL= "SELECT * FROM FAQ";
-	private  static final String GET_CLASS=" where FAQ_class=? "; 
 	@Override
 	public void insert(FAQVO faqVO) {
 
@@ -307,112 +305,6 @@ public class FAQDAO implements FAQDAO_interface {
 		}
 		return list;
 	}
-
-	@Override
-	public List<FAQVO> selectFAQ(){
-		 List<FAQVO> list = new ArrayList<>();
-			FAQVO faqVO = null;
-
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-
-			try {
-				
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(GET_ALL);
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					faqVO = new FAQVO();
-					faqVO.setFaqNo(rs.getInt("faq_no"));
-					faqVO.setFaqQue(rs.getString("faq_que"));
-					faqVO.setFaqAns(rs.getString("faq_ans"));
-					faqVO.setFaqClass(rs.getString("faq_class"));
-					list.add(faqVO); // Store the row in the list
-				}
-
-				// Handle any driver errors
-			} catch (SQLException se) {
-				throw new RuntimeException("A database error occured. " + se.getMessage());
-				// Clean up JDBC resources
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
-				}
-			}
-			return list;
-	 }
-	public List<FAQVO> selectFAQ(String faqClass){
-		 List<FAQVO> list = new ArrayList<>();
-			FAQVO faqVO = null;
-
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-
-			try {
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(GET_ALL+GET_CLASS);
-				pstmt.setString(1, faqClass);
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					faqVO = new FAQVO();
-					faqVO.setFaqNo(rs.getInt("faq_no"));
-					faqVO.setFaqQue(rs.getString("faq_que"));
-					faqVO.setFaqAns(rs.getString("faq_ans"));
-					faqVO.setFaqClass(rs.getString("faq_class"));
-					list.add(faqVO); // Store the row in the list
-				}
-
-				// Handle any driver errors
-			} catch (SQLException se) {
-				throw new RuntimeException("A database error occured. " + se.getMessage());
-				// Clean up JDBC resources
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
-				}
-			}
-			return list;
-	 }
 	 
 	public static void main(String[] args) {
 		FAQDAO dao = new FAQDAO();
