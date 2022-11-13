@@ -63,7 +63,7 @@
                   <a href="#">康健新知論壇</a>
                 </li>
                 <li>
-                  <a href="#">FAQ及客服專區</a>
+                  <a href="<%=request.getContextPath()%>/faqservlet?action=getAll#">FAQ及客服專區</a>
                 </li>
               </ul>
           </ul>

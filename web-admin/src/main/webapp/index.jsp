@@ -52,6 +52,12 @@
                                     <a href="<%=request.getContextPath()%>/faqservlet?action=getAll" >FAQ列表</a>
                                 </li>
                                 <li>
+
+                                    <a href="<%=request.getContextPath()%>/faqservlet?action=getAll" >FAQ列表</a>
+                                </li>
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet?action=getAll" >線上課程評論檢舉</a>
+
                                     <a href="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet?action=getAll" >線上課程評論檢舉</a>
 
                                 <li><a
