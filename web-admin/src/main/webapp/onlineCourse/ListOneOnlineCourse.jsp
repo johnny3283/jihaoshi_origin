@@ -69,6 +69,7 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 			<th>線上課程狀態</th>
 			<th>評論人數</th>
 			<th>評論分數</th>
+			<th>課程圖片</th>
 	</tr>
 	<tr>
 		
@@ -81,6 +82,11 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 		<td>${onlinecourseVO.courseStatus}</td>
 		<td>${onlinecourseVO.commentPeople}</td>
 		<td>${onlinecourseVO.commentScore}</td>
+		<td>
+			<img src="data:image/png;base64, ${onlinecourseVO.onlineCoursePhotoBaseStr64}" >
+		</td>
+		
+		
 	</tr>
 </table>
 

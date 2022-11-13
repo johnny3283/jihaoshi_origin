@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>線上課程瀏覽專區</title>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
  <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
         #pageHead {
@@ -48,7 +48,7 @@
 
 .block {
 	margin: 2% auto;
- 	border: 2px black solid; 
+ 	border: 2px  #919f01 solid; 
 	width: 30%;
 	height: auto%;
 	text-align: center;
@@ -121,7 +121,7 @@ height: 25px;
                                 <li>
                                     <a href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
                                 </li>
-                                <li>
+                                  <li>
                                     <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
                                 </li>
                             </ul>
@@ -129,10 +129,14 @@ height: 25px;
                  </ul>
           </div>   
             <!--側邊欄區塊結束-->
-    <div style="display:flex;flex-direction:column;width:100%">
-	<h1 style="align-self:center;margin: 2rem 0">線上課程瀏覽專區</h1>
-	<input id='find' type='text'><br>
-	<button id='search'>搜尋關鍵字</button>
+    <div style="display:flex;flex-direction:column;width:100%;text-align: center">
+	<div>
+	<h1 style="align-self:center;margin: 2rem 0;text-align: center;font-size:3rem;color:grey;">線上課程瀏覽專區</h1>
+	<input id='find' type='text' placeholder="  請輸入課程名稱..." style="border-radius: 50px; border: .5px solid #F3E3C3; margin-left: 20px">
+	<button id='search' style="margin-left: 5x;width:auto;border-radius: 10px; border: .5px solid #f4f5e3;background: #F3E3C3"><svg style="" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="grey" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+</svg></button>
+	</div>
 	<div class="table" id="cardWrapper">
 		
 	</div>
@@ -176,9 +180,9 @@ height: 25px;
 								<img style="border-radius:10px" src="data:image/png;base64, \${onlineCourse.onlineCoursePhotoBaseStr64}">
 							</div>
 							<div class="content">
-								<div style="text-align:left;margin-left:10px">課程編號 : \${onlineCourse.courseNo}</div>
-								<div style="text-align:left;margin-left:10px">課程名稱 : \${onlineCourse.courseName}</div>
-								<div style="text-align:right;margin-right:20px">課程價格 : $\${onlineCourse.coursePrice}</div>
+								<div style="text-align:left;margin-left:10px;font-weight:bolder">課程編號 : \${onlineCourse.courseNo}</div>
+								<div style="text-align:left;margin-left:10px;font-weight:bolder">課程名稱 : \${onlineCourse.courseName}</div>
+								<div style="text-align:right;margin-right:20px;font-weight:bolder;color:red">課程價格 : $\${onlineCourse.coursePrice}</div>
                               
 							</div>
 						</div>

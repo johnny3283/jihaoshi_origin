@@ -5,11 +5,7 @@
 <%@ page import="com.online_course.model.*"%>
 
 
-<%-- <% List<OnlineCourseVO> list = (List<OnlineCourseVO>) request.getAttribute("list");%> --%>
 
-
-<!-- List<OnlineCourseVO> courses = (List<OnlineCourseVO>) request.getAttribute("ListAllCourse"); -->
-<!--     request.setAttribute("courses", courses); -->
 
 
 <%

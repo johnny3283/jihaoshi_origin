@@ -293,77 +293,7 @@ position: relative;
 
 
 				
-<!--            <table> -->
-				
-					
-<!-- 						<tr> -->
-<!-- 							<td>線上課程名稱</td> -->
-<!-- 							<td><input type="TEXT" name="courseName" size="20"   -->
-<%-- 								value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCourseName()%>" /></td> --%>
-<!-- 						</tr> -->
-						
-<!-- 							<tr> -->
-<!-- 							<td>線上課程價格</td> -->
-<!-- 							<td><input type="TEXT" name="coursePrice" size="20" -->
-<%-- 								value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCoursePrice()%>" /></td> --%>
-<!-- 						</tr> -->
-		
-<!-- 						<tr> -->
-<!-- 							<td>線上課程時數</td> -->
-<!-- 							<td><input type="TEXT" name="courseHr" size="20"    placeholder="例:1小時30分鐘" -->
-<%-- 								value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCourseHr()%>" /></td> --%>
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>線上課程師資</td> -->
-<!-- 							<td><input type="TEXT" name="courseTeacher" size="20" -->
-<%-- 								value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCourseTeacher()%>" /></td> --%>
-<!-- 						</tr> -->
-						
-<!-- 						<tr> -->
-<!-- 							<td>評論人數</td> -->
-<!-- 							<td><input type="TEXT" name="commentPeople" size="10" -->
-<%-- 								value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCommentPeople()%>" /></td> --%>
-<!-- 						</tr> -->
 
-
-<!-- 						<tr> -->
-<!-- 							<td>評論分數</td> -->
-<!-- 							<td><input type="TEXT" name="commentScore" size="10" -->
-<%-- 								value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCommentScore()%>" /></td> --%>
-<!-- 						</tr> -->
-						
-<!-- 						<tr> -->
-<!-- 							<td>線上課程簡介</td> -->
-<!-- 							<td><input type="textarea" name="courseInfo" size="20" -->
-<%-- 								value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCourseInfo()%>" /></td> --%>
-<!-- 						</tr> -->
-
-<!-- 						<tr> -->
-<!-- 							<td>圖片上傳</td> -->
-<!-- 							<td><input type="file" name="photo"></td> -->
-<!-- 						</tr> -->
-
-						
-<!-- 							<td>上架狀態</td> -->
-<!-- 							<td><input type="radio" name="courseStatus" value="0" -->
-<%-- 								${(onlinecourseVO == null || onlinecourseVO.courseStatus==0)? 'checked':'' } /> --%>
-<!-- 								上架 <input type="radio" name="courseStatus" value="1" -->
-<%-- 								${(onlinecourseVO.courseStatus==1)? 'checked':'' } />下架</td> --%>
-<!-- 						</tr> -->
-
-
-
-<!-- 				<td> -->
-<!-- 					<br> <input type="hidden" name="action" value="insert"> -->
-<!-- 					<input type="submit" value="送出新增"> -->
-<!-- 				</td>	 -->
-					
-				
-					
-						
-				
-			
-<!-- 					</table> -->
 						</div>
 				
 </body>

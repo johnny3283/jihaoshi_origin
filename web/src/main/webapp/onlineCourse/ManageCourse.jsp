@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>線上課程瀏覽專區</title>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
  <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
         #pageHead {
@@ -48,17 +48,17 @@
 
 .block {
 	margin: 2% auto;
-	border: 2px black solid;
+ 	border: 2px  #919f01 solid; 
 	width: 30%;
-	height: auto;
+	height: auto%;
 	text-align: center;
 	border-radius: 10px;
-	background: white;
+	background: #fffcec;
 	/*   line-height: 100px; */
 }
 
 .block:hover {
-	background: lightgrey;
+	background: #FFFAF0;
 	transition: 1s;
 	position: relative;
 	left: 5px;
@@ -66,15 +66,15 @@
 }
 
 .photo {
-	border: .5px lightpink solid;
+
 	width: 100%;
-	height: auto;
+	height: 225px;
 	border-radius: 10px;
 	line-height: 150px;
 }
 
 .content {
-	border: .5px lightblue solid;
+ 
 	width: 100%;
 	height: auto;
 	border-radius: 10px;
@@ -89,6 +89,18 @@ width: 100%;
 
 img {
 	width: 100%;
+}
+
+#search{
+width: 30%;
+height: 25px;
+
+}
+
+#find{
+width: 30%;
+height: 25px;
+
 }
 </style>
  
@@ -109,7 +121,7 @@ img {
                                 <li>
                                     <a href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
                                 </li>
-                                <li>
+                                  <li>
                                     <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
                                 </li>
                             </ul>
@@ -117,10 +129,14 @@ img {
                  </ul>
           </div>   
             <!--側邊欄區塊結束-->
-    <div style="display:flex;flex-direction:column">
-	<h1 style="align-self:center;margin: 2rem 0;">線上課程瀏覽專區</h1>
-	<input id='find' type='text'>
-	<button id='search'>搜尋關鍵字</button>
+    <div style="display:flex;flex-direction:column;width:100%;text-align: center">
+	<div>
+	<h1 style="align-self:center;margin: 2rem 0;text-align: center;font-size:3rem;color:grey;">會員線上課程購買專區</h1>
+	<input id='find' type='text' placeholder="  請輸入課程名稱..." style="border-radius: 50px; border: .5px solid #F3E3C3; margin-left: 20px">
+	<button id='search' style="margin-left: 5x;width:auto;border-radius: 10px; border: .5px solid #f4f5e3;background: #F3E3C3"><svg style="" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="grey" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+</svg></button>
+	</div>
 	<div class="table" id="cardWrapper">
 		
 	</div>
@@ -136,14 +152,16 @@ img {
               
 				if (findText) {
 					fetch('http://localhost:8081/web-admin/onlineCourse/search',{ 
-					method:'put',
+					method:'post',
 					headers:{
 						'content-type':'application/json'
 					},
 					body:JSON.stringify({
-						courseName:findText
+						courseName:findText,
+						flag:'queryPic'
 					})
-				})
+				}
+					)
                     .then(resp => resp.json())
                     .then(xxx);				
 				}else{
@@ -162,10 +180,9 @@ img {
 								<img style="border-radius:10px" src="data:image/png;base64, \${onlineCourse.onlineCoursePhotoBaseStr64}">
 							</div>
 							<div class="content">
-								<div>\${onlineCourse.courseNo}</div>
-								<div>\${onlineCourse.courseName}</div>
-								<div>$\${onlineCourse.coursePrice}</div>
-                              
+								<div style="text-align:left;margin-left:10px;font-weight:bolder">課程編號 : \${onlineCourse.courseNo}</div>
+								<div style="text-align:left;margin-left:10px;font-weight:bolder">課程名稱 : \${onlineCourse.courseName}</div>
+								<button class="look" style="text-align:right;font-weight:bolder;color:red;float: right; margin: 10px;">點我觀看</button>
 							</div>
 						</div>
 					`)}
@@ -176,7 +193,7 @@ img {
 
 			function showDetail(courseNo) {
 				sessionStorage.setItem('courseNo', courseNo);
-				location = 'OnlineCourseDetail.html';
+				location = 'ManageCourseDetail.html';
 			}
 	</script>
 </body>

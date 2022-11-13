@@ -25,7 +25,9 @@
             z-index: -999;
             min-height: 200vh;
             padding-top: 20px;
+            flex-wrap: wrap;
         }
+        
     </style>
 
 
@@ -47,7 +49,7 @@
                         <ul class="main" style="list-style-type: none;">
 
                             <li>
-                                <a href="ManageCourse.jsp">回會員線上課程管理</a>
+                                <a href="ManageCourse.jsp">回會員線上課程購買專區</a>
                             </li>
                         </ul>
                     </li>
@@ -69,15 +71,15 @@
 								<img style="border-radius:10px" src="data:image/png;base64,${onlineCourse.onlineCoursePhotoBaseStr64}">
 							</div>
 							<div class="content">
-								課程編號 : <div>${onlineCourse.courseNo}</div>
-								<div>${onlineCourse.courseName}</div>
-								<div>${onlineCourse.coursePrice}</div>
-                                <div>${onlineCourse.courseHr}</div>
-                                <div>${onlineCourse.courseTeacher}</div>
-                                <div>${onlineCourse.courseInfo}</div>
-                                <div>${onlineCourse.commentPeople}</div>
-                                <div>${onlineCourse.commentScore}</div>
+								線上課程編號 :${onlineCourse.courseNo}<br>
+								線上課程名稱 :${onlineCourse.courseName}<br>
+								線上課程價格 :${onlineCourse.coursePrice}<br>
+								線上課程時數 :${onlineCourse.courseHr}<br>
+								線上課程老師 :${onlineCourse.courseTeacher}<br>
+								線上課程資訊 :${onlineCourse.courseInfo}<br>
 							</div>
+						
+							
 						</div>
 					`);
                     }

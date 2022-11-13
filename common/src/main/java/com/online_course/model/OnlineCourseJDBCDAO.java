@@ -200,10 +200,11 @@ public class OnlineCourseJDBCDAO implements OnlineCourseDAO_interface {
 
 	@Override
 	public List<OnlineCourseVO> selectByCourseName(String courseName) {
-		String sql = "select * from Online_course where course_name like ?";
+		String sql = "select * from Online_course where course_name like ? or course_no=?";
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, "%" + courseName + "%");
+			pstmt.setString(2, courseName);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				List<OnlineCourseVO> list = new ArrayList<>();
 				while (rs.next()) {

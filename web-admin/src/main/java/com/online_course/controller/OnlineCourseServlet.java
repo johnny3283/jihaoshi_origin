@@ -2,6 +2,8 @@ package com.online_course.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -89,6 +91,7 @@ public class OnlineCourseServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 ****************************************/
 			Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
 			
+		
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			OnlineCourseService onlinecourseSvc = new OnlineCourseService();
@@ -163,9 +166,9 @@ public class OnlineCourseServlet extends HttpServlet {
 			}
 			
 			Part onlineCoursePhoto = req.getPart("photo");
-			if (onlineCoursePhoto == null) {
+			if (onlineCoursePhoto != null) {
 				errorMsgs.add("請上傳圖片");
-			}
+			}	
 
 			Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
 			
@@ -184,6 +187,12 @@ public class OnlineCourseServlet extends HttpServlet {
 			onlinecourseVO.setCommentScore(commentScore);
 			onlinecourseVO.setCourseNo(courseNo);
 			onlinecourseVO.setOnlineCoursePhoto(pic);
+			Encoder encoder = Base64.getEncoder();
+			if(pic !=null) {
+				String photoBase64Str = encoder.encodeToString(pic);
+				onlinecourseVO.setOnlineCoursePhotoBaseStr64(photoBase64Str);			
+			}
+			
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -280,10 +289,16 @@ public class OnlineCourseServlet extends HttpServlet {
 			onlinecourseVO.setCommentPeople(commentPeople);
 			onlinecourseVO.setCommentScore(commentScore);
 			
+			
 			Part part = req.getPart("photo");
 			if(part !=null) {
 				byte[] photo = part.getInputStream().readAllBytes();
 				onlinecourseVO.setOnlineCoursePhoto(photo);
+				Encoder encoder = Base64.getEncoder();
+				if(photo !=null) {
+					String photoBase64Str = encoder.encodeToString(photo);
+					onlinecourseVO.setOnlineCoursePhotoBaseStr64(photoBase64Str);			
+				}
 				
 			}else {
 				errorMsgs.add("請選擇圖片上傳，檔案為jpg檔");
@@ -300,9 +315,13 @@ public class OnlineCourseServlet extends HttpServlet {
 			/*************************** 2.開始新增資料 ***************************************/
 			OnlineCourseService onlinecourseSvc = new OnlineCourseService();
 			onlinecourseSvc.save(onlinecourseVO);
-
+//			List<OnlineCourseVO> list = courseSV.getAll();
+//			req.setAttribute("list", list);
+//			req.getRequestDispatcher("/onlineCourse/ListAllOnlineCourse.jsp").forward(req, res);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/onlineCourse/ListAllOnlineCourse.jsp";
+			req.setAttribute("onlinecourseVO", onlinecourseVO); // 資料庫update成功後,正確的的empVO物件,存入req
+			String url = "/onlineCourse/ListOneOnlineCourse.jsp";
+			//			String url = "/onlineCourse/ListAllOnlineCourse.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
