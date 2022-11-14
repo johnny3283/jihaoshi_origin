@@ -2,7 +2,12 @@ package com.online_course.model;
 
 import java.util.Base64;
 import java.util.Base64.Encoder;
+
+
+
 import java.util.List;
+
+import com.onlinecoursecomment.model.OnlineCourseCommentVO;
 
 public class OnlineCourseService {
 	private OnlineCourseDAO_interface dao;
@@ -65,4 +70,8 @@ public class OnlineCourseService {
     public boolean courseSwitch(Integer courseNo, Integer courseStatus) {
         return dao.courseSwitch(courseNo,courseStatus);
     }
+    
+    public List<OnlineCourseCommentVO> getOnlineCourseComments(Integer courseNo) {
+		return dao.getOnlineCourseCommentsByOnlineCourseNo(courseNo);
+	}
 }

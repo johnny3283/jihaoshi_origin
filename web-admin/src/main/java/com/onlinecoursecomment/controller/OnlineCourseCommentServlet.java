@@ -126,77 +126,8 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 		
-		if ("getOne_For_Update".equals(action)) { // 來自listAll.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 ****************************************/
-			Integer commentNo = Integer.valueOf(req.getParameter("commentNo"));
-
-			/*************************** 2.開始查詢資料 ****************************************/
-			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
-			OnlineCourseCommentVO onlineCourseCommentVO = onlineCourseCommentSvc.getOneOnlineCourseComment(commentNo);
-
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("onlineCourseCommentVO", onlineCourseCommentVO); // 資料庫取出的VO物件,存入req
-			String url = "/onlinecoursecomment/update_onlinecoursecomment_input.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update__input.jsp
-			successView.forward(req, res);
-		}
 		
-		if ("update".equals(action)) { // 來自update__input.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer commentNo = Integer.valueOf(req.getParameter("commentNo"));		
-			Integer memberNo = Integer.valueOf(req.getParameter("memberNo"));
-			Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
-			
-			String commentCentent = req.getParameter("commentContent");
-			if (commentCentent == null || commentCentent.trim().length() == 0) {
-				errorMsgs.add("請輸入評論內容");
-			}
-
-			String str = req.getParameter("commentScore");
-			if (str == null || str.trim().length() == 0) {
-				errorMsgs.add("請選擇評論分數");
-			}
-			Integer commentScore = null;
-			try {
-				commentScore =  Integer.valueOf(str);
-			} catch (Exception e) {}
-			
-			OnlineCourseCommentVO onlineCourseCommentVO = new OnlineCourseCommentVO();
-			onlineCourseCommentVO.setMemberNo(memberNo);
-			onlineCourseCommentVO.setCourseNo(courseNo);
-			onlineCourseCommentVO.setCommentContent(commentCentent);
-			onlineCourseCommentVO.setCommentScore(commentScore);
-
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("onlineCourseCommentVO", onlineCourseCommentVO); // 含有輸入格式錯誤的VO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/onlinecoursecomment/update_onlinecoursecomment_input.jsp");
-				failureView.forward(req, res);
-				return;
-			}
-
-			/*************************** 2.開始修改資料 *****************************************/
-			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
-			onlineCourseCommentVO = onlineCourseCommentSvc.updateOnlineCourseComment(commentNo,memberNo,courseNo,commentCentent,commentScore);
-
-			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("onlineCourseCommentVO", onlineCourseCommentVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/onlinecoursecomment/listAllOnlineCourseComment.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneFAQ.jsp
-			successView.forward(req, res);
-		}
-
+		
 		if ("getOne_For_Status".equals(action)) { // 來自listAll.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();

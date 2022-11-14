@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+,,<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Jihaoshi</title>
@@ -52,17 +52,9 @@
                                     <a href="<%=request.getContextPath()%>/faqservlet?action=getAll" >FAQ列表</a>
                                 </li>
                                 <li>
-
-                                    <a href="<%=request.getContextPath()%>/faqservlet?action=getAll" >FAQ列表</a>
-                                </li>
+                         			<a href="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet?action=getAll" >線上課程評論檢舉</a>
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet?action=getAll" >線上課程評論檢舉</a>
-
-                                    <a href="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet?action=getAll" >線上課程評論檢舉</a>
-
-                                <li><a
-                                        href="${pageContext.request.contextPath}/onlineCourse/searchAll">線上課程管理</a>
-
+                                	<a href="${pageContext.request.contextPath}/onlineCourse/searchAll">線上課程管理</a>
                                 </li>
 
 

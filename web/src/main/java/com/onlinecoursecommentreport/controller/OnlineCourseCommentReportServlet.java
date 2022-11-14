@@ -102,7 +102,7 @@ public class OnlineCourseCommentReportServlet extends HttpServlet{
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer memberNo=5;
+			Integer memberNo=4; // 檢舉者
 			Integer commentNo=5;
 			
 			String reportReason = req.getParameter("reportReason");
@@ -125,7 +125,7 @@ public class OnlineCourseCommentReportServlet extends HttpServlet{
 			OnlineCourseCommentReportService onlineCourseCommentReportSvc = new OnlineCourseCommentReportService();
 			onlineCourseCommentReportVO = onlineCourseCommentReportSvc.addOnlineCourseCommentReport(memberNo,commentNo,reportReason);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/onlinecoursecommentreport/listAllOnlineCourseCommentReport.jsp";
+			String url = "index.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交
 			successView.forward(req, res);
 		}

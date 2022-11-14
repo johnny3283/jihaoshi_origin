@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.onlinecoursecomment.model.*"%>
 <%
-OnlineCourseCommentVO onlineCourseCommentVO = (OnlineCourseCommentVO) request.getAttribute("onlineCourseCommentVO");
+  OnlineCourseCommentVO onlineCourseCommentVO = (OnlineCourseCommentVO) request.getAttribute("onlineCourseCommentVO"); //FAQServlet.java (Concroller) 存入req的VO物件 (包括幫忙取出的faqVO, 也包括輸入資料錯誤時的faqVO物件)
 %>
 <html>
 <head>
@@ -72,33 +72,34 @@ th, td {
 					<div class="Cm">
 						<div id="ItemContainer" class="Cm_C">
 							<%-- 錯誤表列 --%>
-							<c:if test="${not empty errorMsgs}">
-								<font style="color: red">請修正以下錯誤:</font>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red">${message}</li>
-									</c:forEach>
-								</ul>
-							</c:if>
-							<br>
-							<form method="post"
-								action="<%=request.getContextPath()%>/OnlineCourseCommentServlet"
-								id="addOnlineCourseComment">
-								<div>
-									<label>線上課程評論：</label><br>
-									<br>
-									<textarea name="commentContent"><%=(onlineCourseCommentVO==null)? "" : onlineCourseCommentVO.getCommentContent()%></textarea>
-									<br>
-									<br> <label>評分：</label><br>
-									<br> <input type="range" min="0" max="10" value="<%=(onlineCourseCommentVO==null)? 0 : onlineCourseCommentVO.getCommentScore()%>"
-										name="commentScore"
-										onchange="document.getElementById('show').innerHTML=value">
-									<span id="show"><%=(onlineCourseCommentVO==null)? 0 : onlineCourseCommentVO.getCommentScore()%></span><br>
-									<br> <input type="hidden" name="action" value="add">
-									<input type="submit" name="送出資料" form="addOnlineCourseComment">
-									<input type="reset" name="清除資料" form="addOnlineCourseComment">
-								</div>
-							</form>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/OnlineCourseCommentServlet" name="updateOnlineCourseComment">
+			<div>
+				<label>線上課程評論編號：<%=onlineCourseCommentVO.getCommentNo()%></label><br><br>
+				<label>會員編號_帳號：<%=onlineCourseCommentVO.getMemberNo()%>_${onlineCourseCommentVO.memberVO.memberAccount}</label><br><br>
+				<label>線上課程編號_名稱：<%=onlineCourseCommentVO.getCourseNo()%>_${onlineCourseCommentVO.onlineCourseVO.courseName}</label><br><br>
+				<label>線上課程評論內容：</label><br><br>
+				<textarea name="commentContent"><%=onlineCourseCommentVO.getCommentContent()%></textarea><br><br> 
+	            <label>評分：</label><br><br>
+				<input type="range" min="0" max="10" value="<%=onlineCourseCommentVO.getCommentScore()%>" name="commentScore" 
+				onchange="document.getElementById('show').innerHTML=value">
+				<span id="show"><%=onlineCourseCommentVO.getCommentScore()%></span>
+	            <br><br> 
+				<input type="hidden" name="action" value="update">
+				<input type="hidden" name="memberNo" value="<%=onlineCourseCommentVO.getMemberNo()%>">
+				<input type="hidden" name="courseNo" value="<%=onlineCourseCommentVO.getCourseNo()%>">
+				<input type="hidden" name="commentNo" value="<%=onlineCourseCommentVO.getCommentNo()%>">
+			<input type="submit" value="送出修改">
+			</div>
+		</FORM>
 							<dl class="col3f" id="DRAA0A-A900BUT82">
 							</dl>
 						</div>

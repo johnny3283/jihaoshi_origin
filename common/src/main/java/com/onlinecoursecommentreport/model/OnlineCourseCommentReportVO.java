@@ -1,6 +1,7 @@
 package com.onlinecoursecommentreport.model;
 
-//import com.onlinecoursecomment.model.*;
+import com.onlinecoursecomment.model.OnlineCourseCommentService;
+import com.onlinecoursecomment.model.OnlineCourseCommentVO;
 
 public class OnlineCourseCommentReportVO {
 	private Integer reportNo;
@@ -42,16 +43,16 @@ public class OnlineCourseCommentReportVO {
 	public String tosString() {
 		return reportReason;
 	}
-//	// for join memberAccount from memberNo
-//	public com.member.model.MemberVO getMemberVO() {
-//		   	com.member.model.MemberService memberSvc = new com.member.model.MemberService();
-//		   	com.member.model.MemberVO memberVO = memberSvc.getOneOnlineCourse(memberNo);
-//		   	return memberVO;
-//	}
-//	// for join courseContent from commentNo
-//	 public OnlineCourseCommentVO getOnlineCourseCommentVO() {
-//		    OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
-//		    OnlineCourseCommentVO onlineCourseCommentVO = onlineCourseCommentSvc.getOneOnlineCourseComment(commentNo);
-//		    return onlineCourseCommentVO;
-//	  }	
+	// for join memberAccount from memberNo
+	public com.mem.model.MemberVO getMemberVO() {
+		   	com.mem.model.MemService memberSvc = new com.mem.model.MemService();
+		   	com.mem.model.MemberVO memberVO = memberSvc.getOneOnlineCourse(memberNo);
+		   	return memberVO;
+	}
+	// for join courseContent from commentNo
+	 public OnlineCourseCommentVO getOnlineCourseCommentVO() {
+		    OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
+		    OnlineCourseCommentVO onlineCourseCommentVO = onlineCourseCommentSvc.getOneOnlineCourseComment(commentNo);
+		    return onlineCourseCommentVO;
+	  }	
 }

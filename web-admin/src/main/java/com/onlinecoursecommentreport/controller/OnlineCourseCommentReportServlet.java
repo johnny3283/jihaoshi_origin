@@ -165,11 +165,11 @@ public class OnlineCourseCommentReportServlet extends HttpServlet{
 
 			/*************************** 1.接收請求參數 ****************************************/
 			Integer reportNo = Integer.valueOf(req.getParameter("reportNo"));
-			//System.out.println(reportNo);
+			
 			/*************************** 2.開始查詢資料 ****************************************/
 			OnlineCourseCommentReportService onlineCourseCommentReportSvc = new OnlineCourseCommentReportService();
 			OnlineCourseCommentReportVO onlineCourseCommentReportVO = onlineCourseCommentReportSvc.getOneOnlineCourseCommentReport(reportNo);
-			//System.out.println(onlineCourseCommentReportVO);
+			
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("onlineCourseCommentReportVO", onlineCourseCommentReportVO); // 資料庫取出的VO物件,存入req
 			String url = "/onlinecoursecommentreport/updateOnlineCourseCommentReport.jsp";
@@ -187,16 +187,26 @@ public class OnlineCourseCommentReportServlet extends HttpServlet{
 			try {
 				reportStatus =  Integer.valueOf(status);
 			} catch (Exception e) {}
-
+			
+			Integer commentNo = Integer.valueOf(req.getParameter("commentNo"));
+			Integer commentStatus=1;
+			if(reportStatus==2) {
+				commentStatus=0;
+			}
 			OnlineCourseCommentReportVO onlineCourseCommentReportVO = new OnlineCourseCommentReportVO();
 			onlineCourseCommentReportVO.setReportNo(reportNo);
 			onlineCourseCommentReportVO.setReportStatus(reportStatus);
-
-			//System.out.println(reportStatus);
+			
+			OnlineCourseCommentVO onlineCourseCommentVO=new OnlineCourseCommentVO();
+			onlineCourseCommentVO.setCommentNo(commentNo);
+			onlineCourseCommentVO.setCommentStatus(commentStatus);
+			
 			/*************************** 2.開始修改資料 *****************************************/
 			OnlineCourseCommentReportService onlineCourseCommentReportSvc = new OnlineCourseCommentReportService();
 			onlineCourseCommentReportVO = onlineCourseCommentReportSvc.updateReportStatus(reportNo,reportStatus);
 
+			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
+			onlineCourseCommentVO = onlineCourseCommentSvc.updateOnlineCourseCommentStatus(commentNo,commentStatus);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("onlineCourseCommentReportVO", onlineCourseCommentReportVO); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url = "/OnlineCourseCommentReportServlet?action=getAll";

@@ -100,10 +100,10 @@ th, td {
 									<input type="radio" name="status" value="${reportStatus}"
 										${(reportStatus==(onlineCourseCommentReportVO.reportStatus))?'checked':''}>${status.get(reportStatus)}
 							</c:forEach>
-								<br>
-								<br> <input type="hidden" name="action"
-									value="updateStatus"> <input type="hidden"
-									name="reportNo" value="${onlineCourseCommentReportVO.reportNo}">
+								<br><br>
+								<input type="hidden" name="action" value="updateStatus"> 
+								<input type="hidden" name="reportNo" value="${onlineCourseCommentReportVO.reportNo}">
+								<input type="hidden" name="commentNo" value="${onlineCourseCommentReportVO.commentNo}">
 								<input id="btn" type="submit" value="確定送出">
 							</form>
 							<dl class="col3f" id="DRAA0A-A900BUT82"></dl>

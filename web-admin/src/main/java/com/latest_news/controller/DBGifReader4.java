@@ -1,4 +1,4 @@
-package servlet_examples;
+package com.latest_news.controller;
 
 import java.io.*;
 import java.sql.*;

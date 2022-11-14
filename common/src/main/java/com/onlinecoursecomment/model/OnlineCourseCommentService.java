@@ -35,11 +35,14 @@ public class OnlineCourseCommentService {
 
 		return onlineCourseCommentVO;
 	}
-	public void deleteOnlineCourseComment(Integer onlineCourseCommentNo) {
-		dao.delete(onlineCourseCommentNo);
+	public void deleteOnlineCourseComment(Integer commentNo) {
+		dao.delete(commentNo);
 	}
 	public OnlineCourseCommentVO getOneOnlineCourseComment(Integer commentNo) {
 		return dao.findByPrimaryKey(commentNo);
+	}
+	public List<OnlineCourseCommentVO> getOnlineCourseCommentByCourseNo(Integer courseNo) {
+		return dao.getOnlineCommentsByCourseNo(courseNo);
 	}
 	public List<OnlineCourseCommentVO> getOnlineCommentsByMemberNo(Integer memberNo){
 		return dao.getOnlineCommentsByMemberNo(memberNo);

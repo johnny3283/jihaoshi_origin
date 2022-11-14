@@ -76,7 +76,7 @@ th, td {
 							<table>
 								<tr>
 									<th>線上課程評論檢舉編號</th>
-									<th>會員編號 | 帳號</th>
+									<th>檢舉者帳號</th>
 									<th>線上課程評論編號</th>
 									<th>線上課程評論內容</th>
 									<th>檢舉原因</th>
@@ -85,17 +85,16 @@ th, td {
 									<c:forEach var="onlineCourseCommentReportVO" items="${list}">
 										<tr>
 											<td>${onlineCourseCommentReportVO.reportNo}</td>
-											<td>${onlineCourseCommentReportVO.memberNo}|
-												${onlineCourseCommentReportVO.memberVO.memberAccount}</td>
+											<td>${onlineCourseCommentReportVO.memberVO.memberAccount}</td>
 											<td>${onlineCourseCommentReportVO.commentNo}</td>
 											<td>${onlineCourseCommentReportVO.onlineCourseCommentVO.commentContent}</td>
 											<td>${onlineCourseCommentReportVO.reportReason}</td>
 											<td>${reportStatus[onlineCourseCommentReportVO.reportStatus]}</td>
 											<td>
 												<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet" style="margin-bottom: 0px;">
-													<input type="submit" value="審核修改"> 
+													<input type="submit" value="審核修改">
 													<input type="hidden" name="reportNo" value="${onlineCourseCommentReportVO.reportNo}">
-													<input type="hidden" name="action" value="getOne_For_Update">
+													<input type="hidden" name="action" value="getOne_For_Update">			
 												</FORM>
 											</td>
 										</tr>

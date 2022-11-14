@@ -80,7 +80,7 @@ th, td {
 							<table>
 								<tr>
 									<th>線上課程評論檢舉編號</th>
-									<th>會員編號 | 帳號</th>
+									<th>檢舉者帳號</th>
 									<th>線上課程評論編號</th>
 									<th>線上課程評論內容</th>
 									<th>檢舉原因</th>
@@ -88,9 +88,8 @@ th, td {
 									<th>審核修改</th>
 									<c:forEach var="onlineCourseCommentReportVO" items="${list}">
 										<tr>
-											<td>${onlineCourseCommentReportVO.reportNo}</td>
-											<td>${onlineCourseCommentReportVO.memberNo}|
-												${onlineCourseCommentReportVO.memberVO.memberAccount}</td>
+											<td>${onlineCourseCommentReportVO.reportNo}</td>										
+											<td>${onlineCourseCommentReportVO.memberVO.memberAccount}</td>
 											<td>${onlineCourseCommentReportVO.commentNo}</td>
 											<td>${onlineCourseCommentReportVO.onlineCourseCommentVO.commentContent}</td>
 											<td>${onlineCourseCommentReportVO.reportReason}</td>

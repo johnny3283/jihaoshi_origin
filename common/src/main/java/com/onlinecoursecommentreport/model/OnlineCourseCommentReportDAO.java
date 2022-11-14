@@ -27,12 +27,12 @@ public class OnlineCourseCommentReportDAO implements OnlineCourseCommentReportDA
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO Online_course_comment_report (member_no, comment_no, report_reason, report_status) "
-		+ "VALUES (?, ?, ?, ?)";
+		"INSERT INTO Online_course_comment_report (member_no, comment_no, report_reason) "
+		+ "VALUES (?, ?, ?)";
 	
 	private static final String GET_ALL_STMT = 
 		"SELECT report_no, member_no, comment_no, report_reason, report_status "
-		+ "FROM Online_course_comment_report order by report_no";
+		+ "FROM Online_course_comment_report order by report_status";
 	private static final String GET_ONE_STMT = 
 		"SELECT report_no, member_no, comment_no, report_reason, report_status "
 		+ "FROM Online_course_comment_report where report_no = ?";
@@ -67,7 +67,6 @@ public class OnlineCourseCommentReportDAO implements OnlineCourseCommentReportDA
 			pstmt.setInt(1, onlinecoursecommentreportVO.getMemberNo());
 			pstmt.setInt(2, onlinecoursecommentreportVO.getCommentNo());
 			pstmt.setString(3, onlinecoursecommentreportVO.getReportReason());
-			pstmt.setInt(4, onlinecoursecommentreportVO.getReportStatus());
 			
 			pstmt.executeUpdate();
 

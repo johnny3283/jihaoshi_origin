@@ -1,14 +1,12 @@
 package com.onlinecoursecomment.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
+
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,17 +26,17 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO Online_course_comment "
-		+ "(member_no,course_no,comment_content,comment_score,comment_status)"
-		+ "VALUES (?, ?, ?, ?, ?)";
+		+ "(member_no,course_no,comment_content,comment_score)"
+		+ "VALUES (?, ?, ?, ?)";
 	
 	private static final String GET_ALL_STMT = 
 		"SELECT * FROM Online_course_comment order by comment_no";
 	private static final String GET_ONE_STMT = 
 		"SELECT * FROM Online_course_comment where comment_no = ?";
 	private static final String GET_OnlineComments_ByCourseNo_STMT = 
-		"SELECT * FROM Online_course_comment where course_no = ? order by comment_no";
+		"SELECT * FROM Online_course_comment where course_no = ? and comment_status=1 order by comment_no desc";
 	private static final String GET_OnlineComments_ByMemberNo_STMT = 
-			"SELECT * FROM Online_course_comment where member_no = ? order by comment_no";
+			"SELECT * FROM Online_course_comment where member_no = ? and comment_status=1 order by comment_no desc";
 	
 	
 	private static final String DELETE = 
@@ -47,7 +45,7 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 	private static final String UPDATE = 
 		"UPDATE Online_course_comment Set "
 		+ "member_no = ?, course_no = ?, comment_content = ?,"
-		+ "comment_score = ?, comment_status = ? where comment_no = ?";
+		+ "comment_score = ? where comment_no = ?";
 	private static final String UPDATESTATUS = "UPDATE Online_course_comment Set comment_status = ? where comment_no = ?";
 
 	@Override
@@ -65,7 +63,6 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 			pstmt.setInt(2, onlineCourseCommentVO.getCourseNo());
 			pstmt.setString(3, onlineCourseCommentVO.getCommentContent());
 			pstmt.setInt(4, onlineCourseCommentVO.getCommentScore());
-			pstmt.setInt(5, onlineCourseCommentVO.getCommentStatus());
 			
 			pstmt.executeUpdate();
 
@@ -108,8 +105,7 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 			pstmt.setInt(2, onlineCourseCommentVO.getCourseNo());
 			pstmt.setString(3, onlineCourseCommentVO.getCommentContent());
 			pstmt.setInt(4, onlineCourseCommentVO.getCommentScore());
-			pstmt.setInt(5, onlineCourseCommentVO.getCommentStatus());
-			pstmt.setInt(6, onlineCourseCommentVO.getCommentNo());
+			pstmt.setInt(5, onlineCourseCommentVO.getCommentNo());
 
 			pstmt.executeUpdate();
 
@@ -148,8 +144,9 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATESTATUS);
 
-			pstmt.setInt(1, onlineCourseCommentVO.getCommentNo());
-			pstmt.setInt(2, onlineCourseCommentVO.getCommentStatus());
+			
+			pstmt.setInt(1, onlineCourseCommentVO.getCommentStatus());
+			pstmt.setInt(2, onlineCourseCommentVO.getCommentNo());
 
 			pstmt.executeUpdate();
 
@@ -189,7 +186,6 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setInt(1, commentNo);
-
 
 			pstmt.executeUpdate();
 
@@ -332,8 +328,8 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 	}
 	
 	@Override
-	public Set<OnlineCourseCommentVO> getOnlineCommentsByCourseNo(Integer courseNo) {
-		Set<OnlineCourseCommentVO> set = new LinkedHashSet<>();
+	public List<OnlineCourseCommentVO> getOnlineCommentsByCourseNo(Integer courseNo) {
+		List<OnlineCourseCommentVO> list = new ArrayList<>();
 		OnlineCourseCommentVO onlineCourseCommentVO = null;
 	
 		Connection con = null;
@@ -355,7 +351,7 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 				onlineCourseCommentVO.setCommentContent(rs.getString("comment_content"));
 				onlineCourseCommentVO.setCommentScore(rs.getInt("comment_score"));
 				onlineCourseCommentVO.setCommentStatus(rs.getInt("comment_status"));
-				set.add(onlineCourseCommentVO); // Store the row in the vector
+				list.add(onlineCourseCommentVO); // Store the row in the vector
 			}
 	
 			// Handle any SQL errors
@@ -385,7 +381,7 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 				}
 			}
 		}
-		return set;
+		return list;
 	}
 	
 	public List<OnlineCourseCommentVO> getOnlineCommentsByMemberNo(Integer memberNo){
