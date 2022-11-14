@@ -6,6 +6,19 @@ VALUES ('WILLIAM', 'PASSWORD', 'WILLIAM', '0930987654', 'WILL', '桃園市', 'WI
        ('LAURA', 'PASSWORD', 'LAURA', '0930456123', 'LAURA', '台北市', 'LAURA@TIBAME.COM'),
        ('AMBER', 'PASSWORD', 'AMBER', '0987123456', 'AMBER', '台北市', 'AMBER@TIBAME.COM');
 
+INSERT INTO NUTRIENT_FEATURE (FEATURE_NAME)
+VALUES ('低醣'),
+       ('高纖'),
+       ('高蛋白'),
+       ('增肌'),
+       ('生酮'),
+       ('高脂'),
+       ('低脂'),
+       ('高維生素'),
+       ('高熱量'),
+       ('低熱量'),
+       ('素食');
+
 INSERT INTO MEAL_PRODUCT
 (MEAL_NAME, MEAL_CONTENT, MEAL_CAL, MEAL_ALLERGEN, MEAL_PRICE, MEAL_RECIPE, LAUNCH)
 VALUES ('百里香牛排', '1.牛里肌 2.百里香葉 3.鹽', 500, '無', 350, '1. 將牛肉取出解凍 2.充分煎烤至中心溫度72度', 1),

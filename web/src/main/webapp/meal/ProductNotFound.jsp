@@ -25,23 +25,21 @@
       </dl>
       <!--側邊欄區塊結束-->
       <div class="block_C s_list">
-        <div class="Cm">
-          <div class="prod_area">
-            <div class="div_productPage">
+        <div class="Cm" >
 
-            </div>
             <div>
               <br>
-              <h2 style="text-align: left; font-size: 25px;">商品不存在或已下架</h2><br>
+              <h2 style=" font-size: 25px">商品不存在或已下架</h2><br>
               <a href="javascript:history.go(-1)" id="backLastPage">回前頁</a>
             </div>
           </div>
 
-        </div>
+
       </div>
     </div>
-
   </div>
+
+</div>
 </div>
 </body>
 </html>

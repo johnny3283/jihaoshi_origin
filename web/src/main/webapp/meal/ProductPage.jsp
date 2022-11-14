@@ -10,7 +10,7 @@
 <head>
     <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Title</title>
+    <title>${meal.mealName}</title>
 </head>
 <body>
 <img src="<%= request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">

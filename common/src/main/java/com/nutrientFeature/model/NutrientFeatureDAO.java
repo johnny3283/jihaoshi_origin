@@ -1,9 +1,7 @@
 package com.nutrientFeature.model;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface NutrientFeatureDAO extends CrudRepository<NutrientFeatureVO,Integer> {
-
-
+public interface NutrientFeatureDAO extends JpaRepository<NutrientFeatureVO,Integer> {
 
 }

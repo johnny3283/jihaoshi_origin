@@ -1,4 +1,4 @@
-package com.nutrientFeature.model;
+package com.nutrientFeatureDetail.model;
 
 import java.io.Serializable;
 
@@ -8,24 +8,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "NUTRIENT_FEATURE")
+@Table(name = "NUTRIENT_FEATURE_DETAIL")
 @Getter
 @Setter
-//@NoArgsConstructor
-public class NutrientFeatureVO implements Serializable {
+@NoArgsConstructor
+public class NutrientFeatureDetailVO implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FEATURE_NO")
-    Integer featureNo;
+    @Column(name = "DETAIL_NO")
+    private Integer detailNo;
 
-    @NotBlank(message = "營養特色不得為空白")
-    @Column(name = "FEATURE_NAME")
-    String featureName;
+    @Column(name = "MEAL_NO")
+    private Integer mealNo;
+
+    @Column(name = "FEATURE_NO")
+    private Integer featureNo;
 
 }

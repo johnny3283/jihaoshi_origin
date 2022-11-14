@@ -3,13 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-    MealVO meal = (MealVO) request.getAttribute("meal");
-%>
+
 <html>
 <head>
-    <title>${meal.mealName}
-    </title>
+    <title>${meal.mealName}</title>
     <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
 </head>
 <body>

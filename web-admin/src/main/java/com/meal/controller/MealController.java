@@ -103,7 +103,7 @@ public class MealController extends HttpServlet {
 
             if (lastMeal != null) {
                 req.setAttribute("meal", lastMeal);
-                RequestDispatcher productPage = req.getRequestDispatcher("/meal/ProductPage.jsp");
+                RequestDispatcher productPage = req.getRequestDispatcher("/meal/InsertSucessful.jsp");
                 productPage.forward(req, res);
             }
         }
