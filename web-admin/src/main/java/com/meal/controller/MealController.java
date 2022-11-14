@@ -163,8 +163,7 @@ public class MealController extends HttpServlet {
                 mealSV.updateMeal(mealNo, mealName, mealContent, mealCal, mealAllergen, mealPrice, mealRecipe, launch);
             }
             MealVO updatedMeal = mealSV.findByMealNo(mealNo);
-            updatedMeal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(meal.getMealPhoto()));
-
+            updatedMeal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(updatedMeal.getMealPhoto()));
             if (updatedMeal != null) {
                 req.setAttribute("meal", updatedMeal);
                 RequestDispatcher productPage = req.getRequestDispatcher("/meal/ProductPage.jsp");

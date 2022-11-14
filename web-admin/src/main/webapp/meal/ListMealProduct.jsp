@@ -2,11 +2,10 @@
 <%@ page import="com.meal.model.MealVO" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<%-- <% --%>
+ <%
     List<MealVO> meals = (List<MealVO>) request.getAttribute("lastAllMeal");
      request.setAttribute("meals", meals);
-
-<%-- %> --%>
+ %>
 
 <html>
 <head>
@@ -61,9 +60,9 @@ width:100%
                 <div class="Cm">
                     <div id="ItemContainer" class="Cm_C">
                         <!--商品欄開始-->
-<%--                         <%@ include file="page1.jsp" %> --%>
-<%--                         <c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>" --%>
-<%--                                    end="<%= pageIndex+rowsPerPage-1 %>"> --%>
+                         <%@ include file="page1.jsp" %>
+                         <c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>"
+                                    end="<%= pageIndex+rowsPerPage-1 %>">
                             <dl class="col3f" id="DRAA0A-A900BUT82">
                                 <dd class="c1f"><a class="prod_img" href="mealController?action=findByprod&mealNo=${meal.mealNo}">
                                     <img src="${meal.showPhoto}"></a></dd>
@@ -97,8 +96,8 @@ width:100%
                                     <button type="submit" form="launch${meal.mealNo}" class="launchSwitch">${meal.launch eq 0?"上架":"下架"}</button>
                                 </dd>
                             </dl>
-<%--                         </c:forEach> --%>
-<%--                         <%@ include file="page2.jsp" %> --%>
+                         </c:forEach>
+                         <%@ include file="page2.jsp" %>
                         <!--商品欄結束-->
                     </div>
                 </div>
