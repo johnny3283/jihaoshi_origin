@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.onlinecoursecomment.model.OnlineCourseCommentService;
 import com.onlinecoursecomment.model.OnlineCourseCommentVO;
@@ -22,23 +23,26 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	        
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		res.setContentType("text/html; charset=UTF-8");
 		
 		if ("getMember_For_Display".equals(action)) {
-
+			// 會員專區查看自己所有的線上課程評論
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ****************************************/
-//			String str = req.getParameter("memberNo");
-//
-//			Integer memberNo = null;
-//			try {
-//				memberNo = new Integer(str);
-//			} catch (Exception e) {}
-			Integer memberNo = 1;
+			HttpSession session = req.getSession();
+		    Object No = session.getAttribute("MemberNo");
+		    String str = No.toString();
+
+			Integer memberNo = null;
+			try {
+				memberNo = Integer.valueOf(str);
+			} catch (Exception e) {}
+			
 			/*************************** 2.開始查詢資料 ****************************************/
 			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
 			List<OnlineCourseCommentVO> list = onlineCourseCommentSvc.getOnlineCommentsByMemberNo(memberNo);
@@ -50,14 +54,21 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 		}
 		
 		if ("add".equals(action)) { // 來自add.jsp的請求
-
+			// 會員新增線上課程評論
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/		
-			Integer memberNo=1;
-			//HttpSisson session=req.getSession();
+			HttpSession session = req.getSession();
+		    Object No = session.getAttribute("MemberNo");
+		    String no = No.toString();
+
+			Integer memberNo = null;
+			try {
+				memberNo = Integer.valueOf(no);
+			} catch (Exception e) {}
+			
 			Integer courseNo=5;
 			//String courseNo = req.getParameter("courseNo");
 			
@@ -98,9 +109,8 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 		}
 		
 		if ("delete".equals(action)){ // 來自listAll.jsp
-
-			/*************************** 1.接收請求參數 ***************************************/
-			Integer memberNo=1;
+			
+			/*************************** 1.接收請求參數 ***************************************/		
 			Integer commentNo = Integer.valueOf(req.getParameter("commentNo"));
 			/*************************** 2.開始刪除資料 ***************************************/
 			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();

@@ -290,7 +290,7 @@ public class MemberServlet extends HttpServlet {
 			session.setAttribute("MemberAcc", memVO.getMemberAccount());
 			session.setAttribute("MemberName", memVO.getMemberName());
 			session.setAttribute("MemberNo", memVO.getMemberNo());
-			res.sendRedirect(req.getContextPath() + "/member/LoginSuccess.jsp");
+			res.sendRedirect(req.getContextPath() + "/index.jsp");
 
 		}
 		

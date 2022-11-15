@@ -34,4 +34,16 @@
         <url-pattern>/testCart/testCheckout</url-pattern>
 
     </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>checkoutFilter</filter-name>
+        <url-pattern>/onlinecoursecomment/*</url-pattern>
+
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>checkoutFilter</filter-name>
+        <url-pattern>/onlinecoursecommentreport/addOnlineCourseCommentReport.jsp</url-pattern>
+
+    </filter-mapping>
 </web-app>

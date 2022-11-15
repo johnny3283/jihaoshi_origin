@@ -118,10 +118,7 @@ height: 25px;
                     <ul class="treeview">
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
-                                <li>
-                                    <a href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
-                                </li>
-                                  <li>
+                                 <li>
                                     <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
                                 </li>
                             </ul>

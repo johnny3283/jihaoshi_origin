@@ -39,6 +39,12 @@
                   <a href="<%=request.getContextPath()%>/OnlineCourseCommentServlet?action=getMember_For_Display">我的線上課程評價</a>
                 </li>
                 <li>
+                	<a href="<%=request.getContextPath()%>/onlinecoursecomment/addOnlineCourseComment.jsp">我要評價(線上課程)</a>
+                </li>
+                <li>
+                  <a href="<%=request.getContextPath()%>/onlinecoursecommentreport/addOnlineCourseCommentReport.jsp">我要檢舉(線上課程評論)</a>
+                </li>
+                <li>
                   <a href="#">網站簡介</a>
                 </li>
                 <li>

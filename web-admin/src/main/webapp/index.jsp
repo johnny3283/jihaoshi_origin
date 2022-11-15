@@ -56,8 +56,9 @@
                                 <li>
                                 	<a href="${pageContext.request.contextPath}/onlineCourse/searchAll">線上課程管理</a>
                                 </li>
-
-
+								<li>
+                                	<a href="<%=request.getContextPath()%>/onlinecustomerservice/customerService.jsp">線上客服</a>
+                                </li>
                             </ul>
                     </ul>
                 </dd>
