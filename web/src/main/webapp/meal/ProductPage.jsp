@@ -58,7 +58,7 @@
                                         <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }"
                                            style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
                                     </c:forEach>
-                                </span><br><br>
+                                </span><br>
                             <label>過敏源：</label><span>${meal.mealAllergen}</span>
                             <br>
                             <label>價格：</label><span id="price">${meal.mealPrice}</span>

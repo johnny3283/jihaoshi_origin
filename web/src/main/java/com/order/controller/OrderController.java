@@ -42,14 +42,14 @@ public class OrderController extends HttpServlet {
             String tradeNo=req.getParameter("TradeNo"); // 綠界之交易編號
             Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
             orderSV.orderInsert(merchantTradeNo, memberNo, totalPrice, tradeNo, cartProds);
-
+            session.removeAttribute("cartProds");
+            session.removeAttribute("totalPrice");
             res.sendRedirect(req.getContextPath()+"/order/orderController?action=orderList");
         }
 
         if ("orderList".equals(action)) {
 //            Integer memberNo = req.getParameter("memberNo");
-            session.removeAttribute("cartProds");
-            session.removeAttribute("totalPrice");
+
             Integer memberNo=1;
             List<OrderVO> orders = orderSV.listOrsers(memberNo);
             req.setAttribute("orders",orders);

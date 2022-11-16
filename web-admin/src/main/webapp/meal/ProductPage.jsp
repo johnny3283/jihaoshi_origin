@@ -63,7 +63,7 @@
                                     <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
                                         <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }" style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
                                     </c:forEach>
-                                </span><br><br>
+                                </span><br>
                             <label>過敏源：</label><span>${meal.mealAllergen}</span>
                                 </p> <br>
                             <label>價格：</label><span>${meal.mealPrice}</span>
@@ -80,7 +80,7 @@
                                 </p> <br>
                             <span><label>更新時間：</label><fmt:formatDate value="${meal.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
                                 </p> <br>
-                            <form method="post" action="mealController" id="form1">
+                            <form method="post" action="${ctxPath}/meal/mealController" id="form1">
                                 <input type="text" name="action" value="toUpdate" hidden>
                                 <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
                                 <button type="submit" form="form1">修改資料</button>
