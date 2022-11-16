@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    List<MealVO> meals = (List<MealVO>) request.getAttribute("listMeals");
+    List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 %>
 
 <html>
@@ -18,19 +18,18 @@
 <div class="block_N" style="margin:0px auto;">
     <!--搜尋欄開始-->
     <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
-        <form method="post" action="mealController" enctype="application/x-www-form-urlencoded" id="keywordSearch">
+        <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded" id="searceKeyword">
             <ul class="searchfield">
-
-                <li><input id="keyword" type="text" class="text ac_input" placeholder="請輸入關鍵字" autocomplete="off"></li>
-                <li><input type="text" name="action" value="keywordSearch" hidden></li>
                 <li>
-                    <button id="btn_search" type="submit" class="button" form="keywordSearch">搜尋</button>
+                    <input name="action" value="nameKeywordSearch" hidden>
+                    <input id="keyword" type="text" class="text ac_input" name="nameKeyword" placeholder="請輸入關鍵字" >
+
                 </li>
-
+                <li>
+                    <button type="submit" form="searceKeyword" >查找商品</button>
+                </li>
             </ul>
-
         </form>
-
     </div>
     <!--搜尋欄結束-->
 </div>
@@ -48,6 +47,9 @@
                                         <c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                                 </li>
                                 <li>
+                                    <a href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
+                                </li>
+                                <li>
                                     <a href="${ctxPath}/index.jsp">回首頁</a>
                                 </li>
                             </ul>
@@ -60,7 +62,7 @@
                     <div id="ItemContainer" class="Cm_C">
                         <!--商品欄開始-->
                         <%@ include file="page1.jsp" %>
-                        <c:forEach var="meal" items="${listMeals}" begin="<%= pageIndex %>"
+                        <c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>"
                                    end="<%= pageIndex+rowsPerPage-1 %>" varStatus="loop">
                             <dl class="col3f" id="DRAA0A-A900BUT82">
                                 <dd class="c1f"><a class="prod_img"
@@ -76,8 +78,10 @@
                                     <br>
                                     <span style="font-size: 18px">熱量：${meal.mealCal}</span>
                                     <br>
-                                    <span style="font-size: 18px">可能過敏原：${meal.mealAllergen}</span>
-                                    <ul id="bookInfo"></ul>
+                                    <span style="font-size: 18px">可能過敏原：${meal.mealAllergen}</span><br>
+                                    <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
+                                        <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }" style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
+                                    </c:forEach>
                                 </dd>
                                 <dd class="c3f" id="button_DRAA0A-A900BUT82">
                                     <ul class="price_box">
@@ -113,7 +117,7 @@
 </div>
 <script>
     $(document).ready(function () {
-    <c:forEach var="meal" items="${listMeals}" varStatus="loop">
+    <c:forEach var="meal" items="${meals}" varStatus="loop">
         $('#amount${loop.index}').mousemove(function () {
             $('#amount_value_${loop.index}').html($('#amount${loop.index}').val());
         });

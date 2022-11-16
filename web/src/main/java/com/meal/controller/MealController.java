@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,6 @@ import com.meal.model.MealService;
 import com.meal.model.MealVO;
 
 @WebServlet("/meal/mealController")
-@MultipartConfig(maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class MealController extends HttpServlet {
     MealService mealSV = new MealService();
 
@@ -33,13 +31,13 @@ public class MealController extends HttpServlet {
         RequestDispatcher productPage=null;
         if ("listAll".equals(action)) {
 
-            List<MealVO> listMeals = mealSV.getAllLaunch();
-            if (listMeals != null) {
-                for (MealVO meal : listMeals) {
-                    meal.setShowPhoto("data:image/png;base64,"+ Base64.getEncoder().encodeToString(meal.getMealPhoto()));
+            List<MealVO> meals = mealSV.getAllLaunch();
+            if (meals != null) {
+                for (MealVO meal : meals) {
+                    meal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(meal.getMealPhoto()));
                 }
-                req.setAttribute("listMeals", listMeals);
-                productPage = req.getRequestDispatcher("ListMealProduct.jsp");
+                req.setAttribute("meals", meals);
+                productPage = req.getRequestDispatcher("/nutrient/aLLProdDetailList");
                 productPage.forward(req, res);
             }
         }
@@ -50,13 +48,29 @@ public class MealController extends HttpServlet {
             if (meal != null&& meal.getLaunch().equals(1)) {
                 meal.setShowPhoto("data:image/png;base64,"+ Base64.getEncoder().encodeToString(meal.getMealPhoto()));
                 req.setAttribute("meal", meal);
-                productPage = req.getRequestDispatcher("ProductPage.jsp");
+                productPage = req.getRequestDispatcher("/nutrient/prodDetailList");
                 productPage.forward(req, res);
-                return;
             }else {
                 res.sendRedirect("ProductNotFound.jsp");
             }
 
+        }
+        if ("nameKeywordSearch".equals(action)) {
+            String nameKeyword = req.getParameter("nameKeyword");
+            List<MealVO> meals = mealSV.findByNameKeyword(nameKeyword);
+            if (meals != null) {
+                for (MealVO meal : meals) {
+                    meal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(meal.getMealPhoto()));
+                }
+                req.setAttribute("meals", meals);
+                productPage = req.getRequestDispatcher("/nutrient/aLLProdDetailList");
+                productPage.forward(req, res);
+            }
+        }
+
+        if ("hashtag".equals(action)) {
+            productPage = req.getRequestDispatcher("/nutrient/hashtag");
+            productPage.forward(req, res);
         }
 
     }

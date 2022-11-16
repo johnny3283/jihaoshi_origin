@@ -2,9 +2,11 @@ package com.meal.model;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MealService {
     private MealDAO dao;
-
     public MealService() {
         dao=new MealDAOImpl();
     }
@@ -12,6 +14,9 @@ public class MealService {
     public MealVO addMeal(String mealName,String mealContent,Integer mealCal,String mealAllergen,Integer mealPrice,byte[] mealPhoto,String mealRecipe,Integer launch) {
         MealVO meal = new MealVO(mealName, mealContent, mealCal, mealAllergen, mealPrice, mealPhoto, mealRecipe, launch);
         return dao.insert(meal);
+    }
+    public List<MealVO> findByNameKeyword(String nameKeyword) {
+        return dao.findByNameKeyword(nameKeyword);
     }
 
     public MealVO findByMealNo(Integer mealNo) {

@@ -30,9 +30,18 @@
           <ul class="treeview">
             <li id="cate_D" class="expanded"><H1>功能列表</H1>
               <ul class="main">
+                  <li>
+                      <a href="${ctxPath}/meal/MealInsert.jsp">新增菜單</a>
+                  </li>
+                  <li>
+                      <a href="${ctxPath}/nutrient/insert" >新增營養特色</a>
+                  </li>
                 <li>
-                  <a href="<%=request.getContextPath()%>/meal/MealManagerIndex.jsp">回菜單商品管理首頁</a>
+                  <a href="${ctxPath}/meal/MealManagerIndex.jsp">回菜單商品管理首頁</a>
                 </li>
+                  <li>
+                      <a href="${ctxPath}">回首頁</a>
+                  </li>
               </ul>
           </ul>
         </dd>

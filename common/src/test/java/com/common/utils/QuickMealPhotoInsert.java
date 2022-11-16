@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class QuickMealPhotoInsert {
     public static void main(String[] args) throws IOException {
         String INSERT_PHOTO = "UPDATE MEAL_PRODUCT SET MEAL_PHOTO = ? WHERE MEAL_NO = ? ;";
-        for (int i = 1; i<=10 ; i++) {
+        for (int i = 1; i<=13 ; i++) {
             File file = new File("data/mealimages/"+i+".jpg");
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
             try (Connection conn= DriverManager.getConnection(URL,USER,PASSWORD);

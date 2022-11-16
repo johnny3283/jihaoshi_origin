@@ -22,17 +22,18 @@
                 <dd id="CategoryContainer">
                     <ul class="treeview">
                         <li id="cate_D" class="expanded"><H1>功能列表</H1></li>
-                            <ul class="main">
-                                <li>
-                                    <a href="mealController?action=listAll">產品清單</a>
-                                </li>
-                                <li>
-                                    <a href="<%=request.getContextPath()%>/cart/MealCart.jsp">菜單商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
-                                </li>
-                                <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
-                                </li>
-                            </ul>
+                        <ul class="main">
+                            <li>
+                                <a href="mealController?action=listAll">產品清單</a>
+                            </li>
+                            <li>
+                                <a href="<%=request.getContextPath()%>/cart/MealCart.jsp">菜單商品購物車<c:if
+                                        test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
+                            </li>
+                            <li>
+                                <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                            </li>
+                        </ul>
                     </ul>
                 </dd>
             </dl>
@@ -52,6 +53,12 @@
                             <br>
                             <label>熱量：</label><span id="cal">${meal.mealCal}</span>
                             <br>
+                                <label>營養特色：</label><span style="font-size: 18px">
+                                    <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
+                                        <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }"
+                                           style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
+                                    </c:forEach>
+                                </span><br><br>
                             <label>過敏源：</label><span>${meal.mealAllergen}</span>
                             <br>
                             <label>價格：</label><span id="price">${meal.mealPrice}</span>
@@ -74,7 +81,9 @@
                                 <input type="text" name="action" value="cartAdd" hidden>
                                 <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
                                 <input type="text" name="quantityCart" id="quantityCart" value="1" hidden>
-                                <label style="font-size: 18px">請輸入購買數量：</label><span id="amount_value" style="font-size: 18px">1</span>
+                                <label style="font-size: 18px">請輸入購買數量：</label><span id="amount_value"
+                                                                                     style="font-size: 18px">1</span>
+                                <br>
                                 <input name="amount" type="range" min="1" max="99" value="1" id="amount">
                             </form>
                             <form method="post" action="#" id="formCheckout">

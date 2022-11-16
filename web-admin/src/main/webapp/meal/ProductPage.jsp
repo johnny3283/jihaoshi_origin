@@ -22,10 +22,19 @@
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
+                                    <a href="${ctxPath}/meal/mealController?action=listAll" >菜單商品列表</a>
                                 </li>
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/meal/MealManagerIndex.jsp">回菜單商品管理首頁</a>
+                                    <a href="${ctxPath}/meal/MealInsert.jsp">新增菜單</a>
+                                </li>
+                                <li>
+                                    <a href="${ctxPath}/nutrient/insert" >新增營養特色</a>
+                                </li>
+                                <li>
+                                    <a href="${ctxPath}/meal/MealManagerIndex.jsp">回菜單商品管理首頁</a>
+                                </li>
+                                <li>
+                                    <a href="${ctxPath}">回首頁</a>
                                 </li>
                             </ul>
                     </ul>
@@ -38,15 +47,23 @@
                         <div class="div_productPage">
                             <img src="${meal.showPhoto}" id="productPhoto"/>
                         </div>
-
                         <div class="div_productPage" style="text-align: left">
                             <span class="mealDescription">
+                                  <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
+                                      ${nutrientFeatureDetail.featureName}
+                                  </c:forEach>
                             <label>菜單名稱：</label><span>${meal.mealName}</span>
                                 </p> <br>
                             <label>內容物：</label><span>${meal.mealContent}</span>
                                 </p> <br>
                             <label>熱量：</label><span>${meal.mealCal}</span>
                                 </p> <br>
+                            <label>營養特色：</label>
+                                <span style="font-size: 18px">
+                                    <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
+                                        <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }" style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
+                                    </c:forEach>
+                                </span><br><br>
                             <label>過敏源：</label><span>${meal.mealAllergen}</span>
                                 </p> <br>
                             <label>價格：</label><span>${meal.mealPrice}</span>
@@ -59,7 +76,6 @@
                                 </p> <br>
                             <label>評分：</label><span>${meal.commentScore}</span>
                                 </p> <br>
-
                                 <label>是否上架：</label><span>${meal.launch==1?"上架中" : "未上架"}</span>
                                 </p> <br>
                             <span><label>更新時間：</label><fmt:formatDate value="${meal.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></span>

@@ -12,7 +12,8 @@ public interface MealDAO {
 
     boolean launchSwitch(Integer mealNo, Integer launch);
 
-    MealVO findByMealName(String mealName);
+    List<MealVO> findByNameKeyword(String nameKeyword);
+
 
     MealVO findWithoutAllergen(String mealAllergen);
 

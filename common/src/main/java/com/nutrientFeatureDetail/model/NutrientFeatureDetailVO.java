@@ -19,6 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class NutrientFeatureDetailVO implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DETAIL_NO")
@@ -29,5 +30,8 @@ public class NutrientFeatureDetailVO implements Serializable {
 
     @Column(name = "FEATURE_NO")
     private Integer featureNo;
+
+    @Column(name = "FEATURE_NAME")
+    private String featureName;
 
 }

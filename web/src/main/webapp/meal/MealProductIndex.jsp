@@ -21,11 +21,18 @@
 <div class="block_N" style="margin:0px auto;">
   <!--搜尋欄開始-->
   <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
-    <ul class="searchfield">
-      <li><input id="keyword" type="text" class="text ac_input" placeholder="請輸入關鍵字" autocomplete="off">
-      </li>
-      <li><input id="btn_search" type="button" class="button" value="找菜單"></li>
-    </ul>
+    <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded" id="searceKeyword">
+      <ul class="searchfield">
+        <li>
+          <input name="action" value="nameKeywordSearch" hidden>
+          <input id="keyword" type="text" class="text ac_input" name="nameKeyword" placeholder="請輸入關鍵字" >
+
+        </li>
+        <li>
+          <button type="submit" form="searceKeyword" >查找商品</button>
+        </li>
+      </ul>
+    </form>
   </div>
   <!--搜尋欄結束-->
 </div>
@@ -46,6 +53,9 @@
                 </li>
                 <li>
                   <a href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
+                </li>
+                <li>
+                  <a href="${ctxPath}/index.jsp">回首頁</a>
                 </li>
               </ul>
           </ul>

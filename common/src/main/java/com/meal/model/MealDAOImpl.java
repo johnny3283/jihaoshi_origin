@@ -34,6 +34,7 @@ public class MealDAOImpl implements MealDAO {
     public static final String LAUNCH_SQL = "UPDATE MEAL_PRODUCT SET LAUNCH = ? WHERE MEAL_NO = ? ;";
     public static final String FINDBY_MEALNO = "SELECT * FROM MEAL_PRODUCT WHERE MEAL_NO=? ;";
     public static final String GET_ALL_LAUNCH = "SELECT * FROM MEAL_PRODUCT WHERE LAUNCH=1;";
+    public static final String FIND_BY_NAME_KEYWORD = "SELECT * FROM MEAL_PRODUCT WHERE MEAL_NAME LIKE ? ;";
 
     @Override
     public MealVO insert(MealVO meal) {
@@ -80,7 +81,8 @@ public class MealDAOImpl implements MealDAO {
         }
         return null;
     }
-    public MealVO findByMealNo(Integer mealNo,Connection conn) {
+
+    public MealVO findByMealNo(Integer mealNo, Connection conn) {
         try {
             PreparedStatement ps = conn.prepareStatement(FINDBY_MEALNO);
             ps.setInt(1, mealNo);
@@ -96,6 +98,7 @@ public class MealDAOImpl implements MealDAO {
         }
         return null;
     }
+
     private MealVO parseMealVO(ResultSet rs) throws SQLException {
         MealVO meal = new MealVO
                 (rs.getInt(1), rs.getString(2), rs.getString(3),
@@ -160,7 +163,20 @@ public class MealDAOImpl implements MealDAO {
     }
 
     @Override
-    public MealVO findByMealName(String mealName) {
+    public List<MealVO> findByNameKeyword(String nameKeyword) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(FIND_BY_NAME_KEYWORD)) {
+            ps.setString(1, "%"+nameKeyword+"%");
+            ResultSet rs = ps.executeQuery();
+            List<MealVO> meals = new ArrayList<>();
+            while (rs.next()) {
+                MealVO meal = parseMealVO(rs);
+                meals.add(meal);
+            }
+            return meals;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

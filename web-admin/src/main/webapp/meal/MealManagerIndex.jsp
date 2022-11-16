@@ -19,11 +19,17 @@
 <div class="block_N" style="margin:0px auto;">
     <!--搜尋欄開始-->
     <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
+        <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded" id="searceKeyword">
         <ul class="searchfield">
-            <li><input id="keyword" type="text" class="text ac_input" placeholder="請輸入關鍵字" autocomplete="off">
+            <li>
+                <input id="keyword" type="text" class="text ac_input" name="nameKeyword" placeholder="請輸入關鍵字" >
+                <input name="action" value="nameKeywordSearch" hidden>
             </li>
-            <li><input id="btn_search" type="button" class="button" value="找菜單"></li>
+            <li>
+                <button type="submit" form="searceKeyword" >找菜單</button>
+            </li>
         </ul>
+        </form>
     </div>
     <!--搜尋欄結束-->
 </div>
@@ -37,10 +43,16 @@
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單商品</a>
+                                    <a href="${ctxPath}/meal/mealController?action=listAll" >菜單商品列表</a>
                                 </li>
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/meal/mealController?action=listAll" >菜單商品列表</a>
+                                    <a href="${ctxPath}/meal/MealInsert.jsp">新增菜單商品</a>
+                                </li>
+                                <li>
+                                    <a href="${ctxPath}/nutrient/insert" >新增營養特色</a>
+                                </li>
+                                <li>
+                                    <a href="${ctxPath}">回首頁</a>
                                 </li>
                             </ul>
                     </ul>

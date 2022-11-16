@@ -21,4 +21,9 @@ public class NutrientFeatureService {
 
     }
 
+    public NutrientFeatureVO findById(Integer featureNo) {
+        return dao.findById(featureNo).get();
+
+    }
+
 }

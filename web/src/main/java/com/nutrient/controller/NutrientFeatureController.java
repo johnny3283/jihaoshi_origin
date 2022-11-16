@@ -38,7 +38,7 @@ public class NutrientFeatureController {
             return "nutrient/NutrientFeatureInsert.jsp";
         }
         nutrientFeatureSV.save(nutrientFeature);
-        return "nutrient/NutrientInsertSucessful.jsp";
+        return "";
     }
 
     @PostMapping("/detailInsert")
