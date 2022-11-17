@@ -22,40 +22,40 @@ public class OrderController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        doPost(req,res);
+        doPost(req, res);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        OrderService orderSV=new OrderService();
+        OrderService orderSV = new OrderService();
 
         HttpSession session = req.getSession();
         List<CartProdVO> cartProds = (ArrayList<CartProdVO>) session.getAttribute("cartProds");
         String action = req.getParameter("action");
-        CartService cartSV=new CartService();
+        CartService cartSV = new CartService();
 
         if ("orderInsert".equals(action)) {
             //            Integer memberNo = req.getParameter("memberNo");
 
-            Integer memberNo=1;
-            String merchantTradeNo=req.getParameter("MerchantTradeNo"); // 店內之交易編號
-            String tradeNo=req.getParameter("TradeNo"); // 綠界之交易編號
+            Integer memberNo = 1;
+            String merchantTradeNo = req.getParameter("MerchantTradeNo"); // 店內之交易編號
+            String tradeNo = req.getParameter("TradeNo"); // 綠界之交易編號
             Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
+
             orderSV.orderInsert(merchantTradeNo, memberNo, totalPrice, tradeNo, cartProds);
             session.removeAttribute("cartProds");
-            session.removeAttribute("totalPrice");
-            res.sendRedirect(req.getContextPath()+"/order/orderController?action=orderList");
+            res.sendRedirect(req.getContextPath() + "/order/orderController?action=orderList");
+
         }
 
         if ("orderList".equals(action)) {
 //            Integer memberNo = req.getParameter("memberNo");
 
-            Integer memberNo=1;
+            Integer memberNo = 1;
             List<OrderVO> orders = orderSV.listOrsers(memberNo);
-            req.setAttribute("orders",orders);
-            RequestDispatcher orderPage= req.getRequestDispatcher("ListOrder.jsp");
-            orderPage.forward(req,res);
-            return;
+            req.setAttribute("orders", orders);
+            RequestDispatcher orderPage = req.getRequestDispatcher("ListOrder.jsp");
+            orderPage.forward(req, res);
         }
     }
 }
