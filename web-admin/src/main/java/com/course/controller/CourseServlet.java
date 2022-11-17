@@ -199,18 +199,18 @@ public class CourseServlet extends HttpServlet {
 			}
 			
 			java.sql.Date update_time = null;
-			try {				
-				update_time = java.sql.Date.valueOf(req.getParameter("update_time").trim());
-			} catch (IllegalArgumentException e) {
-				create_date=new java.sql.Date(System.currentTimeMillis());
-				errorMsgs.put("update", "請輸入日期!");
-			}
+//			try {				
+//				update_time = java.sql.Date.valueOf(req.getParameter("update_time").trim());
+//			} catch (IllegalArgumentException e) {
+//				update_time=new java.sql.Date(System.currentTimeMillis());
+//				errorMsgs.put("update", "請輸入日期!");
+//			}
 			
 			java.sql.Date sign_up_start_day = null;
 			try {				
 				sign_up_start_day = java.sql.Date.valueOf(req.getParameter("sign_up_start_day").trim());
 			} catch (IllegalArgumentException e) {
-				create_date=new java.sql.Date(System.currentTimeMillis());
+				sign_up_start_day=new java.sql.Date(System.currentTimeMillis());
 				errorMsgs.put("start", "請輸入日期!");
 			}
 			
@@ -218,7 +218,7 @@ public class CourseServlet extends HttpServlet {
 			try {				
 				sign_up_end_day = java.sql.Date.valueOf(req.getParameter("sign_up_end_day").trim());
 			} catch (IllegalArgumentException e) {
-				create_date=new java.sql.Date(System.currentTimeMillis());
+				sign_up_end_day=new java.sql.Date(System.currentTimeMillis());
 				errorMsgs.put("end", "請輸入日期!");
 			}
 			Integer max_sign_up_people = null;

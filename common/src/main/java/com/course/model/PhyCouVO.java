@@ -2,6 +2,10 @@ package com.course.model;
 
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO;
 
 public class PhyCouVO implements java.io.Serializable{
 	
@@ -23,13 +27,27 @@ public class PhyCouVO implements java.io.Serializable{
 	private Integer min_sign_up_people;
 	private Integer current_sign_up_people;
 	private byte[] pic;
+	private Set<PhyCouPromotionDetailVO> phyCouPromotionDetails = new HashSet<PhyCouPromotionDetailVO>();
+//	private PhyCouPromotionDetailVO phyCouPromotionDetailVO = new PhyCouPromotionDetailVO();
 	
 	
-	public Integer getCourse_no() {
-		return course_no;
+//	public PhyCouPromotionDetailVO getPhyCouPromotionDetailVO() {
+//		return phyCouPromotionDetailVO;
+//	}
+//	public void setPhyCouPromotionDetailVO(PhyCouPromotionDetailVO phyCouPromotionDetailVO) {
+//		this.phyCouPromotionDetailVO = phyCouPromotionDetailVO;
+//	}
+	public Set<PhyCouPromotionDetailVO> getPhyCouPromotionDetails() {
+		return phyCouPromotionDetails;
+	}
+	public void setPhyCouPromotionDetails(Set<PhyCouPromotionDetailVO> phyCouPromotionDetails) {
+		this.phyCouPromotionDetails = phyCouPromotionDetails;
 	}
 	public void setCourse_no(Integer course_no) {
 		this.course_no = course_no;
+	}
+	public Integer getCourse_no() {
+		return course_no;
 	}
 	public String getCourse_name() {
 		return course_name;

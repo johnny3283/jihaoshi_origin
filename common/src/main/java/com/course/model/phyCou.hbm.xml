@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.course.model.PhyCouVO" table="Physical_course" >
+        
+        <id name="course_no" column="course_no">
+            <generator class="identity" />
+        </id>
+        
+        <property name="course_name" column="course_name" />
+        <property name="course_hr" column="course_hr" />
+        <property name="course_price" column="course_price" />
+        <property name="course_teacher" column="course_teacher" />
+        <property name="course_date" column="course_date" />
+        <property name="course_location" column="course_location" />
+        <property name="course_info" column="course_info" />
+        <property name="course_status" column="course_status" />
+        <property name="create_date" column="create_date" update="false" insert="false" generated="insert"/>
+        <property name="update_time" column="update_time" update="false" insert="false" generated="always"/>
+        <property name="sign_up_start_day" column="sign_up_start_day" />
+        <property name="sign_up_end_day" column="sign_up_end_day" />
+        <property name="max_sign_up_people" column="max_sign_up_people" />
+        <property name="min_sign_up_people" column="min_sign_up_people" />
+        <property name="current_sign_up_people" column="current_sign_up_people" />
+        <property name="pic" column="pic" />
+        
+        <set name="phyCouPromotionDetails" table="Physical_course_promotion_detail" lazy="false" cascade="all"  
+        		inverse="true"  order-by="project_no asc">			
+			<key>
+				<column name="course_no" />
+			</key>
+			<one-to-many class="com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO" />
+		</set>
+<!--         <many-to-one name="phyCouPromotionDetail" class="com.PhyCouPromotionDetail.model.PhyCouPromotionDetailVO" lazy="false">
+            <column name="project_no" />
+        </many-to-one> -->
+        
+    </class>
+</hibernate-mapping>
+

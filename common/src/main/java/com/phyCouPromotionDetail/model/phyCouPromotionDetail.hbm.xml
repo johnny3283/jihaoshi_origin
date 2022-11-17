@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO" table="Physical_course_promotion_detail" >
+
+        
+        <composite-id>
+	        <key-many-to-one name="phyCouPromotionVO" class="com.phyCouPromotion.model.PhyCouPromotionVO" lazy="false">
+	            <column name="project_no" />
+	        </key-many-to-one>
+	        <key-many-to-one name="phyCouVO" class="com.course.model.PhyCouVO" lazy="false">
+	            <column name="course_no" />
+	        </key-many-to-one>
+        </composite-id>
+        
+        <property name="prom_price" column="prom_price" />
+    </class>
+</hibernate-mapping>
+

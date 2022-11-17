@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.phyCouPromotion.model.PhyCouPromotionVO" table="Physical_course_promotion_project" >
+        
+        <id name="project_no" column="project_no">
+            <generator class="identity" />
+        </id>
+        
+        <property name="project_name" column="project_name" />
+        <property name="start_date" column="start_date" />
+        <property name="end_date" column="end_date" />
+        <property name="prom_description" column="prom_description" />
+        <property name="prom_status" column="prom_status" />
+        <property name="update_time" column="update_time" />
+        
+        <set name="phyCouPromotionDetails" table="Physical_course_promotion_detail" lazy="false" cascade="all"  
+        		inverse="true"  order-by="project_no asc">			
+			<key>
+				<column name="project_no" />
+			</key>
+			<one-to-many class="com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO" />
+		</set>
+<!--         <many-to-one name="phyCouPromotionDetail" class="com.PhyCouPromotionDetail.model.PhyCouPromotionDetailVO" lazy="false">
+            <column name="project_no" />
+        </many-to-one> -->
+        
+    </class>
+</hibernate-mapping>
+
