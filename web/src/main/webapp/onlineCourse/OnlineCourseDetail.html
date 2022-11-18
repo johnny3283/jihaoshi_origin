@@ -2,33 +2,35 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
 
-    <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
-    <style>
-        #pageHead {
-            width: 100%;
-            height: 30%;
-        }
+<link type="text/css"
+	href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+<style>
+#pageHead {
+	width: 100%;
+	height: 30%;
+}
 
-        div.divflex2 {
-            display: flex;
-            position: absolute;
-            top: 41%;
-            left: 50%;
-            translate: -50%;
-            gap: 5rem;
-            width: 100%;
-            justify-content: center;
-            background-color: #fffcec;
-            z-index: -999;
-            min-height: 200vh;
-            padding-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-    </style>
+div.divflex2 {
+	display: flex;
+	position: absolute;
+	top: 41%;
+	left: 50%;
+	translate: -42%;
+	gap: 5rem;
+	width: 86%;
+	justify-content: center;
+	background-color: #fffcec;
+/* 	z-index: -999; */
+	min-height: 200vh;
+	padding-top: 20px;
+	flex-wrap: wrap;
+ 	z-index: 2; 
+ 	margin-top: 24px;
+}
+</style>
 
 
 
@@ -36,70 +38,86 @@
 </head>
 
 <body bgcolor='white'>
-    <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
+	<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
 
-    <div id="WRAPPER" class="">
-        <div class="divflex">
-            <div class=""
-                style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;z-index: 999;">
-                <!--側邊欄區塊開始-->
-                <ul class="treeview" style="list-style-type: none;">
-                    <li id="cate_D" class="expanded">
-                        <H1>功能列表</H1>
-                        <ul class="main" style="list-style-type: none;">
+	<div id="WRAPPER">
+		<div class="divflex">
+			<div class=""
+				style="text-align: center; background-color: #FFFAF0; widtH: 13%; height: 100vw; background-color: #F3E3C3; z-index: 1;">
+				<!--側邊欄區塊開始-->
+				<ul class="treeview" style="list-style-type: none;">
+					<li id="cate_D" class="expanded">
+						<H1>功能列表</H1>
+						<ul class="main" style="list-style-type: none;">
+							<li><a href="ListAllOnlineCourse.jsp">回線上課程瀏覽專區</a></li>
+						</ul>
+					</li>
+				</ul>
 
-                            <li>
-                                <a href="ListAllOnlineCourse.jsp">回線上課程瀏覽專區</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-            </div>
-            <!--側邊欄區塊結束-->
-            <div id="cardWrapper"></div>
-            <script>
+			</div>
+			<!--側邊欄區塊結束-->
+			<div id="cardWrapper">
+			
+			</div>
+		</div>
+	</div>
+	<script>
                 const cardWrapper = document.querySelector('#cardWrapper');
                 const id = sessionStorage.getItem('courseNo');
                 const url = '../onlineCourse/detail?courseNo=' + id;
                 fetch(url)
                     .then(resp => resp.json())
                     .then(onlineCourse => {
-                        cardWrapper.insertAdjacentHTML('beforeend', `
-						<div class="block divflex2" onclick="showDetail(${onlineCourse.courseNo})">
-							<div class="photo">
-								<img style="border-radius:10px" src="data:image/png;base64,${onlineCourse.onlineCoursePhotoBaseStr64}">
-							</div>
-							<div class="content">
-								線上課程編號 :${onlineCourse.courseNo}<br>
-								線上課程名稱 :${onlineCourse.courseName}<br>
-								線上課程價格 :${onlineCourse.coursePrice}<br>
-								線上課程時數 :${onlineCourse.courseHr}<br>
-								線上課程老師 :${onlineCourse.courseTeacher}<br>
-								線上課程資訊 :${onlineCourse.courseInfo}<br>
-								線上課程評論人數 :${onlineCourse.commentPeople}<br>
-								線上課程評論分數 :${onlineCourse.commentScore}<br>
-								
-								<td>
-								<button class="cart">購物車</button>
-								<button class="payment">結帳</button>
-							</td>
-							</div>
-							<div style="width:63%;position:absolute;top:30%;">評論專區</div>
-							
-						</div>
-					`);
-                    }
-                    );
-                // coursePhoto
-
-                function showDetail(courseNo) {
-                    sessionStorage.setItem('courseNo', courseNo);
-                    location = 'onlineCourseDetail.html';
-                }
-
+                    	const [course,comment]=onlineCourse;
+                         cardWrapper.insertAdjacentHTML('beforeend', `
+ 							<div class="block divflex2" onclick="showDetail(${course.courseNo})">
+ 							<div class="photo">
+ 								<img style="border-radius:10px" src="data:image/png;base64,${course.onlineCoursePhotoBaseStr64}">
+ 							</div>
+ 							<div class="content">
+ 								線上課程編號 :${course.courseNo}<br>
+ 								線上課程名稱 :${course.courseName}<br>
+ 								線上課程價格 :${course.coursePrice}<br>
+ 								線上課程時數 :${course.courseHr}<br>
+ 								線上課程老師 :${course.courseTeacher}<br>
+ 								線上課程資訊 :${course.courseInfo}<br>
+ 								線上課程評論人數 :${course.commentPeople}<br>
+ 								線上課程評論分數 :${course.commentScore}<br>
+ 								<form method="get" action="../cart/cartCourseController">
+ 								<input type="hidden" name="courseNo" value="${course.courseNo}">
+                                <input type="hidden" name="action" value="cartAdd">
+                                <input type="submit" value="加入購物車">
+                            	</form>
+								<input type="submit" value="直接結帳">
+ 							<div id="commentarea" style="width:63%;position:absolute;top:30%;"></div>					
+ 						</div>`)
+ 						getComment(comment)
+ 					});
+                 // coursePhoto
+                
+                 function showDetail(courseNo) {
+                     sessionStorage.setItem('courseNo', courseNo);
+                     location = 'OnlineCourseDetail.html';
+                 }
+                 
+                 function getComment(list){
+                	const commentarea = document.querySelector('#commentarea');
+                  	commentarea.innerHTML='評論專區<br>';
+                  	if(list.length==0){
+                  		commentarea.innerHTML='評論專區<br>尚無評價';
+                  	}
+ 					for(comment of list){
+                         commentarea.insertAdjacentHTML('beforeend', `
+ 						<span>
+                        	評論編號 :${comment.commentNo}
+							帳號 : ${comment.memberNo}
+							評語 : ${comment.commentContent}
+							分數 : ${comment.commentScore}
+						</span><br>
+					`)}
+                 }
+                
             </script>
-
 </body>
 
 </html>

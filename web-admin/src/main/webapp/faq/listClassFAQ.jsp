@@ -107,8 +107,8 @@ th, td {
 											<FORM METHOD="post"
 												ACTION="<%=request.getContextPath()%>/faqservlet"
 												style="margin-bottom: 0px;">
-												<input type="submit" value="刪除" onclick="doubleCheck();"> <input
-													type="hidden" name="faqNo" value="${faqVO.faqNo}">
+												<input type="submit" value="刪除" onclick="doubleCheck();"> 
+												<input type="hidden" name="faqNo" value="${faqVO.faqNo}">
 												<input type="hidden" name="action" value="delete">
 											</FORM>
 										</td>

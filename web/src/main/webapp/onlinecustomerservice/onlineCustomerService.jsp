@@ -75,15 +75,17 @@ a {
 		</div>
 	</div>
 	<script>
-		var MyPoint = "/CustomerServerWS/member";
+		var MyPoint = "/CustomerServerWS/${empty memberVO.memberAccount ? "vistor" : memberVO.memberAccount }";
 		var host = window.location.host;
 		var path = window.location.pathname;
 		var webCtx = path.substring(0, path.indexOf('/', 1));
-		var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+		var endPointURL = "ws://" + window.location.host + "/web-admin" + MyPoint;
+		console.log(host);
+		console.log(webCtx);
 		// ws是Socket自己的通訊協定
 		var statusOutput = document.getElementById("statusOutput");
 		var messagesArea = document.getElementById("messagesArea");
-		var self = 'member';
+		var self = ${memberVO.memberAccount};
 		var webSocket;
 
 		function connect() {

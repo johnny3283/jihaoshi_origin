@@ -24,11 +24,19 @@ import com.websocketchat.model.State;
 //標示為websocket後端連線端點
 @ServerEndpoint("/CustomerServerWS/{userName}")
 public class CustomerServerWS {
-	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>();
+//	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>();
+	
+	private static Map<String, Session> sessionsMap ;
+	static {
+		if(sessionsMap == null) {
+			sessionsMap = new ConcurrentHashMap<>();
+		}
+	}
+	
 	Gson gson = new Gson();
 
 	@OnOpen //當連線打開的時候(前端也會打開)(1次)
-	public void onOpen(@PathParam("userName") String userName, Session userSession) throws IOException {
+	public void onOpen(@PathParam("userName") String userName, Session userSession) throws IOException {	
 		/* save the new user in the map */
 		sessionsMap.put(userName, userSession);
 		/* Sends all the connected users to the new user */
@@ -41,10 +49,10 @@ public class CustomerServerWS {
 				session.getAsyncRemote().sendText(stateMessageJson);
 			}
 		}
-
 		String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
 				userName, userNames);
 		System.out.println(text);
+		System.out.println("sessionsMap size = " + sessionsMap.size());
 	}
 
 	@OnMessage
@@ -86,11 +94,11 @@ public class CustomerServerWS {
 		for (String userName : userNames) {
 			if (sessionsMap.get(userName).equals(userSession)) {
 				userNameClose = userName;
-				sessionsMap.remove(userName);
+				//sessionsMap.remove(userName);
 				break;
 			}
 		}
-
+		
 		if (userNameClose != null) {
 			State stateMessage = new State("close", userNameClose, userNames);
 			String stateMessageJson = gson.toJson(stateMessage);
