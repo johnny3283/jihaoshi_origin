@@ -10,14 +10,53 @@ List<Forum_article_reportVO> list = forum_article_reportSvc.getAll();
 pageContext.setAttribute("list", list);
 %>
 
-<html>
+<html> 
 <head>
 <title>論壇文章檢舉資料</title>
 
+  <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
+    
+    <style>
+  table#table-1 {
+	background-color: #CCCCFF;
+    border: 2px solid black;
+    text-align: center;
+  }
+  table#table-1 h4 {
+    color: red;
+    display: block;
+    margin-bottom: 1px;
+  }
+  h4 {
+    color: blue;
+    display: inline;
+  }
+</style>
+
 <style>
 table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
+	background-color: #F0E68C;
+	border: 2px solid f4f5e3;
 	text-align: center;
 }
 
@@ -35,7 +74,7 @@ h4 {
 
 <style>
 table {
-	width: 600px;
+	width: 1280px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -52,59 +91,46 @@ th, td {
 </style>
 
 </head>
+
 <body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
 
+	
+<!-- 	<h1 style="align-self:center;margin: 2rem 0">論壇文章檢舉資料</h1> -->
+	
+	
 	<table id="table-1">
 		<tr>
 			<td>
 				<h3>論壇文章檢舉資料</h3>
 				<h4>
-					<a
-						href="<%=request.getContextPath()%>/forum_article_report/forum_article_report_select_page.jsp">回首頁</a>
+					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回論壇文章首頁</a>
 				</h4>
 			</td>
 		</tr>
 	</table>
 
 	<table>
-		<tr>
-			<th>論壇文章檢舉編號</th>
-			<th>論壇文章編號</th>
-			<th>會員編號</th>
-			<th>檢舉事由</th>
-<!-- 			<th>檢舉狀態</th> -->
-			
-		</tr>
-		<%@ include file="forum_article_report_page1.file"%>
-		<c:forEach var="forum_article_reportVO" items="${list}"
-			begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<tr>
+				<th>論壇文章檢舉編號</th>
+				<th>論壇文章編號</th>
+				<th>會員編號</th>
+				<th>檢舉事由</th>
+			<!-- <th>檢舉狀態</th> -->
+				
+			</tr>
+			<%@ include file="forum_article_report_page1.file"%>
+			<c:forEach var="forum_article_reportVO" items="${list}"
+				begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
-
+	
 			<tr>
 				<td>${forum_article_reportVO.article_report_no}</td>
-				<td>${forum_article_reportVO.article_no}</td>
+				<td><a href="/web/Forum_articleServlet?article_no=${forum_article_reportVO.article_no}&action=getOne_For_Display">
+					${forum_article_reportVO.article_no} </a></td> 
 				<td>${forum_article_reportVO.member_no}</td>
 				<td>${forum_article_reportVO.report_reason}</td>
-<%-- 				<td>${forum_article_reportVO.report_status}</td> --%>
-				
-
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" ACTION="/web-admin/Forum_article_reportServlet" -->
-<!-- 						style="margin-bottom: 0px;"> -->
-<!-- 						<input type="submit" value="修改"> <input type="hidden" -->
-<%-- 							name="article_report_no" value="${forum_article_reportVO.article_report_no}"> --%>
-<!-- 						<input type="hidden" name="action" value="getOne_For_Update"> -->
-<!-- 					</FORM> -->
-<!-- 				</td> -->
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" ACTION="/web-admin/Forum_article_reportServlet" -->
-<!-- 						style="margin-bottom: 0px;"> -->
-<!-- 						<input type="submit" value="刪除"> <input type="hidden" -->
-<%-- 							name="article_no" value="${forum_articleVO.article_no}"> --%>
-<!-- 						<input type="hidden" name="action" value="delete"> -->
-<!-- 					</FORM> -->
-<!-- 				</td> -->
 			</tr>
 
 		</c:forEach>

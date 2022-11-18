@@ -7,19 +7,61 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Title</title>
+<title>論壇文章新增</title>
+
+<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
+    
 </head>
 
-<body>
-	<h1>論壇文章新增:</h1>
+<body bgcolor='white'>
+<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
+
+	<div id="WRAPPER" class="">
+    <div class="divflex">
+        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
+            <!--側邊欄區塊開始-->
+                    <ul class="treeview">
+                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
+                            <ul class="main">
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                                </li>
+                            </ul>
+                      </li>
+                 </ul>
+          </div>   
+            <!--側邊欄區塊結束-->
+ <div style="display:flex;flex-direction:column;width:100%">
+	<h1 style="align-self:center;margin: 2rem 0">論壇文章新增</h1>
+	
 	<form method="post" action="/web-admin/Forum_articleServlet" id="form1">
-		<div>
+		<div  style="text-align: center;">
 			<!--            <label>輸入論壇文章編號：</label><input type="text" name="article_no"><br><br> -->
 			<label>輸入消息標題：</label><input type="text" name="article_name" value="${param.article_name}" required><br>
 			<br> <label>輸入會員編號：</label><input type="text" name="member_no" value="${param.member_no}" required><br>
 			<br>
 			<!--                 <label>輸入編輯時間：</label><input type="text" name="update_date"><br><br> -->
-			<label>輸入文章內容：</label><textarea name="article_content" value="${param.article_content}" required></textarea>
+			<label>輸入文章內容：</label><textarea name="article_content" value="${param.article_content}" class="editor"></textarea>
 			<br>
 			<br> <input type="hidden" name="action" value="insert">
 			<!-- 			<input type="hidden" name="article_no" value=1> -->
@@ -27,6 +69,28 @@
 			<!--             <button type="reset" form="form1">清除資料</button> -->
 		</div>
 	</form>
+	<script src="<%=request.getContextPath() %>/forum_article/ckeditor5/build/ckeditor.js"></script>
+ <script>
+ ClassicEditor
+    .create(document.querySelector('.editor'), {
+        cloudServices: {
+            tokenUrl: 'https://93322.cke-cs.com/token/dev/f61fb72c46962eeef89212e54452b4a95a6198649d6d844997f8a0be111e?limit=10',
+            uploadUrl: 'https://93322.cke-cs.com/easyimage/upload/'
+        },
+        toolbar: {
+            items: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+                '|', 'alignment', 'outdent', 'indent', '|', 'fontColor',
+                '|', 'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed',
+                'undo', 'redo'
+            ]
+        }
+    })
+    .then(editor => {
+        console.log(editor);
+    });
+ </script>
+	
 </body>
 
 </html>

@@ -42,6 +42,9 @@ public class Forum_articleService {
 		dao.change_status_1(article_no);
 	}
 	
+	public List<Forum_articleVO> catch_display() {
+		return dao.catch_display();
+	}
 
 	public Forum_articleVO getOneForum_article(Integer article_no) {
 		return dao.findByPrimarykey(article_no);

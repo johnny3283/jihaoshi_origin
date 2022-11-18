@@ -12,24 +12,26 @@ import com.latest_news.model.Latest_newsVO;
 
 public class Forum_articleJDBCDAO implements Forum_articleDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/database1?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/jihaoshi?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO forum_article(article_name, member_no, article_content) VALUES (?, ?, ?)";
+			"INSERT INTO FORUM_ARTICLE(ARTICLE_NAME, MEMBER_NO, ARTICLE_CONTENT) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT article_no, article_name, member_no, article_time, article_content, article_status FROM forum_article order by article_no";
+			"SELECT ARTICLE_NO, ARTICLE_NAME, MEMBER_NO, ARTICLE_TIME, ARTICLE_CONTENT, ARTICLE_STATUS FROM FORUM_ARTICLE ORDER BY ARTICLE_NO";
 	private static final String GET_ONE_STMT = 
-			"SELECT article_no, article_name, member_no, article_time, article_content, article_status FROM forum_article where article_no = ?";
+			"SELECT ARTICLE_NO, ARTICLE_NAME, MEMBER_NO, ARTICLE_TIME, ARTICLE_CONTENT, ARTICLE_STATUS FROM FORUM_ARTICLE WHERE ARTICLE_NO = ?";
 	private static final String DELETE = 
-			"DELETE FROM forum_article where article_no = ?";
+			"DELETE FROM FORUM_ARTICLE WHERE ARTICLE_NO = ?";
 	private static final String UPDATE = 
-			"UPDATE forum_article set article_name=?, article_content=? where article_no = ?";
+			"UPDATE FORUM_ARTICLE SET ARTICLE_NAME=?, ARTICLE_CONTENT=? WHERE ARTICLE_NO = ?";
 private static final String change_status_0 = 
-			"UPDATE forum_article set article_status=0 where article_no = ?";
+			"UPDATE FORUM_ARTICLE SET ARTICLE_STATUS=0 WHERE ARTICLE_NO = ?";
 private static final String change_status_1 = 
-			"UPDATE forum_article set article_status=1 where article_no = ?";
+			"UPDATE FORUM_ARTICLE SET ARTICLE_STATUS=1 WHERE ARTICLE_NO = ?";
+private static final String catch_display =
+			"SELECT ARTICLE_NO, ARTICLE_NAME, MEMBER_NO, ARTICLE_TIME, ARTICLE_CONTENT, ARTICLE_STATUS FROM FORUM_ARTICLE WHERE ARTICLE_STATUS = 1 ";	
 	@Override
 	public void insert(Forum_articleVO forum_articleVO) {
 		Connection con = null;
@@ -385,6 +387,78 @@ private static final String change_status_1 =
 
 		
 	}
+	
+	@Override
+	public List<Forum_articleVO> catch_display() {
+		List<Forum_articleVO> list = new ArrayList<Forum_articleVO>();
+		Forum_articleVO forum_articleVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(catch_display);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				// forum_articleVO 也稱為 Domain objects
+				forum_articleVO = new Forum_articleVO();
+				forum_articleVO.setArticle_no(rs.getInt("article_no"));
+				forum_articleVO.setArticle_name(rs.getString("article_name"));
+				forum_articleVO.setMember_no(rs.getInt("member_no"));
+				forum_articleVO.setArticle_time(rs.getDate("article_time"));
+				forum_articleVO.setArticle_content(rs.getString("article_content"));
+				forum_articleVO.setArticle_status(rs.getInt("article_status"));
+				
+				list.add(forum_articleVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+		
+
+		
+	
+		
+		
+		
 	public static void main(String[] args) {
 		Forum_articleJDBCDAO dao = new Forum_articleJDBCDAO();
 		

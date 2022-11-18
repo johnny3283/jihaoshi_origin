@@ -16,16 +16,22 @@ import com.forum_article_report.model.Forum_article_reportVO;
 
 public class Forum_comment_reportJDBCDAO implements Forum_comment_reportDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/database1?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/jihaoshi?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 
-	private static final String INSERT_STMT = "INSERT INTO forum_comment_report(comment_no, article_no, member_no, report_reason) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT comment_report_no, comment_no, article_no, member_no, report_reason, report_status FROM forum_comment_report order by comment_report_no";
-	private static final String GET_ONE_STMT = "SELECT comment_report_no, comment_no, article_no, member_no, report_reason, report_status FROM forum_comment_report where comment_report_no = ?";
-	private static final String DELETE = "DELETE FROM forum_comment_report where comment_report_no = ?";
-	private static final String UPDATE = "UPDATE forum_comment_report set report_reason=?, report_status=? where comment_report_no = ?";
-
+	private static final String INSERT_STMT = "INSERT INTO FORUM_COMMENT_REPORT(COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON) VALUES (?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT COMMENT_REPORT_NO, COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT ORDER BY COMMENT_REPORT_NO";
+	private static final String GET_ONE_STMT = "SELECT COMMENT_REPORT_NO, COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT WHERE COMMENT_REPORT_NO = ?";
+	private static final String DELETE = "DELETE FROM FORUM_COMMENT_REPORT WHERE COMMENT_REPORT_NO = ?";
+	private static final String UPDATE = "UPDATE FORUM_COMMENT_REPORT SET REPORT_REASON=?, REPORT_STATUS=? WHERE COMMENT_REPORT_NO = ?";
+	
+	private static final String change_status_0 = 
+			"UPDATE FORUM_COMMENT_REPORT SET REPORT_STATUS=1 WHERE COMMENT_REPORT_NO = ?";
+	private static final String change_status_1 = 
+			"UPDATE FORUM_COMMENT_REPORT SET REPORT_STATUS=2 WHERE COMMENT_REPORT_NO = ?";
+	private static final String change_status_2 = 
+			"UPDATE FORUM_COMMENT_REPORT SET REPORT_STATUS=0 WHERE COMMENT_REPORT_NO = ?";
 	@Override
 	public void insert(Forum_comment_reportVO forum_comment_reportVO) {
 		Connection con = null;
@@ -277,6 +283,138 @@ public class Forum_comment_reportJDBCDAO implements Forum_comment_reportDAO_inte
 		}
 		return list;
 	}
+	
+	@Override
+	public void change_status_0(Integer comment_report_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(change_status_0);
+
+			pstmt.setInt(1, comment_report_no);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
+	@Override
+	public void change_status_1(Integer comment_report_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(change_status_1);
+
+			pstmt.setInt(1, comment_report_no);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
+	
+	@Override
+	public void change_status_2(Integer comment_report_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(change_status_2);
+
+			pstmt.setInt(1, comment_report_no);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			}
+		}
+	
+	
+	
 
 	public static void main(String[] args) {
 		Forum_comment_reportJDBCDAO dao = new Forum_comment_reportJDBCDAO();

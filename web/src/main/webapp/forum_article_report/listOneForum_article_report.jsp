@@ -9,7 +9,7 @@ Forum_article_reportVO forum_article_reportVO = (Forum_article_reportVO) request
 <html>
 <head>
 <title>論壇文章檢舉資料</title>
-
+ 
 <style>
   table#table-1 {
 	background-color: #CCCCFF;

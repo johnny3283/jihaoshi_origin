@@ -6,14 +6,37 @@
 
 <%
 	Forum_articleService forum_articleSvc = new Forum_articleService();
-    List<Forum_articleVO> list = forum_articleSvc.getAll();
+    List<Forum_articleVO> list = forum_articleSvc.catch_display();
     pageContext.setAttribute("list",list);
 %>
 
-
+ 
 <html>
 <head>
 <title>論壇文章首頁: Home</title>
+
+ <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
+
 
 
   <style>
@@ -34,7 +57,7 @@
         .title {
             width: 75%;
             height: 30px;
-            background-color: #33b5e5;
+            background-color: #919f01;
             position: relative;
             left: 50%;
             transform: translate(-50%);
@@ -112,15 +135,36 @@
 
 
 </head>
-<body bgcolor='white'>
 
-<table id="table-1">
-   <tr><td><h3>論壇文章首頁: Home</h3><h4>( Forum_article )</h4></td></tr>
+<body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+
+<div id="WRAPPER" class="">
+    <div class="divflex">
+        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
+           
+                    <ul class="treeview">
+                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
+                            <ul class="main">
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                                </li>
+                            </ul>
+                      </li>
+                 </ul>
+          </div>   
+           
+ <div style="display:flex;flex-direction:column;width:100%">
+
+
+<div style="text-align: center">
+<table id="table-1" style="margin: auto">
+   <tr style="text-align: center;"><td><h3>論壇文章首頁: Home</h3><h4>( Forum_article )</h4></td></tr>
 </table>
 
-
-
 <p>This is the Home page for Forum_article: Home</p>
+</div>
+
 <div class="container">
  <div class="title"> 
             
@@ -135,7 +179,8 @@
 <%--             <div class="atitle">${forum_articleVO.article_name}</div> --%>
             <div class="author">${forum_articleVO.member_no}</div>
             <div class="ptime">${forum_articleVO.article_time}</div>
-			
+	
+
 			 <form method="post" action="/web/Forum_articleServlet"> 
            			<input type="hidden" name="article_no" value="${forum_articleVO.article_no}">
 					<input type="hidden" name="action" value="getOne_For_Display">
@@ -147,11 +192,11 @@
 
 
 <ul>
-
-<h3>論壇文章新增</h3>
-
+<br>
+<h3 style="padding-left: 12.5%">論壇文章新增</h3>
+<br>
 <ul>
-  <li><a href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>Add</a> a new Forum_article.</li>
+  <li><a  style="padding-left: 12.5%;" href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>Add</a> a new Forum_article.</li>
 </ul>
 
 </body>

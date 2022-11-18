@@ -12,7 +12,7 @@
 	margin-top: 5px;
 	margin-bottom: 10px;
     border: 3px ridge Gray;
-    height: 80px;
+    height: 80px; 
     text-align: center;
   }
   table#table-1 h4 {

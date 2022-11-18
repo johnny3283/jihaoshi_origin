@@ -6,21 +6,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_articleVO"); //Forum_articleServlet.java(Concroller), 存入req的latest_newsVO物件
+Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_articleVO"); //Forum_articleServlet.java(Concroller), 存入req的forum_articleServletVO物件
 Forum_commentService forum_commentSvc = new Forum_commentService();
 Integer article_no = forum_articleVO.getArticle_no();
-List<Forum_commentVO> list= forum_commentSvc.getAll(article_no);
+List<Forum_commentVO> list = forum_commentSvc.catch_display(article_no);
+
 pageContext.setAttribute("list", list);
 %>
-
+ 
 <html>
 <head>
 <title>論壇文章資料</title>
 
+ <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
+
 <style>
   table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
+	background-color: #F0E68C;
+    border: 2px solid f4f5e3;
     text-align: center;
   }
   table#table-1 h4 {
@@ -42,7 +65,7 @@ pageContext.setAttribute("list", list);
 	margin-bottom: 5px;
   }
   table, th, td {
-   width: 700px;
+   width: 1250px;
     border: 1px solid #CCCCFF;
   }
   th, td {
@@ -69,6 +92,7 @@ pageContext.setAttribute("list", list);
 </style>
 </head>
 <body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
 
 <table id="table-1">
@@ -97,14 +121,15 @@ pageContext.setAttribute("list", list);
 		
 	</tr>
 </table>
-    		
+			
     		<div class="comment">
             <c:forEach var="forum_commentVO" items="${list}">
 
                 <div class="comments">
                     <div class="cname">&ensp;${forum_commentVO.member_no}</div>
-                    <div class="ccontent">${forum_commentVO.comment_content}</div>
-                    <div class="ctime">&ensp;${forum_commentVO.comment_time}</div>
+                    <br><div class="ctime">&ensp;${forum_commentVO.comment_time}</div>
+                    <br><div class="ccontent">${forum_commentVO.comment_content}</div>
+                   
                     <div class="c"></div>
               	</div>
               	<div class="addForum_comment_report">
@@ -119,7 +144,8 @@ pageContext.setAttribute("list", list);
                 </form>
                 </div>
             </c:forEach>
-
+				</br>
+                </br>
             <div class="addComment">
                 <form method="post" action="/web/Forum_commentServlet">
                     <input type="hidden" name="article_no" value="${param.article_no}">
@@ -139,7 +165,7 @@ pageContext.setAttribute("list", list);
                     <input type="hidden" name="member_no" value=5>
                     <input type="hidden" name="action" value="insert">
                     <input type="text" class="form-control insert" name="report_reason" value="${param.report_reason}"
-                        placeholder="檢舉魔人就是我">&ensp;
+                        placeholder="文章檢舉魔人就是我">&ensp;
                     <button type="submit" class="btn btn-info">送出</button>
                 </form>
                 </div>

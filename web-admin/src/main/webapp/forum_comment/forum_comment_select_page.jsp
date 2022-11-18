@@ -5,6 +5,28 @@
 <head>
 <title>論壇留言首頁: Home</title>
 
+<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
+
 <style>
   table#table-1 {
 	width: 450px;
@@ -28,6 +50,8 @@
 
 </head>
 <body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+
 
 <table id="table-1">
    <tr><td><h3>論壇留言首頁: Home</h3><h4>( Forum_comment )</h4></td></tr>
@@ -90,11 +114,11 @@
 </ul>
 
 
-<h3>論壇留言管理</h3>
+<!-- <h3>論壇留言管理</h3> -->
 
-<ul>
-  <li><a href='<%= request.getContextPath() %>/forum_comment/InsertForum_comment.jsp'>Add</a> a new Forum_comment.</li>
-</ul>
+<!-- <ul> -->
+<%--   <li><a href='<%= request.getContextPath() %>/forum_comment/InsertForum_comment.jsp'>Add</a> a new Forum_comment.</li> --%>
+<!-- </ul> -->
 
 </body>
 </html>

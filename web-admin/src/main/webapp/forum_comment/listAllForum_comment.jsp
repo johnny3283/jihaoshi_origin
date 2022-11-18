@@ -7,13 +7,39 @@
 <%
 // Forum_commentVO forum_commentVO = (Forum_commentVO) request.getAttribute("forum_commentVO"); //Forum_commentServlet.java(Concroller), 存入req的Forum_commentVO物件
 Forum_commentService forum_commentSvc = new Forum_commentService();
+// List<Forum_commentVO> list = forum_commentSvc.getAll(1);
 List<Forum_commentVO> list = forum_commentSvc.getAll();
 pageContext.setAttribute("list", list);
+String type = request.getParameter("type");
 %>
 
 <html>
 <head>
+ <link href="/web-admin/bootstrap-4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+  <script src="/web-admin/js/jquery-3.6.1.min.js" ></script>
+  <script src="/web-admin/bootstrap-4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
 <title>論壇留言資料</title>
+<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
 
 <style>
 table#table-1 {
@@ -36,7 +62,7 @@ h4 {
 
 <style>
 table {
-	width: 600px;
+	width: 1280px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -54,16 +80,24 @@ th, td {
 
 </head>
 <body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
-
-	<table id="table-1">
+<p>
+   <a class="btn btn-primary"  id="comment" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章留言狀態</a> 
+  <button class="btn btn-primary" id="forum_comment" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">文章留言檢舉處理</button>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">修改文章留言狀態與文章留言檢舉處理</button>
+</p>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body">
+     	<table id="table-1">
 		<tr>
 			<td>
 				<h3>論壇留言資料</h3>
 				<h4>
 					<a
-						href="<%=request.getContextPath()%>/forum_comment/forum_comment_select_page.jsp"><img
-						src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
+						href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -90,29 +124,56 @@ th, td {
 				<td>${forum_commentVO.member_no}</td>
 				<td>${forum_commentVO.comment_time}</td>
 				<td>${forum_commentVO.comment_content}</td>
-				<td>${forum_commentVO.comment_status}</td>
 				
-
-				<td>
-					<FORM METHOD="post" ACTION="/web-admin/Forum_commentServlet"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="comment_no" value="${forum_commentVO.comment_no}">
-						<input type="hidden" name="action" value="getOne_For_Update">
+				<td>[${forum_commentVO.comment_status}]
+				  ${(forum_commentVO.comment_status==0)? '隱藏':''}
+				  ${(forum_commentVO.comment_status==1)? '顯示':''}
+			<td>
+					<FORM METHOD="post" ACTION="/web-admin/Forum_commentServlet?whichPage=" <%=pageIndex%> style="margin-bottom: 0px;">
+						 
+						   <input type="submit" value="修改留言狀態"> 
+						
+						<input type="hidden" name="type" value="1">
+						
+						<input type="hidden" name="comment_no" value="${forum_commentVO.comment_no}">
+					
+					 <c:if test="${forum_commentVO.comment_status==1}">	
+						<input type="hidden" name="action" value="change_status_0">
+					 </c:if> 
+					 <c:if test="${forum_commentVO.comment_status==0}">	
+						<input type="hidden" name="action" value="change_status_1">
+					 </c:if> 
+					
 					</FORM>
 				</td>
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" ACTION="/web-admin/Forum_articleServlet" -->
-<!-- 						style="margin-bottom: 0px;"> -->
-<!-- 						<input type="submit" value="刪除"> <input type="hidden" -->
-<%-- 							name="article_no" value="${forum_articleVO.article_no}"> --%>
-<!-- 						<input type="hidden" name="action" value="delete"> -->
-<!-- 					</FORM> -->
-<!-- 				</td> -->
+				
 			</tr>
 
 		</c:forEach>
 	</table>
 	<%@ include file="forum_comment_page2.file"%>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+      <div class="card card-body">
+         <jsp:include page="/forum_comment_report/listAllForum_comment_report.jsp" />
+    </div>
+  </div>
+</div>
+<script>
+	let type = <%=type%>
+	$(document).ready(function(){
+		if(type == 1){
+			$("#comment").trigger("click");
+		}
+	})
+	
+</script>
+	
+
+
+
 </body>
 </html>

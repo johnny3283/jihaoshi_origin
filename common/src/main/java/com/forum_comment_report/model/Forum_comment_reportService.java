@@ -40,6 +40,16 @@ public class Forum_comment_reportService {
 	public void deleteForum_comment_report(Integer comment_report_no) {
 		dao.delete(comment_report_no);
 	}
+	
+	public void change_status_0(Integer comment_report_no) {
+		dao.change_status_0(comment_report_no);
+	}
+	public void change_status_1(Integer comment_report_no) {
+		dao.change_status_1(comment_report_no);
+	}
+	public void change_status_2(Integer comment_report_no) {
+		dao.change_status_1(comment_report_no);
+	}
 
 	public Forum_comment_reportVO getOneForum_comment_report(Integer comment_report_no) {
 		return dao.findByPrimarykey(comment_report_no);

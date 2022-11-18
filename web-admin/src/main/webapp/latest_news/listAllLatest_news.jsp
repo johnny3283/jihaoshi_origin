@@ -14,10 +14,31 @@ pageContext.setAttribute("list", list);
 <html>
 <head>
 <title>所有最新消息資料</title>
+<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
 
 <style>
 table#table-1 {
-	background-color: #CCCCFF;
+	background-color:  #F0E68C;
 	border: 2px solid black;
 	text-align: center;
 }
@@ -36,7 +57,7 @@ h4 {
 
 <style>
 table {
-	width: 800px;
+	width: 1280px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -53,7 +74,10 @@ th, td {
 </style>
 
 </head>
+
 <body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+
 
 
 	<table id="table-1">

@@ -26,6 +26,8 @@ public class Forum_articleServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		String whichPage = req.getParameter("whichPage");
+		String type = req.getParameter("type");
 
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -219,7 +221,8 @@ public class Forum_articleServlet extends HttpServlet {
 			Forum_articleService forum_articleSvc = new Forum_articleService();
 			forum_articleSvc.change_status_0(article_no);
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/forum_article/listAllForum_article_3.jsp";
+			System.out.println("type: " + type);
+			String url = "/forum_article/listAllForum_article.jsp?whichPage = " + whichPage + "&type=" + type ;
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
 			
@@ -232,8 +235,10 @@ public class Forum_articleServlet extends HttpServlet {
 			Forum_articleService forum_articleSvc = new Forum_articleService();
 			forum_articleSvc.change_status_1(article_no);
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/forum_article/listAllForum_article_3.jsp";
+			System.out.println("type: " + type);
+			String url = "/forum_article/listAllForum_article.jsp?whichPage =" + whichPage + "&type=" + type ;
 			RequestDispatcher successview = req.getRequestDispatcher(url);
+			System.out.println("whichPage"+ whichPage);
 			successview.forward(req, res);
 			
 		}

@@ -27,6 +27,8 @@ public class Forum_commentServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		String whichPage = req.getParameter("whichPage");
+		String type = req.getParameter("type");
 		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -201,7 +203,32 @@ public class Forum_commentServlet extends HttpServlet {
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
 		}
+		if ("change_status_0".equals(action)) { // 來自listAllForum_article.jsp
 
+			/*************************** 1.接收請求參數 ***************************************/
+			Integer comment_no = Integer.valueOf(req.getParameter("comment_no"));
+			/*************************** 2.開始刪除資料 ***************************************/
+			Forum_commentService forum_commentSvc = new Forum_commentService();
+			forum_commentSvc.change_status_0(comment_no);
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url = "/forum_comment/listAllForum_comment.jsp?whichPage = " + whichPage + "&type=" + type ;
+			RequestDispatcher successview = req.getRequestDispatcher(url);
+			successview.forward(req, res);
+			
+		}
+		if ("change_status_1".equals(action)) { // 來自listAllForum_article.jsp
+
+			/*************************** 1.接收請求參數 ***************************************/
+			Integer comment_no = Integer.valueOf(req.getParameter("comment_no"));
+			/*************************** 2.開始刪除資料 ***************************************/
+			Forum_commentService forum_commentSvc = new Forum_commentService();
+			forum_commentSvc.change_status_1(comment_no);
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url ="/forum_comment/listAllForum_comment.jsp?whichPage = " + whichPage + "&type=" + type;
+			RequestDispatcher successview = req.getRequestDispatcher(url);
+			successview.forward(req, res);
+			
+		}
 			
 	}
 	}

@@ -5,10 +5,32 @@
 <head>
 <title>論壇文章首頁: Home</title>
 
+<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
+
 <style>
   table#table-1 {
-	width: 450px;
-	background-color: #CCCCFF;
+	width: 1120px;
+	background-color: #F0E68C;
 	margin-top: 5px;
 	margin-bottom: 10px;
     border: 3px ridge Gray;
@@ -28,9 +50,26 @@
 
 </head>
 <body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
+<div id="WRAPPER" class="">
+    <div class="divflex">
+        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
+            <!--側邊欄區塊開始-->
+                    <ul class="treeview">
+                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
+                            <ul class="main">
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                                </li>
+                            </ul>
+                      </li>
+                 </ul>
+          </div>   
+            <!--側邊欄區塊結束-->
+<div style="display:flex;flex-direction:column;width:100%">
 <table id="table-1">
-   <tr><td><h3>論壇文章首頁: Home</h3><h4>( Forum_article )</h4></td></tr>
+   <tr><td><h3 >論壇文章首頁: Home</h3><h4>( Forum_article )</h4></td></tr>
 </table>
 
 <p>This is the Home page for Forum_article: Home</p>
@@ -46,10 +85,10 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+<br>
 <ul>
-  <li><a href='<%= request.getContextPath() %>/forum_article/listAllForum_article.jsp'>List</a> all Forum_article.  <br><br></li>
-  
+  <li><a href='<%= request.getContextPath() %>/forum_article/listAllForum_article.jsp'>列出</a> 全部文章狀態與文章檢舉  <br><br></li>
+  <li><a href='<%= request.getContextPath() %>/forum_comment/listAllForum_comment.jsp'>列出</a> 全部留言狀態與留言檢舉  <br><br></li>
   
   <li>
     <FORM METHOD="post" ACTION="/web-admin/Forum_articleServlet" >

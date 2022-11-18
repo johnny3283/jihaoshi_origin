@@ -14,7 +14,7 @@
     border: 3px ridge Gray;
     height: 80px;
     text-align: center;
-  }
+  } 
   table#table-1 h4 {
     color: red;
     display: block;

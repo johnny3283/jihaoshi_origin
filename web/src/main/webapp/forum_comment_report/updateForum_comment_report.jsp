@@ -6,7 +6,7 @@
 Forum_comment_reportVO forum_comment_reportVO = (Forum_comment_reportVO) request.getAttribute("forum_comment_reportVO"); //Forum_comment_reportServlet.java (Concroller) 存入req的forum_comment_reportVO物件 (包括幫忙取出的forum_comment_reportVO, 也包括輸入資料錯誤時的forum_comment_reportVO物件)
 %>
 
-<html>
+<html> 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>論壇留言檢舉修改</title>

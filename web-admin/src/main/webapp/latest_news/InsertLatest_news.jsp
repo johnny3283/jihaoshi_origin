@@ -7,13 +7,54 @@
  
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>最新消息新增</title>
+    <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
+    
 </head>
 
-<body>
-<h1>最新消息新增:</h1>
+<body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+
+<div id="WRAPPER" class="">
+    <div class="divflex">
+        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
+            <!--側邊欄區塊開始-->
+                    <ul class="treeview">
+                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
+                            <ul class="main">
+                                <li>
+                                    <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                                </li>
+                            </ul>
+                      </li>
+                 </ul>
+          </div>   
+            <!--側邊欄區塊結束-->
+ <div style="display:flex;flex-direction:column;width:100%">
+ 
+<h1 style="align-self:center;margin: 2rem 0">最新消息新增:</h1>
     <form method="post" action="/web-admin/Latest_newsServlet" enctype="application/x-www-form-urlencoded" id="form1">
-        <div>
+        <div style="text-align: center;">
 <!--             <label>輸入消息編號：</label><input type="text" name="news_no"><br><br> -->
             <label>輸入消息標題：</label><input type="text" name="news_name" value="${param.news_name}" required><br><br>
 <!--             <label>輸入編輯時間：</label><input type="text" name="update_date"><br><br> -->

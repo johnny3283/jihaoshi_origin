@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forum_article.model.Forum_articleService;
 import com.forum_article.model.Forum_articleVO;
+import com.forum_article_report.model.Forum_article_reportService;
 import com.forum_comment_report.model.Forum_comment_reportService;
 import com.forum_comment_report.model.Forum_comment_reportVO;
 
@@ -27,6 +28,9 @@ public class Forum_comment_reportServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		String whichPage = req.getParameter("whichPage");
+		String type = req.getParameter("type");
+		
 
 		if ("getOne_For_Display".equals(action)) { // 來自forum_comment_reportselect_page.jsp的請求
 
@@ -196,6 +200,52 @@ public class Forum_comment_reportServlet extends HttpServlet {
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
 		}
+		
+		if ("change_status_0".equals(action)) { // 來自listAllForum_article.jsp
+
+			/*************************** 1.接收請求參數 ***************************************/
+			Integer comment_report_no = Integer.valueOf(req.getParameter("comment_report_no"));
+			System.out.println("input1: " + comment_report_no);
+			/*************************** 2.開始刪除資料 ***************************************/
+			Forum_comment_reportService forum_comment_reportSvc = new Forum_comment_reportService();
+			forum_comment_reportSvc.change_status_0(comment_report_no);
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url = "/forum_comment/listAllForum_comment.jsp?whichPage = " + whichPage + "&type= " + type;
+			RequestDispatcher successview = req.getRequestDispatcher(url);
+			successview.forward(req, res);
+			
+		}
+	
+	
+		if ("change_status_1".equals(action)) { // 來自listAllForum_article.jsp
+
+			/*************************** 1.接收請求參數 ***************************************/
+			Integer comment_report_no = Integer.valueOf(req.getParameter("comment_report_no"));
+			System.out.println("input2: " + comment_report_no);
+			/*************************** 2.開始刪除資料 ***************************************/
+			Forum_comment_reportService forum_comment_reportSvc = new Forum_comment_reportService();
+			forum_comment_reportSvc.change_status_1(comment_report_no);
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url = "/forum_comment/listAllForum_comment.jsp?whichPage=" + whichPage + "&type= " + type;
+			RequestDispatcher successview = req.getRequestDispatcher(url);
+			System.out.println("whichPage"+ whichPage);
+			successview.forward(req, res);
+	}
+//		if ("change_status_2".equals(action)) { // 來自listAllForum_article.jsp
+//
+//			/*************************** 1.接收請求參數 ***************************************/
+//			Integer comment_report_no = Integer.valueOf(req.getParameter("comment_report_no"));
+//			System.out.println("input3: " + comment_report_no);
+//			/*************************** 2.開始刪除資料 ***************************************/
+//			Forum_comment_reportService forum_comment_reportSvc = new Forum_comment_reportService();
+//			forum_comment_reportSvc.change_status_1(comment_report_no);
+//			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+//			String url = "/forum_comment_report/listAllForum_comment_report.jsp?whichPage=" + whichPage;
+//			RequestDispatcher successview = req.getRequestDispatcher(url);
+//			System.out.println("whichPage"+ whichPage);
+//			successview.forward(req, res);
+//			
+//		}
 
 	}
 }

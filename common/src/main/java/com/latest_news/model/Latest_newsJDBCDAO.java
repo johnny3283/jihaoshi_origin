@@ -12,20 +12,20 @@ import java.util.List;
 
 public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/database1?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/jihaoshi?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 	
 		private static final String INSERT_STMT = 
-			"INSERT INTO latest_news(news_name, news_content) VALUES (?, ?)";
+			"INSERT INTO LATEST_NEWS(NEWS_NAME, NEWS_CONTENT) VALUES (?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT news_no, news_name, update_date, news_content FROM latest_news order by news_no";
+			"SELECT NEWS_NO, NEWS_NAME, UPDATE_DATE, NEWS_CONTENT FROM LATEST_NEWS ORDER BY NEWS_NO";
 		private static final String GET_ONE_STMT = 
-			"SELECT news_no, news_name, update_date, news_content FROM latest_news where news_no = ?";
+			"SELECT NEWS_NO, NEWS_NAME, UPDATE_DATE, NEWS_CONTENT FROM LATEST_NEWS WHERE NEWS_NO = ?";
 		private static final String DELETE = 
-			"DELETE FROM latest_news where news_no = ?";
+			"DELETE FROM LATEST_NEWS WHERE NEWS_NO = ?";
 		private static final String UPDATE = 
-			"UPDATE latest_news set news_name=?, news_content=? where news_no = ?";
+			"UPDATE LATEST_NEWS SET NEWS_NAME=?, NEWS_CONTENT=? WHERE NEWS_NO = ?";
 //		private static final String findByNewsName="select * from latest_news where news_name like ?";
 		// %r%
 		// ps.setString(1, "\%"+r+"\%");

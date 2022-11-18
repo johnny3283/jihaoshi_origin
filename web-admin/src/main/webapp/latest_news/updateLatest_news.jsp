@@ -10,10 +10,31 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>最新消息修改</title>
+<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
 
 <style>
   table#table-1 {
-	background-color: #CCCCFF;
+	background-color: #F0E68C;
     border: 2px solid black;
     text-align: center;
   }
@@ -30,7 +51,7 @@
 
 <style>
   table {
-	width: 450px;
+	width: 1280px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -45,6 +66,8 @@
 
 </head>
 <body bgcolor='white'>
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+
 
 <table id="table-1">
 	<tr><td>
@@ -52,9 +75,9 @@
 		 <h4><a href="<%= request.getContextPath() %>/latest_news/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
-
+<br>
 <h3>資料修改:</h3>
-
+<br>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -64,7 +87,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+<br>
 <FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet" name="form1">
 <table>
 <!-- 	<tr> -->
@@ -75,6 +98,7 @@
 		<td>消息標題:</td>
 		<td><input type="TEXT" name="news_name" size="45" value="<%=latest_newsVO.getNews_name()%>" required/></td>
 	</tr>
+	
 <!-- 	<tr> -->
 <!-- 		<td>編輯時間:</td> -->
 <!-- 		<td><input  name="update_date" id="f_date1" type="text"></td> -->

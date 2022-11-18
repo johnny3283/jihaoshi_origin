@@ -7,7 +7,7 @@ Forum_comment_reportVO forum_comment_reportVO = (Forum_comment_reportVO) request
 %>
 
 <html>
-<head>
+<head> 
 <title>論壇留言檢舉資料</title>
 
 <style>

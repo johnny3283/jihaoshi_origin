@@ -8,7 +8,7 @@ Forum_commentVO forum_commentVO = (Forum_commentVO) request.getAttribute("forum_
 
 <html>
 <head>
-<title>論壇留言資料</title>
+<title>論壇留言資料</title> 
 
 <style>
   table#table-1 {

@@ -5,7 +5,7 @@
 <%
 Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_articleVO"); //Forum_articleServlet.java (Concroller) 存入req的forum_articleVO物件 (包括幫忙取出的forum_articleVO, 也包括輸入資料錯誤時的forum_articleVO物件)
 %>
-
+ 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />

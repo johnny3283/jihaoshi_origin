@@ -9,11 +9,33 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
 <html>
 <head>
 <title>論壇文章資料</title>
+<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <style>
+        #pageHead { 
+            width: 100%;
+            height: 30%; 
+        }
+        div.divflex{
+        display:flex;
+        width:100%;
+        margin:0;
+        height:100vh-30%;
+        }
+        body{
+        height: 100vh;
+        background-color:#FFFAF0;
+        }
+        div.formdiv{
+        style="width:80%%;
+        background: #FFFAF0;
+        }
+    </style>
+
 
 <style>
   table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
+	background-color: #F0E68C;
+    border: 2px solid f4f5e3;
     text-align: center;
   }
   table#table-1 h4 {
@@ -29,7 +51,7 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
 
 <style>
   table {
-	width: 600px;
+	width: 1280px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -44,13 +66,15 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
 </style>
 
 </head>
-<body bgcolor='white'>
+<body bgcolor='white'> 
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+
 
 
 <table id="table-1">
 	<tr><td>
 		 <h3>論壇文章資料</h3>
-		 <h4><a href="<%= request.getContextPath() %>/forum_article/forum_article_select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="<%= request.getContextPath() %>/forum_article/forum_article_select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
