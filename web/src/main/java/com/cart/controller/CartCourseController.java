@@ -21,25 +21,25 @@ import com.online_course.model.OnlineCourseVO;
 @WebServlet("/cart/cartCourseController")
 public class CartCourseController extends HttpServlet {
     OnlineCourseService courseSV = new OnlineCourseService();
-    CartCourseService cartSV = new CartCourseService();
+    CartCourseService cartCourseSV = new CartCourseService();
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	doPost(req, resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        List<CartCourseVO> cartProds = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
+        List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
 
         String action = req.getParameter("action");
         if ("cartAdd".equals(action)) {
 
             Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
             OnlineCourseVO course = courseSV.getOneOnlineCourse(courseNo);
-            cartProds=cartSV.getCartCourses(course, cartProds);
-            Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
-            session.setAttribute("totalPrice",totalPrice);
-            session.setAttribute("cartProds", cartProds);
-            System.out.println(cartProds);
+            cartCourses=cartCourseSV.getCartCourses(course, cartCourses);
+            Integer totalCoursePrice = cartCourseSV.calculateTotalPrice(cartCourses);
+            session.setAttribute("totalCoursePrice",totalCoursePrice);
+            session.setAttribute("cartCourses", cartCourses);
+            System.out.println(cartCourses);
             String url=req.getContextPath()+"/onlineCourse/ListAllOnlineCourse.jsp";
             res.sendRedirect(url);
 
@@ -60,11 +60,11 @@ public class CartCourseController extends HttpServlet {
 //        }
         if ("cartDelete".equals(action)) {
 
-            Integer cartIndex = Integer.valueOf(req.getParameter("cartIndex"));
-            cartProds.remove(cartProds.get(cartIndex));
-            Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
-            session.setAttribute("totalPrice",totalPrice);
-            session.setAttribute("cartProds", cartProds);
+            Integer cartCourseIndex = Integer.valueOf(req.getParameter("cartCourseIndex"));
+            cartCourses.remove(cartCourses.get(cartCourseIndex));
+            Integer totalCoursePrice = cartCourseSV.calculateTotalPrice(cartCourses);
+            session.setAttribute("totalCoursePrice",totalCoursePrice);
+            session.setAttribute("cartCourses", cartCourses);
             res.sendRedirect(req.getHeader("referer"));
             
         }

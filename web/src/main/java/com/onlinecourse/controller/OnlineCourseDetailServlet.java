@@ -35,7 +35,7 @@ public class OnlineCourseDetailServlet extends HttpServlet {
 		if(commentlist!=null) {
 			list.add(commentlist);
 		}
-		System.out.println(list);
+		// System.out.println(list);
 		Gson gson = new Gson();
 		resp.setContentType("application/json; charset=UTF-8");
 		resp.getWriter().write(gson.toJson(list));

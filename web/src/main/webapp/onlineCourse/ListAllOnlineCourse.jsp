@@ -123,10 +123,9 @@ img {
 				<ul class="treeview">
 					<li id="cate_D" class="expanded"><H1>功能列表</H1>
 						<ul class="main">
-							<li><a
-								href="<%=request.getContextPath()%>/cart/OnlineCourseCart.jsp">線上課程購物車<c:if
-										test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
-							</li>
+							<li><a href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if
+												test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if>
+									</a></li>
 							<li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
 							</li>
 						</ul></li>

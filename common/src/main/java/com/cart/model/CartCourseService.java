@@ -23,24 +23,24 @@ public class CartCourseService {
         } else {
             for (int i = 0; i < cartProds.size(); i++) { // 尋找是否有同編號線上課程
                 prod = cartProds.get(i);
-                if (prod.getCourse().getCourseNo().equals(course.getCourseNo())) {                    
+                if (prod.getCourse().getCourseNo().equals(course.getCourseNo())) {
+                	return cartProds;
                 }
             }
+        }
             // 查無同編號線上課程
             prod = new CartCourseVO();
             prod.setCourse(course);
             cartProds.add(prod);
             return cartProds;
-        }
-
     }
 
-    public Integer calculateTotalPrice(List<CartCourseVO> cartProds) {
-        Integer totalPrice = 0;
-        for (CartCourseVO CartProd : cartProds) {
-            totalPrice += CartProd.getCourse().getCoursePrice();
+    public Integer calculateTotalPrice(List<CartCourseVO> cartCourses) {
+        Integer totalCoursePrice = 0;
+        for (CartCourseVO CartCourse : cartCourses) {
+            totalCoursePrice += CartCourse.getCourse().getCoursePrice();
         }
-        return totalPrice;
+        return totalCoursePrice;
     }
 
 }
