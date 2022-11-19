@@ -123,15 +123,7 @@ th, td {
 		</c:forEach>
 	</table>
 	<%@ include file="forum_article_report_page2.file"%>
-	<script>
-	let type = <%=type%>
-	$(document).ready(function(){
-		if(type == 2){
-			$("#article_forum").trigger("click");
-		}
-	})
-	
-</script>
+
 	
 </body>
 </html>

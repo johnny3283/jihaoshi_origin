@@ -76,6 +76,11 @@ th, td {
 	padding: 5px;
 	text-align: center;
 }
+
+.btn {
+	background-color: #FFBA3B;
+}
+
 </style>
 
 </head>
@@ -83,9 +88,9 @@ th, td {
 <img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
 <p>
-   <a class="btn btn-primary"  id="comment" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章留言狀態</a> 
-  <button class="btn btn-primary" id="forum_comment" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">文章留言檢舉處理</button>
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">修改文章留言狀態與文章留言檢舉處理</button>
+   <a class="btn"  id="comment" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章留言狀態</a> 
+  <button class="btn" id="forum_comment" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">文章留言檢舉處理</button>
+<!--   <button class="btn" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">修改文章留言狀態與文章留言檢舉處理</button> -->
 </p>
 <div class="row">
   <div class="col">
@@ -167,7 +172,10 @@ th, td {
 	$(document).ready(function(){
 		if(type == 1){
 			$("#comment").trigger("click");
+		} else if(type == 2){
+			$("#forum_comment").trigger("click");
 		}
+	
 	})
 	
 </script>

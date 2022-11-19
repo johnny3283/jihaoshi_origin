@@ -151,13 +151,6 @@ console.log(pageNumber);
 	</table>
 	<%@ include file="forum_comment_report_page2.file"%>
 	
-	<script>
-	let type = <%=type%>
-	$(document).ready(function(){
-		if(type == 2){
-			$("#forum_comment").trigger("click");
-		}
-	})
-	</script>
+	
 </body>
 </html>

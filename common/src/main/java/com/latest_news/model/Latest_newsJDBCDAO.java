@@ -1,5 +1,6 @@
 package com.latest_news.model;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,15 +18,17 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 	String passwd = "password";
 	
 		private static final String INSERT_STMT = 
-			"INSERT INTO LATEST_NEWS(NEWS_NAME, NEWS_CONTENT) VALUES (?, ?)";
+			"INSERT INTO LATEST_NEWS(NEWS_NAME, NEWS_CONTENT, NEWS_PIC) VALUES (?, ?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT NEWS_NO, NEWS_NAME, UPDATE_DATE, NEWS_CONTENT FROM LATEST_NEWS ORDER BY NEWS_NO";
+			"SELECT NEWS_NO, NEWS_NAME, UPDATE_DATE, NEWS_CONTENT, NEWS_PIC FROM LATEST_NEWS ORDER BY NEWS_NO";
 		private static final String GET_ONE_STMT = 
-			"SELECT NEWS_NO, NEWS_NAME, UPDATE_DATE, NEWS_CONTENT FROM LATEST_NEWS WHERE NEWS_NO = ?";
+			"SELECT NEWS_NO, NEWS_NAME, UPDATE_DATE, NEWS_CONTENT, NEWS_PIC FROM LATEST_NEWS WHERE NEWS_NO = ?";
 		private static final String DELETE = 
 			"DELETE FROM LATEST_NEWS WHERE NEWS_NO = ?";
 		private static final String UPDATE = 
 			"UPDATE LATEST_NEWS SET NEWS_NAME=?, NEWS_CONTENT=? WHERE NEWS_NO = ?";
+//		private static final String UPLOADFILE =
+//			"INSERT INTO LATEST_NEWS(NEWS_NAME, NEWS_CONTENT, NEWS_PIC)VALUES (1,1, ?)";
 //		private static final String findByNewsName="select * from latest_news where news_name like ?";
 		// %r%
 		// ps.setString(1, "\%"+r+"\%");
@@ -42,6 +45,7 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 
 			pstmt.setString(1, latest_newsVO.getNews_name());
 			pstmt.setString(2, latest_newsVO.getNews_content());
+			pstmt.setBytes(3, latest_newsVO.getNews_pic());
 			
 			pstmt.executeUpdate();
 
@@ -188,6 +192,7 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 				latest_newsVO.setNews_name(rs.getString("news_name"));
 				latest_newsVO.setUpdate_date(rs.getDate("update_date"));
 				latest_newsVO.setNews_content(rs.getString("news_content"));
+				latest_newsVO.setNews_pic(rs.getBytes("news_pic"));
 				
 			}
 
@@ -249,6 +254,7 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 				latest_newsVO.setNews_name(rs.getString("news_name"));
 				latest_newsVO.setUpdate_date(rs.getDate("update_date"));
 				latest_newsVO.setNews_content(rs.getString("news_content"));
+				latest_newsVO.setNews_pic(rs.getBytes("news_pic"));
 				
 				list.add(latest_newsVO); // Store the row in the list
 			}
@@ -292,6 +298,49 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 		
 		return null;
 	}
+	
+//	@Override
+//	public void uploadfile(InputStream in) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(UPLOADFILE);
+//
+//			pstmt.setBlob(1, in);
+//			
+//			pstmt.executeUpdate();
+//
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//	}
+
 	
 	public static void main(String[] args) {
 		Latest_newsJDBCDAO dao = new Latest_newsJDBCDAO();

@@ -1,10 +1,13 @@
 package com.latest_news.model;
+import java.io.InputStream;
 import java.sql.Date;
 
 public class Latest_newsVO implements java.io.Serializable{
 	private Integer news_no;
 	private String news_name;
 	private Date update_date;
+	private byte[] news_pic;
+//   private String showPhoto;
 	private String news_content;
 	
 	public Integer getNews_no() {
@@ -31,5 +34,12 @@ public class Latest_newsVO implements java.io.Serializable{
 	public void setNews_content(String news_content) {
 		this.news_content = news_content;
 	}
+	public byte[] getNews_pic() {
+		return news_pic;
+	}
+	public void setNews_pic(byte[] news_pic) {
+		this.news_pic = news_pic;
+	}
+	
 	
 }

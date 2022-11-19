@@ -1,6 +1,10 @@
 package com.latest_news.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,24 +12,28 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 //import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import org.apache.commons.io.IOUtils;
 
 import com.latest_news.model.Latest_newsService;
 import com.latest_news.model.Latest_newsVO;
 
 @WebServlet("/Latest_newsServlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 //@MultipartConfig(fileSizeThreshold = 0, maxFileSize = 5)
 public class Latest_newsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
 
-	public void doPost(HttpServletRequest req, HttpServletResponse res) 
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
@@ -102,6 +110,18 @@ public class Latest_newsServlet extends HttpServlet {
 				errorMsgs.put("news_content", "消息內容請勿空白");
 				
 			}
+			
+			
+			Part part = req.getPart("news_pic");//來自於上面的form表單
+			InputStream news_picInputStream = part.getInputStream();
+			byte[] news_pic = IOUtils.toByteArray(news_picInputStream);
+			if(news_pic == null) {
+				errorMsgs.put("news_pic", "消息照片請勿空白");
+				
+			}
+	       
+	        
+			
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -114,7 +134,7 @@ public class Latest_newsServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			Latest_newsService latest_newsSvc = new Latest_newsService();
-			latest_newsSvc.addLatest_news(news_name, news_content);
+			latest_newsSvc.addLatest_news(news_name, news_content, news_pic);
 //			System.out.println(4);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
@@ -207,6 +227,15 @@ public class Latest_newsServlet extends HttpServlet {
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
 		}
+		
+//		if("uploadfile" .equals(action)) {
+//			Part part = req.getPart("upfile");//來自於上面的form表單
+//			InputStream in = part.getInputStream();
+//			
+//	        Latest_newsService latest_newsSvc = new Latest_newsService();
+//	        latest_newsSvc.uploadfileLatest_news(in);
+//			
+//		}
 		
 	}
 }

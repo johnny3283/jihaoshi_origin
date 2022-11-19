@@ -37,35 +37,39 @@
 
 <div id="WRAPPER" class="">
     <div class="divflex">
-        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
-            <!--側邊欄區塊開始-->
-                    <ul class="treeview">
-                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
-                            <ul class="main">
-                                <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
-                                </li>
-                            </ul>
-                      </li>
-                 </ul>
-          </div>   
+       <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
+           <!--側邊欄區塊開始-->
+            <ul class="treeview">
+                <li id="cate_D" class="expanded"><H1>功能列表</H1>
+                    <ul class="main">
+                        <li>
+                            <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+         </div>
+         <form method="post" action="/web-admin/Latest_newsServlet" enctype="multipart/form-data" id="form1">
+		     <div style="text-align: center;">
+		<!--             <label>輸入消息編號：</label><input type="text" name="news_no"><br><br> -->
+		         <label>輸入消息標題：</label><input type="text" name="news_name" value="${param.news_name}" required><br><br>
+		<!--             <label>輸入編輯時間：</label><input type="text" name="update_date"><br><br> -->
+		         <label>輸入消息內文：</label><textarea name="news_content" value="${param.news_content}" required></textarea><br><br>
+		         <input type="file" name="news_pic">
+				<input type="hidden" name="action" value="insert">
+		<!-- 			<input type="hidden" name="news_no" value=1> -->
+		         <button type="submit" form="form1" value="送出">送出新增</button>
+		<!--             <button type="reset" form="form1">清除資料</button> -->
+		
+		     </div>
+ </form>
+     </div>
+</div>
             <!--側邊欄區塊結束-->
- <div style="display:flex;flex-direction:column;width:100%">
+ <div style="display:flex;flex-direction:column;width:100%"></div>
  
 <h1 style="align-self:center;margin: 2rem 0">最新消息新增:</h1>
-    <form method="post" action="/web-admin/Latest_newsServlet" enctype="application/x-www-form-urlencoded" id="form1">
-        <div style="text-align: center;">
-<!--             <label>輸入消息編號：</label><input type="text" name="news_no"><br><br> -->
-            <label>輸入消息標題：</label><input type="text" name="news_name" value="${param.news_name}" required><br><br>
-<!--             <label>輸入編輯時間：</label><input type="text" name="update_date"><br><br> -->
-            <label>輸入消息內文：</label><textarea name="news_content" value="${param.news_content}" required></textarea><br><br>
-           
-			<input type="hidden" name="action" value="insert">
-<!-- 			<input type="hidden" name="news_no" value=1> -->
-            <button type="submit" form="form1" value="送出">送出新增</button>
-<!--             <button type="reset" form="form1">清除資料</button> -->
-        </div>
-    </form>
-</body>
 
+
+</body>
 </html>

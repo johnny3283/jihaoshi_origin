@@ -1,5 +1,6 @@
 package com.latest_news.model;
 
+import java.io.InputStream;
 import java.util.*;
 
 public interface Latest_newsDAO_interface {
@@ -9,5 +10,5 @@ public interface Latest_newsDAO_interface {
 	public Latest_newsVO findByPrimarykey(Integer news_no);
 	public List<Latest_newsVO> findByNewsName(String newsName);
 	public List<Latest_newsVO> getAll();
-
+//	public void uploadfile(InputStream in);
 }

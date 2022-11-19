@@ -97,6 +97,7 @@ th, td {
 			<th>消息標題</th>
 			<th>編輯時間</th>
 			<th>消息內文</th>
+			<th>消息圖片</th>
 			<th>修改</th>
 			<th>刪除</th>
 		</tr>
@@ -109,6 +110,7 @@ th, td {
 				<td>${latest_newsVO.news_name}</td>
 				<td>${latest_newsVO.update_date}</td>
 				<td>${latest_newsVO.news_content}</td>
+				<td>${latest_newsVO.news_pic}</td>
 
 				<td>
 					<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet"
