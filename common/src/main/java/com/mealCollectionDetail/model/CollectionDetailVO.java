@@ -27,4 +27,7 @@ public class CollectionDetailVO implements Serializable {
 
     @Column(name = "MEAL_NO")
     private Integer mealNo;
+
+    @Column(name = "MEAL_NAME")
+    private String mealName;
 }

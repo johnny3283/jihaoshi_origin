@@ -24,6 +24,11 @@ public class CartController extends HttpServlet {
     CartService cartSV = new CartService();
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        doPost(req,res);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<CartProdVO> cartProds = (ArrayList<CartProdVO>) session.getAttribute("cartProds");

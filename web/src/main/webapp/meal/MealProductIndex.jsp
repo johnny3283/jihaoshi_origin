@@ -46,13 +46,16 @@
             <li id="cate_D" class="expanded"><H1>功能列表</H1>
               <ul class="main">
                 <li>
-                  <a href="mealController?action=listAll">產品清單</a>
+                  <a href="${ctxPath}/meal/mealController?action=listAll">產品清單</a>
                 </li>
                 <li>
-                  <a href="<%=request.getContextPath()%>/cart/MealCart.jsp">菜單商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
+                  <a href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                 </li>
                 <li>
                   <a href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
+                </li>
+                <li>
+                  <a href="${ctxPath}/mealCollect/list">我的收藏</a>
                 </li>
                 <li>
                   <a href="${ctxPath}/index.jsp">回首頁</a>

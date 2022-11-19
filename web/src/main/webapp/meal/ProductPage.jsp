@@ -2,18 +2,20 @@
 <%@ page import="com.meal.model.MealVO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <%
     MealVO meal = (MealVO) request.getAttribute("meal");
 
 %>
 <html>
 <head>
-    <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+    <link type="text/css" href="${ctxPath}/css/jihaoshi.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>${meal.mealName}</title>
 </head>
 <body>
-<img src="<%= request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+<img src="${ctxPath}/images/JihaoshiPageHead.jpg" id="pageHead">
 <div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
     <div id="CONTENT" class="layout-wrapper">
         <div class="layout-center" style="text-align:center">
@@ -24,14 +26,20 @@
                         <li id="cate_D" class="expanded"><H1>功能列表</H1></li>
                         <ul class="main">
                             <li>
-                                <a href="mealController?action=listAll">產品清單</a>
+                                <a href="${ctxPath}/meal/mealController?action=listAll">產品清單</a>
                             </li>
                             <li>
-                                <a href="<%=request.getContextPath()%>/cart/MealCart.jsp">菜單商品購物車<c:if
+                                <a href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車<c:if
                                         test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                             </li>
                             <li>
-                                <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+                                <a href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
+                            </li>
+                            <li>
+                                <a href="${ctxPath}/mealCollect/list">我的收藏</a>
+                            </li>
+                            <li>
+                                <a href="${ctxPath}/index.jsp">回首頁</a>
                             </li>
                         </ul>
                     </ul>
@@ -86,13 +94,18 @@
                                 <br>
                                 <input name="amount" type="range" min="1" max="99" value="1" id="amount">
                             </form>
-                            <form method="post" action="#" id="formCheckout">
-                                <input type="text" value="<%=meal.getMealNo()%>" name="mealNo" hidden>
-                                <input type="text" name="action" value="checkout" hidden>
-                                <input type="text" name="quantityCheckout" id="quantityCheckout" value="1" hidden>
-                            </form>
-
+                            <%--@elvariable id="collectionDetail" type="com.mealCollectionDetail.model.CollectionDetailVO"--%>
+                            <form:form method="post" action="${ctxPath}/mealCollect/insert" enctype="application/x-www-form-urlencoded"
+                                       id="formCollect" modelAttribute="collectionDetail" >
+                                <input type="text" name="memberNo" value="1" hidden>
+                                <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
+                                <input type="text" name="mealName" value="${meal.mealName}" hidden>
+                            </form:form>
                             <button type="submit" form="formCart">加入購物車</button>
+                            <button type="submit" form="formCollect">加入收藏</button><br>
+                            <span style="color: red">${empty collectionResult?"":collectionResult}</span>
+                            (這邊寫死會員編號為1，記得正式demo要改！)
+
                         </div>
                     </div>
                 </div>
