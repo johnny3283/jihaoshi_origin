@@ -45,9 +45,6 @@
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
                                 <li>
-                                    <a href="${ctxPath}/meal/RandomAssign.jsp">隨機配餐</a>
-                                </li>
-                                <li>
                                     <a href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車
                                         <c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                                 </li>
@@ -68,12 +65,9 @@
             <div class="block_C s_list">
                 <div class="Cm">
                     <div id="ItemContainer" class="Cm_C">
-                        <!--商品欄開始-->
-                        <%@ include file="page1.jsp" %>
                         <br>
-                        <span style="color: red">${empty collectionResult?"":collectionResult}</span>
-                        <c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>"
-                                   end="<%= pageIndex+rowsPerPage-1 %>" varStatus="loop">
+                        <form method="post" action="${ctxPath}/cart/cartController" enctype="application/x-www-form-urlencoded" id="goCart">
+                        <c:forEach var="meal" items="${meals}"  varStatus="loop">
                             <dl class="col3f" id="DRAA0A-A900BUT82">
                                 <dd class="c1f"><a class="prod_img"
                                                    href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${meal.mealNo}">
@@ -90,47 +84,37 @@
                                     <span style="font-size: 18px">熱量：${meal.mealCal}</span>
                                     <br>
                                     <span style="font-size: 18px">可能過敏原：${meal.mealAllergen}</span><br>
-                                    <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
-                                        <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }"
-                                           style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
-                                    </c:forEach>
                                 </dd>
                                 <dd class="c3f" id="button_DRAA0A-A900BUT82">
                                     <ul class="price_box">
                                         <li><span style="font-size: 18px">價格NT$${meal.mealPrice}</span>
                                         </li>
                                     </ul>
-
-                                    <form method="post" action="${ctxPath}/cart/cartController"
-                                          enctype="application/x-www-form-urlencoded" id="cart${meal.mealNo}">
-                                        <input type="text" name="action" value="cartAdd" hidden>
-                                        <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
-                                        <input type="text" name="quantityCart" id="quantityCart" value="1" hidden>
-                                        <label style="font-size: 18px">請輸入購買數量：<span
-                                                id="amount_value_${loop.index}">1</span></label>
-                                        <input name="amount" type="range" min="1" max="99" value="1"
-                                               id="amount${loop.index}">
-                                        <p>(若需調整份量，請進入商品頁面)</p>
-                                    </form>
-                                        <%--@elvariable id="collectionDetail" type="com.mealCollectionDetail.model.CollectionDetailVO"--%>
-                                    <form:form method="post" action="${ctxPath}/mealCollect/insert"
-                                               enctype="application/x-www-form-urlencoded"
-                                               id="fromCollect" modelAttribute="collectionDetail">
-                                        <input type="text" name="memberNo" value="1" hidden>
-                                        <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
-                                        <input type="text" name="mealName" value="${meal.mealName}" hidden>
-                                    </form:form>
-                                    <br>
-                                    <button type="submit" form="cart${meal.mealNo}">加入購物車</button>
-                                    <button type="submit" form="fromCollect">加入收藏</button>
                                     <br><br>
-                                    <P>評論人數：${meal.commentPeople}</P>
-                                    <p>產品評價：${meal.commentPeople==0?"尚無人評分":(meal.commentScore/meal.commentPeople)}</p>
                                 </dd>
                             </dl>
+                            <input type="checkbox" name="mealNos" value="${meal.mealNo}" checked hidden>
                         </c:forEach>
-                        <%@ include file="page2.jsp" %>
-                        <!--商品欄結束-->
+                            <input type="text" name="action" value="randomAdd" hidden>
+                        </form>
+                        <div style="font-size: 18px;text-align: left">
+                        <label>商品總價為：</label>${totalPrice}元，是否需要重新幫您配餐？
+
+                        <button type="submit" form="goCart">否，請幫我加入購物車</button>
+                        <button type="button" id="reAsssign">是</button>
+                        <div id="reAssignArea" hidden>
+                            <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded"
+                                  id="formRandom" >
+                                <input type="text" name="action" value="randomAssign" hidden>
+                                <label>餐點份數：</label><span id="amount_value" style="font-size: 18px">${param.mealAmount}</span><br>
+                                <input type="range" value="${param.mealAmount}" min="1" max="10" name="mealAmount" id="mealAmount" ><br>
+                                <label>是否接受重複餐點：</label>
+                                <label for="yes">是</label><input type="radio" name="repeat" value="yes" id="yes" checked>
+                                <label for="no">否</label><input type="radio" name="repeat" value="no" id="no">
+                                <button type="submit" form="formRandom">隨機配餐</button>
+                            </form>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,16 +122,24 @@
 
     </div>
 </div>
-<script>
+<script >
     $(document).ready(function () {
-        <c:forEach var="meal" items="${meals}" varStatus="loop">
-        $('#amount${loop.index}').mousemove(function () {
-            $('#amount_value_${loop.index}').html($('#amount${loop.index}').val());
+
+        $('#reAsssign').click(function () {
+
+            $('#reAssignArea').show();
+
         });
-        $('#amount${loop.index}').change(function () {
-            $('#amount_value_${loop.index}').html($('#amount${loop.index}').val());
+        $('#mealAmount').mousemove(function () {
+            $('#amount_value').html($('#mealAmount').val());
         });
-        </c:forEach>
+        $('#mealAmount').change(function () {
+            $('#amount_value').html($('#mealAmount').val());
+        });
+        $('#mealAmount').click(function () {
+            $('#amount_value').html($('#mealAmount').val());
+        });
+
     });
 </script>
 </body>

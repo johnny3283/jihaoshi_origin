@@ -1,6 +1,7 @@
 package com.meal.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -28,13 +29,13 @@ public class MealController extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-        RequestDispatcher productPage=null;
+        RequestDispatcher productPage = null;
         if ("listAll".equals(action)) {
 
             List<MealVO> meals = mealSV.getAllLaunch();
             if (meals != null) {
                 for (MealVO meal : meals) {
-                    meal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(meal.getMealPhoto()));
+                    meal.setShowPhoto("data:image/png;base64," + Base64.getEncoder().encodeToString(meal.getMealPhoto()));
                 }
                 req.setAttribute("meals", meals);
                 productPage = req.getRequestDispatcher("/nutrient/aLLProdDetailList");
@@ -45,12 +46,12 @@ public class MealController extends HttpServlet {
         if ("findByprod".equals(action)) {
             Integer mealNo = Integer.valueOf(req.getParameter("mealNo"));
             MealVO meal = mealSV.findByMealNo(mealNo);
-            if (meal != null&& meal.getLaunch().equals(1)) {
-                meal.setShowPhoto("data:image/png;base64,"+ Base64.getEncoder().encodeToString(meal.getMealPhoto()));
+            if (meal != null && meal.getLaunch().equals(1)) {
+                meal.setShowPhoto("data:image/png;base64," + Base64.getEncoder().encodeToString(meal.getMealPhoto()));
                 req.setAttribute("meal", meal);
                 productPage = req.getRequestDispatcher("/nutrient/prodDetailList");
                 productPage.forward(req, res);
-            }else {
+            } else {
                 res.sendRedirect("ProductNotFound.jsp");
             }
 
@@ -60,7 +61,7 @@ public class MealController extends HttpServlet {
             List<MealVO> meals = mealSV.findByNameKeyword(nameKeyword);
             if (meals != null) {
                 for (MealVO meal : meals) {
-                    meal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(meal.getMealPhoto()));
+                    meal.setShowPhoto("data:image/png;base64," + Base64.getEncoder().encodeToString(meal.getMealPhoto()));
                 }
                 req.setAttribute("meals", meals);
                 productPage = req.getRequestDispatcher("/nutrient/aLLProdDetailList");
@@ -70,6 +71,47 @@ public class MealController extends HttpServlet {
 
         if ("hashtag".equals(action)) {
             productPage = req.getRequestDispatcher("/nutrient/hashtag");
+            productPage.forward(req, res);
+        }
+        if ("randomAssign".equals(action)) {
+            Integer mealAmount = Integer.valueOf(req.getParameter("mealAmount"));
+            String repeat = req.getParameter("repeat");
+            List<MealVO> allMeals = mealSV.getAll();
+            List<MealVO> meals = null;
+            if ("yes".equals(repeat)) {
+                meals = new ArrayList<>();
+                for (int i = 0; i < mealAmount; i++) {
+                    int randomNum = (int) (Math.random() * 13);
+                    MealVO meal = allMeals.get(randomNum);
+                    meal.setShowPhoto("data:image/png;base64," + Base64.getEncoder().encodeToString(meal.getMealPhoto()));
+                    meals.add(meal);
+                }
+            }
+            if ("no".equals(repeat)) {
+              outter:for (int i = 0; i < mealAmount; i++) {
+                    int randomNum = (int) (Math.random() * 13);
+                    MealVO meal = allMeals.get(randomNum);
+                    if (meals == null) {
+                        meals = new ArrayList<>();
+                    }
+                    for (int j = 0; j <= i - 1; j++) {
+                        if (meals.get(j).getMealNo().equals(meal.getMealNo())) {
+                            i--;
+                            continue outter;
+                        }
+                    }
+                  meal.setShowPhoto("data:image/png;base64," + Base64.getEncoder().encodeToString(meal.getMealPhoto()));
+                  meals.add(meal);
+
+                }
+            }
+            Integer totalPrice=0;
+            for (MealVO meal : meals) {
+                totalPrice+=meal.getMealPrice();
+            }
+            req.setAttribute("meals", meals);
+            req.setAttribute("totalPrice",totalPrice);
+            productPage = req.getRequestDispatcher("/meal/RandomProdPage.jsp");
             productPage.forward(req, res);
         }
 

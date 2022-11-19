@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,8 +33,24 @@ public class CartController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<CartProdVO> cartProds = (ArrayList<CartProdVO>) session.getAttribute("cartProds");
-
+        RequestDispatcher mealCartPage =null;
         String action = req.getParameter("action");
+        if ("randomAdd".equals(action)) {
+            String[] mealNosStr = req.getParameterValues("mealNos");
+            Integer[] mealNos = new Integer[mealNosStr.length];
+            Double quantity=1.0;
+            Integer amount=1;
+            for (int i = 0; i < mealNosStr.length; i++) {
+                MealVO meal = mealSV.findByMealNo(Integer.valueOf(mealNosStr[i]));
+                meal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString((meal.getMealPhoto())));
+                cartProds=cartSV.getCartProds(quantity,amount,meal,cartProds);
+            }
+            Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
+            session.setAttribute("totalPrice",totalPrice);
+            session.setAttribute("cartProds", cartProds);
+            mealCartPage = req.getRequestDispatcher("/cart/MealCart.jsp");
+            mealCartPage.forward(req,res);
+        }
         if ("cartAdd".equals(action)) {
 
             Integer mealNo = Integer.valueOf(req.getParameter("mealNo"));
@@ -47,6 +64,7 @@ public class CartController extends HttpServlet {
             session.setAttribute("cartProds", cartProds);
             res.sendRedirect(req.getHeader("referer"));
 
+
         }
         if ("cartModify".equals(action)) {
 
@@ -59,7 +77,8 @@ public class CartController extends HttpServlet {
             Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
             session.setAttribute("totalPrice",totalPrice);
             session.setAttribute("cartProds", cartProds);
-            res.sendRedirect(req.getHeader("referer"));
+            mealCartPage = req.getRequestDispatcher("/cart/MealCart.jsp");
+            mealCartPage.forward(req,res);
 
         }
         if ("cartDelete".equals(action)) {
@@ -69,8 +88,15 @@ public class CartController extends HttpServlet {
             Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
             session.setAttribute("totalPrice",totalPrice);
             session.setAttribute("cartProds", cartProds);
-            res.sendRedirect(req.getHeader("referer"));
+            mealCartPage = req.getRequestDispatcher("/cart/MealCart.jsp");
+            mealCartPage.forward(req,res);
             
+        }
+        if ("clearCart".equals(action)) {
+            session.removeAttribute("cartProds");
+            session.removeAttribute("totalPrice");
+            mealCartPage = req.getRequestDispatcher("/cart/MealCart.jsp");
+            mealCartPage.forward(req,res);
         }
     }
 

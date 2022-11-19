@@ -51,6 +51,9 @@
                   <a href="${ctxPath}/meal/mealController?action=listAll">產品清單</a>
                 </li>
                 <li>
+                  <a href="${ctxPath}/meal/RandomAssign.jsp">隨機配餐</a>
+                </li>
+                <li>
                   <a href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                 </li>
                 <li>
