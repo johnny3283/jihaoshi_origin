@@ -115,14 +115,14 @@
                                         <%--@elvariable id="collectionDetail" type="com.mealCollectionDetail.model.CollectionDetailVO"--%>
                                     <form:form method="post" action="${ctxPath}/mealCollect/insert"
                                                enctype="application/x-www-form-urlencoded"
-                                               id="fromCollect" modelAttribute="collectionDetail">
+                                               id="fromCollect${meal.mealNo}" modelAttribute="collectionDetail">
                                         <input type="text" name="memberNo" value="1" hidden>
                                         <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
                                         <input type="text" name="mealName" value="${meal.mealName}" hidden>
                                     </form:form>
                                     <br>
                                     <button type="submit" form="cart${meal.mealNo}">加入購物車</button>
-                                    <button type="submit" form="fromCollect">加入收藏</button>
+                                    <button type="submit" form="fromCollect${meal.mealNo}">加入收藏</button>
                                     <br><br>
                                     <P>評論人數：${meal.commentPeople}</P>
                                     <p>產品評價：${meal.commentPeople==0?"尚無人評分":(meal.commentScore/meal.commentPeople)}</p>
