@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>購物車</title>
+    <title>菜單商品購物車</title>
     <link type="text/css" href="${ctxPath}/css/jihaoshi.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>

@@ -45,6 +45,9 @@
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
                                 <li>
+                                    <a href="${ctxPath}/meal/mealController?action=listAll">產品清單</a>
+                                </li>
+                                <li>
                                     <a href="${ctxPath}/meal/RandomAssign.jsp">隨機配餐</a>
                                 </li>
                                 <li>
