@@ -37,13 +37,13 @@ public class CartController extends HttpServlet {
         String action = req.getParameter("action");
         if ("randomAdd".equals(action)) {
             String[] mealNosStr = req.getParameterValues("mealNos");
-            Integer[] mealNos = new Integer[mealNosStr.length];
             Double quantity=1.0;
             Integer amount=1;
             for (int i = 0; i < mealNosStr.length; i++) {
                 MealVO meal = mealSV.findByMealNo(Integer.valueOf(mealNosStr[i]));
                 meal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString((meal.getMealPhoto())));
                 cartProds=cartSV.getCartProds(quantity,amount,meal,cartProds);
+
             }
             Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
             session.setAttribute("totalPrice",totalPrice);
@@ -93,10 +93,12 @@ public class CartController extends HttpServlet {
             
         }
         if ("clearCart".equals(action)) {
+
             session.removeAttribute("cartProds");
             session.removeAttribute("totalPrice");
             mealCartPage = req.getRequestDispatcher("/cart/MealCart.jsp");
             mealCartPage.forward(req,res);
+
         }
     }
 

@@ -18,6 +18,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import com.cart.model.CartProdVO;
 import com.cart.model.CartService;
+import com.cart.model.CartTemp;
+
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 
@@ -42,6 +44,7 @@ public class CheckoutController extends HttpServlet {
             AllInOne allInOne = new AllInOne("");
             AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
             StringBuilder itemName=new StringBuilder("");
+            CartTemp.cartProdTemp.put("cartProds", cartProds);
             for (CartProdVO prod : cartProds) {
                 itemName.append("品名："+prod.getMeal().getMealName()+" 份量："+prod.getQuantity()+" 數量："+prod.getAmount()+"#");
             }
@@ -63,6 +66,7 @@ public class CheckoutController extends HttpServlet {
             aioCheckOutALL.setItemName(String.valueOf(itemName));
             String checkoutPage=allInOne.aioCheckOut(aioCheckOutALL,null);
             req.setAttribute("checkoutPage",checkoutPage);
+            System.out.println(checkoutPage);
             RequestDispatcher goCheckout = req
                     .getRequestDispatcher("/checkout/CheckoutPage.jsp");
             goCheckout.forward(req, res);

@@ -107,6 +107,7 @@
                                     <form method="post" action="${ctxPath}/cart/cartController"
                                           enctype="application/x-www-form-urlencoded" id="cart${meal.mealNo}">
                                         <input type="text" name="action" value="cartAdd" hidden>
+                                        <input type="text" name="mealName" value="${meal.mealName}" hidden>
                                         <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
                                         <input type="text" name="quantityCart" id="quantityCart" value="1" hidden>
                                         <label style="font-size: 18px">請輸入購買數量：<span

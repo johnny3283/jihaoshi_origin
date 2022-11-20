@@ -43,7 +43,8 @@
                     <div id="ItemContainer" class="Cm_C">
                         <c:forEach var="cartProd" items="${cartProds}" varStatus="loop">
                             <dl class="col3f" id="DRAA0A-A900BUT82">
-                                <dd class="c1f"><a class="prod_img" href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${cartProd.meal.mealNo}">
+                                <dd class="c1f"><a class="prod_img"
+                                                   href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${cartProd.meal.mealNo}">
                                     <img src="${cartProd.meal.showPhoto}"></a></dd>
                                 <dd class="c2f">
 
@@ -92,6 +93,7 @@
                                     <br><br>
                                 </dd>
                             </dl>
+
                         </c:forEach>
                         <div id="totalPrice">
                             <c:choose>
@@ -102,8 +104,8 @@
                                 </c:when>
                                 <c:otherwise>
                                     <span style="font-size: 16px;">商品總價：${totalPrice}元 </span>
-                                    <form method="post" action="${ctxPath}
-                                    /checkout/checkoutController" id="checkout" enctype="application/x-www-form-urlencoded">
+                                    <form method="post" action="${ctxPath}/checkout/checkoutController" id="checkout"
+                                          enctype="application/x-www-form-urlencoded">
                                         <input type="text" name="action" value="checkout" hidden>
                                     </form>
                                     <form method="post" action="${ctxPath}/cart/cartController"
@@ -127,7 +129,7 @@
 <script>
     $(document).ready(function () {
         <c:forEach var="cartProd" items="${cartProds}" varStatus="loop">
-        $('#amount${loop.index}').on('change mousemove',function () {
+        $('#amount${loop.index}').on('change mousemove', function () {
             $('#amount_value_${loop.index}').html($(this).val());
         });
 

@@ -11,22 +11,6 @@
 <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
 <div class="block_N" style="margin:0px auto;">
     <!--搜尋欄開始-->
-    <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
-        <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded"
-              id="keywordSearch">
-            <ul class="searchfield">
-
-                <li><input id="keyword" type="text" class="text ac_input" placeholder="請輸入關鍵字" autocomplete="off"></li>
-                <li><input type="text" name="action" value="keywordSearch" hidden></li>
-                <li>
-                    <button id="btn_search" type="submit" class="button" form="keywordSearch">搜尋</button>
-                </li>
-
-            </ul>
-
-        </form>
-
-    </div>
     <!--搜尋欄結束-->
 </div>
 <div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
