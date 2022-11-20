@@ -4,26 +4,29 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.meal.model.MealService;
 import com.mealCollectionDetail.model.CollectionDetailService;
 import com.mealCollectionDetail.model.CollectionDetailVO;
 
 @Controller
 @RequestMapping("/mealCollect")
 public class CollectionDetailController {
-    @Autowired
+
+//    @Autowired
     private CollectionDetailService collectionDetailSV;
-    @Autowired
-    private MealService mealSV;
-    @Autowired
+
+//    @Autowired
     private HttpServletRequest req;
+
+    public CollectionDetailController(CollectionDetailService collectionDetailSV, HttpServletRequest req) {
+        this.collectionDetailSV = collectionDetailSV;
+        this.req = req;
+    }
 
     @RequestMapping("/insert")
     public String insert(Model model, @ModelAttribute("collectionDetail") CollectionDetailVO collectionDetail) {

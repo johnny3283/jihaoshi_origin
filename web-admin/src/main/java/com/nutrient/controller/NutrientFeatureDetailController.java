@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.meal.model.MealVO;
 import com.nutrientFeatureDetail.model.NutrientFeatureDetailService;
 
+@Component
 @Controller
+@Service
+@Repository
 @RequestMapping("/nutrient")
 public class NutrientFeatureDetailController {
 

@@ -76,7 +76,7 @@
                                     <tr>
                                         <td class="order">${order.orderNo}</td>
                                         <td class="order"><fmt:formatDate value="${order.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                        <td class="order">${order.price}</td>
+                                        <td class="order"><fmt:formatNumber value="${order.price}" pattern="#,###"/></td>
                                         <td class="order">${OrderStatus[order.status]}</td>
                                         <td class="order">
                                             <form method="get" action="orderDetailController"

@@ -11,13 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.cart.model.CartMapHolder;
 import com.cart.model.CartProdVO;
-import com.cart.model.CartTemp;
+import com.cart.model.CartHolder;
+
 import com.order.model.OrderService;
 import com.order.model.OrderVO;
 
 @WebServlet("/order/orderController")
 public class OrderController extends HttpServlet {
+
+    private final CartHolder cartHolder;
+
+    // DI style
+//    public OrderController(CartHolder cartHolder) {
+//        this.cartHolder = cartHolder;
+//    }
+
+    public OrderController() {
+        this.cartHolder = new CartMapHolder();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -33,9 +46,9 @@ public class OrderController extends HttpServlet {
 
         if ("orderInsert".equals(action)) {
             //            Integer memberNo = req.getParameter("memberNo");
-            List<CartProdVO> cartProds = CartTemp.cartProdTemp.get("cartProds");
             Integer memberNo = 1;
             String merchantTradeNo = req.getParameter("MerchantTradeNo"); // 店內之交易編號
+            List<CartProdVO> cartProds = cartHolder.get(merchantTradeNo);
             String tradeNo = req.getParameter("TradeNo"); // 綠界之交易編號
             Integer TradeAmt = Integer.valueOf(req.getParameter("TradeAmt"));
 
@@ -43,7 +56,8 @@ public class OrderController extends HttpServlet {
 
             session.removeAttribute("cartProds");
             session.removeAttribute("totalPrice");
-            CartTemp.cartProdTemp.clear();
+            cartHolder.remove(merchantTradeNo);
+
             res.sendRedirect(req.getContextPath() + "/order/orderController?action=orderList");
         }
 

@@ -16,16 +16,31 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import com.cart.model.CartMapHolder;
 import com.cart.model.CartProdVO;
 import com.cart.model.CartService;
-import com.cart.model.CartTemp;
+
+import com.cart.model.CartHolder;
+
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 
 @WebServlet("/checkout/checkoutController")
 public class CheckoutController extends HttpServlet {
+
+    private final CartHolder cartHolder;
+
     CartService cartSV=new CartService();
+
+    // DI style
+//    public CheckoutController(CartHolder cartHolder) {
+//        this.cartHolder = cartHolder;
+//    }
+
+    public CheckoutController() {
+        this.cartHolder = new CartMapHolder();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -44,7 +59,6 @@ public class CheckoutController extends HttpServlet {
             AllInOne allInOne = new AllInOne("");
             AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
             StringBuilder itemName=new StringBuilder("");
-            CartTemp.cartProdTemp.put("cartProds", cartProds);
             for (CartProdVO prod : cartProds) {
                 itemName.append("品名："+prod.getMeal().getMealName()+" 份量："+prod.getQuantity()+" 數量："+prod.getAmount()+"#");
             }
@@ -55,6 +69,8 @@ public class CheckoutController extends HttpServlet {
             String ranAlphabet = RandomStringUtils.randomAlphabetic(2).toUpperCase();
             int ranNum = (int) (Math.random() * 8999+ 1000);
             String merchantTradeNo=ranAlphabet+tradeDate.replace("/", "").replace(":", "").replace(" ", "")+ranNum;
+            cartHolder.put(merchantTradeNo, cartProds);
+
             aioCheckOutALL.setMerchantTradeNo(merchantTradeNo);
             aioCheckOutALL.setMerchantTradeDate(tradeDate);
             aioCheckOutALL.setTotalAmount(String.valueOf(totalPrice));
