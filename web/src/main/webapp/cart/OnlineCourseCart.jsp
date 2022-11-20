@@ -1,6 +1,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.cart.model.*"%>
+<%
+List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
+%>
 <html>
 <head>
 <title>購物車</title>
@@ -22,9 +27,6 @@
 									<li><a
 										href="${ctxPath}/onlineCourse/ListAllOnlineCourse.jsp">線上課程瀏覽專區</a>
 									</li>
-									<li><a href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if
-												test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if>
-									</a></li>
 									<li><a
 										href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
 									</li>
@@ -76,8 +78,9 @@
 									</c:when>
 									<c:otherwise>
 										<span style="font-size: 16px;">總價：${totalCoursePrice}元 </span>
+										<span style="font-size: 16px;">共<%=cartCourses.size()%>門課程 </span>
 										<button type="submit" form="checkout">去結帳</button>
-										<form method="post" action="/web/checkout/checkoutController"
+										<form method="post" action="/web/checkout/checkoutCourseController"
 											id="checkout" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="action" value="checkout">
 										</form>

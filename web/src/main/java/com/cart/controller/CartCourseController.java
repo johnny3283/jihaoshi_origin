@@ -44,20 +44,7 @@ public class CartCourseController extends HttpServlet {
             res.sendRedirect(url);
 
         }
-//        if ("cartModify".equals(action)) {
-//
-//            Integer amount = Integer.valueOf(req.getParameter("amount"));
-//            Integer cartIndex = Integer.valueOf(req.getParameter("cartIndex"));
-//            CartProdVO cartProd = cartProds.get(cartIndex);
-//            cartProd.setAmount(amount);
-//            cartProd.setPrice((int) (cartProd.getMeal().getMealPrice() * cartProd.getQuantity() * cartProd.getAmount()));
-//            cartProds.set(cartIndex, cartProd);
-//            Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
-//            session.setAttribute("totalPrice",totalPrice);
-//            session.setAttribute("cartProds", cartProds);
-//            res.sendRedirect(req.getHeader("referer"));
-//
-//        }
+
         if ("cartDelete".equals(action)) {
 
             Integer cartCourseIndex = Integer.valueOf(req.getParameter("cartCourseIndex"));

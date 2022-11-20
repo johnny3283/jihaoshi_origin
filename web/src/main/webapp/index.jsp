@@ -63,8 +63,8 @@
                   <a href="${pageContext.request.contextPath}/onlineCourse/ManageCourse.jsp">會員線上課程管理</a>
                 </li>
                 <li>
-                  <a href="<%=request.getContextPath()%>/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
-                </li>
+                	<a href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a>
+				</li>
                 <li>
                   <a href="#">最新消息</a>
                 </li>
