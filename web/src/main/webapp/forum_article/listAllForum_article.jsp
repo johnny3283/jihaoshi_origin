@@ -40,7 +40,7 @@ pageContext.setAttribute("list", list);
 
 <style>
 table#table-1 {
-	background-color: #CCCCFF;
+	background-color: #F0E68C;
 	border: 2px solid black;
 	text-align: center;
 }
@@ -86,8 +86,7 @@ th, td {
 			<td>
 				<h3>論壇文章資料</h3>
 				<h4>
-					<a
-						href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
+					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>

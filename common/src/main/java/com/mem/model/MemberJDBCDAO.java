@@ -13,7 +13,7 @@ import com.onlinecoursecommentreport.model.OnlineCourseCommentReportVO;
 
 public class MemberJDBCDAO implements MemberDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/test2?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/jihaoshi?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 
@@ -292,6 +292,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 				MemberVO = new MemberVO();
 				MemberVO.setMemberAccount(rs.getString("member_account"));
 				MemberVO.setMemberPassword(rs.getString("member_password"));
+				MemberVO.setMemberName(rs.getString("member_name"));
+				MemberVO.setMemberNo(rs.getInt("member_no"));
 			}
 
 			// Handle any driver errors

@@ -26,8 +26,9 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 		private static final String DELETE = 
 			"DELETE FROM LATEST_NEWS WHERE NEWS_NO = ?";
 		private static final String UPDATE = 
-			"UPDATE LATEST_NEWS SET NEWS_NAME=?, NEWS_CONTENT=? WHERE NEWS_NO = ?";
+			"UPDATE LATEST_NEWS SET NEWS_NAME=?, NEWS_CONTENT=?,  NEWS_PIC=? WHERE NEWS_NO = ?";
 //		private static final String UPLOADFILE =
+		
 //			"INSERT INTO LATEST_NEWS(NEWS_NAME, NEWS_CONTENT, NEWS_PIC)VALUES (1,1, ?)";
 //		private static final String findByNewsName="select * from latest_news where news_name like ?";
 		// %r%
@@ -90,7 +91,8 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 
 			pstmt.setString(1, latest_newsVO.getNews_name());
 			pstmt.setString(2, latest_newsVO.getNews_content());
-			pstmt.setInt(3,latest_newsVO.getNews_no());
+			pstmt.setBytes(3, latest_newsVO.getNews_pic());
+			pstmt.setInt(4,latest_newsVO.getNews_no());
 
 			pstmt.executeUpdate();
 

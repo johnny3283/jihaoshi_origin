@@ -101,8 +101,7 @@ th, td {
 			<td>
 				<h3>論壇留言資料</h3>
 				<h4>
-					<a
-						href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
+					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>

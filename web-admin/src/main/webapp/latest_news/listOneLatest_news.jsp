@@ -5,6 +5,7 @@
 Latest_newsVO latest_newsVO = (Latest_newsVO) request.getAttribute("latest_newsVO"); //Latest_newsServlet.java(Concroller), 存入req的latest_newsVO物件
 %>
  
+ 
 <html>
 <head>
 <title>最新消息資料</title>
@@ -106,12 +107,15 @@ h4 {
 		<th>消息標題</th>
 		<th>編輯時間</th>
 		<th>消息內文</th>
+		<th>消息圖片</th>
 	</tr>
 	<tr>
 		<td><%=latest_newsVO.getNews_no()%></td>
 		<td><%=latest_newsVO.getNews_name()%></td>
 		<td><%=latest_newsVO.getUpdate_date()%></td>
 		<td><%=latest_newsVO.getNews_content()%></td>
+		<td><img src="${latest_newsVO.showPhoto}"></td>
+		
 		
 	</tr>
 </table>

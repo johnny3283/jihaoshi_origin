@@ -55,8 +55,10 @@ public class Forum_comment_reportService {
 		return dao.findByPrimarykey(comment_report_no);
 	}
 
+	public List<Forum_comment_reportVO> getAll(Integer memberNo) {
+		return dao.getAll(memberNo);
+	}
 	public List<Forum_comment_reportVO> getAll() {
 		return dao.getAll();
 	}
-
 }

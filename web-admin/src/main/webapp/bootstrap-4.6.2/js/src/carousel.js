@@ -9,7 +9,7 @@ import $ from 'jquery'
 import Util from './util'
 
 /**
- * Constants
+ * Constants 
  */
 
 const NAME = 'carousel'

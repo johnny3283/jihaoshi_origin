@@ -21,7 +21,8 @@ public class Forum_comment_reportJDBCDAO implements Forum_comment_reportDAO_inte
 	String passwd = "password";
 
 	private static final String INSERT_STMT = "INSERT INTO FORUM_COMMENT_REPORT(COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT COMMENT_REPORT_NO, COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT ORDER BY COMMENT_REPORT_NO";
+	private static final String GET_ALL_STMT_FULL = "SELECT COMMENT_REPORT_NO, COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT WHERE REPORT_STATUS = 0 OR REPORT_STATUS = 1 ORDER BY COMMENT_REPORT_NO";
+	private static final String GET_ALL_STMT = "SELECT COMMENT_REPORT_NO, COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT WHERE MEMBER_NO = ? ORDER BY COMMENT_REPORT_NO";
 	private static final String GET_ONE_STMT = "SELECT COMMENT_REPORT_NO, COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT WHERE COMMENT_REPORT_NO = ?";
 	private static final String DELETE = "DELETE FROM FORUM_COMMENT_REPORT WHERE COMMENT_REPORT_NO = ?";
 	private static final String UPDATE = "UPDATE FORUM_COMMENT_REPORT SET REPORT_REASON=?, REPORT_STATUS=? WHERE COMMENT_REPORT_NO = ?";
@@ -221,7 +222,7 @@ public class Forum_comment_reportJDBCDAO implements Forum_comment_reportDAO_inte
 		}
 		return forum_comment_reportVO;
 	}
-
+	
 	@Override
 	public List<Forum_comment_reportVO> getAll() {
 		List<Forum_comment_reportVO> list = new ArrayList<Forum_comment_reportVO>();
@@ -235,7 +236,75 @@ public class Forum_comment_reportJDBCDAO implements Forum_comment_reportDAO_inte
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT_FULL);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// forum_comment_reportVO 也稱為 Domain objects
+				forum_comment_reportVO = new Forum_comment_reportVO();
+				forum_comment_reportVO.setComment_report_no(rs.getInt("comment_report_no"));
+				forum_comment_reportVO.setComment_no(rs.getInt("comment_no"));
+				forum_comment_reportVO.setArticle_no(rs.getInt("article_no"));
+				forum_comment_reportVO.setMember_no(rs.getInt("member_no"));
+				forum_comment_reportVO.setReport_reason(rs.getString("report_reason"));
+				forum_comment_reportVO.setReport_status(rs.getInt("report_status"));
+
+				list.add(forum_comment_reportVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+
+	@Override
+	public List<Forum_comment_reportVO> getAll(Integer memberNo) {
+		List<Forum_comment_reportVO> list = new ArrayList<Forum_comment_reportVO>();
+		Forum_comment_reportVO forum_comment_reportVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt.setInt(1, memberNo);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -452,16 +521,16 @@ public class Forum_comment_reportJDBCDAO implements Forum_comment_reportDAO_inte
 		System.out.println("---------------------");
 
 		// 查詢
-		List<Forum_comment_reportVO> list = dao.getAll();
-		for (Forum_comment_reportVO aforum_comment_reportVO : list) {
-			System.out.print(aforum_comment_reportVO.getComment_report_no() + ",");
-			System.out.print(aforum_comment_reportVO.getComment_no() + ",");
-			System.out.print(aforum_comment_reportVO.getArticle_no() + ",");
-			System.out.print(aforum_comment_reportVO.getMember_no() + ",");
-			System.out.print(aforum_comment_reportVO.getReport_reason() + ",");
-			System.out.print(aforum_comment_reportVO.getReport_status() + ",");
-
-			System.out.println();
-		}
+//		List<Forum_comment_reportVO> list = dao.getAll();
+//		for (Forum_comment_reportVO aforum_comment_reportVO : list) {
+//			System.out.print(aforum_comment_reportVO.getComment_report_no() + ",");
+//			System.out.print(aforum_comment_reportVO.getComment_no() + ",");
+//			System.out.print(aforum_comment_reportVO.getArticle_no() + ",");
+//			System.out.print(aforum_comment_reportVO.getMember_no() + ",");
+//			System.out.print(aforum_comment_reportVO.getReport_reason() + ",");
+//			System.out.print(aforum_comment_reportVO.getReport_status() + ",");
+//
+//			System.out.println();
+//		}
 	}
 }

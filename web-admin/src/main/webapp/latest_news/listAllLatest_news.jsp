@@ -4,9 +4,18 @@
 <%@ page import="com.latest_news.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
  
+ 
 <%
 Latest_newsService latest_newsSvc = new Latest_newsService();
 List<Latest_newsVO> list = latest_newsSvc.getAll();
+Latest_newsVO vo = null;
+for(int i = 0; i < list.size(); i++) {
+	vo = list.get(i);
+	if(vo.getNews_pic() != null)
+		vo.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(vo.getNews_pic()));
+}
+
+
 pageContext.setAttribute("list", list);
 %>
 
@@ -110,7 +119,7 @@ th, td {
 				<td>${latest_newsVO.news_name}</td>
 				<td>${latest_newsVO.update_date}</td>
 				<td>${latest_newsVO.news_content}</td>
-				<td>${latest_newsVO.news_pic}</td>
+				<td><img src="${latest_newsVO.showPhoto}"></td>
 
 				<td>
 					<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet"

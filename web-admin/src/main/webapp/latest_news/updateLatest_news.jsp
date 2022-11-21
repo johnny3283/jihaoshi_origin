@@ -6,6 +6,7 @@
 	Latest_newsVO latest_newsVO = (Latest_newsVO) request.getAttribute("latest_newsVO"); //Latest_newsVOServlet.java (Concroller) 存入req的latest_newsVO物件 (包括幫忙取出的latest_newsVO, 也包括輸入資料錯誤時的latest_newsVO物件)
 %>
 
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -88,7 +89,7 @@
 	</ul>
 </c:if>
 <br>
-<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet" name="form1">
+<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet" enctype="multipart/form-data" name="form1">
 <table>
 <!-- 	<tr> -->
 <!-- 		<td>消息編號:<font color=red><b>*</b></font></td> -->
@@ -107,8 +108,10 @@
 		<td>消息內文:</td>
 		<td><textarea type="TEXT" name="news_content" size="45"	value="<%=latest_newsVO.getNews_content()%>" required/></textarea></td>
 	</tr>
-
-	
+	<tr>
+		<td><input type="file" name="news_pic">
+		<input type="hidden" name="action" value="update"></td>
+	</tr>
 </table>
 <br>
 <input type="hidden" name="action" value="update">

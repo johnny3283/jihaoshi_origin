@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +38,6 @@ public class Latest_newsServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -66,15 +66,19 @@ public class Latest_newsServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/latest_news/select_page.jsp");
 				failureView.forward(req, res);
-				
-				
-
 				return;// 程式中斷
-
 			}
 			/*************************** 2.開始查詢資料 *****************************************/
 			Latest_newsService latest_newsSvc = new Latest_newsService();
 			Latest_newsVO latest_newsVO = latest_newsSvc.getOneLatest_news(news_no);
+			System.out.println("News_pic"+ latest_newsVO.getNews_pic());
+			
+			byte[] new_pic = latest_newsVO.getNews_pic();
+			if(new_pic == null) {
+				errorMsgs.add("無法展示圖片");
+			} else {
+				latest_newsVO.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(latest_newsVO.getNews_pic()));
+			}
 			if (latest_newsVO == null) {
 				errorMsgs.add("查無資料");
 			}
@@ -191,9 +195,18 @@ public class Latest_newsServlet extends HttpServlet {
 				errorMsgs.put("news_content", "消息內容請勿空白");
 			}
 			
+			Part part = req.getPart("news_pic");//來自於上面的form表單
+			InputStream news_picInputStream = part.getInputStream();
+			byte[] news_pic = IOUtils.toByteArray(news_picInputStream);
+			if(news_pic == null) {
+				errorMsgs.put("news_pic", "消息照片請勿空白");
+				
+			}
+			
 			Latest_newsVO latest_newsVO = new Latest_newsVO();
 			latest_newsVO.setNews_name(news_name);
 			latest_newsVO.setNews_content(news_content);
+			latest_newsVO.setNews_pic(news_pic);
 			latest_newsVO.setNews_no(news_no);
 
 			// Send the use back to the form, if there were errors
@@ -205,7 +218,7 @@ public class Latest_newsServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			Latest_newsService latest_newsSvc = new Latest_newsService();
-			latest_newsVO = latest_newsSvc.updateLatest_news(news_name,news_content, news_no);
+			latest_newsVO = latest_newsSvc.updateLatest_news(news_name,news_content,news_pic , news_no);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("latest_newsVO", latest_newsVO); // 資料庫update成功後,正確的的latest_newsVO物件,存入req
 			String url = "/latest_news/listAllLatest_news.jsp";

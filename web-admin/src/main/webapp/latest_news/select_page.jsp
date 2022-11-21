@@ -5,6 +5,7 @@
 <head>
 <title>最新消息首頁: Home</title> 
 
+
 <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
         #pageHead { 

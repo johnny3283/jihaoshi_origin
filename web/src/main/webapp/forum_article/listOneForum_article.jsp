@@ -11,6 +11,9 @@ Forum_commentService forum_commentSvc = new Forum_commentService();
 Integer article_no = forum_articleVO.getArticle_no();
 List<Forum_commentVO> list = forum_commentSvc.catch_display(article_no);
 
+session = request.getSession();
+Integer memberNo = Integer.valueOf(session.getAttribute("MemberNo").toString());
+
 pageContext.setAttribute("list", list);
 %>
  
@@ -136,7 +139,7 @@ pageContext.setAttribute("list", list);
                 <form method="post" action="/web/Forum_comment_reportServlet">
                     <input type="hidden" name="comment_no" value="${param.article_no}">
                     <input type="hidden" name="article_no" value="${param.article_no}">
-                    <input type="hidden" name="member_no" value=5>
+                    <input type="hidden" name="member_no" value="<%=memberNo%>">
                     <input type="hidden" name="action" value="insert">
                     <input type="text" class="form-control insert" name="report_reason" value="${param.report_reason}"
                         placeholder="這留言我覺得不行">&ensp;
@@ -149,7 +152,7 @@ pageContext.setAttribute("list", list);
             <div class="addComment">
                 <form method="post" action="/web/Forum_commentServlet">
                     <input type="hidden" name="article_no" value="${param.article_no}">
-                    <input type="hidden" name="member_no" value=5>
+                    <input type="hidden" name="member_no" value="<%=memberNo%>">
                     <input type="hidden" name="action" value="insert">
                     <input type="text" class="form-control insert" name="comment_content" value="${param.comment_content}"
                         placeholder="跟版主交交流XD~">&ensp;
@@ -162,7 +165,7 @@ pageContext.setAttribute("list", list);
                 
                  
                     <input type="hidden" name="article_no" value="${param.article_no}">
-                    <input type="hidden" name="member_no" value=5>
+                    <input type="hidden" name="member_no" value=<%=memberNo%>>
                     <input type="hidden" name="action" value="insert">
                     <input type="text" class="form-control insert" name="report_reason" value="${param.report_reason}"
                         placeholder="文章檢舉魔人就是我">&ensp;

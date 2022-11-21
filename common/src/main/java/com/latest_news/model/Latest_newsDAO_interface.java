@@ -11,4 +11,5 @@ public interface Latest_newsDAO_interface {
 	public List<Latest_newsVO> findByNewsName(String newsName);
 	public List<Latest_newsVO> getAll();
 //	public void uploadfile(InputStream in);
+	
 }

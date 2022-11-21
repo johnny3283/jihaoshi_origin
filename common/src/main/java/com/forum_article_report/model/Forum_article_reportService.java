@@ -55,7 +55,11 @@ private Forum_article_reportDAO_interface dao;
 	public Forum_article_reportVO getOneForum_article_report(Integer article_report_no) {
 		return dao.findByPrimaryKey(article_report_no);
 	}
-
+	
+	public List<Forum_article_reportVO> getAll(Integer memberNo) {
+		return dao.getAll(memberNo);
+	}
+	
 	public List<Forum_article_reportVO> getAll() {
 		return dao.getAll();
 	}

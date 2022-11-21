@@ -11,7 +11,8 @@ public class MemService {
 	private MemberDAO_interface dao;
 
 	public MemService() {
-		dao = new MemberDAO();
+//		dao = new MemberDAO();
+		dao = new MemberJDBCDAO();
 	}
 
 	public MemberVO addmember(String memberAccount, String memberPassword, String memberName, String memberPhone,

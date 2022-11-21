@@ -57,13 +57,17 @@
 	<br>
 	<form method="post" action="/web/Forum_comment_reportServlet" id="form1">
 		<div style="text-align: center;">
-			<label>輸入論壇文章留言編號：</label><input type="text" name="comment_no" value="${param.comment_no}" required><br>
-			<br> 
-			<label>輸入論壇文章編號：</label><input type="text" name="article_no" value="${param.article_no}" required><br>
+<!-- 			<label>輸入論壇文章留言編號：</label> -->
+			<input type="hidden" name="comment_no" value="${param.comment_no}" required>
+<!-- 			<label>輸入論壇文章編號：</label> -->
+			<input type="hidden" name="article_no" value="${param.article_no}" required>
+			
+<!-- 			<label>輸入會員編號：</label> -->
+
+			<input type="hidden" name="member_no" value="${param.member_no}" required><br>
 			<br>
-			<label>輸入會員編號：</label><input type="text" name="member_no" value="${param.member_no}" required><br>
-			<br>
-			<label>輸入檢舉事由：</label><textarea name="report_reason" value="${param.report_reason}" required></textarea>
+			<label>輸入檢舉事由</label><br>
+			<textarea name="report_reason" value="${param.report_reason}" required></textarea>
 			<br>
 			<br> <input type="hidden" name="action" value="insert">
 		

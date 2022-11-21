@@ -17,7 +17,8 @@ public class Forum_article_reportJDBCDAO implements Forum_article_reportDAO_inte
 	String userid = "root";
 	String passwd = "password";
 	private static final String INSERT_STMT = "INSERT INTO FORUM_ARTICLE_REPORT(ARTICLE_NO, MEMBER_NO, REPORT_REASON) VALUES (?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT ARTICLE_REPORT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_ARTICLE_REPORT ORDER BY ARTICLE_REPORT_NO";
+	private static final String GET_ALL_STMT_FULL = "SELECT ARTICLE_REPORT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_ARTICLE_REPORT WHERE REPORT_STATUS = 0 OR REPORT_STATUS = 1 ORDER BY ARTICLE_REPORT_NO";
+	private static final String GET_ALL_STMT = "SELECT ARTICLE_REPORT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_ARTICLE_REPORT WHERE MEMBER_NO = ?  ORDER BY ARTICLE_REPORT_NO";
 	private static final String GET_ONE_STMT = "SELECT ARTICLE_REPORT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_ARTICLE_REPORT WHERE ARTICLE_REPORT_NO = ?";
 	private static final String DELETE = "DELETE FROM FORUM_ARTICLE_REPORT WHERE ARTICLE_REPORT_NO = ?";
 	private static final String UPDATE = "UPDATE FORUM_ARTICLE_REPORT SET ARTICLE_NO=?, MEMBER_NO=?, REPORT_REASON=?, REPORT_STATUS=? WHERE ARTICLE_REPORT_NO = ?";
@@ -233,7 +234,7 @@ public class Forum_article_reportJDBCDAO implements Forum_article_reportDAO_inte
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt = con.prepareStatement(GET_ALL_STMT_FULL);
 			rs = pstmt.executeQuery();
 	
 			while (rs.next()) {
@@ -282,6 +283,74 @@ public class Forum_article_reportJDBCDAO implements Forum_article_reportDAO_inte
 		}
 		return list;
 	}
+	
+	
+	
+	@Override
+	public List<Forum_article_reportVO> getAll(Integer memberNo) {
+		List<Forum_article_reportVO> list = new ArrayList<Forum_article_reportVO>();
+		Forum_article_reportVO forum_article_reportVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt.setInt(1, memberNo);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				// forum_articleVO 也稱為 Domain objects
+				forum_article_reportVO = new Forum_article_reportVO();
+				forum_article_reportVO.setArticle_report_no(rs.getInt("article_report_no"));
+				forum_article_reportVO.setArticle_no(rs.getInt("article_no"));
+				forum_article_reportVO.setMember_no(rs.getInt("member_no"));
+				forum_article_reportVO.setReport_reason(rs.getString("report_reason"));
+				forum_article_reportVO.setReport_status(rs.getInt("report_status"));
+				
+				list.add(forum_article_reportVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
 	@Override
 	public void change_status_0(Integer article_report_no) {
 		Connection con = null;

@@ -23,10 +23,11 @@ public class Latest_newsService {
 		return latest_newsVO;
 	}
 
-	public Latest_newsVO updateLatest_news( String news_name, String news_content, Integer news_no) {
+	public Latest_newsVO updateLatest_news( String news_name, String news_content, byte[] news_pic, Integer news_no) {
 		Latest_newsVO latest_newsVO = new Latest_newsVO();
 		latest_newsVO.setNews_name(news_name);
 		latest_newsVO.setNews_content(news_content);
+		latest_newsVO.setNews_pic(news_pic);
 		latest_newsVO.setNews_no(news_no);
 		dao.update(latest_newsVO);
 		return latest_newsVO;
@@ -46,7 +47,6 @@ public class Latest_newsService {
 //	public void uploadfileLatest_news(InputStream in) {
 //		dao.uploadfile(in);
 //	}
-		
 		
 	}
 

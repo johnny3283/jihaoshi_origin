@@ -42,46 +42,46 @@ String type = request.getParameter("type");
         background: #FFFAF0;
         }
     </style>
-<style>
-table#table-1 {
-	background-color:  #F0E68C;
-	border: 2px solid f4f5e3;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
-table {
-	width: 1000px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-
-.btn {
-	background-color: #FFBA3B;
-}
-</style>
+	<style>
+		table#table-1 {
+			background-color:  #F0E68C;
+			border: 2px solid f4f5e3;
+			text-align: center;
+		}
+		
+		table#table-1 h4 {
+			color: red;
+			display: block;
+			margin-bottom: 1px;
+		}
+		
+		h4 {
+			color: blue;
+			display: inline;
+		}
+	</style>
+		
+	<style>
+		table {
+			width: 1000px;
+			background-color: white;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+		
+		table, th, td {
+			border: 1px solid #CCCCFF;
+		}
+		
+		th, td {
+			padding: 5px;
+			text-align: center;
+		}
+		
+		.btn {
+			background-color: #FFBA3B;
+		}
+	</style>
 
 </head>
 <body bgcolor='white'> 

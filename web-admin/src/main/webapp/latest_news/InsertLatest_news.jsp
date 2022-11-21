@@ -6,6 +6,7 @@
 <html lang="en">
  
 <head>
+
     <meta charset="UTF-8">
     <title>最新消息新增</title>
     <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
