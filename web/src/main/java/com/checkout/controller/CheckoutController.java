@@ -106,7 +106,7 @@ public class CheckoutController extends HttpServlet {
                 RequestDispatcher orderInsert =req.getRequestDispatcher("/order/orderController?action=orderInsert");
                 orderInsert.forward(req,res);
             }else {
-                res.sendRedirect("");
+                res.sendRedirect("/checkout/CheckoutFail.jsp");
             }
         }
     }
