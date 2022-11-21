@@ -16,12 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import com.cart.model.CartMapHolder;
-import com.cart.model.CartProdVO;
-import com.cart.model.CartService;
-
 import com.cart.model.CartHolder;
-
+import com.cart.model.CartProdVO;
+import com.cart.model.CartRedisHolder;
+import com.cart.model.CartService;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
@@ -39,7 +37,7 @@ public class CheckoutController extends HttpServlet {
 //    }
 
     public CheckoutController() {
-        this.cartHolder = new CartMapHolder();
+        this.cartHolder = new CartRedisHolder();
     }
 
     @Override
@@ -89,7 +87,6 @@ public class CheckoutController extends HttpServlet {
             
             String checkoutPage=allInOne.aioCheckOut(aioCheckOutALL,null);
             req.setAttribute("checkoutPage",checkoutPage);
-            System.out.println(checkoutPage);
             RequestDispatcher goCheckout = req
                     .getRequestDispatcher("/checkout/CheckoutPage.jsp");
             goCheckout.forward(req, res);

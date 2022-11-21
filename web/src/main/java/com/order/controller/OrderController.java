@@ -11,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cart.model.CartMapHolder;
-import com.cart.model.CartProdVO;
 import com.cart.model.CartHolder;
-
+import com.cart.model.CartProdVO;
+import com.cart.model.CartRedisHolder;
 import com.order.model.OrderService;
 import com.order.model.OrderVO;
 
@@ -29,7 +28,7 @@ public class OrderController extends HttpServlet {
 //    }
 
     public OrderController() {
-        this.cartHolder = new CartMapHolder();
+        this.cartHolder = new CartRedisHolder();
     }
 
     @Override
