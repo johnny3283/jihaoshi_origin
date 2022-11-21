@@ -17,12 +17,13 @@ public class OnlineCourseVO implements Serializable {
 	private Integer commentScore;
 	private byte[] onlineCoursePhoto;
 	private String onlineCoursePhotoBaseStr64;
+	private String courseVideo;
 
 	public OnlineCourseVO() {
 	}
 
 	public OnlineCourseVO(String courseName, String courseHr, String courseTeacher, String courseInfo,
-			Integer coursePrice, Integer courseStatus, byte[] onlineCoursePhoto) {
+			Integer coursePrice, Integer courseStatus, byte[] onlineCoursePhoto,String courseVideo) {
 		this.courseName = courseName;
 		this.courseHr = courseHr;
 		this.courseTeacher = courseTeacher;
@@ -30,6 +31,7 @@ public class OnlineCourseVO implements Serializable {
 		this.coursePrice = coursePrice;
 		this.courseStatus = courseStatus;
 		this.onlineCoursePhoto = onlineCoursePhoto;
+		this.courseVideo = courseVideo;
 
 	}
 
@@ -127,5 +129,13 @@ public class OnlineCourseVO implements Serializable {
 
 	public void setOnlineCoursePhotoBaseStr64(String onlineCoursePhotoBaseStr64) {
 		this.onlineCoursePhotoBaseStr64 = onlineCoursePhotoBaseStr64;
+	}
+	
+	public String getCourseVideo() {
+		return courseVideo;
+	}
+
+	public void setCourseVideo(String courseVideo) {
+		this.courseVideo = courseVideo;
 	}
 }

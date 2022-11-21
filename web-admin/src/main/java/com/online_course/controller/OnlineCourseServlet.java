@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.meal.model.MealService;
 import com.online_course.model.OnlineCourseService;
 import com.online_course.model.OnlineCourseVO;
 
@@ -165,8 +164,13 @@ public class OnlineCourseServlet extends HttpServlet {
 				errorMsgs.add("評論分數請勿空白");
 			}
 			
+			String courseVideo = req.getParameter("courseVideo").trim();
+			if (courseVideo == null || courseVideo.trim().length() == 0) {
+				errorMsgs.add("影片串流字串請勿空白");
+			}
+			
 			Part onlineCoursePhoto = req.getPart("photo");
-			if (onlineCoursePhoto != null) {
+			if (onlineCoursePhoto.getSize() == 0) {
 				errorMsgs.add("請上傳圖片");
 			}	
 
@@ -187,6 +191,7 @@ public class OnlineCourseServlet extends HttpServlet {
 			onlinecourseVO.setCommentScore(commentScore);
 			onlinecourseVO.setCourseNo(courseNo);
 			onlinecourseVO.setOnlineCoursePhoto(pic);
+			onlinecourseVO.setCourseVideo(courseVideo);
 			Encoder encoder = Base64.getEncoder();
 			if(pic !=null) {
 				String photoBase64Str = encoder.encodeToString(pic);
@@ -274,6 +279,11 @@ public class OnlineCourseServlet extends HttpServlet {
 				commentScore = 0;
 				errorMsgs.add("評論分數請勿空白");
 			}
+			
+			String courseVideo = req.getParameter("courseVideo");
+			if (courseVideo == null || courseVideo.trim().length() == 0) {
+				errorMsgs.add("影片串流字串請勿空白");
+			}
 
 			
 				
@@ -288,10 +298,11 @@ public class OnlineCourseServlet extends HttpServlet {
 			onlinecourseVO.setCourseStatus(courseStatus);
 			onlinecourseVO.setCommentPeople(commentPeople);
 			onlinecourseVO.setCommentScore(commentScore);
+			onlinecourseVO.setCourseVideo(courseVideo);
 			
 			
 			Part part = req.getPart("photo");
-			if(part !=null) {
+			if(part.getSize() != 0) {
 				byte[] photo = part.getInputStream().readAllBytes();
 				onlinecourseVO.setOnlineCoursePhoto(photo);
 				Encoder encoder = Base64.getEncoder();
@@ -315,9 +326,6 @@ public class OnlineCourseServlet extends HttpServlet {
 			/*************************** 2.開始新增資料 ***************************************/
 			OnlineCourseService onlinecourseSvc = new OnlineCourseService();
 			onlinecourseSvc.save(onlinecourseVO);
-//			List<OnlineCourseVO> list = courseSV.getAll();
-//			req.setAttribute("list", list);
-//			req.getRequestDispatcher("/onlineCourse/ListAllOnlineCourse.jsp").forward(req, res);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			req.setAttribute("onlinecourseVO", onlinecourseVO); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url = "/onlineCourse/ListOneOnlineCourse.jsp";
@@ -326,28 +334,7 @@ public class OnlineCourseServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-//		if ("delete".equals(action)) { // 來自listAllEmp.jsp
-//
-//			List<String> errorMsgs2 = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs2", errorMsgs2);
-//
-//			/*************************** 1.接收請求參數 ***************************************/
-//			Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
-//
-//			/*************************** 2.開始刪除資料 ***************************************/
-//			OnlineCourseVO onlinecourseVO = new OnlineCourseVO();
-//			onlinecourseVO.setCourseNo(courseNo);
-//			OnlineCourseService onlinecourseSvc = new OnlineCourseService();
-//			onlinecourseSvc.deleteOnlineCourse(onlinecourseVO);
 
-			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-//			String url = "/onlinecourse/listAllOnlineCourse.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-//			successView.forward(req, res);
-//			res.sendRedirect("onlinecourse/listAllOnlineCourse.jsp");
-//		}
 		
 	
 	}

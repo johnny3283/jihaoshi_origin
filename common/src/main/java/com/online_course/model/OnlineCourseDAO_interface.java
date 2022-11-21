@@ -14,6 +14,8 @@ public interface OnlineCourseDAO_interface {
 	public OnlineCourseVO findByPrimaryKey(Integer courseNo);
 
 	public List<OnlineCourseVO> getAll();
+	
+	public List<OnlineCourseVO> getStatusOnAll();
 
 	public List<OnlineCourseVO> selectByCourseName(String courseName);
 	

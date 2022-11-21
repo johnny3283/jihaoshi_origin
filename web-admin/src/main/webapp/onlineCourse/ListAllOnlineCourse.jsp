@@ -25,6 +25,7 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 	height: 30%;
 }
 </style>
+
 <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
 
 <div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">

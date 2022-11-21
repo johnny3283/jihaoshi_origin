@@ -252,7 +252,9 @@ position: relative;
 
             <label for="score"></label>
             <input class="input" type="text" id="score" name="commentScore" placeholder="評論分數" value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCommentScore()%>" />
-
+            
+            <label for="videostring"></label>
+            <input class="input" type="text" id="videostring" name="courseVideo" placeholder="影片串流字串" value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCourseVideo()%>" />
         </fieldset>
 
         <fieldset>
@@ -267,6 +269,8 @@ position: relative;
 		<td><input type="file" name="photo"></td>
 		</tr>
 	</div>
+	
+	
 
 	<div class="status" style="width:100%;">	
 		<td>上架狀態</td>

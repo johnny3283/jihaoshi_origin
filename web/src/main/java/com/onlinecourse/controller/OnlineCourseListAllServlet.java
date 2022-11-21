@@ -29,7 +29,7 @@ public class OnlineCourseListAllServlet extends HttpServlet {
 		if(null != courseName) {
 			list = service.getByCourseName(courseName);
 		}else {
-			list = service.getAll();
+			list = service.getStatusOnAll();
 
 		}
 		Gson gson = new Gson();

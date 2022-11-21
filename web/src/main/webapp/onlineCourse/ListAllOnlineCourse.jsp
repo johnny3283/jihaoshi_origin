@@ -126,6 +126,9 @@ img {
 							<li><a href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if
 												test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if>
 									</a></li>
+              <li>
+                  <a href="<%=request.getContextPath()%>/onlineCourse/ListAllOnlineCourse.jsp">回線上課程瀏覽專區</a>
+              </li>
 							<li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
 							</li>
 						</ul></li>
@@ -134,20 +137,13 @@ img {
 			<!--側邊欄區塊結束-->
 			<div
 				style="display: flex; flex-direction: column; width: 100%; text-align: center">
-				<div>
-					<h1
-						style="align-self: center; margin: 2rem 0; text-align: center; font-size: 3rem; color: grey;">線上課程瀏覽專區</h1>
-					<input id='find' type='text' placeholder="  請輸入課程名稱..."
-						style="border-radius: 50px; border: .5px solid #F3E3C3; margin-left: 20px">
-					<button id='search'
-						style="margin-left: 5x; width: auto; border-radius: 10px; border: .5px solid #f4f5e3; background: #F3E3C3">
-						<svg style="" xmlns="http://www.w3.org/2000/svg" width="10"
-							height="10" fill="grey" class="bi bi-search" viewBox="0 0 16 16">
-  <path
-								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-</svg>
-					</button>
-				</div>
+					<div>
+	<h1 style="align-self:center;margin: 2rem 0;text-align: center;font-size:3rem;color:grey;">線上課程瀏覽專區</h1>
+	<input id='find' type='text' placeholder="  請輸入課程名稱或編號..." style="border-radius: 50px; border: .5px solid #F3E3C3; margin-left: 20px">
+	<button id='search' style="margin-left: 5x;width:auto;border-radius: 10px; border: .5px solid #f4f5e3;background: #F3E3C3"><svg style="" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="grey" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+</svg></button>
+	</div>
 				<div class="table" id="cardWrapper"></div>
 			</div>
 			<script>
