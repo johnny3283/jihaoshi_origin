@@ -11,6 +11,7 @@ public class CartProdVO implements Serializable {
     private Integer amount;
     private Integer price;
     private Integer cal;
+    
     public Integer getCal() {
         return cal;
     }

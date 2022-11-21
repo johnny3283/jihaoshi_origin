@@ -29,8 +29,8 @@ public class OnlineCourseService {
 	}
 
 	public OnlineCourseVO getOneOnlineCourse(Integer courseNo) {
-		Encoder encoder = Base64.getEncoder();
 		OnlineCourseVO vo = dao.findByPrimaryKey(courseNo);
+		Encoder encoder = Base64.getEncoder();
 		byte[] photo = vo.getOnlineCoursePhoto();
 		if (photo != null) {
 			String photoBase64Str = encoder.encodeToString(photo);

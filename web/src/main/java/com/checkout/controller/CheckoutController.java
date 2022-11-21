@@ -53,11 +53,15 @@ public class CheckoutController extends HttpServlet {
         List<CartProdVO> cartProds = (ArrayList<CartProdVO>) session.getAttribute("cartProds");
         String action = req.getParameter("action");
         if ("checkout".equals(action)) {
+        	
             Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
+            
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             String tradeDate = sdf.format(new Date(System.currentTimeMillis()));
+            
             AllInOne allInOne = new AllInOne("");
             AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
+            
             StringBuilder itemName=new StringBuilder("");
             for (CartProdVO prod : cartProds) {
                 itemName.append("品名："+prod.getMeal().getMealName()+" 份量："+prod.getQuantity()+" 數量："+prod.getAmount()+"#");
@@ -72,14 +76,17 @@ public class CheckoutController extends HttpServlet {
             cartHolder.put(merchantTradeNo, cartProds);
 
             aioCheckOutALL.setMerchantTradeNo(merchantTradeNo);
+            
             aioCheckOutALL.setMerchantTradeDate(tradeDate);
             aioCheckOutALL.setTotalAmount(String.valueOf(totalPrice));
             aioCheckOutALL.setTradeDesc("付款測試");
+            aioCheckOutALL.setItemName(String.valueOf(itemName));
+            
             aioCheckOutALL.setReturnURL(req.getRequestURL()+"?action=serverCallBack");
             aioCheckOutALL.setOrderResultURL(req.getRequestURL()+"?action=callBack");
             aioCheckOutALL.setClientBackURL("http://localhost:8081/web");
             aioCheckOutALL.setNeedExtraPaidInfo("N");
-            aioCheckOutALL.setItemName(String.valueOf(itemName));
+            
             String checkoutPage=allInOne.aioCheckOut(aioCheckOutALL,null);
             req.setAttribute("checkoutPage",checkoutPage);
             System.out.println(checkoutPage);

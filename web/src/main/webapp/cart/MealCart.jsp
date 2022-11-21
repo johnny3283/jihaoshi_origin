@@ -104,13 +104,14 @@
                                 </c:when>
                                 <c:otherwise>
                                     <span style="font-size: 16px;">商品總價：${totalPrice}元 </span>
-                                    <form method="post" action="${ctxPath}/checkout/checkoutController" id="checkout"
-                                          enctype="application/x-www-form-urlencoded">
-                                        <input type="text" name="action" value="checkout" hidden>
+
+                                    <form method="post" action="${ctxPath}/checkout/checkoutController" id="checkout" enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="action" value="checkout">
+
+
                                     </form>
-                                    <form method="post" action="${ctxPath}/cart/cartController"
-                                          enctype="application/x-www-form-urlencoded" id="clearCart">
-                                        <input type="text" value="clearCart" name="action" hidden>
+                                    <form method="post" action="${ctxPath}/cart/cartController" enctype="application/x-www-form-urlencoded" id="clearCart">
+                                        <input type="hidden" value="clearCart" name="action">
                                     </form>
                                     <button type="submit" form="checkout">去結帳</button>
                                     <button type="submit" form="clearCart">清空購物車</button>

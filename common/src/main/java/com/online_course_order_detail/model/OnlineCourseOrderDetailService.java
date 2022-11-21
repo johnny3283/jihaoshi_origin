@@ -9,9 +9,6 @@ public class OnlineCourseOrderDetailService {
 		dao = new OnlineCourseOrderDetailJDBCDAO();
 	}
 
-	public void save(OnlineCourseOrderDetailVO onlineCourseOrderDetailVO) {
-		dao.insert(onlineCourseOrderDetailVO);
-	}
 
 	public void updateAuthorityDetail(OnlineCourseOrderDetailVO onlineCourseOrderDetailVO) {
 		dao.update(onlineCourseOrderDetailVO);

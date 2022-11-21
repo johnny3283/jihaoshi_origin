@@ -80,7 +80,7 @@ List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute(
 										<span style="font-size: 16px;">總價：${totalCoursePrice}元 </span>
 										<span style="font-size: 16px;">共<%=cartCourses.size()%>門課程 </span>
 										<button type="submit" form="checkout">去結帳</button>
-										<form method="post" action="/web/checkout/checkoutCourseController"
+										<form method="post" action="${ctxPath}/checkout/checkoutCourseController"
 											id="checkout" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="action" value="checkout">
 										</form>
