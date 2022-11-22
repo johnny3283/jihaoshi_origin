@@ -97,7 +97,7 @@ public class Forum_article_reportServlet extends HttpServlet {
 				errorMsgs.put("report_reason", "檢舉事由請勿空白");
 				System.out.println("1");
 			}
-
+ 
 			Forum_article_reportVO forum_article_reportVO = new Forum_article_reportVO();
 			forum_article_reportVO.setArticle_no(article_no);
 			forum_article_reportVO.setMember_no(member_no);

@@ -13,7 +13,7 @@ public class Latest_newsService {
 	public Latest_newsService() {
 		dao = new Latest_newsJDBCDAO();
 	}
-
+ 
 	public Latest_newsVO addLatest_news(String news_name, String news_content, byte[] news_pic) {
 		Latest_newsVO latest_newsVO = new Latest_newsVO();
 		latest_newsVO.setNews_name(news_name);

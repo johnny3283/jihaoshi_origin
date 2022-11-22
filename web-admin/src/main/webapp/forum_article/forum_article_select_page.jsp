@@ -60,7 +60,7 @@
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                                   <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
                                 </li>
                             </ul>
                       </li>
@@ -71,8 +71,6 @@
 <table id="table-1">
    <tr><td><h3 >論壇文章首頁: Home</h3><h4>( Forum_article )</h4></td></tr>
 </table>
-
-<p>This is the Home page for Forum_article: Home</p>
 
 <h3>資料查詢:</h3>
 	
@@ -113,7 +111,7 @@
 <!--        <input type="submit" value="送出"> -->
 <!--     </FORM> -->
 <!--   </li> -->
-  
+  <br>
   <li>
      <FORM METHOD="post" ACTION="/web-admin/Forum_articleServlet" >
        <b>選擇文章標題:</b>
@@ -128,11 +126,11 @@
   </li>
 </ul>
 
-
+<br>
 <h3>論壇文章管理</h3>
 
 <ul>
-  <li><a href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>Add</a> a new Forum_article.</li>
+  <li><a href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>新增</a> 論壇文章</li>
 </ul>
 
 </body>

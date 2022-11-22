@@ -9,7 +9,7 @@ import com.forum_comment.model.Forum_commentJDBCDAO;
 import com.forum_comment.model.Forum_commentVO;
 
 public class Forum_commentService {
-	
+	 
 		private Forum_commentDAO_interface dao;
 
 		public Forum_commentService() {

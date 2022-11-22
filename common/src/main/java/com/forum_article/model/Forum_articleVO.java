@@ -11,9 +11,6 @@ public class Forum_articleVO implements java.io.Serializable{
 	private String article_content;
 	private Integer article_status;
 	
-	
-	
-	
 	public Integer getArticle_no() {
 		return article_no;
 	}

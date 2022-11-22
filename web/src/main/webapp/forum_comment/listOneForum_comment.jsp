@@ -5,7 +5,7 @@
 <%
 Forum_commentVO forum_commentVO = (Forum_commentVO) request.getAttribute("forum_commentVO"); //Forum_commentServlet.java(Concroller), 存入req的forum_commentVO物件
 %>
-
+ 
 <html>
 <head>
 <title>論壇留言資料</title> 

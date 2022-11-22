@@ -5,7 +5,7 @@
 <%
 Forum_commentVO forum_commentVO = (Forum_commentVO) request.getAttribute("forum_commentVO"); //Forum_commentVOServlet.java (Concroller) 存入req的forum_commentVO物件 (包括幫忙取出的forum_commentVO, 也包括輸入資料錯誤時的forum_commentVO物件)
 %>
-
+ 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />

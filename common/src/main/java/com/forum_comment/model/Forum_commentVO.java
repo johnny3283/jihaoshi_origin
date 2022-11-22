@@ -9,7 +9,7 @@ public class Forum_commentVO implements java.io.Serializable{
 	private Date comment_time;
 	private String comment_content;
 	private Integer comment_status;
-	
+	 
 	public Integer getComment_no() {
 		return comment_no;
 	}

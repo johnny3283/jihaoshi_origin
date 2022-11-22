@@ -60,7 +60,7 @@
 		<div style="text-align: center;">
 			
 			<label>輸入消息標題：</label><input type="text" name="article_name" value="${param.article_name}" required><br>
-			<br> <label>輸入會員編號：</label><input type="text" name="member_no" value="${param.member_no}" required><br>
+			<br> <label>輸入會員編號：</label><input type="text" name="member_no" value="<%=session.getAttribute("MemberNo")%>" readonly><br>
 			<br>
 			
 			<label>輸入文章內容：</label><textarea name="article_content" value="${param.article_content}" class="editor"></textarea>

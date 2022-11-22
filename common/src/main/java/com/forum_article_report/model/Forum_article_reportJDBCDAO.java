@@ -12,12 +12,12 @@ import com.forum_article.model.Forum_articleVO;
 import com.latest_news.model.Latest_newsVO;
 
 public class Forum_article_reportJDBCDAO implements Forum_article_reportDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
+	String driver = "com.mysql.cj.jdbc.Driver"; 
 	String url = "jdbc:mysql://localhost:3306/jihaoshi?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 	private static final String INSERT_STMT = "INSERT INTO FORUM_ARTICLE_REPORT(ARTICLE_NO, MEMBER_NO, REPORT_REASON) VALUES (?, ?, ?)";
-	private static final String GET_ALL_STMT_FULL = "SELECT ARTICLE_REPORT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_ARTICLE_REPORT WHERE REPORT_STATUS = 0 OR REPORT_STATUS = 1 ORDER BY ARTICLE_REPORT_NO";
+	private static final String GET_ALL_STMT_FULL = "SELECT ARTICLE_REPORT_NO, main.ARTICLE_NO, main.MEMBER_NO, ARTICLE_NAME, REPORT_REASON, REPORT_STATUS FROM FORUM_ARTICLE_REPORT main,forum_article sub WHERE main.article_no = sub.article_no and (REPORT_STATUS = 0 OR REPORT_STATUS = 1) ORDER BY ARTICLE_REPORT_NO";
 	private static final String GET_ALL_STMT = "SELECT ARTICLE_REPORT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_ARTICLE_REPORT WHERE MEMBER_NO = ?  ORDER BY ARTICLE_REPORT_NO";
 	private static final String GET_ONE_STMT = "SELECT ARTICLE_REPORT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_ARTICLE_REPORT WHERE ARTICLE_REPORT_NO = ?";
 	private static final String DELETE = "DELETE FROM FORUM_ARTICLE_REPORT WHERE ARTICLE_REPORT_NO = ?";
@@ -242,6 +242,7 @@ public class Forum_article_reportJDBCDAO implements Forum_article_reportDAO_inte
 				forum_article_reportVO = new Forum_article_reportVO();
 				forum_article_reportVO.setArticle_report_no(rs.getInt("article_report_no"));
 				forum_article_reportVO.setArticle_no(rs.getInt("article_no"));
+				forum_article_reportVO.setArticle_name(rs.getString("article_name"));
 				forum_article_reportVO.setMember_no(rs.getInt("member_no"));
 				forum_article_reportVO.setReport_reason(rs.getString("report_reason"));
 				forum_article_reportVO.setReport_status(rs.getInt("report_status"));

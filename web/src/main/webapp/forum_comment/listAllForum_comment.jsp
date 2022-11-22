@@ -17,7 +17,7 @@ pageContext.setAttribute("list", list);
 
 <style>
 table#table-1 {
-	background-color: #CCCCFF;
+	background-color:  #F0E68C;
 	border: 2px solid black;
 	text-align: center;
 }

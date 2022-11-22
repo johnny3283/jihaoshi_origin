@@ -1,6 +1,6 @@
 package com.forum_article_report.model;
 
-import java.util.*;
+import java.util.*; 
 
 public interface Forum_article_reportDAO_interface {
 	 public void insert(Forum_article_reportVO forum_article_reportVO);

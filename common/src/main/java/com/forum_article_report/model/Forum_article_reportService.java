@@ -6,7 +6,7 @@ import com.forum_article.model.Forum_articleDAO_interface;
 import com.forum_article.model.Forum_articleJDBCDAO;
 import com.forum_article.model.Forum_articleVO;
 
-public class Forum_article_reportService {
+public class Forum_article_reportService { 
 private Forum_article_reportDAO_interface dao;
 	
 	public Forum_article_reportService() {

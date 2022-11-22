@@ -4,10 +4,17 @@ public class Forum_comment_reportVO implements java.io.Serializable{
 	private Integer comment_report_no;
 	private Integer comment_no;
 	private Integer article_no;
+	private String article_name;
 	private Integer member_no;
 	private String report_reason;
 	private Integer report_status;
 	
+	public String getArticle_name() {
+		return article_name;
+	}
+	public void setArticle_name(String article_name) {
+		this.article_name = article_name;
+	}
 	public Integer getComment_report_no() {
 		return comment_report_no;
 	}

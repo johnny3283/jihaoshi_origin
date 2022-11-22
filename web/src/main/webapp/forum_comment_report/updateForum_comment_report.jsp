@@ -10,7 +10,7 @@ Forum_comment_reportVO forum_comment_reportVO = (Forum_comment_reportVO) request
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>論壇留言檢舉修改</title>
-
+ 
 <style>
 table#table-1 {
 	background-color: #CCCCFF;

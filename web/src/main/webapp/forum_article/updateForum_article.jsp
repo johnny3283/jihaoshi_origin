@@ -10,7 +10,7 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>論壇文章修改</title>
-
+ 
 <style>
 table#table-1 {
 	background-color: #CCCCFF;

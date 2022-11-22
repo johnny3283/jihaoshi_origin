@@ -60,9 +60,9 @@
 		
 		<div style="text-align: center;">
 		
-			<label>論壇文章編號：</label><input type="text" name="article_no" value="${param.article_no}" ><br>
+			<label>論壇文章編號：</label><input type="text" name="article_no" value="${param.article_no}" readonly><br>
 			<br> 
-			<label>會員編號：</label><input type="text" name="member_no" value="${param.member_no}" ><br>
+			<label>會員編號：</label><input type="text" name="member_no" value="${param.member_no}" readonly><br>
 			<br>
 			
 			<label>輸入留言內容：</label><textarea name="comment_content" value="${param.comment_content}" required></textarea>

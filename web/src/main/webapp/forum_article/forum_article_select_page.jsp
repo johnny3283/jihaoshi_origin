@@ -9,7 +9,7 @@
     List<Forum_articleVO> list = forum_articleSvc.catch_display();
     pageContext.setAttribute("list",list);
 %>
-
+ 
  
 <html>
 <head>

@@ -5,7 +5,7 @@
 <%
 Forum_article_reportVO forum_article_reportVO = (Forum_article_reportVO) request.getAttribute("forum_article_reportVO"); //Forum_article_reportServlet.java(Concroller), 存入req的forum_article_reportVO物件
 %>
-
+ 
 <html>
 <head>
 <title>論壇文章檢舉資料</title>

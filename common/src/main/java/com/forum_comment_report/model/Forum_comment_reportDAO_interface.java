@@ -13,3 +13,4 @@ public interface Forum_comment_reportDAO_interface {
 	public List<Forum_comment_reportVO> getAll(Integer memberNo);
 	public List<Forum_comment_reportVO> getAll();
 }
+ 

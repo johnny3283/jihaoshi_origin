@@ -9,7 +9,7 @@
 Forum_articleService forum_articleSvc = new Forum_articleService();
 List<Forum_articleVO> list = forum_articleSvc.getAll();
 pageContext.setAttribute("list", list);
-%>
+%> 
 
 <html>
 <head>

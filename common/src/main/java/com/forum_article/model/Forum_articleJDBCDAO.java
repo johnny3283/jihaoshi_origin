@@ -14,7 +14,7 @@ public class Forum_articleJDBCDAO implements Forum_articleDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/jihaoshi?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "password";
+	String passwd = "password"; 
 
 	private static final String INSERT_STMT = 
 			"INSERT INTO FORUM_ARTICLE(ARTICLE_NAME, MEMBER_NO, ARTICLE_CONTENT) VALUES (?, ?, ?)";

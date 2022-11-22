@@ -11,7 +11,7 @@
         <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">至最後一頁</A>&nbsp;
     <%}%>
   <%}%>  
-
+ 
 <br><br>
 
   <%if (pageNumber>1) {%>

@@ -9,7 +9,7 @@ public class Forum_articleService {
 	public Forum_articleService() {
 		dao = new Forum_articleJDBCDAO();
 	}
-
+ 
 	public Forum_articleVO addForum_article(String article_name, Integer member_no, String article_content) {
 
 		Forum_articleVO forum_articleVO = new Forum_articleVO();

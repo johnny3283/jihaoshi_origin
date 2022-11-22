@@ -24,12 +24,9 @@ public class Forum_commentJDBCDAO implements Forum_commentDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT COMMENT_NO,ARTICLE_NO,MEMBER_NO,COMMENT_TIME,COMMENT_CONTENT,COMMENT_STATUS FROM FORUM_COMMENT WHERE COMMENT_NO = ?";
 	private static final String DELETE = "DELETE FROM FORUM_COMMENT WHERE COMMENT_NO = ?";
 	private static final String UPDATE = "UPDATE FORUM_COMMENT SET ARTICLE_NO=?, MEMBER_NO=?, COMMENT_CONTENT=?, COMMENT_STATUS=? WHERE COMMENT_NO = ?";
-private static final String change_status_0 = 											
-			"UPDATE FORUM_COMMENT SET COMMENT_STATUS=0 WHERE COMMENT_NO = ?";
-private static final String change_status_1 = 
-			"UPDATE FORUM_COMMENT SET COMMENT_STATUS=1 WHERE COMMENT_NO = ?";
-private static final String catch_display =
-			"SELECT * FROM FORUM_COMMENT WHERE COMMENT_STATUS = 1 AND ARTICLE_NO = ? ";
+	private static final String change_status_0 = "UPDATE FORUM_COMMENT SET COMMENT_STATUS=0 WHERE COMMENT_NO = ?";
+	private static final String change_status_1 = "UPDATE FORUM_COMMENT SET COMMENT_STATUS=1 WHERE COMMENT_NO = ?";
+	private static final String catch_display = "SELECT * FROM FORUM_COMMENT WHERE COMMENT_STATUS = 1 AND ARTICLE_NO = ? ";
 	@Override
 	public void insert(Forum_commentVO forum_commentVO) {
 		Connection con = null;

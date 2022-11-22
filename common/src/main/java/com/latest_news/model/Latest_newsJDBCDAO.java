@@ -16,7 +16,7 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 	String url = "jdbc:mysql://localhost:3306/jihaoshi?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
-	
+	 
 		private static final String INSERT_STMT = 
 			"INSERT INTO LATEST_NEWS(NEWS_NAME, NEWS_CONTENT, NEWS_PIC) VALUES (?, ?, ?)";
 		private static final String GET_ALL_STMT = 

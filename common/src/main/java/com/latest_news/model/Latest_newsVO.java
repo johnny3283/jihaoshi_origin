@@ -8,6 +8,7 @@ public class Latest_newsVO implements java.io.Serializable{
 	private Date update_date;
 	private byte[] news_pic;
     private String showPhoto;
+    
 	public String getShowPhoto() {
 		return showPhoto;
 	}

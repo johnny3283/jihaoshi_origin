@@ -61,4 +61,4 @@ public class Forum_comment_reportService {
 	public List<Forum_comment_reportVO> getAll() {
 		return dao.getAll();
 	}
-}
+} 
