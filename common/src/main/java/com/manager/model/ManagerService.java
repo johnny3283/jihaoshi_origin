@@ -11,16 +11,16 @@ public class ManagerService {
 
 	public ManagerVO addmember(String managerName, String managerIp, String managerAccount, String managerPassword) {
 
-		ManagerVO ManagerVO = new ManagerVO();
-		ManagerVO.setManagerName(managerName);
-		ManagerVO.setManagerIp(managerIp);
-		ManagerVO.setManagerAccount(managerAccount);
-		ManagerVO.setManagerPassword(managerPassword);
+		ManagerVO mgrVO = new ManagerVO();
+		mgrVO.setManagerName(managerName);
+		mgrVO.setManagerIp(managerIp);
+		mgrVO.setManagerAccount(managerAccount);
+		mgrVO.setManagerPassword(managerPassword);
 		
 
-		dao.insert(ManagerVO);
+		dao.insert(mgrVO);
 
-		return ManagerVO;
+		return mgrVO;
 	}
 
 	public ManagerVO updateEmp(Integer managerNo,String managerName, String managerIp,
@@ -51,6 +51,8 @@ public class ManagerService {
 
 	public ManagerVO Login(String managerAccount, String managerPassword) {
 		return dao.selectForLogin(managerAccount,managerPassword);
+	}	
+	public List<Integer> getAuthority(Integer managerNo) {
+		return dao.GetAuthority(managerNo);
 	}
-
 }

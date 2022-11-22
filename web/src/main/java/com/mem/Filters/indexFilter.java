@@ -10,7 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class loginFilter implements Filter {
+public class indexFilter implements Filter {
 
     private FilterConfig config;
 

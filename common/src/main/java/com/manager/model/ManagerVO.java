@@ -1,5 +1,7 @@
 package com.manager.model;
 
+import java.util.List;
+
 public class ManagerVO implements java.io.Serializable{
 	private Integer managerNo;
 	private String managerName;
@@ -8,6 +10,7 @@ public class ManagerVO implements java.io.Serializable{
 	private String managerPassword;
 	private Integer managerStatus;
 	private String authorityName;
+	private List<Integer> authorityNo;
 	
 	public Integer getManagerNo() {
 		return managerNo;
@@ -51,7 +54,13 @@ public class ManagerVO implements java.io.Serializable{
 	public void setAuthorityName(String authorityName) {
 		this.authorityName = authorityName;
 	}
-	
+	public List<Integer> getAuthorityNo() {
+		return authorityNo;
+	}
+	public void setAuthorityNo(List<Integer> authorityNo) {
+		this.authorityNo = authorityNo;
+	}
+
 
 	
 

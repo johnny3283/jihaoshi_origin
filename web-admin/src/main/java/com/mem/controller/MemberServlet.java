@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mem.model.MemService;
 import com.mem.model.MemberVO;
 
-@WebServlet("/member/MemberServlet")
+@WebServlet("/mem/MemberServlet")
 public class MemberServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -161,7 +161,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
-			String url = "listOneMember.jsp";
+			String url = "member/listOneMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -180,7 +180,7 @@ public class MemberServlet extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/listAllMember.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -193,7 +193,7 @@ public class MemberServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/listAllMember.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -207,14 +207,14 @@ public class MemberServlet extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/listAllMember.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
-			String url = "listOneMember.jsp";
+			String url = "/member/listOneMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -236,13 +236,13 @@ public class MemberServlet extends HttpServlet {
 
 			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/listAllMember.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("MemberVO", memVO);
-			String url = "update_mem_input.jsp";
+			String url = "/member/update_mem_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}

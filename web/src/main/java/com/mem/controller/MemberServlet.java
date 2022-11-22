@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.mem.model.MemService;
 import com.mem.model.MemberVO;
 
@@ -38,11 +39,12 @@ public class MemberServlet extends HttpServlet {
 			String memberacc = req.getParameter("memberAccount");
 			String memberpas = req.getParameter("memberPassword");
 			String membername = req.getParameter("memberName");
-			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			String memberpho = req.getParameter("memberPhone");
 			String membernick = req.getParameter("memberNickname");
 			String memberadd = req.getParameter("memberAddress");
 			String memberemail = req.getParameter("memberEmail");
+			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String mailReg = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
 			if (memberacc == null || memberacc.trim().length() == 0) {
 				errorMsgs.add("會員帳號請勿空白");
 			}
@@ -65,6 +67,8 @@ public class MemberServlet extends HttpServlet {
 			}
 			if (memberemail == null || memberemail.trim().length() == 0) {
 				errorMsgs.add("會員email請勿空白");
+			} else if (!memberemail.trim().matches(mailReg)) {
+				errorMsgs.add("email格式不符合");
 			}
 
 			MemberVO memVO = new MemberVO();
@@ -75,7 +79,16 @@ public class MemberServlet extends HttpServlet {
 			memVO.setMemberNickname(membernick);
 			memVO.setMemberAddress(memberadd);
 			memVO.setMemberEmail(memberemail);
-
+			
+			MemService memSvc = new MemService();
+			MemberVO memVO2 = memSvc.findByAccount(memberacc);
+			if (!(memVO2 == null)) {
+				errorMsgs.add("帳號重複");
+			}
+			MemberVO memVO3 = memSvc.findByEmail(memberemail);
+			if (!(memVO3 == null)) {
+				errorMsgs.add("email重複");
+			}
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memberVO", memVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/member/addmember.jsp");
@@ -83,11 +96,11 @@ public class MemberServlet extends HttpServlet {
 				return;
 			}
 
-			MemService memSvc = new MemService();
-			memVO = memSvc.addmember(memberacc, memberpas, membername, memberpho, membernick, memberadd, memberemail);
+			MemService memSvc2 = new MemService();
+			memVO = memSvc2.addmember(memberacc, memberpas, membername, memberpho, membernick, memberadd, memberemail);
 
 			req.setAttribute("MemberVO", memVO);
-			String url = "/member/frontPage.jsp";
+			String url = "/index.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 
@@ -159,63 +172,12 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
-			String url = "listOneMember.jsp";
+			String url = "editSucces.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
 		// 查詢一個會員
-		if ("getOne_For_Display".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			String str = req.getParameter("memberNo");
-			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員編號");
-			}
-
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
-
-			Integer memberNo = null;
-			try {
-				memberNo = Integer.valueOf(str);
-			} catch (Exception e) {
-				errorMsgs.add("員工編號格式不正確");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
-
-			/*************************** 2.開始查詢資料 *****************************************/
-			MemService memSvc = new MemService();
-			MemberVO memVO = memSvc.getOneMem(memberNo);
-			if (memVO == null) {
-				errorMsgs.add("查無資料");
-
-			}
-
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
-
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("MemberVO", memVO);
-			String url = "listOneMember.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
 
 		if ("getOne_For_Update".equals(action)) {
 
@@ -260,7 +222,7 @@ public class MemberServlet extends HttpServlet {
 			if (memberpas == null || memberpas.trim().length() == 0) {
 				errorMsgs.add("會員密碼請勿空白");
 			}
-		
+
 			MemberVO memVO = new MemberVO();
 //			memVO.setMemberAccount(memberacc);
 //			memVO.setMemberPassword(memberpas);
@@ -274,10 +236,7 @@ public class MemberServlet extends HttpServlet {
 
 			MemService memSvc = new MemService();
 			memVO = memSvc.Login(memberacc, memberpas);
-			
-			
-			
-			
+
 			if (memVO == null) {
 				errorMsgs.add("帳號或密碼錯誤");
 			}
@@ -289,18 +248,28 @@ public class MemberServlet extends HttpServlet {
 			}
 			session.setAttribute("MemberAcc", memVO.getMemberAccount());
 			session.setAttribute("MemberName", memVO.getMemberName());
-			session.setAttribute("MemberNo", memVO.getMemberNo());
-			res.sendRedirect(req.getContextPath() + "/index.jsp");
+			session.setAttribute("MemberNo", memVO.getMemberNo());		
+			
+			Gson gson = new Gson();
+			res.setContentType("application/json; charset=UTF-8");
+			res.getWriter().write(gson.toJson(memVO));
+			String location = (String) session.getAttribute("location");
+			if (location != null) {
+				session.removeAttribute("location");
+				res.sendRedirect(location);
+			}
+
 
 		}
-		
-		//登出
+
+		// 登出
 		if ("Logout".equals(action)) {
 			final HttpSession session = req.getSession();
 			session.removeAttribute("MemberAcc");
 			session.removeAttribute("MemberName");
 			session.removeAttribute("MemberNo");
+			res.sendRedirect(req.getContextPath() + "/index.jsp");
 		}
-		//-------------------登出結束------------------------------------
+		// -------------------登出結束------------------------------------
 	}
 }

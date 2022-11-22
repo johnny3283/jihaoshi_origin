@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.manager.model.*"%>
 
 <%
-ManagerService manSvc = new ManagerService();
-List<ManagerVO> list = manSvc.getAll();
-pageContext.setAttribute("list", list);
+ManagerService mgrSvc = new ManagerService();
+ManagerVO MemberVO = (ManagerVO) request.getAttribute("ManagerVO");
 %>
-
+<!DOCTYPE html>
 <html>
 <head>
 
-<title>listAllManager</title>
+
+
+<title>listOneManager</title>
 <link type="text/css" href="../css/jihaoshi.css" rel="stylesheet">
 <style>
 #pageHead {
@@ -35,6 +35,7 @@ table, th, td {
 	border: solid 1px lightgray;
 }
 </style>
+</head>
 <body>
 	<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
 	<div class="block_N" style="margin: 0px auto;">
@@ -83,49 +84,38 @@ table, th, td {
 										</c:forEach>
 									</ul>
 								</c:if>
-								<FORM METHOD="post" ACTION="../manager/ManagerServlet">
-									<b>查詢管理員資料 :</b> <input type="text" name="managerNo"> <input
-										type="hidden" name="action" value="getOne_For_Display">
-									<input type="submit" value="送出">
-								</FORM>
-								<h1>管理員資料</h1>
 								<table>
 									<tr>
 										<th>管理員編號</th>
 										<th>管理員姓名</th>
 										<th>管理員帳號</th>
+										<th>管理員IP</th>
 										<th>管理員狀態</th>
 
+
 									</tr>
-									<c:forEach var="ManagerVO" items="${list}">
-										<tr>
-											<td>${ManagerVO.managerNo}</td>
-											<td>${ManagerVO.managerName}</td>
-											<td>${ManagerVO.managerAccount}</td>
-											<td>${ManagerVO.managerStatus}</td>
-											<td>
-												<FORM METHOD="post" ACTION="../manager/ManamgerServlet"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="修改"> <input
-														type="hidden" name="managerNo"
-														value="${ManagerVO.managerNo}"> <input
-														type="hidden" name="action" value="getOne_For_Update">
+									<tr>
 
-												</FORM>
-											</td>
-											<td>
-												<FORM METHOD="post" ACTION="./ManagerServlet"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="刪除"> <input
-														type="hidden" name="managerNo"
-														value="${ManagerVO.managerNo}"> <input
-														type="hidden" name="action" value="delete">
+										<td>${ManagerVO.managerNo}</td>
+										<td>${ManagerVO.managerName}</td>
+										<td>${ManagerVO.managerAccount}</td>
+										<td>${ManagerVO.managerIp}</td>
+										<td>${ManagerVO.managerStatus}</td>
+										<td><FORM METHOD="post"
+												ACTION="../manager/ManamgerServlet"
+												style="margin-bottom: 0px;">
+												<input type="submit" value="修改"> <input
+													type="hidden" name="managerNo"
+													value="${ManagerVO.managerNo}"> <input
+													type="hidden" name="action" value="getOne_For_Update">
 
-												</FORM>
-											</td>
-										</tr>
-									</c:forEach>
+											</FORM></td>
+
+
+
+									</tr>
 								</table>
+
 							</dl>
 						</div>
 					</div>
@@ -135,6 +125,8 @@ table, th, td {
 		</div>
 	</div>
 	<!-- 	<a href='frontPage.jsp'>到首頁</a> -->
+
+
 
 </body>
 </html>

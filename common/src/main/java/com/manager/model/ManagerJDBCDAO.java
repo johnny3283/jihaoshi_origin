@@ -225,6 +225,11 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 	}
 
 	@Override
+	public List<Integer> GetAuthority(Integer managerNo) {
+		return null;
+	}
+
+	@Override
 	public void delete(Integer managerNo) {
 
 		Connection con = null;

@@ -1,10 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.manager.model.*"%>
+
+<%
+ManagerVO ManagerVO = (ManagerVO) request.getAttribute("ManagerVO");
+%>
 
 <html>
 <head>
-<title>Login</title>
+
+<title>sign up</title>
+
 <style>
         @import url('https://fonts.googleapis.com/css?family=Poppins');
 
@@ -338,55 +344,57 @@
         }
     </style>
 
+
+
 </head>
-<body>
-  <div class="wrapper fadeInDown">
+<body >
+<div class="wrapper fadeInDown">
         <div id="formContent">
             <!-- Tabs Titles -->
-            <h2 class="active"> Sign In </h2>
-            <a href="<%=request.getContextPath()%>/member/addmember.jsp">
-            <h2 class="inactive underlineHover">Sign Up
-            </h2>
-            </a>
-			<br><c:if test="${not empty errorMsgs}">
-				<font style="color: red">請修正以下錯誤:</font>
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color: red">${message}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
+            <h2 class="active"> Sign Up </h2><br>
 
-			<FORM METHOD="post" ACTION="MemberServlet">
-                <input type="text" id="login" class="fadeIn second" name="memberAccount" id="account"
-                    placeholder="login">
-                <input type="password" id="password" class="fadeIn third" name="memberPassword" id="password"
-                    placeholder="password">
-                <input type="hidden" name="action" value="Login"> <input type="submit" value="送出" onclick="login()">
-            </FORM>
 
-        </div>
-    </div>
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 
-	<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		// 	async function login() {
-		//         const ac = document.getElementById("account").value
-		//         const pas = document.getElementById("password").value
-		//         console.log(ac);
-		//         console.log(pas);
-		//         const url = './MemberServlet?action=Login&memberAccount=ac&memberPassword=pas';
-		//         fetch(url)
-		//             .then(res => res.json())
-		//             .then(memVO => {
-		// 				const account = \${memVO.memberAccount};
-		// 				const No= \${memVO.memberNo};
-		//                 sessionStorage.setItem("account", account);
-		// 				sessionStorage.setItem("No", No);
+	<FORM METHOD="post" ACTION="ManagerServlet" name="form1">
+		<h3 id="form-title">新增管理員:</h3>
 
-		//             });
-		//     }
-	</script>
+			
+				
+				<input type="TEXT" name="managerAccount" size="45"
+					class="fadeIn second" placeholder="account"
+					value="<%=(ManagerVO == null) ? "" : ManagerVO.getManagerAccount()%>" />
+				
+				<input type="password" name="managerPassword" size="45"
+					class="fadeIn second" placeholder="password"
+					value="<%=(ManagerVO == null) ? "" : ManagerVO.getManagerPassword()%>" />
+					
+				<input type="TEXT" name="managerName" size="45"
+					class="fadeIn second" placeholder="name"
+					value="<%=(ManagerVO == null) ? "" : ManagerVO.getManagerName()%>" />
+				<input type="TEXT" name="managerIp" size="45"
+					class="fadeIn second" placeholder="Ip"
+					value="<%=(ManagerVO == null) ? "" : ManagerVO.getManagerIp()%>" />
+				
+				
+			
+				<input type="hidden" name="action" value="insert">
+					<input type="submit" value="新增" id="submit">
+			
 
+	</FORM>
+	</div>
+	</div>
 </body>
+<script>
+	
+</script>
 </html>

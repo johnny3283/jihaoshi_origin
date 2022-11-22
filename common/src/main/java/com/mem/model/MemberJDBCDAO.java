@@ -10,6 +10,8 @@ import java.util.List;
 
 import com.onlinecoursecomment.model.OnlineCourseCommentVO;
 import com.onlinecoursecommentreport.model.OnlineCourseCommentReportVO;
+import com.phyCourseComment.model.phyCourseCommentVO;
+import com.phyCourseCommentReport.model.phyCourseCommentReportVO;
 
 public class MemberJDBCDAO implements MemberDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -326,6 +328,21 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		return MemberVO;
 	}
 
+	@Override
+	public MemberVO findByEmail(String memberEmail) {
+		return null;
+	}
+
+	@Override
+	public List<phyCourseCommentVO> getPhyCourseCommentsByMemberNo(Integer memberNo) {
+		return null;
+	}
+
+	@Override
+	public List<phyCourseCommentReportVO> getPhyCourseCommentReportsByMemberNo(Integer memberNo) {
+		return null;
+	}
+
 	public static void main(String[] args) {
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 
@@ -379,7 +396,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	}
 
 	@Override
-	public Integer findByAccount(String memberAccount) {
+	public MemberVO findByAccount(String memberAccount) {
 		// TODO Auto-generated method stub
 		return null;
 	}

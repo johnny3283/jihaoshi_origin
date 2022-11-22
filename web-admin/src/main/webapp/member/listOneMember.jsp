@@ -11,72 +11,82 @@ MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
 <html>
 <head>
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
+body {
+	background-color: lightgray;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
+h1 {
 	color: blue;
 	display: inline;
+	margin-left: 43%;
 }
 </style>
 
 <style>
 table {
 	width: 800px;
-	background-color: white;
+	/* 	background-color: #79798c; */
 	margin-top: 5px;
 	margin-bottom: 5px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 table, th, td {
-	border: 1px solid #CCCCFF;
+	border: 1px solid black;
 }
 
 th, td {
-	padding: 5px;<a href='frontPage.jsp'>到首頁</a>   <br><br>
+	padding: 5px;
 	text-align: center;
+}
+</style>
+<style>
+#td.password {
+	color: red;
 }
 </style>
 
 <title>listOneMember</title>
 </head>
 <body>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 	<table>
 		<tr>
 			<th>會員編號</th>
-			<th>會員密碼</th>
 			<th>會員姓名</th>
 			<th>會員電話</th>
 			<th>會員暱稱</th>
 			<th>會員地址</th>
 			<th>會員e-mail</th>
+			<th>會員狀態</th>
 
 		</tr>
 		<tr>
-			
+
 			<td>${MemberVO.memberNo}</td>
-			<td>${MemberVO.memberPassword}</td>
 			<td>${MemberVO.memberName}</td>
 			<td>${MemberVO.memberPhone}</td>
 			<td>${MemberVO.memberNickname}</td>
 			<td>${MemberVO.memberAddress}</td>
 			<td>${MemberVO.memberEmail}</td>
+			<td>${MemberVO.memberState}</td>
 
 
 
 
 		</tr>
 	</table>
-		<a href='frontPage.jsp'>到首頁</a>   <br><br>
+	<a href='frontPage.jsp'>到首頁</a>
+	<br>
+	<br>
 
 </body>
 </html>

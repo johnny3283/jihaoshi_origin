@@ -15,5 +15,6 @@ public interface ManagerDAO_interface {
 
 	public ManagerVO selectForLogin(String managerAccount, String managerPassword);
 
+	public List<Integer> GetAuthority(Integer managerNo);
 
 }

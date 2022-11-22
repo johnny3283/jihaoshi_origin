@@ -2,8 +2,13 @@ package com.mem.model;
 
 import java.util.List;
 
+
+import com.phyCourseComment.model.phyCourseCommentVO;
+import com.phyCourseCommentReport.model.phyCourseCommentReportVO;
+
 import com.onlinecoursecomment.model.OnlineCourseCommentVO;
 import com.onlinecoursecommentreport.model.OnlineCourseCommentReportVO;
+
 
 
 
@@ -11,8 +16,8 @@ public class MemService {
 	private MemberDAO_interface dao;
 
 	public MemService() {
-//		dao = new MemberDAO();
-		dao = new MemberJDBCDAO();
+		dao = new MemberDAO();
+//		dao = new MemberJDBCDAO();
 	}
 
 	public MemberVO addmember(String memberAccount, String memberPassword, String memberName, String memberPhone,
@@ -61,9 +66,29 @@ public class MemService {
 	}
 
 	public MemberVO Login(String memberAccount, String memberPassword) {
-		return dao.selectForLogin(memberAccount,memberPassword);
+		return dao.selectForLogin(memberAccount, memberPassword);
 	}
-	public Integer findByAccount(String memberAccount) {
+
+//	public MemberVO findByAccount(String memberAccount) {
+//		return dao.findByAccount(memberAccount);
+//	}
+	public MemberVO findByEmail(String memberEmail) {
+		return dao.findByEmail(memberEmail);
+	}
+
+	public MemberVO getOnePhyCourse(Integer memberNo) {
+		return dao.findByPrimaryKey(memberNo);
+	}
+
+
+	public List<phyCourseCommentVO> getPhyCourseCommentsByMemberNo(Integer memberNo) {
+		return dao.getPhyCourseCommentsByMemberNo(memberNo);
+	}
+
+	public List<phyCourseCommentReportVO> getPhyCourseCommentReportsByMemberNo(Integer memberNo) {
+		return dao.getPhyCourseCommentReportsByMemberNo(memberNo);}
+
+	public MemberVO findByAccount(String memberAccount) {
 		return dao.findByAccount(memberAccount);
 	}
 	public MemberVO getOneOnlineCourse(Integer memberNo) {
@@ -74,5 +99,6 @@ public class MemService {
 	}
 	public List<OnlineCourseCommentReportVO> getOnlineCourseCommentReportsByMemberNo(Integer memberNo) {
 		return dao.getOnlineCourseCommentReportsByMemberNo(memberNo);
+
 	}
 }

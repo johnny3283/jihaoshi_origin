@@ -10,7 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.manager.model.ManagerService;
+import com.manager.model.ManagerVO;
 import com.mem.model.MemService;
 import com.mem.model.MemberVO;
 
@@ -26,6 +29,58 @@ public class ManagerServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
+		if ("getOne_For_Display".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			String str = req.getParameter("managerNo");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.add("請輸入管理員編號");
+			}
+
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/listAllManager.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			Integer managerNo = null;
+			try {
+				managerNo = Integer.valueOf(str);
+			} catch (Exception e) {
+				errorMsgs.add("管理員編號格式不正確");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/listAllManager.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			/*************************** 2.開始查詢資料 *****************************************/
+			ManagerService mgrSvc = new ManagerService();
+			ManagerVO mgrVO = mgrSvc.getOneMem(managerNo);
+			if (mgrVO == null) {
+				errorMsgs.add("查無資料");
+
+			}
+
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/listAllMember.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("ManagerVO", mgrVO);
+			String url = "/manager/listOneManager.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
+		
 		if ("insert".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -34,219 +89,46 @@ public class ManagerServlet extends HttpServlet {
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 
-			String memberacc = req.getParameter("memberAccount");
-			String memberpas = req.getParameter("memberPassword");
-			String membername = req.getParameter("memberName");
-			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			String memberpho = req.getParameter("memberPhone");
-			String membernick = req.getParameter("memberNickname");
-			String memberadd = req.getParameter("memberAddress");
-			String memberemail = req.getParameter("memberEmail");
-			if (memberacc == null || memberacc.trim().length() == 0) {
-				errorMsgs.add("會員帳號請勿空白1");
+			String manageracc = req.getParameter("managerAccount");
+			String managerpas = req.getParameter("managerPassword");
+			String managername = req.getParameter("managerName");
+			String managerIp=req.getParameter("managerIp");
+			
+			if (manageracc == null || manageracc.trim().length() == 0) {
+				errorMsgs.add("會員帳號請勿空白");
 			}
-			if (memberpas == null || memberpas.trim().length() == 0) {
+			if (managerpas == null || managerpas.trim().length() == 0) {
 				errorMsgs.add("會員密碼請勿空白");
 			}
-			if (membername == null || membername.trim().length() == 0) {
+			if (managername == null || managername.trim().length() == 0) {
 				errorMsgs.add("會員姓名: 請勿空白");
-			} else if (!membername.trim().matches(enameReg)) {
-				errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-			}
-			if (memberpho == null || memberpho.trim().length() == 0) {
-				errorMsgs.add("會員電話請勿空白");
-			}
-			if (membernick == null || membernick.trim().length() == 0) {
-				errorMsgs.add("會員暱稱請勿空白");
-			}
-			if (memberadd == null || memberadd.trim().length() == 0) {
-				errorMsgs.add("會員地址請勿空白");
-			}
-			if (memberemail == null || memberemail.trim().length() == 0) {
-				errorMsgs.add("會員email請勿空白");
 			}
 
-			MemberVO memVO = new MemberVO();
-			memVO.setMemberName(membername);
-			memVO.setMemberAccount(memberacc);
-			memVO.setMemberPassword(memberpas);
-			memVO.setMemberPhone(memberpho);
-			memVO.setMemberNickname(membernick);
-			memVO.setMemberAddress(memberadd);
-			memVO.setMemberEmail(memberemail);
+			ManagerVO mgrVO = new ManagerVO();
+			mgrVO.setManagerAccount(manageracc);
+			mgrVO.setManagerPassword(managerpas);
+			mgrVO.setManagerName(managername);
+			mgrVO.setManagerIp(managerIp);
+			
 
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("memberVO", memVO);
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/addmember.jsp");
+				req.setAttribute("memberVO", mgrVO);
+				RequestDispatcher failureView = req.getRequestDispatcher("/manager/addManager.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 
-			MemService memSvc = new MemService();
-			memVO = memSvc.addmember(membername, memberacc, memberpas, memberpho, membernick, memberadd,
-					memberemail);
+			ManagerService memSvc = new ManagerService();
+			mgrVO = memSvc.addmember( manageracc, managerpas,managername,managerIp);
 			
 			
-			req.setAttribute("MemberVO", memVO);
-			String url = "/member/listAllMember.jsp";
+			req.setAttribute("mgrVO", mgrVO);
+			String url = "/manager/listAllManager.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 
 		}
-
-		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer memberno = Integer.valueOf(req.getParameter("memberNo").trim());
-			String membername = req.getParameter("memberName");
-			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			String memberpas = req.getParameter("memberPassword");
-			String memberpho = req.getParameter("memberPhone");
-			String membernick = req.getParameter("memberNickname");
-			String memberadd = req.getParameter("memberAddress");
-			String memberemail = req.getParameter("memberEmail");
-			String memberacc = req.getParameter("memberAccount");
-			                                     
-
-			if (memberacc == null || memberacc.trim().length() == 0) {
-				errorMsgs.add("會員帳號請勿空白");
-			}
-			if (membername == null || membername.trim().length() == 0) {
-				errorMsgs.add("會員姓名: 請勿空白");
-			} else if (!membername.trim().matches(enameReg)) {
-				errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-			}
-			if (memberpas == null || memberpas.trim().length() == 0) {
-				errorMsgs.add("會員密碼請勿空白");
-			}
-			if (memberpho == null || memberpho.trim().length() == 0) {
-				errorMsgs.add("會員電話請勿空白");
-			}
-			if (membernick == null || membernick.trim().length() == 0) {
-				errorMsgs.add("會員暱稱請勿空白");
-			}
-			if (memberadd == null || memberadd.trim().length() == 0) {
-				errorMsgs.add("會員地址請勿空白");
-			}
-			if (memberemail == null || memberemail.trim().length() == 0) {
-				errorMsgs.add("會員email請勿空白");
-			}
-
-			MemberVO memVO = new MemberVO();
-			memVO.setMemberAccount(memberacc);
-			memVO.setMemberName(membername);
-			memVO.setMemberPassword(memberpas);
-			memVO.setMemberPhone(memberpho);
-			memVO.setMemberNickname(membernick);
-			memVO.setMemberAddress(memberadd);
-			memVO.setMemberEmail(memberemail);
-			memVO.setMemberNo(memberno);
-
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("MemberVO", memVO);
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/update_mem_input.jsp");
-				failureView.forward(req, res);
-				return; // 程式中斷
-			}
-
-			/*************************** 2.開始修改資料 *****************************************/
-			MemService memSvc = new MemService();
-			memVO = memSvc.updateEmp(memberacc, memberno, memberpas, membername, memberpho, membernick, memberadd,
-					memberemail);
-
-			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("MemberVO", memVO);
-			String url = "listOneMember.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
-
-		// 查詢一個會員
-		if ("getOne_For_Display".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			String str = req.getParameter("memberNo");
-			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員編號");
-			}
-
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
-
-			Integer memberNo = null;
-			try {
-				memberNo = Integer.valueOf(str);
-			} catch (Exception e) {
-				errorMsgs.add("員工編號格式不正確");
-			}
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
-
-			/*************************** 2.開始查詢資料 *****************************************/
-			MemService memSvc = new MemService();
-			MemberVO memVO = memSvc.getOneMem(memberNo);
-			if (memVO == null) {
-				errorMsgs.add("查無資料");
-
-			}
-
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
-
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("MemberVO", memVO);
-			String url = "listOneMember.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
-
-		if ("getOne_For_Update".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 ****************************************/
-			Integer memberNo = Integer.valueOf(req.getParameter("memberNo"));
-
-			/*************************** 2.開始查詢資料 ****************************************/
-			MemService memSvc = new MemService();
-			MemberVO memVO = memSvc.getOneMem(memberNo);
-			if (memVO == null) {
-				errorMsgs.add("查無資料");
-
-			}
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/frontPage.jsp");
-				failureView.forward(req, res);
-				return;// 程式中斷
-			}
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("MemberVO", memVO);
-			String url = "update_mem_input.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
-			successView.forward(req, res);
-		}
-
+		
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -255,16 +137,75 @@ public class ManagerServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ***************************************/
-			Integer memberNo = Integer.valueOf(req.getParameter("memberNo"));
+			Integer managerNo = Integer.valueOf(req.getParameter("managerNo"));
 
 			/*************************** 2.開始刪除資料 ***************************************/
-			MemService memSvc = new MemService();
-			memSvc.deleteEmp(memberNo);
+			ManagerService mgrSvc = new ManagerService();
+			mgrSvc.deleteEmp(managerNo);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/member/listAllMember.jsp";
+			String url = "/manager/listAllManager.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
+		}
+		
+		if ("Login".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			final HttpSession session = req.getSession();
+
+			String manageracc = req.getParameter("managerAccount");
+			String managerpas = req.getParameter("managerPassword");
+
+			if (manageracc == null || manageracc.trim().length() == 0) {
+				errorMsgs.add("請輸入管理員帳號");
+			}
+			if (managerpas == null || managerpas.trim().length() == 0) {
+				errorMsgs.add("請輸入管理員密碼");
+			}
+
+			ManagerVO manager = new ManagerVO();
+//			List<ManagerVO> mgrVO2 = (List<ManagerVO>) new ManagerVO();
+
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("ManagerVO", manager);
+				RequestDispatcher failureView = req.getRequestDispatcher("/manager/login.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+
+			ManagerService mgrSvc = new ManagerService();
+			manager = mgrSvc.Login(manageracc, managerpas);
+			if (manager == null) {
+				errorMsgs.add("帳號或密碼錯誤");
+			}
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("memberVO", manager);
+				RequestDispatcher failureView = req.getRequestDispatcher("/manager/login.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			List<Integer> authorityNo= mgrSvc.getAuthority(manager.getManagerNo());
+			manager.setAuthorityNo(authorityNo);
+			
+			session.setAttribute("manager", manager);
+			
+			String location = (String) session.getAttribute("location");
+			if (location != null) {
+				session.removeAttribute("location");
+				res.sendRedirect(location);
+			}
+			res.sendRedirect(req.getContextPath() + "/index.jsp");
+
+		}
+
+		// 登出
+		if ("Logout".equals(action)) {
+			final HttpSession session = req.getSession();
+			session.removeAttribute("manager");
+			
+			res.sendRedirect(req.getContextPath() + "/index.jsp");
 		}
 	}
 }
