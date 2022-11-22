@@ -7,44 +7,44 @@ function searchByName() {
 	const url = './getOneMem';
 	fetch(url)
 		.then(res => res.json())
-		.then(memVO => {
+		.then(member => {
 
 			ItemContainer.insertAdjacentHTML('beforeend', `<div class="content">
 			<table>
         <tr>
             <td>會員編號 :</td><br>
-            <td>${memVO.memberNo}</td>
+            <td>${member.memberNo}</td>
         </tr>
         <tr>
             <td>會員密碼 :</td><br>
-            <td>${memVO.memberPassword}</td>
+            <td>${member.memberPassword}</td>
 
         </tr>
         <tr>
             <td>會員姓名 :</td><br>
-			<td>${memVO.memberName}</td>
+			<td>${member.memberName}</td>
         </tr>
         <tr>
             <td>會員電話 :</td><br>
-			<td>${memVO.memberPhone}</td>
+			<td>${member.memberPhone}</td>
         </tr>
         <tr>
             <td>會員暱稱 :</td><br>
-			<td>${memVO.memberNickname}</td>
+			<td>${member.memberNickname}</td>
         </tr>
         <tr>
             <td>會員地址 :</td><br>
-			<td>${memVO.memberAddress}</td>
+			<td>${member.memberAddress}</td>
         </tr>
         <tr>
             <td>會員e-mail :</td><br>
-            <td>${memVO.memberEmail}</td>
+            <td>${member.memberEmail}</td>
         </tr>       		 													
     </table>
     <tr>	
     		<FORM METHOD="post" ACTION="member/MemberServlet">
 				<b></b> 
-				<input type="hidden" name="memberNo" value="${memVO.memberNo}"> 
+				<input type="hidden" name="memberNo" value="${member.memberNo}"> 
 				<input type="hidden" name="action" value="getOne_For_Update">
 				<input type="submit" value="修改">
 					

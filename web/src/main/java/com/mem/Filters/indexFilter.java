@@ -29,9 +29,9 @@ public class indexFilter implements Filter {
         // 【取得 session】
         HttpSession session = req.getSession();
         // 【從 session 判斷此user是否登入過】
-        Object account = session.getAttribute("MemberAcc");
+        Object account = session.getAttribute("member");
         if (account == null) {
-            session.setAttribute("MemberAcc", "訪客");
+            session.setAttribute("Guest", "訪客");
             chain.doFilter(request, response);
         } else {
             chain.doFilter(request, response);

@@ -223,51 +223,49 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.add("會員密碼請勿空白");
 			}
 
-			MemberVO memVO = new MemberVO();
+			MemberVO member = new MemberVO();
 //			memVO.setMemberAccount(memberacc);
 //			memVO.setMemberPassword(memberpas);
 
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("memberVO", memVO);
+				req.setAttribute("memberVO", member);
 				RequestDispatcher failureView = req.getRequestDispatcher("/member/login.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 
 			MemService memSvc = new MemService();
-			memVO = memSvc.Login(memberacc, memberpas);
+			member = memSvc.Login(memberacc, memberpas);
 
-			if (memVO == null) {
+			if (member == null) {
 				errorMsgs.add("帳號或密碼錯誤");
 			}
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("memberVO", memVO);
+				req.setAttribute("memberVO", member);
 				RequestDispatcher failureView = req.getRequestDispatcher("/member/login.jsp");
 				failureView.forward(req, res);
 				return;
 			}
-			session.setAttribute("MemberAcc", memVO.getMemberAccount());
-			session.setAttribute("MemberName", memVO.getMemberName());
-			session.setAttribute("MemberNo", memVO.getMemberNo());		
-			
+			session.removeAttribute("Guest");
+			session.setAttribute("member", member);
+	
 			Gson gson = new Gson();
 			res.setContentType("application/json; charset=UTF-8");
-			res.getWriter().write(gson.toJson(memVO));
+			res.getWriter().write(gson.toJson(member));
 			String location = (String) session.getAttribute("location");
 			if (location != null) {
 				session.removeAttribute("location");
 				res.sendRedirect(location);
 			}
-
+			res.sendRedirect(req.getContextPath() + "/index.jsp");
 
 		}
 
 		// 登出
 		if ("Logout".equals(action)) {
 			final HttpSession session = req.getSession();
-			session.removeAttribute("MemberAcc");
-			session.removeAttribute("MemberName");
-			session.removeAttribute("MemberNo");
+			session.removeAttribute("member");
+
 			res.sendRedirect(req.getContextPath() + "/index.jsp");
 		}
 		// -------------------登出結束------------------------------------

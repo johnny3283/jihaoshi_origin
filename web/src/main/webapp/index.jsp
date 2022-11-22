@@ -94,8 +94,8 @@ th, td {
 								</ul>
 							</c:if>
 							</li>
-							<li>歡迎:<font color=blue> ${MemberAcc} </font>您好 <br> <font>會員編號:
-									${MemberNo} </font> <br> <font>會員姓名: ${MemberName} </font></li>
+							<li>歡迎:<font color=blue> ${Guest} </font><font color=blue> ${member.memberAccount} </font>您好 <br> <font>會員編號:
+									${member.memberNo} </font> <br> <font>會員姓名: ${member.memberName} </font></li>
 							<li id="logout"><a
 								href="./member/MemberServlet?action=Logout">登出</a></li>
 							<li><a href="./member/login.jsp">登入</a></li>

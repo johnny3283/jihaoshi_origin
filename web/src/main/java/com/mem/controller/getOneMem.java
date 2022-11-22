@@ -36,7 +36,7 @@ public class getOneMem extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			HttpSession session = req.getSession();
 
-			Object No = session.getAttribute("MemberNo");
+			Object No = session.getAttribute("member.memberNo");
 			if(No == null) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/member/login.jsp");
 				failureView.forward(req, res);
@@ -49,12 +49,12 @@ public class getOneMem extends HttpServlet {
 
 			/********************************************************************/
 			MemService memSvc = new MemService();
-			MemberVO memVO = memSvc.getOneMem(memberNo);
+			MemberVO member = memSvc.getOneMem(memberNo);
 
 
 			Gson gson = new Gson();
 			res.setContentType("application/json; charset=UTF-8");
-			res.getWriter().write(gson.toJson(memVO));
+			res.getWriter().write(gson.toJson(member));
 
 		}
 	}
