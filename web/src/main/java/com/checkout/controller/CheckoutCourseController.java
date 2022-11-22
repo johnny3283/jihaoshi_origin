@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import com.cart.model.CartCourseHolder;
+import com.cart.model.CartCourseMapHolder;
 import com.cart.model.CartCourseService;
 import com.cart.model.CartCourseVO;
 import ecpay.payment.integration.AllInOne;
@@ -23,8 +25,14 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 
 @WebServlet("/checkout/checkoutCourseController")
 public class CheckoutCourseController extends HttpServlet {
+	
+	private final CartCourseHolder cartCourseHolder;
     CartCourseService cartCourseSV=new CartCourseService();
 
+    public CheckoutCourseController() {
+		this.cartCourseHolder=new CartCourseMapHolder();
+	}
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         doPost(req, res);
@@ -55,8 +63,9 @@ public class CheckoutCourseController extends HttpServlet {
             String ranAlphabet = RandomStringUtils.randomAlphabetic(2).toUpperCase();
             int ranNum = (int) (Math.random() * 8999+ 1000);
             String merchantTradeNo=ranAlphabet+tradeDate.replace("/", "").replace(":", "").replace(" ", "")+ranNum;
-            aioCheckOutALL.setMerchantTradeNo(merchantTradeNo);
+            cartCourseHolder.put(merchantTradeNo, cartCourses);
             
+            aioCheckOutALL.setMerchantTradeNo(merchantTradeNo);
             aioCheckOutALL.setMerchantTradeDate(tradeDate);
             aioCheckOutALL.setTotalAmount(String.valueOf(totalPrice));
             aioCheckOutALL.setTradeDesc("付款測試");

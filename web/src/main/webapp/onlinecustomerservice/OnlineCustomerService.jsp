@@ -6,11 +6,11 @@
 
 <html>
 <head>
-<title>線上即時客服-會員</title>
+<title>線上即時客服</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="stylesheet" href="../css/user.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/user.css" type="text/css" />
 <link type="text/css"
 	href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
 <style>
@@ -75,7 +75,7 @@ a {
 		</div>
 	</div>
 	<script>
-		var MyPoint = "/CustomerServerWS/${empty memberVO.memberAccount ? "vistor" : memberVO.memberAccount }";
+		var MyPoint = "/CustomerServerWS/${username}";
 		var host = window.location.host;
 		var path = window.location.pathname;
 		var webCtx = path.substring(0, path.indexOf('/', 1));
@@ -85,7 +85,7 @@ a {
 		// ws是Socket自己的通訊協定
 		var statusOutput = document.getElementById("statusOutput");
 		var messagesArea = document.getElementById("messagesArea");
-		var self = ${memberVO.memberAccount};
+		var self = "${username}";
 		var webSocket;
 
 		function connect() {

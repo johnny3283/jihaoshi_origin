@@ -10,15 +10,7 @@
 <body>
 	<h1 style="text-align: center">請稍後，正將您導向結帳頁面...</h1>
 	<div id="checkout">
-		<c:choose>
-			<c:when test="${empty checkoutCoursePage}">
-				${checkoutPage} 
-			</c:when>
-			<c:otherwise>
-				${checkoutCoursePage}
-			</c:otherwise>
-		</c:choose>
-		
+		${checkoutPage} 
 	</div>
 
 </body>

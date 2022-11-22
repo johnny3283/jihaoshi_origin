@@ -69,7 +69,7 @@ th, td {
 										href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ列表</a>
 									</li>
 									<li>
-                                    <a href="<%=request.getContextPath()%>/onlinecustomerservice/onlineCustomerService.jsp">線上客服</a>
+                                    <a href="<%=request.getContextPath()%>/customerServiceServlet?action=getConnection">線上客服</a>
                                 	</li>
 									<li>
                                     <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>

@@ -12,25 +12,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.cart.model.CartCourseHolder;
+import com.cart.model.CartCourseMapHolder;
 import com.cart.model.CartCourseService;
 import com.cart.model.CartCourseVO;
+import com.cart.model.CartProdVO;
 import com.online_course_order.model.OnlineCourseOrderService;
 import com.online_course_order.model.OnlineCourseOrderVO;
 
 @WebServlet("/order/orderCourseController")
 public class OrderCourseController extends HttpServlet {
-
+	private final CartCourseHolder cartCourseHolder;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         doPost(req, res);
     }
-
+    public OrderCourseController() {
+		this.cartCourseHolder=new CartCourseMapHolder();
+	}
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         OnlineCourseOrderService orderSV = new OnlineCourseOrderService();
 
         HttpSession session = req.getSession();
-        List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
+//      List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
         String action = req.getParameter("action");
         CartCourseService cartCourseSV = new CartCourseService();
 
@@ -41,12 +46,17 @@ public class OrderCourseController extends HttpServlet {
 
             Integer memberNo = 1;
             String merchantTradeNo = req.getParameter("MerchantTradeNo"); // 店內之交易編號
+            List<CartCourseVO> cartCourses = cartCourseHolder.get(merchantTradeNo);
             String tradeNo = req.getParameter("TradeNo"); // 綠界之交易編號
-            Integer totalPrice = cartCourseSV.calculateTotalPrice(cartCourses);
+            Integer TradeAmt = Integer.valueOf(req.getParameter("TradeAmt"));
+//          Integer totalPrice = cartCourseSV.calculateTotalPrice(cartCourses);
 
-            orderSV.orderInsert(merchantTradeNo, memberNo, totalPrice, tradeNo, cartCourses);
+            orderSV.orderInsert(merchantTradeNo, memberNo, TradeAmt, tradeNo, cartCourses);
             session.removeAttribute("cartCourses");
+            session.removeAttribute("totalCoursePrice");
+            cartCourseHolder.remove(merchantTradeNo);
             res.sendRedirect(req.getContextPath() + "/order/orderCourseController?action=orderList");
+            
 
         }
 
