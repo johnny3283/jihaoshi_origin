@@ -49,9 +49,9 @@ public class OrderController extends HttpServlet {
             String merchantTradeNo = req.getParameter("MerchantTradeNo"); // 店內之交易編號
             List<CartProdVO> cartProds = cartHolder.get(merchantTradeNo);
             String tradeNo = req.getParameter("TradeNo"); // 綠界之交易編號
-            Integer TradeAmt = Integer.valueOf(req.getParameter("TradeAmt"));
+            Integer tradeAmt = Integer.valueOf(req.getParameter("TradeAmt"));
 
-            orderSV.orderInsert(merchantTradeNo, memberNo, TradeAmt, tradeNo, cartProds);
+            orderSV.orderInsert(merchantTradeNo, memberNo, tradeAmt, tradeNo, cartProds);
 
             session.removeAttribute("cartProds");
             session.removeAttribute("totalPrice");

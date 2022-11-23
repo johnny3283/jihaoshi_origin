@@ -40,16 +40,19 @@ public class CartController extends HttpServlet {
             Double quantity=1.0;
             Integer amount=1;
             for (int i = 0; i < mealNosStr.length; i++) {
+
                 MealVO meal = mealSV.findByMealNo(Integer.valueOf(mealNosStr[i]));
                 meal.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString((meal.getMealPhoto())));
                 cartProds=cartSV.getCartProds(quantity,amount,meal,cartProds);
 
             }
+
             Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
             session.setAttribute("totalPrice",totalPrice);
             session.setAttribute("cartProds", cartProds);
             mealCartPage = req.getRequestDispatcher("/cart/MealCart.jsp");
             mealCartPage.forward(req,res);
+            
         }
         if ("cartAdd".equals(action)) {
 
@@ -69,7 +72,7 @@ public class CartController extends HttpServlet {
         if ("cartModify".equals(action)) {
 
             Integer amount = Integer.valueOf(req.getParameter("amount"));
-            Integer cartIndex = Integer.valueOf(req.getParameter("cartIndex"));
+            int cartIndex = Integer.parseInt(req.getParameter("cartIndex"));
             CartProdVO cartProd = cartProds.get(cartIndex);
             cartProd.setAmount(amount);
             cartProd.setPrice((int) (cartProd.getMeal().getMealPrice() * cartProd.getQuantity() * cartProd.getAmount()));
@@ -83,7 +86,7 @@ public class CartController extends HttpServlet {
         }
         if ("cartDelete".equals(action)) {
 
-            Integer cartIndex = Integer.valueOf(req.getParameter("cartIndex"));
+            int cartIndex = Integer.parseInt(req.getParameter("cartIndex"));
             cartProds.remove(cartProds.get(cartIndex));
             Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
             session.setAttribute("totalPrice",totalPrice);
@@ -96,6 +99,7 @@ public class CartController extends HttpServlet {
 
             session.removeAttribute("cartProds");
             session.removeAttribute("totalPrice");
+
             mealCartPage = req.getRequestDispatcher("/cart/MealCart.jsp");
             mealCartPage.forward(req,res);
 

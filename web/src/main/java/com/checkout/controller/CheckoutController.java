@@ -29,15 +29,20 @@ public class CheckoutController extends HttpServlet {
 
     private final CartHolder cartHolder;
 
-    CartService cartSV=new CartService();
+    CartService cartSV = new CartService();
+    private final SimpleDateFormat sdf;
+
+    private final String ECPAY_PROD_FORMAT = "品名：%s 份量：%s 數量：%s #";
 
     // DI style
 //    public CheckoutController(CartHolder cartHolder) {
 //        this.cartHolder = cartHolder;
 //    }
-
     public CheckoutController() {
+
         this.cartHolder = new CartRedisHolder();
+        sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
     }
 
     @Override
@@ -51,60 +56,88 @@ public class CheckoutController extends HttpServlet {
         List<CartProdVO> cartProds = (ArrayList<CartProdVO>) session.getAttribute("cartProds");
         String action = req.getParameter("action");
         if ("checkout".equals(action)) {
-        	
-            Integer totalPrice = cartSV.calculateTotalPrice(cartProds);
-            
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            String tradeDate = sdf.format(new Date(System.currentTimeMillis()));
+
             
             AllInOne allInOne = new AllInOne("");
-            AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
-            
-            StringBuilder itemName=new StringBuilder("");
-            for (CartProdVO prod : cartProds) {
-                itemName.append("品名："+prod.getMeal().getMealName()+" 份量："+prod.getQuantity()+" 數量："+prod.getAmount()+"#");
-            }
-            if (itemName.length()>=200) {
-                itemName = new StringBuilder("Jihaoshi商品一批");
-            }
 
-            String ranAlphabet = RandomStringUtils.randomAlphabetic(2).toUpperCase();
-            int ranNum = (int) (Math.random() * 8999+ 1000);
-            String merchantTradeNo=ranAlphabet+tradeDate.replace("/", "").replace(":", "").replace(" ", "")+ranNum;
-            cartHolder.put(merchantTradeNo, cartProds);
+            AioCheckOutALL aioCheckOutALL = getAioCheckOutALL(req.getRequestURL().toString(), cartProds);
 
-            aioCheckOutALL.setMerchantTradeNo(merchantTradeNo);
-            
-            aioCheckOutALL.setMerchantTradeDate(tradeDate);
-            aioCheckOutALL.setTotalAmount(String.valueOf(totalPrice));
-            aioCheckOutALL.setTradeDesc("付款測試");
-            aioCheckOutALL.setItemName(String.valueOf(itemName));
-            
-            aioCheckOutALL.setReturnURL(req.getRequestURL()+"?action=serverCallBack");
-            aioCheckOutALL.setOrderResultURL(req.getRequestURL()+"?action=callBack");
-            aioCheckOutALL.setClientBackURL("http://localhost:8081/web");
-            aioCheckOutALL.setNeedExtraPaidInfo("N");
-            
-            String checkoutPage=allInOne.aioCheckOut(aioCheckOutALL,null);
-            req.setAttribute("checkoutPage",checkoutPage);
-            RequestDispatcher goCheckout = req
-                    .getRequestDispatcher("/checkout/CheckoutPage.jsp");
+            String checkoutPage = allInOne.aioCheckOut(aioCheckOutALL, null);
+
+            cartHolder.put(aioCheckOutALL.getMerchantTradeNo(), cartProds);
+
+            req.setAttribute("checkoutPage", checkoutPage);
+
+            RequestDispatcher goCheckout = req.getRequestDispatcher("/checkout/CheckoutPage.jsp");
             goCheckout.forward(req, res);
+
         }
         if ("serverCallBack".equals(action)) {
-            res.getWriter().println("1|OK");
-            return;
+            try {
+                int rtnCode = Integer.parseInt(req.getParameter("RtnCode")); // rtnCode==1 交易成功
+                if (rtnCode == 1) {
+                    res.getWriter().println("1|OK");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+
+                System.out.println("綠界有回傳，但非數字");
+                e.printStackTrace();
+
+            }
         }
+
         if ("callBack".equals(action)) {
 
             Integer rtnCode = Integer.valueOf(req.getParameter("RtnCode")); // rtnCode==1 交易成功
 
             if (rtnCode.equals(1)) {
-                RequestDispatcher orderInsert =req.getRequestDispatcher("/order/orderController?action=orderInsert");
-                orderInsert.forward(req,res);
-            }else {
+                RequestDispatcher orderInsert = req.getRequestDispatcher("/order/orderController?action=orderInsert");
+                orderInsert.forward(req, res);
+            } else {
                 res.sendRedirect("/checkout/CheckoutFail.jsp");
             }
         }
+    }
+
+    private AioCheckOutALL getAioCheckOutALL(String requestURL, List<CartProdVO> cartProds) {
+        AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
+
+        String tradeDate = sdf.format(new Date(System.currentTimeMillis()));
+
+
+        aioCheckOutALL.setMerchantTradeNo(getTradeNo(tradeDate));
+        aioCheckOutALL.setMerchantTradeDate(tradeDate);
+        aioCheckOutALL.setTotalAmount(String.valueOf(cartSV.calculateTotalPrice(cartProds)));
+        aioCheckOutALL.setTradeDesc("付款測試");
+        aioCheckOutALL.setItemName(String.valueOf(getECContent(cartProds)));
+        aioCheckOutALL.setReturnURL(requestURL + "?action=serverCallBack");
+        aioCheckOutALL.setOrderResultURL(requestURL + "?action=callBack");
+        aioCheckOutALL.setClientBackURL("http://localhost:8081/web");
+        aioCheckOutALL.setNeedExtraPaidInfo("N");
+        return aioCheckOutALL;
+
+    }
+
+    private StringBuilder getECContent(List<CartProdVO> cartProds) {
+        StringBuilder itemName = new StringBuilder();
+
+        for (CartProdVO prod : cartProds) {
+
+            itemName.append(String.format(ECPAY_PROD_FORMAT, prod.getMeal().getMealName(), prod.getQuantity(), prod.getAmount()));
+
+        }
+        if (itemName.length() >= 200) {
+            itemName = new StringBuilder("Jihaoshi商品一批");
+        }
+        return itemName;
+    }
+
+    private String getTradeNo(String tradeDate) {
+
+        String ranAlphabet = RandomStringUtils.randomAlphabetic(2).toUpperCase();
+        int ranNum = (int) (Math.random() * 8999 + 1000);
+        return ranAlphabet + tradeDate.replace("/", "").replace(":", "").replace(" ", "") + ranNum;
+
     }
 }
