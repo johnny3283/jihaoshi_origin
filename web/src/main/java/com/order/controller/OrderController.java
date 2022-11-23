@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import com.cart.model.CartHolder;
 import com.cart.model.CartProdVO;
 import com.cart.model.CartRedisHolder;
-
 import com.mem.model.MemberVO;
 import com.order.model.OrderService;
 import com.order.model.OrderVO;
@@ -47,7 +46,6 @@ public class OrderController extends HttpServlet {
 
         if ("orderInsert".equals(action)) {
 
-            String tradeDesc = req.getParameter("TradeDesc");
             MemberVO member = (MemberVO) session.getAttribute("member");
             String merchantTradeNo = req.getParameter("MerchantTradeNo"); // 店內之交易編號
             String tradeNo = req.getParameter("TradeNo"); // 綠界之交易編號

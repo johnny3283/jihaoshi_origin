@@ -42,6 +42,7 @@ public class CheckoutController extends HttpServlet {
 
         this.cartHolder = new CartRedisHolder();
         sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
     }
 
     @Override
@@ -60,7 +61,7 @@ public class CheckoutController extends HttpServlet {
             
             AllInOne allInOne = new AllInOne("");
             String tradeDesc=member.getMemberNo()+"的結帳";
-            AioCheckOutALL aioCheckOutALL = getAioCheckOutALL(req.getRequestURL().toString(), cartProds, tradeDesc);
+            AioCheckOutALL aioCheckOutALL = getAioCheckOutALL(req.getContextPath(),req.getRequestURL().toString(), cartProds, tradeDesc);
 
             String checkoutPage = allInOne.aioCheckOut(aioCheckOutALL, null);
             cartHolder.put(aioCheckOutALL.getMerchantTradeNo(), cartProds);
@@ -87,9 +88,8 @@ public class CheckoutController extends HttpServlet {
 
         if ("callBack".equals(action)) {
             Integer rtnCode = Integer.valueOf(req.getParameter("RtnCode")); // rtnCode==1 交易成功
-
             if (rtnCode.equals(1)) {
-                RequestDispatcher orderInsert = req.getRequestDispatcher("/other/ResultPage.jsp");
+                RequestDispatcher orderInsert = req.getRequestDispatcher("/order/orderController?action=orderInsert");
                 orderInsert.forward(req, res);
             } else {
                 res.sendRedirect("/checkout/CheckoutFail.jsp");
@@ -97,7 +97,7 @@ public class CheckoutController extends HttpServlet {
         }
     }
 
-    private AioCheckOutALL getAioCheckOutALL(String requestURL, List<CartProdVO> cartProds, String tradeDesc) {
+    private AioCheckOutALL getAioCheckOutALL(String contextPath,String requestURL, List<CartProdVO> cartProds, String tradeDesc) {
         AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
 
         String tradeDate = sdf.format(new Date(System.currentTimeMillis()));
@@ -109,7 +109,8 @@ public class CheckoutController extends HttpServlet {
         aioCheckOutALL.setTradeDesc(tradeDesc);
         aioCheckOutALL.setItemName(String.valueOf(getECContent(cartProds)));
         aioCheckOutALL.setReturnURL(requestURL + "?action=serverCallBack");
-        aioCheckOutALL.setOrderResultURL(requestURL + "?action=callBack");
+        // demo環境改變記得改下面寫死之路徑
+        aioCheckOutALL.setOrderResultURL("http://localhost:8081/web/other/ResultPage.jsp");
         aioCheckOutALL.setClientBackURL("http://localhost:8081/web");
         aioCheckOutALL.setNeedExtraPaidInfo("N");
         return aioCheckOutALL;

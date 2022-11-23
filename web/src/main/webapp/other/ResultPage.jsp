@@ -11,8 +11,11 @@
     <title></title>
 </head>
 <body>
-<form id="ECPayReturn" action="${ctxPath}/order/orderController" method="post">
-    <input type="text" name="action" value="orderInsert" hidden>
+<form id="ECPayReturn" action="${ctxPath}/checkout/checkoutController" method="post">
+
+    <input type="text" name="action" value="callBack" hidden>
+    <input type="text" name="RtnCode" value="${param.RtnCode}" hidden>
+
     <input type="text" name="TradeNo" value="${param.TradeNo}" hidden>
     <input type="text" name="MerchantTradeNo" value="${param.MerchantTradeNo}" hidden>
     <input type="text" name="TradeDesc" value="${param.TradeDesc}" hidden>
