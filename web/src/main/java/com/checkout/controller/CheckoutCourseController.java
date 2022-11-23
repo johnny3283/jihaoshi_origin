@@ -78,8 +78,9 @@ public class CheckoutCourseController extends HttpServlet {
            
             String checkoutPage=allInOne.aioCheckOut(aioCheckOutALL,null);
             req.setAttribute("checkoutCoursePage",checkoutPage);
+            
             RequestDispatcher goCheckout = req
-                    .getRequestDispatcher("/checkout/CheckoutPage.jsp");
+                    .getRequestDispatcher("/checkout/CheckoutCoursePage.jsp");
             goCheckout.forward(req, res);
         }
         if ("serverCallBack".equals(action)) {

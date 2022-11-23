@@ -31,7 +31,7 @@ public class CartCourseController extends HttpServlet {
         List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
 
         String action = req.getParameter("action");
-        if ("cartAdd".equals(action)) {
+        if ("cartAdd".equals(action) || "oneCartAdd".equals(action)) {
 
             Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
             OnlineCourseVO course = courseSV.getOneOnlineCourse(courseNo);
@@ -40,9 +40,14 @@ public class CartCourseController extends HttpServlet {
             session.setAttribute("totalCoursePrice",totalCoursePrice);
             session.setAttribute("cartCourses", cartCourses);
             System.out.println(cartCourses);
-            String url=req.getContextPath()+"/onlineCourse/ListAllOnlineCourse.jsp";
-            res.sendRedirect(url);
-
+            if ("cartAdd".equals(action)) {
+            	String url=req.getContextPath()+"/onlineCourse/ListAllOnlineCourse.jsp";
+                res.sendRedirect(url);
+            }else {
+            	String url=req.getContextPath()+"/cart/OnlineCourseCart.jsp";
+                res.sendRedirect(url);
+            }
+            
         }
 
         if ("cartDelete".equals(action)) {

@@ -88,7 +88,11 @@ div.divflex2 {
                                 <input type="hidden" name="action" value="cartAdd">
                                 <input type="submit" value="加入購物車">
                             	</form>
-								<input type="submit" value="直接結帳">
+                            	<form method="get" action="../cart/cartCourseController">
+ 								<input type="hidden" name="courseNo" value="${course.courseNo}">
+                                <input type="hidden" name="action" value="oneCartAdd">
+                                <input type="submit" value="直接結帳">
+                            	</form>
  							<div id="commentarea" style="width:63%;position:absolute;top:30%;"></div>					
  						</div>`)
  						getComment(comment)

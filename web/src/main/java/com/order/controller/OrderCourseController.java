@@ -47,11 +47,12 @@ public class OrderCourseController extends HttpServlet {
             Integer memberNo = 1;
             String merchantTradeNo = req.getParameter("MerchantTradeNo"); // 店內之交易編號
             List<CartCourseVO> cartCourses = cartCourseHolder.get(merchantTradeNo);
+            Integer volume=cartCourses.size();
             String tradeNo = req.getParameter("TradeNo"); // 綠界之交易編號
             Integer TradeAmt = Integer.valueOf(req.getParameter("TradeAmt"));
 //          Integer totalPrice = cartCourseSV.calculateTotalPrice(cartCourses);
 
-            orderSV.orderInsert(merchantTradeNo, memberNo, TradeAmt, tradeNo, cartCourses);
+            orderSV.orderInsert(merchantTradeNo, memberNo, volume, TradeAmt, tradeNo, cartCourses);
             session.removeAttribute("cartCourses");
             session.removeAttribute("totalCoursePrice");
             cartCourseHolder.remove(merchantTradeNo);
@@ -67,7 +68,7 @@ public class OrderCourseController extends HttpServlet {
         	Integer memberNo = 1;
             List<OnlineCourseOrderVO> orders = orderSV.getOnlineCourseOrderbyMem(memberNo);
             req.setAttribute("courseorders", orders);
-            RequestDispatcher orderPage = req.getRequestDispatcher(".jsp"); //會員查看所有訂單網址
+            RequestDispatcher orderPage = req.getRequestDispatcher("/onlineCourseOrderServlet?action=orderlist"); //會員查看所有訂單網址
             orderPage.forward(req, res);
         }
     }

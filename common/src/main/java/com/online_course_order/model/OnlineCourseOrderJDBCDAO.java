@@ -35,7 +35,7 @@ public class OnlineCourseOrderJDBCDAO implements OnlineCourseOrderDAO_interface 
 
 	@Override
 	public void insert(OnlineCourseOrderVO onlineCourseOrderVO, List<CartCourseVO> cartCourses) {
-		String sql = "INSERT INTO Online_course_order(ORDER_NO, MEMBER_NO,ORDER_PRICE,TRADE_NO) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO Online_course_order(ORDER_NO, MEMBER_NO, ORDER_VOLUME, ORDER_PRICE, TRADE_NO) VALUES(?, ?, ?, ?, ?)";
 		Connection conn = null;
 
 		try {
@@ -43,10 +43,10 @@ public class OnlineCourseOrderJDBCDAO implements OnlineCourseOrderDAO_interface 
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, onlineCourseOrderVO.getOrderNo());
-
 			pstmt.setInt(2, onlineCourseOrderVO.getMemberNo());
-			pstmt.setInt(3, onlineCourseOrderVO.getOrderPrice());
-			pstmt.setString(4, onlineCourseOrderVO.getTradeNo());
+			pstmt.setInt(3, onlineCourseOrderVO.getOrderVolume());
+			pstmt.setInt(4, onlineCourseOrderVO.getOrderPrice());
+			pstmt.setString(5, onlineCourseOrderVO.getTradeNo());
 			pstmt.executeUpdate();
 
 			OnlineCourseOrderDetailDAO_interface dao = new OnlineCourseOrderDetailJDBCDAO();

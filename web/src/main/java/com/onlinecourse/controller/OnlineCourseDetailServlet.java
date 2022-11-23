@@ -26,7 +26,7 @@ public class OnlineCourseDetailServlet extends HttpServlet {
 		Integer courseNo = Integer.parseInt(req.getParameter("courseNo"));
 		OnlineCourseService service = new OnlineCourseService();
 		OnlineCourseVO vo = service.getOneOnlineCourse(courseNo);
-		
+		// System.out.println("courseNo"+courseNo);
 		OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
 		List<OnlineCourseCommentVO> commentlist = onlineCourseCommentSvc.getOnlineCourseCommentByCourseNo(courseNo);
 		
@@ -35,7 +35,7 @@ public class OnlineCourseDetailServlet extends HttpServlet {
 		if(commentlist!=null) {
 			list.add(commentlist);
 		}
-		// System.out.println(list);
+		// System.out.println("list"+list);
 		Gson gson = new Gson();
 		resp.setContentType("application/json; charset=UTF-8");
 		resp.getWriter().write(gson.toJson(list));

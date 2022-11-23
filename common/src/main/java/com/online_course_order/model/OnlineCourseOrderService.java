@@ -20,10 +20,11 @@ public class OnlineCourseOrderService {
 
 
 
-	public void orderInsert(String merchantTradeNo, Integer memberNo, Integer totalPrice, String tradeNo, List<CartCourseVO> cartCourses ) {
+	public void orderInsert(String merchantTradeNo, Integer memberNo, Integer volume, Integer totalPrice, String tradeNo, List<CartCourseVO> cartCourses ) {
 		OnlineCourseOrderVO order=new OnlineCourseOrderVO();
 		order.setOrderNo(merchantTradeNo);
 		order.setMemberNo(memberNo);
+		order.setOrderVolume(volume);
 		order.setOrderPrice(totalPrice);
 		order.setTradeNo(tradeNo);
 		dao.insert(order,cartCourses);
