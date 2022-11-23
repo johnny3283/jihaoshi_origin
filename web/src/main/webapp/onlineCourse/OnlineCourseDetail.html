@@ -75,24 +75,28 @@ div.divflex2 {
  								<img style="border-radius:10px" src="data:image/png;base64,${course.onlineCoursePhotoBaseStr64}">
  							</div>
  							<div class="content">
- 								線上課程編號 :${course.courseNo}<br>
- 								線上課程名稱 :${course.courseName}<br>
- 								線上課程價格 :${course.coursePrice}<br>
- 								線上課程時數 :${course.courseHr}<br>
- 								線上課程老師 :${course.courseTeacher}<br>
- 								線上課程資訊 :${course.courseInfo}<br>
- 								線上課程評論人數 :${course.commentPeople}<br>
- 								線上課程評論分數 :${course.commentScore}<br>
+	 							<div style="border: solid 5px #F2DFD5; padding:10px; border-radius:10px;height:50vh;margin-bottom:10px">
+	 								<b>線上課程編號</b> :${course.courseNo}<br><br>
+	 								<b>線上課程名稱</b> :${course.courseName}<br><br>
+	 								<b>線上課程價格</b> :${course.coursePrice}<br><br>
+	 								<b>線上課程時數</b> :${course.courseHr}<br><br>
+	 								<b>線上課程老師</b> :${course.courseTeacher}<br><br>
+	 								<b>線上課程資訊</b> :${course.courseInfo}<br><br>
+	 								<b>線上課程評論人數</b> :${course.commentPeople}<br><br>
+	 								<b>線上課程評論分數</b> :${course.commentScore}<br><br>
+	 							</div>
  								<form method="get" action="../cart/cartCourseController">
  								<input type="hidden" name="courseNo" value="${course.courseNo}">
                                 <input type="hidden" name="action" value="cartAdd">
                                 <input type="submit" value="加入購物車">
                             	</form>
+
                             	<form method="get" action="../cart/cartCourseController">
  								<input type="hidden" name="courseNo" value="${course.courseNo}">
                                 <input type="hidden" name="action" value="oneCartAdd">
                                 <input type="submit" value="直接結帳">
                             	</form>
+
  							<div id="commentarea" style="width:63%;position:absolute;top:30%;"></div>					
  						</div>`)
  						getComment(comment)

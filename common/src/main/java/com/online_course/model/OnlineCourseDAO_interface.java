@@ -22,4 +22,8 @@ public interface OnlineCourseDAO_interface {
 	boolean courseSwitch(Integer courseNo, Integer courseStatus);
 	
 	public List<OnlineCourseCommentVO> getOnlineCourseCommentsByOnlineCourseNo(Integer courseNo);
+
+	public List<OnlineCourseVO> selectByMemId(Integer memId);
+	
+	public List<OnlineCourseVO> selectByCourseNameAndMemId(String courseName, Integer memId);
 }

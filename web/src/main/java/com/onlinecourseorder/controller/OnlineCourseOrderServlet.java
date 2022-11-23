@@ -31,7 +31,7 @@ public class OnlineCourseOrderServlet extends HttpServlet {
 		
 
 		if ("orderlist".equals(action)) {
-			List<OnlineCourseOrderVO> list = courseorderSV.getOnlineCourseOrderbyMem(4); //整合的時候要改，串到登入的資料
+			List<OnlineCourseOrderVO> list = courseorderSV.getOnlineCourseOrderbyMem(1); //整合的時候要改，串到登入的資料
 			req.setAttribute("list", list);
 			req.getRequestDispatcher("/onlineCourseOrder/ListMemOnlineCourseOrder.jsp").forward(req, res);
 

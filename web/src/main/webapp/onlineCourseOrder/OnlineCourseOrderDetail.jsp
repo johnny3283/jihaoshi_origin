@@ -27,7 +27,7 @@
 									<li><a
 										href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
 									</li>
-									<li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
+									<li><a href="<%=request.getContextPath()%>/onlineCourseOrderServlet?action=orderlist">回會員線上課程訂單管理</a>
 									</li>
 								</ul>
 						</ul>

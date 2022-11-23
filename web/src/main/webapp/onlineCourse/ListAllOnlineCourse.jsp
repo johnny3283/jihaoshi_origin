@@ -129,8 +129,7 @@ img {
               <li>
                   <a href="<%=request.getContextPath()%>/onlineCourse/ListAllOnlineCourse.jsp">回線上課程瀏覽專區</a>
               </li>
-							<li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
-							</li>
+							<li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a></li>
 						</ul></li>
 				</ul>
 			</div>

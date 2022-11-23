@@ -139,59 +139,47 @@ height: 25px;
 	</div>
 	</div>
 	<script>
-	document.querySelector('#search').addEventListener('click', searchByName);
-    const find = document.querySelector('#find');
-	searchByName();
-	  function searchByName(){
-		      const cardWrapper = document.querySelector('#cardWrapper');
-                const id = sessionStorage.getItem('courseNo');
-				const findText = find.value;
-              
-				if (findText) {
-					fetch('http://localhost:8081/web-admin/onlineCourse/search',{ 
-					method:'post',
-					headers:{
-						'content-type':'application/json'
-					},
-					body:JSON.stringify({
-						courseName:findText,
-						flag:'queryPic'
-					})
-				}
-					)
-                    .then(resp => resp.json())
-                    .then(xxx);				
-				}else{
-					 fetch('../onlineCourse/searchAll')
-                    .then(resp => resp.json())
-                    .then(xxx);
+		document.querySelector('#search').addEventListener('click', searchByName);
+    	const find = document.querySelector('#find');
+		searchByName();
+		
+	  	function searchByName() {
+			const cardWrapper = document.querySelector('#cardWrapper');
+			const id = sessionStorage.getItem('courseNo');
+			const findText = find.value;
+			fetch('findByMemId',{
+				method:'POST',
+				headers:{
+					'Content-Type': 'application/json'
+				},
+				body:JSON.stringify({
+					courseName: findText
+				})
+			})
+				.then(resp => resp.json())
+                .then(list => {
+                	cardWrapper.innerHTML = '';
+        			for(onlineCourse of list) {
+        				cardWrapper.insertAdjacentHTML('beforeend', `
+        					<div class="block" >
+        						<div class="photo">
+        							<img style="border-radius:10px" src="data:image/png;base64, \${onlineCourse.onlineCoursePhotoBaseStr64}">
+        						</div>
+        						<div class="content">
+        							<div style="text-align:left;margin-left:10px;font-weight:bolder">課程編號 : \${onlineCourse.courseNo}</div>
+        							<div style="text-align:left;margin-left:10px;font-weight:bolder">課程名稱 : \${onlineCourse.courseName}</div>
+        							<button onclick="showDetail(\${onlineCourse.courseNo})";class="look" style="text-align:right;font-weight:bolder;color:red;float: right; margin: 10px;">點我觀看</button>
+        						</div>
+        					</div>`);
+        			}
+                });
+	  	}
 
-				}
-									
-					function xxx(list){
-						cardWrapper.innerHTML='';
-						for(onlineCourse of list){
-                            cardWrapper.insertAdjacentHTML('beforeend', `
-						<div class="block" >
-							<div class="photo">
-								<img style="border-radius:10px" src="data:image/png;base64, \${onlineCourse.onlineCoursePhotoBaseStr64}">
-							</div>
-							<div class="content">
-								<div style="text-align:left;margin-left:10px;font-weight:bolder">課程編號 : \${onlineCourse.courseNo}</div>
-								<div style="text-align:left;margin-left:10px;font-weight:bolder">課程名稱 : \${onlineCourse.courseName}</div>
-								<button onclick="showDetail(\${onlineCourse.courseNo})";class="look" style="text-align:right;font-weight:bolder;color:red;float: right; margin: 10px;">點我觀看</button>
-							</div>
-						</div>
-					`)}
 
-					}
-	  }
-			// coursePhoto
-
-			function showDetail(courseNo) {
-				sessionStorage.setItem('courseNo', courseNo);
-				location = 'ManageCourseDetail.html';
-			}
+		function showDetail(courseNo) {
+			sessionStorage.setItem('courseNo', courseNo);
+			location = 'ManageCourseDetail.html';
+		}
 	</script>
 </body>
 </html>

@@ -122,8 +122,9 @@ th, td {
                 <li class="drop">
                   <a href="#">網站簡介</a>
                 </li>
+
                 <li class="drop">
-                  <a href="#">最新消息</a>
+                  <a href="${pageContext.request.contextPath}/latest_news/select_page.jsp">最新消息</a>         
                 </li>
                 <li class="drop">
                   <a href="${ctxPath}/meal/MealProductIndex.jsp">好食產品專區</a>
@@ -142,13 +143,12 @@ th, td {
                 </li>
                 <li class="drop">
                 	<a href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a>
-				</li>
-                <li class="drop">
-                  <a href="#">最新消息</a>
-                </li>
+				</li>             
+
+
                 <li class="drop">
                   <a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">康健新知論壇</a>
-                </li>
+   </li>
                 <li class="drop">
                   <a href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ及客服專區</a>
                 </li>

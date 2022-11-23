@@ -10,7 +10,7 @@
 
 
 <link type="text/css"
-	href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+	href="../css/jihaoshi.css" rel="stylesheet">
 <style>
 #pageHead {
 	width: 100%;
@@ -79,11 +79,11 @@ div.divflex2 {
 					const url = `../onlineCourse/detail?courseNo=${id}`;
 					fetch(url)
 						.then(resp => resp.json())
-						.then(onlineCourse => {
+						.then(body => {
 							player = new YT.Player('player', {
 								height: '390',
 								width: '640',
-								videoId: onlineCourse.courseVideo,
+								videoId: body[0].courseVideo,
 								playerVars: {
 									'playsinline': 1
 								},
@@ -93,66 +93,23 @@ div.divflex2 {
 								}
 							});
 
-    <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
+// 						<div class="block divflex2" onclick="showDetail(${onlineCourse.courseNo})">
+// 							<div class="photo">
+// 								<img style="border-radius:10px" src="data:image/png;base64,${onlineCourse.onlineCoursePhotoBaseStr64}">
+// 							</div>
 
-    <div id="WRAPPER" class="">
-        <div class="divflex">
-            <div class=""
-                style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;z-index: 999;">
-                <!--側邊欄區塊開始-->
-                <ul class="treeview" style="list-style-type: none;">
-                    <li id="cate_D" class="expanded">
-                        <H1>功能列表</H1>
-                        <ul class="main" style="list-style-type: none;">
-
-                            <li>
-                                <a href="ManageCourse.jsp">回會員線上課程購買專區</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-            </div>
-            <!--側邊欄區塊結束-->
-            <div id="cardWrapper">
-			</div>
-            <script>
-                const cardWrapper = document.querySelector('#cardWrapper');
-                const id = sessionStorage.getItem('courseNo');
-                const url = '../onlineCourse/detail?courseNo=' + id;
-                fetch(url)
-                    .then(resp => resp.json())
-                    .then(onlineCourse => {
-                        cardWrapper.insertAdjacentHTML('beforeend', `
-						<div class="block divflex2" onclick="showDetail(${onlineCourse.courseNo})">
-							<div class="photo">
-								<img style="border-radius:10px" src="data:image/png;base64,${onlineCourse.onlineCoursePhotoBaseStr64}">
-							</div>
-							<div class="content">
-								線上課程編號 :${onlineCourse.courseNo}<br>
-								線上課程名稱 :${onlineCourse.courseName}<br>
-								線上課程價格 :${onlineCourse.coursePrice}<br>
-								線上課程時數 :${onlineCourse.courseHr}<br>
-								線上課程老師 :${onlineCourse.courseTeacher}<br>
-								線上課程資訊 :${onlineCourse.courseInfo}<br>
-							</div>
-						
-
-							
-							courseVideo = onlineCourse.courseVideo;
+							courseVideo = body[0].courseVideo;
 							cardWrapper.insertAdjacentHTML('beforeend', `
-								<div class="block divflex2" onclick="showDetail(${onlineCourse.courseNo})">
-									<div class="content">
-										線上課程編號 :${onlineCourse.courseNo}<br>
-										線上課程名稱 :${onlineCourse.courseName}<br>
-										線上課程價格 :${onlineCourse.coursePrice}<br>
-										線上課程時數 :${onlineCourse.courseHr}<br>
-										線上課程老師 :${onlineCourse.courseTeacher}<br>
-										線上課程資訊 :${onlineCourse.courseInfo}<br>
+								<div class="block divflex2" onclick="showDetail(${body[0].courseNo})">
+									<div class="content" style="position:absolute; left:55%;top:10%;border:1px solid black;border-radius:10px;padding:20px"> 
+										<b>線上課程編號</b> :${body[0].courseNo}<br><br>
+										線上課程名稱 :${body[0].courseName}<br><br>
+										線上課程價格 :${body[0].coursePrice}<br><br>
+										線上課程時數 :${body[0].courseHr}<br><br>
+										線上課程老師 :${body[0].courseTeacher}<br><br>
+										線上課程資訊 :${body[0].courseInfo}<br>
 									</div>
 								</div>`);
-
-							
 						});
 				}
 

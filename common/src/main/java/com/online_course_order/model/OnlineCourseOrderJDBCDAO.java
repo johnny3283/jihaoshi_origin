@@ -101,7 +101,7 @@ public class OnlineCourseOrderJDBCDAO implements OnlineCourseOrderDAO_interface 
 					vo.setOrderVolume(rs.getInt("order_volume"));
 					vo.setOrderPrice(rs.getInt("order_price"));
 					vo.setOrderStatus(rs.getInt("order_status"));
-					vo.setTradeNo(rs.getString("trsde_no"));
+					vo.setTradeNo(rs.getString("trade_no"));
 					list.add(vo);
 				}
 				return list;
