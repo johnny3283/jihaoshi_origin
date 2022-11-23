@@ -1,7 +1,6 @@
 package com.mem.Filters;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,6 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.mem.model.MemberVO;
 
 public class onlyLoginFilter  implements Filter {
 
@@ -33,25 +34,15 @@ public class onlyLoginFilter  implements Filter {
 		// 【取得 session】
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
-		Object account = session.getAttribute("member.MemberAccount");
-		if (account == null) {
+		MemberVO member =(MemberVO) session.getAttribute("member");
+		if (member == null) {
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/member/login.jsp");
-			return;}
+		}
 		else {
 			chain.doFilter(request, response);
 			
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

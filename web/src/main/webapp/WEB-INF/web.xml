@@ -14,33 +14,37 @@
         <filter-name>loginFilter</filter-name>
         <filter-class>com.mem.Filters.indexFilter</filter-class>
     </filter>
-    
+
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
         <url-pattern>/index.jsp</url-pattern>
-
     </filter-mapping>
-    
+
     <filter>
         <filter-name>onlyLoginFilter</filter-name>
         <filter-class>com.mem.Filters.onlyLoginFilter</filter-class>
     </filter>
+
     <filter-mapping>
         <filter-name>onlyLoginFilter</filter-name>
         <url-pattern>/member/getOneMem</url-pattern>
-
     </filter-mapping>
-
     <filter-mapping>
         <filter-name>onlyLoginFilter</filter-name>
         <url-pattern>/onlinecoursecomment/*</url-pattern>
-
     </filter-mapping>
-    
     <filter-mapping>
         <filter-name>onlyLoginFilter</filter-name>
         <url-pattern>/onlinecoursecommentreport/addOnlineCourseCommentReport.jsp</url-pattern>
-
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>onlyLoginFilter</filter-name>
+        <url-pattern>/checkout/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>onlyLoginFilter</filter-name>
+        <url-pattern>/order/*</url-pattern>
+    </filter-mapping>
+
 
 </web-app>
