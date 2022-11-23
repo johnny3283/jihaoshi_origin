@@ -56,20 +56,20 @@ public class OrderCourseController extends HttpServlet {
             session.removeAttribute("cartCourses");
             session.removeAttribute("totalCoursePrice");
             cartCourseHolder.remove(merchantTradeNo);
-            res.sendRedirect(req.getContextPath() + "/order/orderCourseController?action=orderList");
+            res.sendRedirect(req.getContextPath() + "/onlineCourseOrderServlet?action=orderlist");
             
 
         }
 
-        if ("orderList".equals(action)) {
+//        if ("orderList".equals(action)) {
 //        	HttpSession session = req.getSession();
 //		    Object No = session.getAttribute("MemberNo");
 //		    String no = No.toString();
-        	Integer memberNo = 1;
-            List<OnlineCourseOrderVO> orders = orderSV.getOnlineCourseOrderbyMem(memberNo);
-            req.setAttribute("courseorders", orders);
-            RequestDispatcher orderPage = req.getRequestDispatcher("/onlineCourseOrderServlet?action=orderlist"); //會員查看所有訂單網址
-            orderPage.forward(req, res);
-        }
+//        	Integer memberNo = 1;
+//            List<OnlineCourseOrderVO> orders = orderSV.getOnlineCourseOrderbyMem(memberNo);
+//            req.setAttribute("courseorders", orders);
+//            RequestDispatcher orderPage = req.getRequestDispatcher("/onlineCourseOrderServlet?action=orderlist"); //會員查看所有訂單網址
+//            orderPage.forward(req, res);
+//        }
     }
 }

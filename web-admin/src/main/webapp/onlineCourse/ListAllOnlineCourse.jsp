@@ -97,9 +97,9 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 					<FORM METHOD="post"
 						ACTION="onlineCourse"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="courseNo" value="${onlinecourseVO.courseNo}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+						<input type="submit" value="修改">
+						<input type="hidden" name="courseNo" value="${onlinecourseVO.courseNo}">
+						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
 				</td>
 			</tr>
@@ -151,19 +151,10 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 			})
                 .then(resp => resp.json())
                 .then(body=> {
-                	alert(body.successful);
+                	alert('成功!');
                 	location = "searchAll";
                 });
    		}
-   
-   
-   
-   
-   
-   
-   
-   
-   
    </script>
 </body>
 </html>

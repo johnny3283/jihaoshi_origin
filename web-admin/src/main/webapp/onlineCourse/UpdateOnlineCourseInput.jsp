@@ -75,6 +75,9 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 		.input{
 			border-radius: 50px;
 		}
+		input[type="text"]{
+		border-radius: 10px;
+		}
 		
 
         input[type="text"],
@@ -169,7 +172,7 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 
 		.submit-input{
 			border-radius: 10px; 
-			width: 500px; 
+			width: 400px; 
 			height: 100px; 
 			background: #4bc970;
 			 border: 0 solid; 

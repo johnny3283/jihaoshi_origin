@@ -74,7 +74,7 @@
 				<td>${order.orderPrice}</td>
 				<td>${order.tradeNo}</td>
 				<td>
-					<form method="post" action="onlineCourseOrderServlet">
+					<form method="post" action="onlineCourseOrderServlet" enctype="application/x-www-form-urlencoded">
 						<input type="hidden" name="action" value="searchOrderDetail">
 						<input type="hidden" name="orderNo" value="${order.orderNo}">
 						<input type="submit" value="查看訂單明細">

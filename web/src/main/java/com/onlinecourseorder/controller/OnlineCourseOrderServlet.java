@@ -10,7 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.mem.model.MemberVO;
 import com.online_course_order.model.OnlineCourseOrderService;
 import com.online_course_order.model.OnlineCourseOrderVO;
 
@@ -27,11 +29,14 @@ public class OnlineCourseOrderServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		Integer memberNo = member.getMemberNo();
 		String action = req.getParameter("action");
 		
 
 		if ("orderlist".equals(action)) {
-			List<OnlineCourseOrderVO> list = courseorderSV.getOnlineCourseOrderbyMem(1); //整合的時候要改，串到登入的資料
+			List<OnlineCourseOrderVO> list = courseorderSV.getOnlineCourseOrderbyMem(memberNo); //整合的時候要改，串到登入的資料
 			req.setAttribute("list", list);
 			req.getRequestDispatcher("/onlineCourseOrder/ListMemOnlineCourseOrder.jsp").forward(req, res);
 

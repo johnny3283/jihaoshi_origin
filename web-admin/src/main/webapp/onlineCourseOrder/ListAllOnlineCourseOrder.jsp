@@ -16,7 +16,7 @@
 		}
 	</style>
 </head>
-<body bgcolor='white'>
+<body bgcolor='white' style="position:relative">
 	<header>
 		<img src="./images/JihaoshiPageHead.jpg" id="pageHead">
 		<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
@@ -39,15 +39,10 @@
 					</dl>
 					<!--側邊欄區塊結束-->
 				</div>
-				<div style="width: 85.4%; float: right; background: #FFFAF0">
-					<div style="width: 63%; float: right; margin: 3%;">
-						<table id="table-1"></table>
-					</div>
-				</div>
 			</div>
 		</div>
 	</header>
-
+	<section style="position:absolute;top:75%;left:30%;">
 	<table>
 		<c:if test="${not empty errorMsgs}">
 			<font style="color: red">請修正以下錯誤:</font>
@@ -58,13 +53,13 @@
 			</ul>
 		</c:if>
 		<ul>
-			<li>
+			<li style="margin-bottom: 20px; padding-left: 100px;">
 				<b>輸入會員編號 (如1):</b>
 				<input type="text" id="memberNo">
 				<button onclick="searchByMemberId()">送出</button>
 			</li>
 	</table>
-	<table id="tableResult" style="display: none;">
+	<table id="tableResult" style="display:none">
 		<thead>
 			<tr>
 				<th>會員編號</th>
@@ -79,6 +74,7 @@
 		</thead>
 		<tbody id="searchResult"></tbody>
 	</table>
+	</section>
 	<script>
 		function changeStatus(orderNo){
 			const result = confirm(`確定取消訂單 \${orderNo} ?`);

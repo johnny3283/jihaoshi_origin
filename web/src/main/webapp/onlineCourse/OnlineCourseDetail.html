@@ -84,7 +84,9 @@ div.divflex2 {
 	 								<b>線上課程資訊</b> :${course.courseInfo}<br><br>
 	 								<b>線上課程評論人數</b> :${course.commentPeople}<br><br>
 	 								<b>線上課程評論分數</b> :${course.commentScore}<br><br>
+	 								
 	 							</div>
+	 							<div style="display:flex;gap:20px">
  								<form method="get" action="../cart/cartCourseController">
  								<input type="hidden" name="courseNo" value="${course.courseNo}">
                                 <input type="hidden" name="action" value="cartAdd">
@@ -96,8 +98,8 @@ div.divflex2 {
                                 <input type="hidden" name="action" value="oneCartAdd">
                                 <input type="submit" value="直接結帳">
                             	</form>
-
- 							<div id="commentarea" style="width:63%;position:absolute;top:30%;"></div>					
+								</div>
+ 							<div id="commentarea" style=""></div>					
  						</div>`)
  						getComment(comment)
  					});
