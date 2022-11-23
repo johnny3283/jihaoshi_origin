@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mem.model.MemberVO;
 import com.onlinecoursecomment.model.OnlineCourseCommentService;
 import com.onlinecoursecomment.model.OnlineCourseCommentVO;
 
@@ -35,14 +36,8 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 
 			/*************************** 1.接收請求參數 ****************************************/
 			HttpSession session = req.getSession();
-		    Object No = session.getAttribute("MemberNo");
-		    String str = No.toString();
-
-			Integer memberNo = null;
-			try {
-				memberNo = Integer.valueOf(str);
-			} catch (Exception e) {}
-			
+			MemberVO member=(MemberVO)session.getAttribute("member");
+			Integer memberNo = member.getMemberNo();
 			/*************************** 2.開始查詢資料 ****************************************/
 			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
 			List<OnlineCourseCommentVO> list = onlineCourseCommentSvc.getOnlineCommentsByMemberNo(memberNo);
@@ -61,13 +56,8 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/		
 			HttpSession session = req.getSession();
-		    Object No = session.getAttribute("MemberNo");
-		    String no = No.toString();
-
-			Integer memberNo = null;
-			try {
-				memberNo = Integer.valueOf(no);
-			} catch (Exception e) {}
+			MemberVO member=(MemberVO)session.getAttribute("member");
+			Integer memberNo = member.getMemberNo();
 			
 			Integer courseNo=5;
 			//String courseNo = req.getParameter("courseNo");

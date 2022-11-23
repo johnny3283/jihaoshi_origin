@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -100,16 +101,32 @@ public class CustomerServerWS {
 		}
 		
 		if (userNameClose != null) {
-			State stateMessage = new State("close", userNameClose, userNames);
+			State stateMessage = new State("close", userNameClose, trimUserName(userNames, userNameClose));
 			String stateMessageJson = gson.toJson(stateMessage);
 			Collection<Session> sessions = sessionsMap.values();
 			for (Session session : sessions) {
-				session.getAsyncRemote().sendText(stateMessageJson);
+				if (session.isOpen()) {
+					session.getAsyncRemote().sendText(stateMessageJson);
+				}
 			}
 		}
 
 		String text = String.format("session ID = %s, disconnected; close code = %d%nusers: %s", userSession.getId(),
 				reason.getCloseCode().getCode(), userNames);
 		System.out.println(text);
+	}
+	
+	private Set<String> trimUserName(Set<String> userNames, String userName) {
+		if (userNames == null || userNames.size() == 0) {
+			return null;
+		}
+		
+		for (String u : userNames) {
+			if (Objects.equals(u, userName)) {
+				userNames.remove(u);
+				break;
+			}
+		}
+		return userNames;
 	}
 }
