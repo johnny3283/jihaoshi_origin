@@ -147,7 +147,7 @@ th, td {
                   <a href="#">最新消息</a>
                 </li>
                 <li class="drop">
-                  <a href="#">康健新知論壇</a>
+                  <a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">康健新知論壇</a>
                 </li>
                 <li class="drop">
                   <a href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ及客服專區</a>

@@ -246,6 +246,7 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;
 			}
+
 			session.removeAttribute("Guest");
 			session.setAttribute("member", member);
 	

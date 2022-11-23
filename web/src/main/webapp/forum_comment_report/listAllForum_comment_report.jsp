@@ -121,7 +121,7 @@ pageContext.setAttribute("list", list);
 		<tr>
 <!-- 			<th>論壇文章檢舉編號</th> -->
 <!-- 			<th>論壇文章留言編號</th> -->
-			<th>論壇文章編號</th>
+			<th>論壇文章標題</th>
 			<th>會員編號</th>
 			<th>檢舉事由</th>
 
