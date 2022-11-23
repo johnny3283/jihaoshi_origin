@@ -1,53 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-         version="4.0">
-    <resource-ref>
-        <description>DB Connection</description>
-        <res-ref-name>jdbc/jihaoshi</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-    </resource-ref>
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/jihaoshi</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 
-    <filter>
-        <filter-name>loginFilter</filter-name>
-        <filter-class>com.mem.Filters.indexFilter</filter-class>
-    </filter>
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.mem.Filters.indexFilter</filter-class>
+	</filter>
 
-    <filter-mapping>
-        <filter-name>loginFilter</filter-name>
-        <url-pattern>/index.jsp</url-pattern>
-    </filter-mapping>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/index.jsp</url-pattern>
+	</filter-mapping>
 
-    <filter>
-        <filter-name>onlyLoginFilter</filter-name>
-        <filter-class>com.mem.Filters.onlyLoginFilter</filter-class>
-    </filter>
+	<filter>
+		<filter-name>onlyLoginFilter</filter-name>
+		<filter-class>com.mem.Filters.onlyLoginFilter</filter-class>
+	</filter>
 
-    <filter-mapping>
-        <filter-name>onlyLoginFilter</filter-name>
-        <url-pattern>/member/getOneMem</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>onlyLoginFilter</filter-name>
-        <url-pattern>/onlinecoursecomment/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>onlyLoginFilter</filter-name>
-        <url-pattern>/onlinecoursecommentreport/addOnlineCourseCommentReport.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>onlyLoginFilter</filter-name>
-        <url-pattern>/checkout/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>onlyLoginFilter</filter-name>
-        <url-pattern>/order/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>onlyLoginFilter</filter-name>
-        <url-pattern>/mealCollect/*</url-pattern>
-    </filter-mapping>
-
+	<filter-mapping>
+		<filter-name>onlyLoginFilter</filter-name>
+		<url-pattern>/member/getOneMem</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>onlyLoginFilter</filter-name>
+		<url-pattern>/onlinecoursecomment/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>onlyLoginFilter</filter-name>
+		<url-pattern>/onlinecoursecommentreport/addOnlineCourseCommentReport.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>onlyLoginFilter</filter-name>
+		<url-pattern>/checkout/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>onlyLoginFilter</filter-name>
+		<url-pattern>/order/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>onlyLoginFilter</filter-name>
+		<url-pattern>/mealCollect/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/onlinecustomerservice/*</url-pattern>
+	</filter-mapping>
 </web-app>
