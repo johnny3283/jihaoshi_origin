@@ -90,8 +90,6 @@
                                 </c:forEach>
                             </c:otherwise>
                         </c:choose>
-
-
                             </table>
                         </div>
 

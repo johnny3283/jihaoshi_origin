@@ -45,6 +45,9 @@
         <filter-name>onlyLoginFilter</filter-name>
         <url-pattern>/order/*</url-pattern>
     </filter-mapping>
-
+    <filter-mapping>
+        <filter-name>onlyLoginFilter</filter-name>
+        <url-pattern>/mealCollect/*</url-pattern>
+    </filter-mapping>
 
 </web-app>

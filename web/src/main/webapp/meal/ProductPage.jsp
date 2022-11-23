@@ -100,7 +100,7 @@
                             <%--@elvariable id="collectionDetail" type="com.mealCollectionDetail.model.CollectionDetailVO"--%>
                             <form:form method="post" action="${ctxPath}/mealCollect/insert" enctype="application/x-www-form-urlencoded"
                                        id="formCollect" modelAttribute="collectionDetail" >
-                                <input type="text" name="memberNo" value="1" hidden>
+                                <input type="text" name="memberNo" value="${member.memberNo}" hidden>
                                 <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
                                 <input type="text" name="mealName" value="${meal.mealName}" hidden>
                             </form:form>
