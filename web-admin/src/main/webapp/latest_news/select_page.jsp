@@ -32,15 +32,39 @@
 <body bgcolor='white'>
 <img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
+<div id="WRAPPER" class="">
+    <div class="divflex">
+        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
+            <!--側邊欄區塊開始-->
+                    <ul class="treeview">
+                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
+                            <ul class="main">
+                                <li>
+                                   <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                                </li>
+                            </ul>
+                      </li>
+                 </ul>
+          </div>   
+     </div>
+  </div>
 
+            <!--側邊欄區塊結束-->
 
+<div style="position:absolute;top:32%;left:15%;">
 <table id="table-1">
    <tr><td><h3>最新消息首頁: Home</h3><h4>( Latest_news )</h4></td></tr>
 </table>
 
-<p>This is the Home page for Latest_news: Home</p>
+<br>
+
+
+
+<br>
 
 <h3>資料查詢:</h3>
+	
+
 	
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -53,17 +77,17 @@
 </c:if>
 
 <ul>
-  <li><a href='<%= request.getContextPath() %>/latest_news/listAllLatest_news.jsp'>List</a> all Latest_news.  <br><br></li>
+  <li><a href='<%= request.getContextPath() %>/latest_news/listAllLatest_news.jsp'>列出</a> 全部最新消息!  <br><br></li>
   
   
-  <li>
-    <FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet" >
-        <b>輸入消息編號 (如:1):</b>
-        <input type="text" name="news_no">
-        <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="送出">
-    </FORM>
-  </li>
+<!--   <li> -->
+<!--     <FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet" > -->
+<!--         <b>輸入消息編號 (如:1):</b> -->
+<!--         <input type="text" name="news_no"> -->
+<!--         <input type="hidden" name="action" value="getOne_For_Display"> -->
+<!--         <input type="submit" value="送出"> -->
+<!--     </FORM> -->
+<!--   </li> -->
 
   <jsp:useBean id="latest_newsSvc" scope="page" class="com.latest_news.model.Latest_newsService" />
    
@@ -93,13 +117,14 @@
      </FORM>
   </li>
 </ul>
-
+<br>
 
 <h3>最新消息管理</h3>
 
 <ul>
-  <li><a href='<%= request.getContextPath() %>/latest_news/InsertLatest_news.jsp'>Add</a> a new Latest_news.</li>
+  <li><a href='<%= request.getContextPath() %>/latest_news/InsertLatest_news.jsp'>新增</a> 最新消息.</li>
 </ul>
 
+</div>
 </body>
 </html>

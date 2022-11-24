@@ -66,7 +66,7 @@ h4 {
 
 <style>
 table {
-	width: 1280px;
+	width: 1250px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;

@@ -127,11 +127,11 @@
 </ul>
 
 <br>
-<h3>論壇文章管理</h3>
 
-<ul>
-  <li><a href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>新增</a> 論壇文章</li>
-</ul>
+
+<!-- <ul> -->
+<%--   <li><a href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>新增</a> 論壇文章</li> --%>
+<!-- </ul> -->
 
 </body>
 </html>
