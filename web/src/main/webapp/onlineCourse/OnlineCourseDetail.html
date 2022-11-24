@@ -118,6 +118,10 @@ div.divflex2 {
 							帳號 : ${comment.memberNo}
 							評語 : ${comment.commentContent}
 							分數 : ${comment.commentScore}
+							<form method="get" action="../onlinecoursecommentreport/addOnlineCourseCommentReport.jsp">
+							<input type="hidden" name="commentNo" value="${comment.commentNo}">
+                            <input type="submit" value="我要檢舉">     	
+			                </form>
 						</span><br>
 					`)}
                  }

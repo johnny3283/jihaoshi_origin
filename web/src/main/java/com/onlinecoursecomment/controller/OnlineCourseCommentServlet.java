@@ -87,9 +87,9 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;
 			}
-			/*************************** 2.開始新增資料 ***************************************/
-			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
-			onlineCourseCommentVO = onlineCourseCommentSvc.addOnlineCourseComment(memberNo,courseNo,commentCentent,commentScore);
+//			/*************************** 2.開始新增資料 ***************************************/
+//			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
+//			onlineCourseCommentVO = onlineCourseCommentSvc.addOnlineCourseComment(memberNo,courseNo,commentCentent,commentScore);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/OnlineCourseCommentServlet?action=getMember_For_Display";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交

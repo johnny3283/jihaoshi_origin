@@ -27,8 +27,8 @@ List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute(
 									<li><a
 										href="${ctxPath}/onlineCourse/ListAllOnlineCourse.jsp">線上課程瀏覽專區</a>
 									</li>
-									<li><a
-										href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
+									<li>
+										<a href="${pageContext.request.contextPath}/onlineCourse/ManageCourse.jsp">會員線上課程管理</a>
 									</li>
 									<li><a href="${ctxPath}/index.jsp">回首頁</a></li>
 								</ul>
@@ -41,8 +41,8 @@ List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute(
 						<div id="ItemContainer" class="Cm_C">
 							<c:forEach var="cartCourse" items="${cartCourses}" varStatus="loop">
 								<dl class="col3f" id="DRAA0A-A900BUT82">
-									<dd class="c1f">
-											<img src="data:image/png;base64,${course.onlineCoursePhotoBaseStr64}" onclick="showDetail(${cartCourse.course.courseNo})">
+									<dd class="c1f" style="height: 100%;">
+										<img src="data:image/png;base64,${cartCourse.course.onlineCoursePhotoBaseStr64}" onclick="showDetail(${cartCourse.course.courseNo})">
 									</dd>
 									<dd class="c2f">
 										<ul class="tag_box s_label"></ul>

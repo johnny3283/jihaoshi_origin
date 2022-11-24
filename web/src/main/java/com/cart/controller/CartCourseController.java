@@ -33,9 +33,9 @@ public class CartCourseController extends HttpServlet {
         String action = req.getParameter("action");
         if ("cartAdd".equals(action) || "oneCartAdd".equals(action)) {
 
-            Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
+			Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
             OnlineCourseVO course = courseSV.getOneOnlineCourse(courseNo);
-            cartCourses=cartCourseSV.getCartCourses(course, cartCourses);
+            cartCourses = cartCourseSV.getCartCourses(course, cartCourses);
             Integer totalCoursePrice = cartCourseSV.calculateTotalPrice(cartCourses);
             session.setAttribute("totalCoursePrice",totalCoursePrice);
             session.setAttribute("cartCourses", cartCourses);

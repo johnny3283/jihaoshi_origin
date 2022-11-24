@@ -28,9 +28,6 @@
 							<li id="cate_D" class="expanded"><H1>功能列表</H1>
 								<ul class="main">
 									<li><a
-										href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
-									</li>
-									<li><a
 										href="<%=request.getContextPath()%>/onlineCourseOrderServlet?action=orderlist">回會員線上課程訂單管理</a>
 									</li>
 								</ul>
@@ -56,21 +53,21 @@
 
 							<c:forEach var="detail" items="${order.orderDetailList}">
 								<div>
-
 									線上課程編號:${detail.courseNo}<br>
 									線上課程名稱:${detail.courseName}<br>
 									線上課程價格:${detail.coursePrice}<br>
-								    菜單照片<img src="data:image/*;base64, ${detail.orderPhotoBaseStr64}"><br>
-                  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/onlinecoursecomment/addOnlineCourseComment.jsp">
-										評價:<input type="submit" value="我要評價">
-										<input type="hidden" name="${detail.courseNo}">
-									</FORM>
-
+								    菜單照片<img src="data:image/*;base64, ${detail.orderPhotoBaseStr64}">
+								    <br>
+								    <button onclick="comment(${detail.courseNo}, '${detail.courseName}')">我要評價</button>
 								</div>
 							</c:forEach>
 							</table>
 							<script>
-								
+								function comment(courseNo, courseName) {
+									sessionStorage.setItem('courseNo', courseNo);
+									sessionStorage.setItem('courseName', courseName);
+									location = 'onlinecoursecomment/addOnlineCourseComment.jsp';
+								}
 							</script>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO Online_course_comment "
-		+ "(member_no,course_no,comment_content,comment_score)"
+		+ "(member_no, course_no, comment_content, comment_score)"
 		+ "VALUES (?, ?, ?, ?)";
 	
 	private static final String GET_ALL_STMT = 
@@ -50,44 +50,18 @@ public class OnlineCourseCommentDAO implements OnlineCourseCommentDAO_interface{
 
 	@Override
 	public void insert(OnlineCourseCommentVO onlineCourseCommentVO){
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
-
+		try (
+			Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(INSERT_STMT);
+		) {
 			pstmt.setInt(1, onlineCourseCommentVO.getMemberNo());
 			pstmt.setInt(2, onlineCourseCommentVO.getCourseNo());
 			pstmt.setString(3, onlineCourseCommentVO.getCommentContent());
 			pstmt.setInt(4, onlineCourseCommentVO.getCommentScore());
-			
 			pstmt.executeUpdate();
-
-			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			se.printStackTrace();
 		}
-
 	}
 
 	@Override

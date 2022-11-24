@@ -81,6 +81,8 @@ th, td {
 								action="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet"
 								id="addOnlineCourseCommentReport">
 								<div>
+									<label>線上課程編號:${param.commentNo}</label>
+									<br>
 									<label>線上課程評論檢舉原因：</label><br>
 									<br>
 									<textarea name="reportReason"></textarea>
