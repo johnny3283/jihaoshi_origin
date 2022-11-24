@@ -178,7 +178,7 @@ height: 25px;
 
 		function showDetail(courseNo) {
 			sessionStorage.setItem('courseNo', courseNo);
-			location = 'ManageCourseDetail.html';
+			location = 'ManageCourseDetail.jsp';
 		}
 	</script>
 </body>

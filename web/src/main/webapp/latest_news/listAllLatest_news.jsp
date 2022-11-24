@@ -107,8 +107,7 @@ th, td {
 			<th>編輯時間</th>
 			<th>消息內文</th>
 			<th>消息圖片</th>
-			<th>修改</th>
-			<th>刪除</th>
+
 		</tr>
 		<%@ include file="page1.file"%>
 		<c:forEach var="latest_newsVO" items="${list}" begin="<%=pageIndex%>"
@@ -121,22 +120,8 @@ th, td {
 				<td>${latest_newsVO.news_content}</td>
 				<td><img src="${latest_newsVO.showPhoto}"></td>
 
-				<td>
-					<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="news_no" value="${latest_newsVO.news_no}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-				<td>
-					<FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="刪除"> <input type="hidden"
-							name="news_no" value="${latest_newsVO.news_no}"> <input
-							type="hidden" name="action" value="delete">
-					</FORM>
-				</td>
+
+
 			</tr>
 		</c:forEach>
 	</table>
