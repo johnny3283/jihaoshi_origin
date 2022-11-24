@@ -20,6 +20,10 @@ import com.cart.model.CartCourseHolder;
 import com.cart.model.CartCourseMapHolder;
 import com.cart.model.CartCourseService;
 import com.cart.model.CartCourseVO;
+import com.mem.model.MemHolder;
+import com.mem.model.MemRedisHolder;
+import com.mem.model.MemberVO;
+
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 
@@ -27,10 +31,15 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 public class CheckoutCourseController extends HttpServlet {
 	
 	private final CartCourseHolder cartCourseHolder;
+
+    private final MemHolder memHolder;
     CartCourseService cartCourseSV=new CartCourseService();
 
+
     public CheckoutCourseController() {
-		this.cartCourseHolder=new CartCourseMapHolder();
+
+        this.cartCourseHolder=new CartCourseMapHolder();
+        this.memHolder=new MemRedisHolder();
 	}
     
     @Override
@@ -43,7 +52,7 @@ public class CheckoutCourseController extends HttpServlet {
         HttpSession session = req.getSession();
         List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
         String action = req.getParameter("action");
-        
+        MemberVO member =(MemberVO) session.getAttribute("member");
         if ("checkout".equals(action)) {
             Integer totalPrice = cartCourseSV.calculateTotalPrice(cartCourses);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -59,20 +68,21 @@ public class CheckoutCourseController extends HttpServlet {
             if (itemName.length()>=200) {
                 itemName = new StringBuilder("Jihaoshi課程一批");
             }
+            String tradeDesc="checkout00"+member.getMemberNo();
 
             String ranAlphabet = RandomStringUtils.randomAlphabetic(2).toUpperCase();
             int ranNum = (int) (Math.random() * 8999+ 1000);
             String merchantTradeNo=ranAlphabet+tradeDate.replace("/", "").replace(":", "").replace(" ", "")+ranNum;
             cartCourseHolder.put(merchantTradeNo, cartCourses);
-            
+            memHolder.put(tradeDesc,member);
             aioCheckOutALL.setMerchantTradeNo(merchantTradeNo);
             aioCheckOutALL.setMerchantTradeDate(tradeDate);
             aioCheckOutALL.setTotalAmount(String.valueOf(totalPrice));
             aioCheckOutALL.setTradeDesc("付款測試");
             aioCheckOutALL.setItemName(String.valueOf(itemName));
-            
+            aioCheckOutALL.setCustomField1(tradeDesc);
             aioCheckOutALL.setReturnURL(req.getRequestURL()+"?action=serverCallBack");
-            aioCheckOutALL.setOrderResultURL(req.getRequestURL()+"?action=callBack");
+            aioCheckOutALL.setOrderResultURL("http://localhost:8081/web/recive/reciveCourseController?action=ecpay");
             aioCheckOutALL.setClientBackURL("http://localhost:8081/web");
             aioCheckOutALL.setNeedExtraPaidInfo("N");
            

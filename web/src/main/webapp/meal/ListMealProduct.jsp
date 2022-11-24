@@ -128,8 +128,6 @@
                                     <button type="submit" form="cart${meal.mealNo}">加入購物車</button>
                                     <button type="submit" form="fromCollect${meal.mealNo}">加入收藏</button>
                                     <br><br>
-                                    <P>評論人數：${meal.commentPeople}</P>
-                                    <p>產品評價：${meal.commentPeople==0?"尚無人評分":(meal.commentScore/meal.commentPeople)}</p>
                                 </dd>
                             </dl>
                         </c:forEach>
@@ -139,7 +137,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <script>

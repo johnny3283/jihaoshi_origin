@@ -107,7 +107,6 @@
                             <button type="submit" form="formCart">加入購物車</button>
                             <button type="submit" form="formCollect">加入收藏</button><br>
                             <span style="color: red">${empty collectionResult?"":collectionResult}</span>
-                            (這邊寫死會員編號為1，記得正式demo要改！)
 
                         </div>
                     </div>
