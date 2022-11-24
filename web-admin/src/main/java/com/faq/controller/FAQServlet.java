@@ -64,7 +64,7 @@ public class FAQServlet extends HttpServlet {
 			FAQService faqSvc = new FAQService();
 			faqVO = faqSvc.addFAQ(faqQue, faqAns, faqClass);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/faq/indexFAQ.jsp";
+			String url = "/faqservlet?action=getAll";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 
@@ -85,7 +85,7 @@ public class FAQServlet extends HttpServlet {
 			faqSvc.deleteFAQ(faqNo);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/faq/indexFAQ.jsp";
+			String url = "/faqservlet?action=getAll";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}

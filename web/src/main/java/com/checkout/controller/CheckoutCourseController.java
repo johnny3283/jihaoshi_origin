@@ -35,7 +35,6 @@ public class CheckoutCourseController extends HttpServlet {
     private final MemHolder memHolder;
     CartCourseService cartCourseSV=new CartCourseService();
 
-
     public CheckoutCourseController() {
 
         this.cartCourseHolder=new CartCourseMapHolder();
@@ -53,6 +52,7 @@ public class CheckoutCourseController extends HttpServlet {
         List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
         String action = req.getParameter("action");
         MemberVO member =(MemberVO) session.getAttribute("member");
+        
         if ("checkout".equals(action)) {
             Integer totalPrice = cartCourseSV.calculateTotalPrice(cartCourses);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -73,8 +73,13 @@ public class CheckoutCourseController extends HttpServlet {
             String ranAlphabet = RandomStringUtils.randomAlphabetic(2).toUpperCase();
             int ranNum = (int) (Math.random() * 8999+ 1000);
             String merchantTradeNo=ranAlphabet+tradeDate.replace("/", "").replace(":", "").replace(" ", "")+ranNum;
+            
             cartCourseHolder.put(merchantTradeNo, cartCourses);
             memHolder.put(tradeDesc,member);
+            
+//            System.out.println("cartCourseHolder" + cartCourseHolder);
+//            System.out.println("memHolder"+ memHolder);
+            
             aioCheckOutALL.setMerchantTradeNo(merchantTradeNo);
             aioCheckOutALL.setMerchantTradeDate(tradeDate);
             aioCheckOutALL.setTotalAmount(String.valueOf(totalPrice));

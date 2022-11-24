@@ -111,12 +111,14 @@ th, td {
 											<li class="submenu-item"><a
 												href="phyCourComment/addPhyComment.jsp">新增實體課程評價</a></li>
 											<li class="submenu-item"><a
+
 												href="<%=request.getContextPath()%>/phyCourseComment?action=getMember_For_Display">我的實體課程評價</a></li>
                         <li class="submenu-item"><a
 												href="<%=request.getContextPath()%>/OnlineCourseCommentServlet?action=getMember_For_Display">我的線上課程評價</a></li>
 										</ul></li>
                     
 									<li class="drop"><a href="#">網站簡介</a></li>
+
                 <li class="drop">
                   <a href="${pageContext.request.contextPath}/latest_news/select_page.jsp">最新消息</a>         
                 </li>

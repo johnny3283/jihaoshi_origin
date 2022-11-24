@@ -27,9 +27,9 @@ public class AddCourseCommentServlet extends HttpServlet {
 			OnlineCourseCommentService service = new OnlineCourseCommentService();
 			OnlineCourseCommentVO vo = gson.fromJson(req.getReader(), OnlineCourseCommentVO.class);
 			HttpSession session = req.getSession();
-//			MemberVO memberVO = (MemberVO) session.getAttribute("member");
-//			Integer memberNo = memberVO.getMemberNo();
-			vo.setMemberNo(1);
+			MemberVO memberVO = (MemberVO) session.getAttribute("member");
+			Integer memberNo = memberVO.getMemberNo();
+			vo.setMemberNo(memberNo);
 			service.addOnlineCourseComment(vo);
 			resp.getWriter().append("{\"successful\": true}");
 		} catch (Exception e) {

@@ -107,7 +107,7 @@ div.divflex2 {
                 
                  function getComment(list){
                 	const commentarea = document.querySelector('#commentarea');
-                  	commentarea.innerHTML='評論專區<br>';
+                  	commentarea.innerHTML='評論專區<br><br>';
                   	if(list.length==0){
                   		commentarea.innerHTML='評論專區<br>尚無評價';
                   	}
@@ -116,6 +116,7 @@ div.divflex2 {
  						<span>
                         	評論編號 :${comment.commentNo}
 							帳號 : ${comment.memberNo}
+                        	<br><br>
 							評語 : ${comment.commentContent}
 							分數 : ${comment.commentScore}
 							<form method="get" action="../onlinecoursecommentreport/addOnlineCourseCommentReport.jsp">

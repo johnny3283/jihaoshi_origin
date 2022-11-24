@@ -140,7 +140,7 @@ th, td {
 					.then(body => {
 						alert(body.successful ? '成功' : '失敗');
 						if (body.successful) {
-							location = '???';
+							location = '../MemberOnlineCourseCommentServlet?action=getMember_For_Display';
 						}
 					});
 			}

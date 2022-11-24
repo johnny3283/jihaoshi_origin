@@ -44,7 +44,7 @@ th, td {
 					<option disabled selected>請選擇FAQ類別</option>
 					<option value="購物 Shopping">購物 Shopping</option>
 					<option value="折價券 Coupon">折價券 Coupon</option>
-					<option value="會員 Member">會員 Member</option>
+					<option value="會員服務 Member">會員服務 Member</option>
 					<option value="訂單 Order">訂單 Order</option>
 					<option value="包裹寄送 Delivery">包裹寄送 Delivery</option>
 				</select> 
@@ -129,7 +129,13 @@ th, td {
 	</div>
 <script type="text/javascript">
 	function check() {
-  		alert("確定刪除?");
+		var yes=confirm("確定刪除?");
+		if(yes){
+			alert("已刪除!");
+			return;	
+		}else{
+			return;
+		}
 	}
 </script>
 </body>

@@ -10,7 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.mem.model.MemberVO;
+import com.mysql.cj.Session;
 import com.onlinecoursecomment.model.OnlineCourseCommentService;
 import com.onlinecoursecomment.model.OnlineCourseCommentVO;
 import com.onlinecoursecommentreport.model.OnlineCourseCommentReportService;
@@ -102,8 +105,11 @@ public class OnlineCourseCommentReportServlet extends HttpServlet{
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer memberNo=5;
-			Integer commentNo=5;
+			HttpSession session = req.getSession();
+			MemberVO member=(MemberVO)session.getAttribute("member");
+			Integer memberNo = member.getMemberNo();
+			
+			Integer commentNo = Integer.valueOf(req.getParameter("commentNo"));
 			
 			String reportReason = req.getParameter("reportReason");
 			if (reportReason == null || reportReason.trim().length() == 0) {

@@ -17,6 +17,7 @@ import com.cart.model.CartCourseMapHolder;
 import com.cart.model.CartCourseService;
 import com.cart.model.CartCourseVO;
 import com.cart.model.CartProdVO;
+import com.mem.model.MemberVO;
 import com.online_course_order.model.OnlineCourseOrderService;
 import com.online_course_order.model.OnlineCourseOrderVO;
 
@@ -37,14 +38,12 @@ public class OrderCourseController extends HttpServlet {
         HttpSession session = req.getSession();
 //      List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute("cartCourses");
         String action = req.getParameter("action");
-        CartCourseService cartCourseSV = new CartCourseService();
+//        CartCourseService cartCourseSV = new CartCourseService();
 
         if ("orderInsert".equals(action)) {
-//        	HttpSession session = req.getSession();
-//		    Object No = session.getAttribute("MemberNo");
-//		    String no = No.toString();
+			MemberVO member=(MemberVO)session.getAttribute("member");
+			Integer memberNo = member.getMemberNo();
 
-            Integer memberNo = 1;
             String merchantTradeNo = req.getParameter("MerchantTradeNo"); // 店內之交易編號
             List<CartCourseVO> cartCourses = cartCourseHolder.get(merchantTradeNo);
             Integer volume=cartCourses.size();

@@ -9,7 +9,7 @@ FAQVO faqVO = (FAQVO) request.getAttribute("faqVO");
 	String str[] = new String [5];
 	str[0]="購物 Shopping";	
 	str[1]="折價券 Coupon";	
-	str[2]="會員 Member";	
+	str[2]="會員服務 Member";	
 	str[3]="訂單 Order";	
 	str[4]="包裹寄送 Delivery"; 	
 	request.setAttribute("myStr", str);

@@ -82,13 +82,14 @@ th, td {
 								id="addOnlineCourseCommentReport">
 								<div>
 									<label>線上課程編號:${param.commentNo}</label>
+									<input type="hidden" name="commentNo" value="${param.commentNo}">
 									<br>
 									<label>線上課程評論檢舉原因：</label><br>
 									<br>
 									<textarea name="reportReason"></textarea>
 									<br>
 									<br> <input type="hidden" name="action" value="add">
-									<input type="submit" name="送出資料" form="addOnlineCourseCommentReport"> 
+									<input type="submit" name="送出資料" form="addOnlineCourseCommentReport" onclick="confirm(`確定送出?`)"> 
 									<input type="reset" name="清除資料" form="addOnlineCourseCommentReport">
 								</div>
 							</form>

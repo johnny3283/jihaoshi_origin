@@ -29,24 +29,24 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		res.setContentType("text/html; charset=UTF-8");
 		
-		if ("getMember_For_Display".equals(action)) {
-			// 會員專區查看自己所有的線上課程評論
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 ****************************************/
-			HttpSession session = req.getSession();
-			MemberVO member=(MemberVO)session.getAttribute("member");
-			Integer memberNo = member.getMemberNo();
-			/*************************** 2.開始查詢資料 ****************************************/
-			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
-			List<OnlineCourseCommentVO> list = onlineCourseCommentSvc.getOnlineCommentsByMemberNo(memberNo);
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("getOne_For_Display", list); // 資料庫取出的list物件,存入request
-			String url = "/onlinecoursecomment/listOneMemberComments.jsp"; // 成功轉交
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
+//		if ("getMember_For_Display".equals(action)) {
+//			// 會員專區查看自己所有的線上課程評論
+//			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			/*************************** 1.接收請求參數 ****************************************/
+//			HttpSession session = req.getSession();
+//			MemberVO member=(MemberVO)session.getAttribute("member");
+//			Integer memberNo = member.getMemberNo();
+//			/*************************** 2.開始查詢資料 ****************************************/
+//			OnlineCourseCommentService onlineCourseCommentSvc = new OnlineCourseCommentService();
+//			List<OnlineCourseCommentVO> list = onlineCourseCommentSvc.getOnlineCommentsByMemberNo(memberNo);
+//			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+//			req.setAttribute("getOne_For_Display", list); // 資料庫取出的list物件,存入request
+//			String url = "/onlinecoursecomment/listOneMemberComments.jsp"; // 成功轉交
+//			RequestDispatcher successView = req.getRequestDispatcher(url);
+//			successView.forward(req, res);
+//		}
 		
 		if ("add".equals(action)) { // 來自add.jsp的請求
 			// 會員新增線上課程評論
@@ -106,7 +106,7 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 			onlineCourseCommentSvc.deleteOnlineCourseComment(commentNo);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/OnlineCourseCommentServlet?action=getMember_For_Display";        // 成功轉交 .jsp		
+			String url = "/MemberOnlineCourseCommentServlet?action=getMember_For_Display";        // 成功轉交 .jsp		
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
@@ -179,7 +179,7 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("onlineCourseCommentVO", onlineCourseCommentVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/OnlineCourseCommentServlet?action=getMember_For_Display";
+			String url = "/MemberOnlineCourseCommentServlet?action=getMember_For_Display";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneFAQ.jsp
 			successView.forward(req, res);
 		}
