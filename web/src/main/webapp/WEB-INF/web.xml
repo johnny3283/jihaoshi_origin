@@ -60,12 +60,6 @@
 		<url-pattern>/index.jsp</url-pattern>
 	</filter-mapping>
 
-
-	<filter>
-		<filter-name>onlyLoginFilter</filter-name>
-		<filter-class>com.mem.Filters.onlyLoginFilter</filter-class>
-	</filter>
-
 	<filter-mapping>
 		<filter-name>onlyLoginFilter</filter-name>
 		<url-pattern>/member/getOneMem</url-pattern>
