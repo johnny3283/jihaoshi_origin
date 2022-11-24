@@ -131,7 +131,7 @@ pageContext.setAttribute("list", list);
             <c:forEach var="forum_commentVO" items="${list}">
 
                 <div class="comments" style="width:50%;display:flex;flex-wrap: nowrap">
-                    <div class="cname" style="width:20%">會員編號${forum_commentVO.member_no}</div>
+                    <div class="cname" style="width:20%">會員編號:${forum_commentVO.member_no}</div>
                     <div class="ctime" style="width:20%">${forum_commentVO.comment_time}</div>
                     <div class="ccontent" style="width:30%">${forum_commentVO.comment_content}</div>
                    

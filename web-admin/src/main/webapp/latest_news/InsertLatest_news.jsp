@@ -44,7 +44,7 @@
                 <li id="cate_D" class="expanded"><H1>功能列表</H1>
                     <ul class="main">
                         <li>
-                            <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                            <a href="<%=request.getContextPath()%>/latest_news/select_page.jsp">回首頁</a>
                         </li>
                     </ul>
                 </li>

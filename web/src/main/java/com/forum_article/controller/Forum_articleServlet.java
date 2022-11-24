@@ -12,21 +12,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.forum_article.model.Forum_articleService;
 import com.forum_article.model.Forum_articleVO;
-
+import com.mem.model.MemberVO;
 
 @WebServlet("/Forum_articleServlet")
 //@MultipartConfig(fileSizeThreshold = 0, maxFileSize = 5)
 
 public class Forum_articleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 
+
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
-	
+
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
@@ -95,19 +96,19 @@ public class Forum_articleServlet extends HttpServlet {
 				errorMsgs.put("article_name", "論壇文章標題請勿空白");
 				System.out.println("1");
 			}
-			
-			Integer member_no = Integer.valueOf(req.getParameter("member_no").trim());
-			
-			
+
+			HttpSession session = req.getSession();
+			MemberVO member = (MemberVO) session.getAttribute("member");
+
 			String article_content = req.getParameter("article_content").trim();
 			if (article_content == null || article_content.trim().length() == 0) {
 				errorMsgs.put("article_content", "論壇文章內容請勿空白");
-				
+
 			}
 
 			Forum_articleVO forum_articleVO = new Forum_articleVO();
 			forum_articleVO.setArticle_name(article_name);
-			forum_articleVO.setMember_no(member_no);
+			forum_articleVO.setMember_no(member.getMemberNo());
 			forum_articleVO.setArticle_content(article_content);
 
 			// Send the use back to the form, if there were errors
@@ -117,13 +118,13 @@ public class Forum_articleServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/forum_article/InsertForum_article.jsp");
 				System.out.println("失敗");
 				failureView.forward(req, res);
-				
+
 				return;
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
 			Forum_articleService forum_articleSvc = new Forum_articleService();
-			forum_articleVO = forum_articleSvc.addForum_article(article_name, member_no, article_content);
+			forum_articleVO = forum_articleSvc.addForum_article(article_name, member.getMemberNo(), article_content);
 //			System.out.println(4);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
@@ -202,13 +203,13 @@ public class Forum_articleServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("123".equals(action)) { 
-			
+		if ("123".equals(action)) {
+
 			String url = "/forum_comment/InsertForum_comment.jsp";
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
 		}
-		
+
 		if ("change_status_0".equals(action)) { // 來自listAllForum_article.jsp
 
 			/*************************** 1.接收請求參數 ***************************************/
@@ -220,7 +221,7 @@ public class Forum_articleServlet extends HttpServlet {
 			String url = "/forum_article/listAllForum_article_3.jsp";
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
-			
+
 		}
 		if ("change_status_1".equals(action)) { // 來自listAllForum_article.jsp
 
@@ -233,19 +234,18 @@ public class Forum_articleServlet extends HttpServlet {
 			String url = "/forum_article/listAllForum_article_3.jsp";
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
-			
+
 		}
-		if("catch_display".equals(action)) {
+		if ("catch_display".equals(action)) {
 			/*************************** 1.接收請求參數 ***************************************/
 			Integer article_no = Integer.valueOf(req.getParameter("article_no"));
-			
 
-			/***********************準備轉交(Send the Success view) ***********/
+			/*********************** 準備轉交(Send the Success view) ***********/
 			String url = "/forum_article/forum_article_select_page.jsp";
 			RequestDispatcher successview = req.getRequestDispatcher(url);
 			successview.forward(req, res);
-			
+
 		}
 	}
-	
+
 }
