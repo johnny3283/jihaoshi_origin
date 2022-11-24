@@ -56,11 +56,6 @@
     </filter-mapping>
 
 	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/index.jsp</url-pattern>
-	</filter-mapping>
-
-	<filter-mapping>
 		<filter-name>onlyLoginFilter</filter-name>
 		<url-pattern>/member/getOneMem</url-pattern>
 	</filter-mapping>
