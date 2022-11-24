@@ -53,6 +53,7 @@
 
 <ul>
   <li><a href='listAllPro.jsp'>列出</a> 所有實體課程促銷專案 <br><br></li>
+  <li><a href='listAllProDetail.jsp'>列出</a> 所有實體課程促銷明細 <br><br></li>
   
   
   <li>

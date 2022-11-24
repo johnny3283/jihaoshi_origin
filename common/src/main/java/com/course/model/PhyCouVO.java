@@ -2,8 +2,11 @@ package com.course.model;
 
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+
 
 import com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO;
 
@@ -145,6 +148,42 @@ public class PhyCouVO implements java.io.Serializable{
 	}
 	public void setPic(byte[] pic) {
 		this.pic = pic;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(pic);
+		result = prime * result + Objects.hash(course_date, course_hr, course_info, course_location, course_name,
+				course_no, course_price, course_status, course_teacher, create_date, current_sign_up_people,
+				max_sign_up_people, min_sign_up_people, phyCouPromotionDetails, sign_up_end_day, sign_up_start_day,
+				update_time);
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PhyCouVO other = (PhyCouVO) obj;
+		return Objects.equals(course_date, other.course_date) && Objects.equals(course_hr, other.course_hr)
+				&& Objects.equals(course_info, other.course_info)
+				&& Objects.equals(course_location, other.course_location)
+				&& Objects.equals(course_name, other.course_name) && Objects.equals(course_no, other.course_no)
+				&& Objects.equals(course_price, other.course_price)
+				&& Objects.equals(course_status, other.course_status)
+				&& Objects.equals(course_teacher, other.course_teacher)
+				&& Objects.equals(create_date, other.create_date)
+				&& Objects.equals(current_sign_up_people, other.current_sign_up_people)
+				&& Objects.equals(max_sign_up_people, other.max_sign_up_people)
+				&& Objects.equals(min_sign_up_people, other.min_sign_up_people)
+				&& Objects.equals(phyCouPromotionDetails, other.phyCouPromotionDetails) && Arrays.equals(pic, other.pic)
+				&& Objects.equals(sign_up_end_day, other.sign_up_end_day)
+				&& Objects.equals(sign_up_start_day, other.sign_up_start_day)
+				&& Objects.equals(update_time, other.update_time);
 	}
 	
 	

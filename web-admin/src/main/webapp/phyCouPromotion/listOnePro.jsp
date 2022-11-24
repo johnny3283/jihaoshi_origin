@@ -1,10 +1,69 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
+<%@ page import="com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO"%>
+<%@ page import="java.util.Set"%>
 <%@ page import="com.phyCouPromotion.model.*"%>
 
 <%
-  PhyCouPromotionVO phyCouPromotionVO = (PhyCouPromotionVO) request.getAttribute("phyCouPromotionVO"); 
+/*   PhyCouPromotionVO phyCouPromotionVO = (PhyCouPromotionVO) request.getAttribute("phyCouPromotionVO");
+  Set<PhyCouPromotionDetailVO> set = (Set) request.getAttribute("set");
+  
+  System.out.println("=======================================================");
+  System.out.println(phyCouPromotionVO);
+  System.out.println(set);
+  System.out.println("=======================================================");
+  
+  StringBuilder sb = new StringBuilder();
+  Integer prom_price = null;
+  int i = set.size();
+  for ( PhyCouPromotionDetailVO cos : set) {
+	  if ( i-- != 1) {
+	      sb.append(String.valueOf(cos.getPhyCouVO().getCourse_no())+",");
+	  } else {
+	      sb.append(String.valueOf(cos.getPhyCouVO().getCourse_no()));
+	      prom_price = cos.getProm_price();
+		 
+	  }
+  }
+  String sCous = sb.toString();
+   System.out.println(sCous); 
+  pageContext.setAttribute("sCous",sCous);
+  pageContext.setAttribute("prom_price",prom_price); */
+  
+  PhyCouPromotionVO phyCouPromotionVO = (PhyCouPromotionVO) request.getAttribute("phyCouPromotionVO");
+  Set<PhyCouPromotionDetailVO> set = (Set) request.getAttribute("set");
+  System.out.println("=======================================================");
+  System.out.println(phyCouPromotionVO);
+  System.out.println(set);
+  System.out.println("=======================================================");
+  if ( set != null ) {
+	  StringBuilder sb = new StringBuilder();
+	  Integer prom_price = null;
+	
+	  int i = set.size();
+	  for ( PhyCouPromotionDetailVO cos : set) {
+		  if ( i-- != 1) {
+		      sb.append(String.valueOf(cos.getPhyCouVO().getCourse_no())+",");
+		  } else {
+		      sb.append(String.valueOf(cos.getPhyCouVO().getCourse_no()));
+		      prom_price = cos.getProm_price();
+			 
+		  }
+	  } 
+	  String proCous = sb.toString();
+	  pageContext.setAttribute("proCous",proCous);
+	  pageContext.setAttribute("prom_price",prom_price);
+	  
+  } else {
+ 	  String proCous = (String) request.getAttribute("tep_proCous");
+ 	  Integer prom_price = (Integer) request.getAttribute("prom_price");
+	  java.sql.Date update_time = (java.sql.Date) request.getAttribute("update_time");
+	  pageContext.setAttribute("proCous",proCous);
+	  pageContext.setAttribute("prom_price",prom_price);
+	  pageContext.setAttribute("update_time",update_time);
+ 	  System.out.println(proCous);
+      
+  }
 %>
-
 <html>
 <head>
 <title>促銷專案資料</title>
@@ -28,7 +87,7 @@
 
 <style>
   table {
-	width: 1700px;
+	width: 1000px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -40,11 +99,8 @@
     padding: 5px;
     text-align: center;
   }
-  #info {
-    width:400px;
-  }
   #pageHead {
-    width: 1700px;
+    width: 1000px;
     height: 23%;
   }
 </style>
@@ -55,7 +111,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>促銷專案資料</h3>
+		 <h3>促銷專案主檔資料</h3>
 		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>

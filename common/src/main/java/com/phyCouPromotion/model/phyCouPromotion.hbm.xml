@@ -14,10 +14,11 @@
         <property name="end_date" column="end_date" />
         <property name="prom_description" column="prom_description" />
         <property name="prom_status" column="prom_status" />
-        <property name="update_time" column="update_time" />
+<!--         <property name="update_time" column="update_time" /> -->
+        <property name="update_time" column="update_time" update="false" insert="false" generated="always" />
         
         <set name="phyCouPromotionDetails" table="Physical_course_promotion_detail" lazy="false" cascade="all"  
-        		inverse="true"  order-by="project_no asc">			
+        		inverse="false"  order-by="project_no asc">			
 			<key>
 				<column name="project_no" />
 			</key>

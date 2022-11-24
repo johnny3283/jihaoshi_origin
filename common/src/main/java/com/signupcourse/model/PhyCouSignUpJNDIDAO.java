@@ -9,21 +9,35 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
 import com.course.model.PhyCouVO;
 
 
-public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/jihaoshi?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "password";
+public class PhyCouSignUpJNDIDAO implements PhyCouSignUpDAO_interface {
+//	String driver = "com.mysql.cj.jdbc.Driver";
+//	String url = "jdbc:mysql://15.152.181.134:3306/JihaoDB?serverTimezone=Asia/Taipei";
+//	String userid = "tsai";
+//	String passwd = "Tibame@cga104";
+    public static DataSource ds = null;
+	
+    static {
+        try {
+            Context ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/jihaoshi");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+    }
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO PHYSICAL_COURSE_SIGNUP_LIST (MEMBER_NO, COURSE_NO, ORDER_PRICE) VALUES ( ?, ?, ?)";
+//	private static final String INSERT_STMT_NOPIC = 
+//		"INSERT INTO Physical_course (course_name, course_hr, course_price, course_teacher, course_date, course_location, course_info, course_status, sign_up_start_day, sign_up_end_day, max_sign_up_people, min_sign_up_people,	current_sign_up_people) VALUES      ( ?, ?, ?, ?,   ?, ?, ?, ?,  ?, ?, ?, ?,  ?)";
 	private static final String GET_ALL_STMT= 
 		"SELECT * FROM PHYSICAL_COURSE_SIGNUP_LIST ORDER BY ORDER_NO";
 	private static final String GET_ALL_BY_MEMID_STMT= 
@@ -44,11 +58,12 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);	
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);	
+			con = ds.getConnection();
 			con.setAutoCommit(false);
-
-				pstmt = con.prepareStatement(INSERT_STMT, Statement.RETURN_GENERATED_KEYS);			
+//			    String cols[] = {"order_no"};
+				pstmt = con.prepareStatement(INSERT_STMT, Statement.RETURN_GENERATED_KEYS);				
 				
 				
 				pstmt.setInt(1, phyCouSignUpVO.getMember_no());
@@ -75,65 +90,20 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 				con.setAutoCommit(true);
 				return next_order ;
 
-				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
-			} catch (SQLException se) {
-				throw new RuntimeException("A database error occured. "
-						+ se.getMessage());
-				// Clean up JDBC resources
-			} finally {
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
-				}
-			}
-
-		}
-	
-	@Override
-	public List<PhyCouSignUpVO> getAll() {
-		List<PhyCouSignUpVO> list = new ArrayList<PhyCouSignUpVO>();
-		PhyCouSignUpVO phyCouSignUpVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt= null;
-		ResultSet rs = null;
-				
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);	
-			pstmt = con.prepareStatement(GET_ALL_STMT);
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				phyCouSignUpVO = new PhyCouSignUpVO();
-				phyCouSignUpVO.setOrder_no(rs.getInt("order_no"));
-				phyCouSignUpVO.setMember_no(rs.getInt("membe_no"));
-				phyCouSignUpVO.setOrder_price(rs.getInt("order_price"));
-				phyCouSignUpVO.setOrder_status(rs.getInt("order_status"));
-				phyCouSignUpVO.setCourse_no(rs.getInt("Couse_no"));
-				list.add(phyCouSignUpVO);
-			}			
-			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
+			if (con!=null ) {
+				try {
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());					
+				}
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -154,7 +124,58 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 			}
 		}
 
+	}
+	
+	@Override
+	public List<PhyCouSignUpVO> getAll() {
+		List<PhyCouSignUpVO> list = new ArrayList<PhyCouSignUpVO>();
+		PhyCouSignUpVO phyCouSignUpVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt= null;
+		ResultSet rs = null;
+				
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
 			
+			while (rs.next()) {
+				phyCouSignUpVO = new PhyCouSignUpVO();
+				phyCouSignUpVO.setOrder_no(rs.getInt("order_no"));
+				phyCouSignUpVO.setMember_no(rs.getInt("membe_no"));
+				phyCouSignUpVO.setOrder_price(rs.getInt("order_price"));
+				phyCouSignUpVO.setOrder_status(rs.getInt("order_status"));
+				phyCouSignUpVO.setCourse_no(rs.getInt("Couse_no"));
+				list.add(phyCouSignUpVO);
+			}			
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);					
+				}
+			}
+			if (pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch ( SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con!=null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+		}		
 		return list;
 	}
 
@@ -168,8 +189,7 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);	
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_BY_MEMID_STMT);
 			pstmt.setInt(1,member_no);
 			
@@ -185,33 +205,32 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 				list.add(phyCouSignUpVO);				
 				
 			}
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
-			if (pstmt != null) {
+			if (rs!=null) {
+				try {
+				    rs.close();
+				} catch (SQLException se){
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt!=null) {
 				try {
 					pstmt.close();
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
 			}
-			if (con != null) {
+			if (con!=null) {
 				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
+				    con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
 				}
 			}
 		}
-
-	
 		
 		return list;
 	}
@@ -223,8 +242,7 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);	
+			con = ds.getConnection();
 			con.setAutoCommit(false);
 			
 			pstmt = con.prepareStatement(DELETE);
@@ -241,32 +259,41 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 			con.commit();
 			con.setAutoCommit(true);
 			
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
+			if (con!=null) {
+				try {
+					con.rollback();
+				} catch (SQLException excep) {			
+			          throw new RuntimeException("A database error occured. "
+					    + se.getMessage());
+			    }
+			}
+	        throw new RuntimeException("A database error occured. "
+			    + se.getMessage());
 		} finally {
-			if (pstmt != null) {
+			if (rs!=null ) {
+				try {
+				    rs.close();
+				} catch (SQLException se ) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt!=null) {
 				try {
 					pstmt.close();
+				} catch (SQLException se ) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con!=null ) {
+				try {
+					con.close();
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
 			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
 		}
-
+		
 	}
 
 }

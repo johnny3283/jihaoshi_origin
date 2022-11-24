@@ -1,7 +1,9 @@
 package com.phyCouPromotionDetail.model;
 
 import org.hibernate.*;
-import org.hibernate.query.Query; 
+import org.hibernate.query.Query;
+
+import com.course.model.PhyCouVO;
 import com.phyCouPromotion.model.PhyCouPromotionVO;
 import hibernate.util.HibernateUtil;
 //import hibernate.util.CompositeQuery.HibernateUtil_CompositeQuery_Emp2;
@@ -11,6 +13,7 @@ import java.util.*;
 public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailDAO_interface {
 
 	private static final String GET_ALL_STMT = "from com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO order by project_no";
+	private static final String GET_ONE_STMT = "from PhyCouPromotionDetailVO where project_no=:project_no and course_no=:course_no";
 
 	@Override
 	public void insert(PhyCouPromotionDetailVO phyCouPromotionDetailVO) {
@@ -25,12 +28,25 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 		}
 	}
 
+
 	@Override
 	public void update(PhyCouPromotionDetailVO phyCouPromotionDetailVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<PhyCouPromotionDetailVO> list = null;
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(phyCouPromotionDetailVO);
+			PhyCouPromotionVO phyCouPromotionVO = new PhyCouPromotionVO();
+			PhyCouVO phyCouVO = new PhyCouVO();
+			Integer project_no = phyCouPromotionDetailVO.getPhyCouPromotionVO().getProject_no();
+			Integer course_no = phyCouPromotionDetailVO.getPhyCouVO().getCourse_no();
+//			session.saveOrUpdate(phyCouPromotionDetailVO);
+			Query<PhyCouPromotionDetailVO> query = session.createQuery(GET_ONE_STMT, PhyCouPromotionDetailVO.class);
+			query.setParameter("project_no", project_no);
+			query.setParameter("course_no", course_no);
+			list = query.getResultList();
+			for ( PhyCouPromotionDetailVO vo : list) {
+				vo.setProm_price(phyCouPromotionDetailVO.getProm_price());
+			}
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
@@ -39,22 +55,28 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 	}
 
 	@Override
-	public void delete(Integer project_no) {
+	public void deleteOnePro(Integer project_no) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 
 //        �i���ɦh��(�y)�i�ĥ�HQL�R���j
-//			Query query = session.createQuery("delete EmpVO where empno=?0");
-//			query.setParameter(0, empno);
-//			System.out.println("�R��������=" + query.executeUpdate());
+			Query query = session.createQuery("delete from PhyCouPromotionDetailVO where project_no=:project_no");
+			query.setParameter("project_no", project_no);
+			query.executeUpdate();
+			Query query1 = session.createQuery("delete from PhyCouPromotionVO where project_no=:project_no");
+			query1.setParameter("project_no", project_no);
+			query1.executeUpdate();
 
 //        �i�Φ��ɦh��(�])�i�ĥΥh�����p���Y��A�A�R�����覡�j
-			PhyCouPromotionDetailVO phyCouPromotionDetailVO = new PhyCouPromotionDetailVO();
-			PhyCouPromotionVO phyCouPromotionVO = new PhyCouPromotionVO();
-			phyCouPromotionVO.setProject_no(project_no);
-			phyCouPromotionDetailVO.setPhyCouPromotionVO(phyCouPromotionVO);
-			session.delete(phyCouPromotionDetailVO);
+//			PhyCouPromotionDetailVO phyCouPromotionDetailVO = new PhyCouPromotionDetailVO();
+//			PhyCouPromotionVO phyCouPromotionVO = new PhyCouPromotionVO();
+//			PhyCouVO phyCouVO = new PhyCouVO();
+//			phyCouVO.setCourse_no(course_no);
+//			phyCouPromotionVO.setProject_no(project_no);
+//			phyCouPromotionDetailVO.setPhyCouPromotionVO(phyCouPromotionVO);
+//			phyCouPromotionDetailVO.setPhyCouVO(phyCouVO);
+//			session.delete(phyCouPromotionDetailVO);
 
 //        �i���ɦh�褣�i(���y)�ĥ�cascade�p�ŧR���j
 //        �i�h��emp2.hbm.xml�p�G�]�� cascade="all"�� cascade="delete"�N�|�R���Ҧ��������-�]�A���ݳ����P�P�������䥦���u�N�|�@�ֳQ�R���j
@@ -68,19 +90,53 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 		}
 	}
 
-	@Override
-	public PhyCouPromotionDetailVO findByPrimaryKey(Integer project_no) {
-		PhyCouPromotionDetailVO phyCouPromotionDetailVO = null;
+	public void deleteOneCou(Integer project_no, Integer course_no) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			phyCouPromotionDetailVO = (PhyCouPromotionDetailVO) session.get(PhyCouPromotionDetailVO.class, project_no);
+			
+//        �i���ɦh��(�y)�i�ĥ�HQL�R���j
+			Query query = session.createQuery("delete from PhyCouPromotionDetailVO where project_no=:project_no and course_no=:course_no");
+			query.setParameter("project_no", project_no);
+			query.setParameter("course_no", course_no);
+			query.executeUpdate();
+			
+//        �i�Φ��ɦh��(�])�i�ĥΥh�����p���Y��A�A�R�����覡�j
+//			PhyCouPromotionDetailVO phyCouPromotionDetailVO = new PhyCouPromotionDetailVO();
+//			PhyCouPromotionVO phyCouPromotionVO = new PhyCouPromotionVO();
+//			phyCouPromotionVO.setProject_no(project_no);
+//			phyCouPromotionDetailVO.setPhyCouPromotionVO(phyCouPromotionVO);
+//			session.delete(phyCouPromotionDetailVO);
+			
+//        �i���ɦh�褣�i(���y)�ĥ�cascade�p�ŧR���j
+//        �i�h��emp2.hbm.xml�p�G�]�� cascade="all"�� cascade="delete"�N�|�R���Ҧ��������-�]�A���ݳ����P�P�������䥦���u�N�|�@�ֳQ�R���j
+//			EmpVO empVO = (EmpVO) session.get(EmpVO.class, empno);
+//			session.delete(empVO);
+			
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
 			throw ex;
 		}
-		return phyCouPromotionDetailVO;
+	}
+	@Override
+	public List<PhyCouPromotionDetailVO> findByPrimaryKey(Integer project_no, Integer course_no) {
+//		PhyCouPromotionDetailVO phyCouPromotionDetailVO = null;
+		List<PhyCouPromotionDetailVO> list = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query<PhyCouPromotionDetailVO> query = session.createQuery(GET_ONE_STMT, PhyCouPromotionDetailVO.class);
+			query.setParameter("project_no", project_no);
+			query.setParameter("course_no", course_no);
+			list = query.getResultList();
+//			phyCouPromotionDetailVO = (PhyCouPromotionDetailVO) session.get(PhyCouPromotionDetailVO.class, project_no);
+			session.getTransaction().commit();
+		} catch (RuntimeException ex) {
+			session.getTransaction().rollback();
+			throw ex;
+		}
+		return list;
 	}
 
 	@Override
@@ -98,6 +154,8 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 		}
 		return list;
 	}
+
+
 	
 //	@Override
 //	public List<PhyCouPromotionDetailVO> getAll(Map<String, String[]> map) {
@@ -114,16 +172,22 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 //		return list;
 //	}
 
-//	public static void main(String[] args) {
-//
-//		PhyCouPromotionDetailHibernateDAO dao = new PhyCouPromotionDetailHibernateDAO();
-//
-//		//�� �s�W
-//		com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO phyCouPromotionDetailVO = new com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO(); // ����POJO
-//		com.phyCouPromotion.model.PhyCouPromotionVO phyCouPromotionVO = new com.phyCouPromotion.model.PhyCouPromotionVO();
-//		phyCouPromotionVO.setProject_no(1);
-//		phyCouPromotionDetailVO.setPhyCouPromotionVO(phyCouPromotionVO);
+	public static void main(String[] args) {
 
+		PhyCouPromotionDetailHibernateDAO dao = new PhyCouPromotionDetailHibernateDAO();
+
+		//�� �s�W
+		com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO phyCouPromotionDetailVO = new com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO(); // ����POJO
+		com.phyCouPromotion.model.PhyCouPromotionVO phyCouPromotionVO = new com.phyCouPromotion.model.PhyCouPromotionVO();
+		com.course.model.PhyCouVO phycouVO  = new com.course.model.PhyCouVO();
+		phyCouPromotionVO.setProject_no(1);
+		phycouVO.setCourse_no(5);
+		phyCouPromotionDetailVO.setPhyCouPromotionVO(phyCouPromotionVO);
+		phyCouPromotionDetailVO.setPhyCouVO(phycouVO);
+		
+		dao.deleteOneCou(61, 2);
+		dao.deleteOnePro(61);
+	}
 //		EmpVO empVO1 = new EmpVO();
 //		empVO1.setEname("�d�ç�1");
 //		empVO1.setJob("MANAGER");

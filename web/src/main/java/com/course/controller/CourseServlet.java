@@ -65,37 +65,37 @@ public class CourseServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("phyCouVO", phyCouVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("phyCouVO", phyCouVO); 
 				String url = "/course/SingUpForConfirm.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 		}
 		
 		
-		if ("confirm".equals(action)) { // 來自listAllEmp.jsp的請求
+		if ("confirm".equals(action)) { 
 
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
 			
 				/***************************1.接收請求參數****************************************/
-				Integer course_no = Integer.valueOf(req.getParameter("course_no"));
-				Integer member_no = Integer.valueOf(req.getParameter("member_no"));
-				Integer order_price = Integer.valueOf(req.getParameter("order_price"));
+			    System.out.println("confirm_pass");
+		        HttpSession session = req.getSession();
+		        PhyCouVO phyCouVO = (PhyCouVO)session.getAttribute("phyCouVO");
+		        Integer member_no = (Integer)session.getAttribute("member_no");		    
+	
+			    Integer course_no = phyCouVO.getCourse_no();
+			    System.out.println("course_no_pass");
+	
 				
 				/***************************2.開始新增資料****************************************/
-				PhyCouService phyCouSvc = new PhyCouService();
-				PhyCouVO phyCouVO = phyCouSvc.getOneCou(course_no);
-				Integer signUpNum = phyCouVO.getCurrent_sign_up_people();
+				Integer order_price = phyCouVO.getCourse_price();
+				Integer signUpNum = phyCouVO.getCurrent_sign_up_people();		
 				PhyCouSignUpService phyCouSignUpSvc = new PhyCouSignUpService();
 				PhyCouSignUpVO phyCouSignUpVO = phyCouSignUpSvc.signup(member_no, course_no, order_price, signUpNum);
-								
+						
 				/***************************3.新增完成,準備轉交(Send the Success view)************/
-				req.setAttribute("phyCouSignUpVO", phyCouSignUpVO);         // 資料庫取出的empVO物件,存入req
+				req.setAttribute("phyCouSignUpVO", phyCouSignUpVO);         
 				req.setAttribute("phyCouVO", phyCouVO);
 				String url = "/course/confirmOk.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 		}
 		

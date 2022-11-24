@@ -62,22 +62,26 @@ public class DBGifReader extends HttpServlet {
 	public void init() throws ServletException {			
 		
 	    try {
-//	    		Class.forName("com.mysql.cj.jdbc.Driver");
-//				con = DriverManager.getConnection("jdbc:mysql://15.152.181.134:3306/JihaoDB?serverTimezone=Asia/Taipei", "tsai", "Tibame@cga104");
-	    	Context ctx = new javax.naming.InitialContext();
-	    	DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/jihaoshi");	 
-	    	con = ds.getConnection();
-	    	
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	    		Class.forName("com.mysql.cj.jdbc.Driver");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jihaoshi?serverTimezone=Asia/Taipei", "root", "password");
+//	    	Context ctx = new javax.naming.InitialContext();
+//	    	DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/jihaoshi");	 
+//	    	con = ds.getConnection();
+//	    	
+//		} catch (NamingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 //		} catch (ClassNotFoundException e) {
 //			e.printStackTrace();
 //	    }
-	}
+		 catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 
 	public void destroy() {
 		try {

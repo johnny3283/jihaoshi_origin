@@ -5,7 +5,7 @@ import java.util.*;
 import com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO;
 
 public interface PhyCouPromotionDAO_interface {
-          public void insert(PhyCouPromotionVO phyCouPromotionVO);
+          public Integer insert(PhyCouPromotionVO phyCouPromotionVO);
           public void update(PhyCouPromotionVO phyCouPromotionVO);
           public void delete(Integer project_no);
           public PhyCouPromotionVO findByPrimaryKey(Integer project_no);

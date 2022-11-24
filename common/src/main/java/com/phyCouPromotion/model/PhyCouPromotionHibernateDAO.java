@@ -2,6 +2,8 @@ package com.phyCouPromotion.model;
 
 import org.hibernate.*;
 import org.hibernate.query.Query;
+
+import com.course.model.PhyCouVO;
 import com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO;
 import hibernate.util.HibernateUtil;
 import java.util.*;
@@ -11,12 +13,15 @@ public class PhyCouPromotionHibernateDAO implements PhyCouPromotionDAO_interface
 	private static final String GET_ALL_STMT = "from PhyCouPromotionVO order by project_no";
 
 	@Override
-	public void insert(PhyCouPromotionVO phyCouPromotionVO) {
+	public Integer insert(PhyCouPromotionVO phyCouPromotionVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 			session.saveOrUpdate(phyCouPromotionVO);
-			session.getTransaction().commit();
+		    session.getTransaction().commit();
+		    Integer project_no = phyCouPromotionVO.getProject_no();
+		    return project_no;
+		   
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
 			throw ex;
@@ -28,7 +33,25 @@ public class PhyCouPromotionHibernateDAO implements PhyCouPromotionDAO_interface
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(phyCouPromotionVO);
+//			session.saveOrUpdate(phyCouPromotionVO);
+//			PhyCouPromotionVO fVO = null;
+			PhyCouPromotionVO DBVO = session.get(PhyCouPromotionVO.class, phyCouPromotionVO.getProject_no());
+			if (phyCouPromotionVO.getProject_name() !=  DBVO.getProject_name()) {
+				DBVO.setProject_name(phyCouPromotionVO.getProject_name());
+			}
+			if (phyCouPromotionVO.getStart_date() !=  DBVO.getStart_date()) {
+				DBVO.setStart_date(phyCouPromotionVO.getStart_date());
+			}
+			if (phyCouPromotionVO.getEnd_date() !=  DBVO.getEnd_date()) {
+				DBVO.setEnd_date(phyCouPromotionVO.getEnd_date());
+			}
+			if (phyCouPromotionVO.getProm_description() !=  DBVO.getProm_description()) {
+				DBVO.setProm_description(phyCouPromotionVO.getProm_description());
+			}
+			if (phyCouPromotionVO.getProm_status() !=  DBVO.getProm_status()) {
+				DBVO.setProm_status(phyCouPromotionVO.getProm_status());
+			}
+					
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
@@ -41,7 +64,8 @@ public class PhyCouPromotionHibernateDAO implements PhyCouPromotionDAO_interface
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			PhyCouPromotionVO phyCouPromotionVO = (PhyCouPromotionVO) session.get(PhyCouPromotionVO.class, project_no);
+			PhyCouPromotionVO phyCouPromotionVO = new PhyCouPromotionVO();
+			phyCouPromotionVO.setProject_no(project_no);
 			session.delete(phyCouPromotionVO);
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
@@ -86,7 +110,7 @@ public class PhyCouPromotionHibernateDAO implements PhyCouPromotionDAO_interface
 		Set<PhyCouPromotionDetailVO> set = findByPrimaryKey(project_no).getPhyCouPromotionDetails();
 		return set;
 	}
-}
+//}
 //	@Override
 //	public List<PhyCouPromotionVO> getAll(Map<String, String[]> map) {
 //		List<PhyCouPromotionVO> list = null;
@@ -102,14 +126,51 @@ public class PhyCouPromotionHibernateDAO implements PhyCouPromotionDAO_interface
 //		return list;
 //	}
 
-//	public static void main(String[] args) {
-//
-//		PhyCouPromotionHibernateDAO dao = new PhyCouPromotionHibernateDAO();
+	public static void main(String[] args) {
+
+		PhyCouPromotionHibernateDAO dao = new PhyCouPromotionHibernateDAO();
 
 		//● 新增-1(一方dept2.hbm.xml必須有cascade="save-update" 或cascade="all"的設定)(雖然強大,不過實務上並不常用)(但,可用在訂單主檔與明細檔一次新增成功)
 //		DeptVO deptVO = new DeptVO(); // 部門POJO
 //		Set<EmpVO> set = new LinkedHashSet<EmpVO>();// 準備置入員工數人,以便cascade="save-update"的測試
-//
+
+		
+		PhyCouPromotionVO phyCouPromotionVO = new PhyCouPromotionVO();
+		Set<PhyCouPromotionDetailVO> set = new HashSet<PhyCouPromotionDetailVO>();
+		PhyCouVO phyCouVO1 = new PhyCouVO();
+		PhyCouVO phyCouVO2 = new PhyCouVO();
+		
+		PhyCouPromotionDetailVO phyCouPromotionDetailVO1 = new PhyCouPromotionDetailVO();
+		phyCouPromotionDetailVO1.setPhyCouPromotionVO(phyCouPromotionVO);
+		phyCouVO1.setCourse_no(1);
+		phyCouPromotionDetailVO1.setPhyCouVO(phyCouVO1);
+		phyCouPromotionDetailVO1.setProm_price(50);
+		
+		PhyCouPromotionDetailVO phyCouPromotionDetailVO2=  new PhyCouPromotionDetailVO();
+		phyCouPromotionDetailVO2.setPhyCouPromotionVO(phyCouPromotionVO);
+		phyCouVO2.setCourse_no(2);
+		phyCouPromotionDetailVO2.setPhyCouVO(phyCouVO2);
+		phyCouPromotionDetailVO2.setProm_price(40);
+		
+		set.add(phyCouPromotionDetailVO1);
+		set.add(phyCouPromotionDetailVO2);
+		
+		phyCouPromotionVO.setProject_name("test");
+		phyCouPromotionVO.setStart_date(java.sql.Date.valueOf("2001-01-16"));
+		phyCouPromotionVO.setEnd_date(java.sql.Date.valueOf("2001-02-10"));
+		phyCouPromotionVO.setProm_description ("test");
+		phyCouPromotionVO.setProm_status(0);
+	//	phyCouPromotionVO.setUpdate_time(java.sql.Date.valueOf("2022-01-16"));
+		phyCouPromotionVO.setPhyCouPromotionDetails(set);
+		
+		dao.insert(phyCouPromotionVO);
+		
+		
+		
+		
+	}
+	}
+		
 //		EmpVO empXX = new EmpVO();   // 員工POJO1
 //		empXX.setEname("吳15");
 //		empXX.setJob("MANAGER15");

@@ -3,6 +3,10 @@
 
 <%
   PhyCouVO phyCouVO = (PhyCouVO) request.getAttribute("phyCouVO");
+  HttpSession pCousession = request.getSession();
+  pCousession.setAttribute("phyCouVO", phyCouVO);  
+  pCousession.setAttribute("member_no", 1);  
+
 %>
 
 <html>
@@ -68,12 +72,12 @@
 		<tr><th>course_location</th><td><%=phyCouVO.getCourse_location()%></td></tr>
 		<tr><th>pic</th><td><img src="http://localhost:8081/myproject/course/DBGifReader?course_no=<%=phyCouVO.getCourse_no()%>"></td></tr>
 		<tr><td>		
-			   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/signup/cou.do" style="margin-bottom: 0px;">
+			   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pCouCheckout/PCoucheckoutController" style="margin-bottom: 0px;">
 			     <input type="submit" value="確認報名">
-			     <input type="hidden" name="course_no"  value="<%=phyCouVO.getCourse_no()%>">
+			     <input type="hidden" name="course_no"  value=<%=phyCouVO.getCourse_no() %>>
 			     <input type="hidden" name="member_no"  value="1">
 			     <input type="hidden" name="order_price"  value="<%=phyCouVO.getCourse_price()%>">
-			     <input type="hidden" name="action"	value="confirm"></FORM>
+			     <input type="hidden" name="action"	value="checkout"></FORM>
 			</td></tr>
 </table>
 

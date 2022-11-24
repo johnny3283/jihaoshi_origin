@@ -1,4 +1,6 @@
 <%@page import="com.phyCouPromotion.model.PhyCouPromotionVO"%>
+<%@page import="com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO"%>
+<%@page import="java.util.Set"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="com.course.model.PhyCouVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
@@ -7,7 +9,42 @@
 
 <%
 
-  PhyCouPromotionVO phycouPromotionVO = (PhyCouPromotionVO) request.getAttribute("phycouPromotionVO");
+  PhyCouPromotionVO phyCouPromotionVO = (PhyCouPromotionVO) request.getAttribute("phyCouPromotionVO");
+  Set<PhyCouPromotionDetailVO> set = (Set) request.getAttribute("set");
+  System.out.println("=======================================================");
+  System.out.println(phyCouPromotionVO);
+  System.out.println(set);
+  System.out.println("=======================================================");
+  if ( set != null ) {
+	  StringBuilder sb = new StringBuilder();
+	  Integer prom_price = null;
+	
+	  int i = set.size();
+	  for ( PhyCouPromotionDetailVO cos : set) {
+		  if ( i-- != 1) {
+		      sb.append(String.valueOf(cos.getPhyCouVO().getCourse_no())+",");
+		  } else {
+		      sb.append(String.valueOf(cos.getPhyCouVO().getCourse_no()));
+		      prom_price = cos.getProm_price();
+			 
+		  }
+	  } 
+	  String proCous = sb.toString();
+	  pageContext.setAttribute("proCous",proCous);
+	  pageContext.setAttribute("prom_price",prom_price);
+	  
+  } else {
+ 	  String proCous = (String) request.getAttribute("tep_proCous");
+ 	  Integer prom_price = (Integer) request.getAttribute("prom_price");
+	  java.sql.Date update_time = (java.sql.Date) request.getAttribute("update_time");
+	  pageContext.setAttribute("proCous",proCous);
+	  pageContext.setAttribute("prom_price",prom_price);
+	  pageContext.setAttribute("update_time",update_time);
+	  System.out.println("=======================================================");
+	  System.out.println(proCous);
+	  System.out.println("=======================================================");
+      
+  }
   
 %>
 
@@ -105,7 +142,7 @@
 		value="${param.prom_description}"/></td><td>${errorMsgs.prom_description}</td>
 	</tr>
 	<tr>
-		<td>促銷活動狀態:</td>
+		<td>專案狀態碼:</td>
 		<td><input type="TEXT" name="prom_status" size="45" 
 		value="${param.prom_status}"/></td><td>${errorMsgs.prom_status}</td>
 	</tr>
@@ -113,11 +150,22 @@
 		<td>編輯時間:</td>
 		<td>${param.update_time}</td>
 	</tr>
+	<tr>
+		<td>促銷課程代碼:</td>
+		<td>${proCous}</td>
+	</tr>
+	<tr>
+		<td>促銷折扣:</td>
+		<td>${prom_price}</td>
+	</tr>
+	
 </table>
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="project_no" value="${param.project_no}">
 <input type="hidden" name="update_time" value="${param.update_time}">
+<input type="hidden" name="proCous" value="${proCous}">
+<input type="hidden" name="prom_price" value="${prom_price}">
 <input type="submit" value="送出修改">
 </FORM>
 </body>

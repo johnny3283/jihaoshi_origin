@@ -2,7 +2,11 @@ package com.phyCouPromotion.model;
 
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 import com.phyCouPromotionDetail.model.*;
 
@@ -65,11 +69,33 @@ public class PhyCouPromotionVO implements java.io.Serializable{
 		this.phyCouPromotionDetails = phyCouPromotionDetails;
 	}
 	
+//	@Override
+//	public String toString() {
+//		return "PhyCouPromotionVO [project_no=" + project_no + ", project_name=" + project_name + ", start_date="
+//				+ start_date + ", end_date=" + end_date + ", prom_description=" + prom_description + ", prom_status="
+//				+ prom_status + ", update_time=" + update_time + "]";
+//	}
 	
-//	public DeptVO getDeptVO() {
-//		return deptVO;
-//	}
-//	public void setDeptVO(DeptVO deptVO) {
-//		this.deptVO = deptVO;
-//	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(project_name);
+	}
+	@Override
+	public String toString() {
+		return "PhyCouPromotionVO [project_no=" + project_no + ", project_name=" + project_name + ", start_date="
+				+ start_date + ", end_date=" + end_date + ", prom_description=" + prom_description + ", prom_status="
+				+ prom_status + ", update_time=" + update_time + ", phyCouPromotionDetails=" + phyCouPromotionDetails
+				+ "]";
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PhyCouPromotionVO other = (PhyCouPromotionVO) obj;
+		return Objects.equals(project_name, other.project_name);
+	}
 }

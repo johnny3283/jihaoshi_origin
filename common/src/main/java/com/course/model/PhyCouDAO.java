@@ -23,7 +23,7 @@ public class PhyCouDAO implements PhyCouDAO_interface {
 	private static final String GET_ALL_STMT = 
 		"FROM PhyCouVO ORDER BY COURSE_NO";
 	private static final String GET_CAN_SIGNUP_STMT = 
-		"FROM PhyCouVO WHERE CURRENT_SIGN_UP_PEOPLE < MAX_SIGN_UP_PEOPLE ;";
+		"FROM PhyCouVO WHERE CURRENT_SIGN_UP_PEOPLE < MAX_SIGN_UP_PEOPLE";
 
 	@Override
 	public void insert(PhyCouVO phyCouVO) {
@@ -54,6 +54,8 @@ public class PhyCouDAO implements PhyCouDAO_interface {
 						.setParameter("CURRENT_SIGN_UP_PEOPLE", phyCouVO.getCurrent_sign_up_people())
 						.setParameter("PIC", phyCouVO.getPic());
 						int result = nativeQuery.executeUpdate();
+						
+						
 						session.getTransaction().commit();
 			} else {
 				NativeQuery<?> nativeQuery = session.createNativeQuery("INSERT INTO PHYSICAL_COURSE "
@@ -129,7 +131,7 @@ public class PhyCouDAO implements PhyCouDAO_interface {
 							+ "COURSE_INFO = :COURSE_INFO, COURSE_STATUS = :COURSE_STATUS, "
 							+ "SIGN_UP_START_DAY = :SIGN_UP_START_DAY, SIGN_UP_END_DAY =  :SIGN_UP_END_DAY, "
 							+ "MAX_SIGN_UP_PEOPLE = :MAX_SIGN_UP_PEOPLE, "
-							+ "MIN_SIGN_UP_PEOPLE = :MIN_SIGN_UP_PEOPLE, CURRENT_SIGN_UP_PEOPLE = :CURRENT_SIGN_UP_PEOPLE, "
+							+ "MIN_SIGN_UP_PEOPLE = :MIN_SIGN_UP_PEOPLE, CURRENT_SIGN_UP_PEOPLE = :CURRENT_SIGN_UP_PEOPLE "
 							+ "WHERE COURSE_NO = :COURSE_NO")	
 						.setParameter("COURSE_NO", phyCouVO.getCourse_no())
 						.setParameter("COURSE_NAME", phyCouVO.getCourse_name())

@@ -86,15 +86,19 @@
 			<td>${phyCouPromotionVO.update_time}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/phyCouPromotion/promotion" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <input type="submit" value="修改主檔">
 			     <input type="hidden" name="project_no"  value="${phyCouPromotionVO.project_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/phyCouPromotion/promotion" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <input type="submit" value="刪除整個專案">
 			     <input type="hidden" name="project_no"  value="${phyCouPromotionVO.project_no}">
+<%-- 			     <input type="hidden" name="course_no"  value="${phyCouPromotionDetailVO.phyCouVO.course_no}"> --%>
 			     <input type="hidden" name="action" value="delete"></FORM>
+			</td>
+			<td> 
+				<a href="listAllProDetail.jsp">修改明細</a>
 			</td>
 		</tr>
 	</c:forEach>
