@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_article.model.*"%>
+<%@ page import="com.mem.model.MemberVO"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +36,7 @@
 </head>
 
 <body bgcolor='white'>
-<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
+<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
 
 <div id="WRAPPER" class="">
@@ -60,7 +61,7 @@
 		<div style="text-align: center;">
 			
 			<label>輸入消息標題：</label><input type="text" name="article_name" value="${param.article_name}" required><br>
-			<br> <label>輸入會員編號：</label><input type="text" name="member_no" value="<%=session.getAttribute("MemberNo")%>" readonly><br>
+			<br> <label>輸入會員編號：</label><input type="text" name="member_no" value="<%=((MemberVO)session.getAttribute("member")).getMemberNo()%>" readonly><br>
 			<br>
 			
 			<label>輸入文章內容：</label><textarea name="article_content" value="${param.article_content}" class="editor"></textarea>

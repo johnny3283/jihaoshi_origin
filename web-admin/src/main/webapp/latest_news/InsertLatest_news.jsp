@@ -50,6 +50,8 @@
                 </li>
             </ul>
          </div>
+         <div style="display:flex;flex-direction:column;width:100%">
+	<h1 style="align-self:center;margin: 2rem 0">最新消息新增</h1>
          <form method="post" action="/web-admin/Latest_newsServlet" enctype="multipart/form-data" id="form1">
 		     <div style="text-align: center;">
 		<!--             <label>輸入消息編號：</label><input type="text" name="news_no"><br><br> -->
@@ -69,7 +71,7 @@
             <!--側邊欄區塊結束-->
  <div style="display:flex;flex-direction:column;width:100%"></div>
  
-<h1 style="align-self:center;margin: 2rem 0">最新消息新增:</h1>
+
 
 
 </body>

@@ -62,7 +62,6 @@ public class Forum_articleServlet extends HttpServlet {
 						.getRequestDispatcher("/forum_article/forum_article_select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
-
 			}
 			/*************************** 2.開始查詢資料 *****************************************/
 			Forum_articleService forum_articleSvc = new Forum_articleService();
@@ -113,6 +112,7 @@ public class Forum_articleServlet extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
+				System.out.println(errorMsgs);
 				req.setAttribute("forum_articleVO", forum_articleVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/forum_article/InsertForum_article.jsp");
 				System.out.println("失敗");

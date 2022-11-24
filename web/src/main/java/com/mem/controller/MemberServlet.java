@@ -248,6 +248,7 @@ public class MemberServlet extends HttpServlet {
 
 			session.removeAttribute("Guest");
 			session.setAttribute("member", member);
+			session.setAttribute("memberNo", member.getMemberNo());
 	
 //			Gson gson = new Gson();
 //			res.setContentType("application/json; charset=UTF-8");

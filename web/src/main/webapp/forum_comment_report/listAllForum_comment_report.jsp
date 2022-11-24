@@ -2,13 +2,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_comment_report.model.*"%>
+<%@ page import="com.mem.model.MemberVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 // Forum_comment_reportVO forum_comment_reportVO = (Forum_comment_reportVO) request.getAttribute("forum_comment_reportVO"); //Forum_comment_reportServlet.java(Concroller), 存入req的Forum_comment_reportVO物件
 Forum_comment_reportService forum_comment_reportSvc = new Forum_comment_reportService();
+
 session = request.getSession();
-Integer memberNo = Integer.valueOf(session.getAttribute("MemberNo").toString());
+MemberVO memberVO = ((MemberVO)session.getAttribute("member"));
+Integer memberNo = Integer.valueOf(memberVO.getMemberNo());
 List<Forum_comment_reportVO> list = forum_comment_reportSvc.getAll(memberNo);
 pageContext.setAttribute("list", list);
 %>

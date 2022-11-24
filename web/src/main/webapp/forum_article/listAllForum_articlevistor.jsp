@@ -86,7 +86,7 @@ th, td {
 			<td>
 				<h3>論壇文章資料</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
+					<a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -108,8 +108,7 @@ th, td {
 
 			<tr>
 				<td>${forum_articleVO.article_no}</td>
-				<td><a href="/web/Forum_articleServlet?article_no=${forum_articleVO.article_no}&action=getOne_For_Display">
-     					${forum_articleVO.article_name} </a></td>
+				<td>${forum_articleVO.article_name}</td>
 				<td>${forum_articleVO.member_no}</td>
 				<td>${forum_articleVO.article_time}</td>
 				<td>${forum_articleVO.article_content}</td>

@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page import="com.forum_article.model.*"%>
 <%@ page import="com.forum_comment.model.*"%>
+<%@ page import="com.mem.model.MemberVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
@@ -12,7 +13,8 @@ Integer article_no = forum_articleVO.getArticle_no();
 List<Forum_commentVO> list = forum_commentSvc.catch_display(article_no);
  
 session = request.getSession();
-Integer memberNo = Integer.valueOf(session.getAttribute("MemberNo").toString());
+MemberVO memberVO = ((MemberVO)session.getAttribute("member"));
+Integer memberNo = Integer.valueOf(memberVO.getMemberNo());
 
 pageContext.setAttribute("list", list);
 %>
