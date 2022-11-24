@@ -43,7 +43,7 @@
                         <li id="cate_D" class="expanded"><H1>功能列表</H1>
                             <ul class="main">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
+                                    <a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回康健新知論壇首頁</a>
                                 </li>
                             </ul>
                       </li>
@@ -53,19 +53,22 @@
 
 	<div style="display:flex;flex-direction:column;width:100%">
 
-	<h1 style="align-self:center;margin: 2rem 0">論壇留言新增:</h1>
-	<br>
+	<h1 style="align-self:center;margin: 2rem 0">論壇留言新增</h1>
+	
 	<form method="post" action="/web/Forum_commentServlet" id="form1">
 		
 		
 		<div style="text-align: center;">
 		
-			<label>論壇文章編號：</label><input type="text" name="article_no" value="${param.article_no}" readonly><br>
-			<br> 
-			<label>會員編號：</label><input type="text" name="member_no" value="${param.member_no}" readonly><br>
-			<br>
+<!-- 			<label>論壇文章編號：</label> -->
+			<input type="hidden" name="article_no" value="${param.article_no}" readonly><br>
+		 
+<!-- 			<label>會員編號：</label> -->
+			<input type="hidden" name="member_no" value="${param.member_no}" readonly><br>
 			
-			<label>輸入留言內容：</label><textarea name="comment_content" value="${param.comment_content}" required></textarea>
+			
+			<label>輸入留言內容</label><br>
+			<textarea name="comment_content" value="${param.comment_content}" required></textarea>
 			<br>
 			<br> <input type="hidden" name="action" value="insert">
 			<!-- 			<input type="hidden" name="comment_no" value=1> -->
