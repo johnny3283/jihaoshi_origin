@@ -85,6 +85,8 @@ th, td {
 								action="<%=request.getContextPath()%>/OnlineCourseCommentServlet"
 								id="addOnlineCourseComment">
 								<div>
+									<label>線上課程名稱:${param.courseNo}</label>
+									<br>
 									<label>線上課程評論：</label><br>
 									<br>
 									<textarea name="commentContent"><%=(onlineCourseCommentVO==null)? "" : onlineCourseCommentVO.getCommentContent()%></textarea>

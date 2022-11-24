@@ -59,8 +59,7 @@ public class OnlineCourseCommentServlet extends HttpServlet {
 			MemberVO member=(MemberVO)session.getAttribute("member");
 			Integer memberNo = member.getMemberNo();
 			
-			Integer courseNo=5;
-			//String courseNo = req.getParameter("courseNo");
+			Integer courseNo = Integer.valueOf(req.getParameter("courseNo"));
 			
 			String commentCentent = req.getParameter("commentContent");
 			if (commentCentent == null || commentCentent.trim().length() == 0) {

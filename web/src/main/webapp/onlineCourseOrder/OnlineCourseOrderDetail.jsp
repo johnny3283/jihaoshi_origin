@@ -1,17 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
- 	<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
-	<style>
-	#pageHead {
-		width: 100%;
-		height: 30%;
-	}
-	</style>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
+<link type="text/css"
+	href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+<style>
+#pageHead {
+	width: 100%;
+	height: 30%;
+}
+</style>
 </head>
 <body>
 	<img src="./images/JihaoshiPageHead.jpg" id="pageHead">
@@ -27,7 +30,8 @@
 									<li><a
 										href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
 									</li>
-									<li><a href="<%=request.getContextPath()%>/onlineCourseOrderServlet?action=orderlist">回會員線上課程訂單管理</a>
+									<li><a
+										href="<%=request.getContextPath()%>/onlineCourseOrderServlet?action=orderlist">回會員線上課程訂單管理</a>
 									</li>
 								</ul>
 						</ul>
@@ -37,34 +41,36 @@
 				<div style="width: 85.4%; float: right; background: #FFFAF0">
 					<div style="width: 63%; float: right; margin: 3%;">
 						<div>
-							
-							
-								 線上課程訂單編號:${order.orderNo}<br>
-								 會員編號:${order.memberNo}<br>
-								 訂單成立日期:${order.orderTime}<br>
-								 訂單數量:${order.orderVolume}<br>
-								 訂單價格:${order.orderPrice}<br>
-							
+
+
+							線上課程訂單編號:${order.orderNo}<br> 會員編號:${order.memberNo}<br>
+							訂單成立日期:${order.orderTime}<br> 訂單數量:${order.orderVolume}<br>
+							訂單價格:${order.orderPrice}<br>
 							
 						</div>
-					    <div>
-							
-								
-							   
-							
-							
+						<div>
+
+
+
+
+
 							<c:forEach var="detail" items="${order.orderDetailList}">
 								<div>
+
 									線上課程編號:${detail.courseNo}<br>
 									線上課程名稱:${detail.courseName}<br>
 									線上課程價格:${detail.coursePrice}<br>
 								    菜單照片<img src="data:image/*;base64, ${detail.orderPhotoBaseStr64}"><br>
-									
-								
+                  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/onlinecoursecomment/addOnlineCourseComment.jsp">
+										評價:<input type="submit" value="我要評價">
+										<input type="hidden" name="${detail.courseNo}">
+									</FORM>
+
 								</div>
 							</c:forEach>
-						</table>
-	<script>
-	</script>
+							</table>
+							<script>
+								
+							</script>
 </body>
 </html>

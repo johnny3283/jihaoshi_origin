@@ -108,7 +108,7 @@ public class OnlineCourseCommentReportServlet extends HttpServlet{
 			MemberVO member=(MemberVO)session.getAttribute("member");
 			Integer memberNo = member.getMemberNo();
 					
-			Integer commentNo=5;
+			Integer commentNo = Integer.valueOf(req.getParameter("commentNo"));
 			
 			String reportReason = req.getParameter("reportReason");
 			if (reportReason == null || reportReason.trim().length() == 0) {
