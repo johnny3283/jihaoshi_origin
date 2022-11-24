@@ -1,5 +1,4 @@
 package com.manager.model;
-
 import java.util.List;
 
 public class ManagerVO implements java.io.Serializable{

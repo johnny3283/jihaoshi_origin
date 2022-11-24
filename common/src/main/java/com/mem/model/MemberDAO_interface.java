@@ -15,6 +15,8 @@ public interface MemberDAO_interface {
 
 	public void delete(Integer memberNo);
 
+	void mngMember(MemberVO memberVO);
+	
 	public MemberVO findByPrimaryKey(Integer memberNo);
 
 	public List<MemberVO> getAll();
@@ -32,6 +34,7 @@ public interface MemberDAO_interface {
 	public List<OnlineCourseCommentVO> getOnlineCourseCommentsByMemberNo(Integer memberNo);
   
 	public List<OnlineCourseCommentReportVO> getOnlineCourseCommentReportsByMemberNo(Integer memberNo);
+
 
 
 }

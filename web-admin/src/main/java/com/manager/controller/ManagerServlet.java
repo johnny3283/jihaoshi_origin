@@ -14,8 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import com.manager.model.ManagerService;
 import com.manager.model.ManagerVO;
-import com.mem.model.MemService;
-import com.mem.model.MemberVO;
 
 @WebServlet("/manager/ManagerServlet")
 public class ManagerServlet extends HttpServlet {
@@ -77,6 +75,92 @@ public class ManagerServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("ManagerVO", mgrVO);
 			String url = "/manager/listOneManager.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
+		
+		if ("getOne_For_Update".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer managerNo = Integer.valueOf(req.getParameter("managerNo"));
+
+			/*************************** 2.開始查詢資料 ****************************************/
+			ManagerService mgrSvc = new ManagerService();
+			ManagerVO mgrVO = mgrSvc.getOneMem(managerNo);
+			if (mgrVO == null) {
+				errorMsgs.add("查無資料");
+
+			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/listAllMember.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			req.setAttribute("mgrVO", mgrVO);
+			String url = "/manager/update_mgr_input.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
+		
+		if ("update".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			Integer managerno = Integer.valueOf(req.getParameter("managerNo").trim());
+			String manageracc = req.getParameter("managerAccount");		
+			String managerpwd = req.getParameter("managerPassword");		
+			String managername = req.getParameter("managerName");
+			String managerip = req.getParameter("managerIp");
+			Integer managerstate = Integer.valueOf(req.getParameter("managerStatus").trim());
+																	
+			if (manageracc == null || manageracc.trim().length() == 0) {
+				errorMsgs.add("員工帳號: 請勿空白");
+			}
+			if (managerpwd == null || managerpwd.trim().length() == 0) {
+				errorMsgs.add("員工密碼: 請勿空白");
+			}
+			if (managername == null || managername.trim().length() == 0) {
+				errorMsgs.add("員工姓名: 請勿空白");
+			}
+			if (managerip == null || managerip.trim().length() == 0) {
+				errorMsgs.add("員工IP: 請勿空白");
+			}
+			if (managerstate == null)  {
+				errorMsgs.add("員工狀態請勿空白");
+			}else if(managerstate >=2) {
+				errorMsgs.add("員工狀態只能是0或1");
+			}
+
+			ManagerVO mgrVO = new ManagerVO();
+			mgrVO.setManagerNo(managerno);
+			mgrVO.setManagerName(manageracc);
+			mgrVO.setManagerPassword(managerpwd);
+			mgrVO.setManagerName(managername);
+			mgrVO.setManagerIp(managerip);
+			mgrVO.setManagerStatus(managerstate);
+
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("mgrVO", mgrVO);
+				RequestDispatcher failureView = req.getRequestDispatcher("/manager/update_mgr_input.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
+
+			/*************************** 2.開始修改資料 *****************************************/
+			ManagerService mgrSvc = new ManagerService();
+			mgrVO = mgrSvc.updateEmp( managerno,manageracc,managerpwd,managername,managerip,managerstate);
+
+			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("mgrVO", mgrVO);
+			String url = "/manager/listAllManager.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -146,6 +230,26 @@ public class ManagerServlet extends HttpServlet {
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 			String url = "/manager/listAllManager.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			successView.forward(req, res);
+		}
+		
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ***************************************/
+			Integer managerNo = Integer.valueOf(req.getParameter("managerNo"));
+
+			/*************************** 2.開始刪除資料 ***************************************/
+			ManagerService mgrSvc = new ManagerService();
+			mgrSvc.deleteEmp(managerNo);
+
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url = "/manager/listAllManager.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 		

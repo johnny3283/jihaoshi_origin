@@ -105,24 +105,19 @@ public class MemberServlet extends HttpServlet {
 			Integer memberno = Integer.valueOf(req.getParameter("memberNo").trim());
 			String membername = req.getParameter("memberName");
 			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			String memberpas = req.getParameter("memberPassword");
 			String memberpho = req.getParameter("memberPhone");
 			String membernick = req.getParameter("memberNickname");
 			String memberadd = req.getParameter("memberAddress");
 			String memberemail = req.getParameter("memberEmail");
-			String memberacc = req.getParameter("memberAccount");
+			Integer memberstate = Integer.valueOf(req.getParameter("memberState").trim());
+
 			                                     
 
-			if (memberacc == null || memberacc.trim().length() == 0) {
-				errorMsgs.add("會員帳號請勿空白");
-			}
+			
 			if (membername == null || membername.trim().length() == 0) {
 				errorMsgs.add("會員姓名: 請勿空白");
 			} else if (!membername.trim().matches(enameReg)) {
 				errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-			}
-			if (memberpas == null || memberpas.trim().length() == 0) {
-				errorMsgs.add("會員密碼請勿空白");
 			}
 			if (memberpho == null || memberpho.trim().length() == 0) {
 				errorMsgs.add("會員電話請勿空白");
@@ -136,16 +131,20 @@ public class MemberServlet extends HttpServlet {
 			if (memberemail == null || memberemail.trim().length() == 0) {
 				errorMsgs.add("會員email請勿空白");
 			}
+			if (memberstate == null)  {
+				errorMsgs.add("會員狀態請勿空白");
+			}else if(memberstate >=2) {
+				errorMsgs.add("會狀態只能是0或1");
+			}
 
 			MemberVO memVO = new MemberVO();
-			memVO.setMemberAccount(memberacc);
 			memVO.setMemberName(membername);
-			memVO.setMemberPassword(memberpas);
 			memVO.setMemberPhone(memberpho);
 			memVO.setMemberNickname(membernick);
 			memVO.setMemberAddress(memberadd);
 			memVO.setMemberEmail(memberemail);
 			memVO.setMemberNo(memberno);
+			memVO.setMemberState(memberstate);
 
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("MemberVO", memVO);
@@ -156,12 +155,12 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			MemService memSvc = new MemService();
-			memVO = memSvc.updateEmp(memberacc, memberno, memberpas, membername, memberpho, membernick, memberadd,
-					memberemail);
+			memVO = memSvc.mngMember( memberno, membername, memberpho, membernick, memberadd,
+					memberemail,memberstate);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
-			String url = "member/listOneMember.jsp";
+			String url = "/member/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -214,7 +213,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
-			String url = "/member/listOneMember.jsp";
+			String url = "/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}

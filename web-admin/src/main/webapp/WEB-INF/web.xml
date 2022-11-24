@@ -11,12 +11,58 @@
     </resource-ref>
     
     <filter>
-        <filter-name>mealsFilter</filter-name>
-        <filter-class>com.authority.Filters.mealFilter</filter-class>
+        <filter-name>mealmgrFilter</filter-name>
+        <filter-class>com.manager.Filters.mealMgrFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>mealsFilter</filter-name>
-        <url-pattern>/mealsManag.jsp</url-pattern>
+        <filter-name>mealmgrFilter</filter-name>
+        <url-pattern>/ztest/mealsManag.jsp</url-pattern>
+
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>webmgrFilter</filter-name>
+        <filter-class>com.manager.Filters.webMgrFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>webmgrFilter</filter-name>
+        <url-pattern>/ztest/webManag.jsp</url-pattern>
+
+    </filter-mapping>
+    
+    
+    <filter>
+        <filter-name>coursemgrFilter</filter-name>
+        <filter-class>com.manager.Filters.courseMgrFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>coursemgrFilter</filter-name>
+        <url-pattern>/ztest/courseManag.jsp</url-pattern>
+
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>empmgrFilter</filter-name>
+        <filter-class>com.manager.Filters.empMgrFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>empmgrFilter</filter-name>
+        <url-pattern>/manager/listAllManager.jsp</url-pattern>
+
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>servicemgrFilter</filter-name>
+        <filter-class>com.manager.Filters.serviceMgrFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>servicemgrFilter</filter-name>
+        <url-pattern>/ztest/serviceManag.jsp</url-pattern>
+
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>servicemgrFilter</filter-name>
+        <url-pattern>/member/listAllMember.jsp</url-pattern>
 
     </filter-mapping>
 </web-app>

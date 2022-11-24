@@ -31,8 +31,8 @@ a {
 	font-size: 13px;
 }
 
-table,th,td{
-border: solid 1px lightgray;
+table, th, td {
+	border: solid 1px lightgray;
 }
 </style>
 
@@ -62,15 +62,14 @@ border: solid 1px lightgray;
 				<dl class="block_W">
 					<dd id="CategoryContainer">
 						<ul class="treeview">
-							<li>管理員:<font color=red> ${ManagerAcc} </font><br> <font>權限編號:
-									${AuthorityNo} </font>
-							</li>	
-							<li><a
-										href="../index.jsp">到首頁</a></li>						
+							<li>管理員:<font color=red> ${manager.managerName} </font> <br>
+								<font>權限編號: ${manager.authorityNo} </font>
+							</li>
+							<li><a href="../index.jsp">到首頁</a></li>
 							<li id="cate_D" class="expanded"><H1>會員管理</H1>
 								<ul class="main">
 									<li class="drop"><a href="../member/listAllMember.jsp">所有會員</a>
-										<ul class="submenu">										
+										<ul class="submenu">
 											<li class="submenu-item"><a href="#">訂單查詢</a></li>
 										</ul></li>
 									<li><a
@@ -148,8 +147,8 @@ border: solid 1px lightgray;
 										</tr>
 									</c:forEach>
 								</table>
-								
-								
+
+
 
 							</dl>
 

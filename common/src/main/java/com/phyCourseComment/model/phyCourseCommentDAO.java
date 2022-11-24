@@ -237,7 +237,6 @@ public class phyCourseCommentDAO implements phyCourseCommentDAO_interface{
 				phyCourseCommentVO.setMemberNo(rs.getInt("member_no"));
 				phyCourseCommentVO.setCourseNo(rs.getInt("course_no"));
 				phyCourseCommentVO.setCommentContent(rs.getString("comment_content"));
-				phyCourseCommentVO.setCommentScore(rs.getInt("comment_score"));
 				phyCourseCommentVO.setCommentStatus(rs.getInt("comment_status"));
 			}
 

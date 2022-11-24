@@ -55,8 +55,10 @@ th, td {
 				<dl class="block_W">
 					<dd id="CategoryContainer">
 						<ul class="treeview">
-						<li>歡迎:<font color=red> ${MemberAcc} </font>您好 <br> <font>會員編號:
-									${MemberNo} </font> <br> <font>會員姓名: ${MemberName} </font></li>
+						<li>歡迎:<font color=blue> ${Guest} </font><font color=blue>
+									${member.memberAccount} </font>您好 <br> <font>會員編號:
+									${member.memberNo} </font> <br> <font>會員姓名:
+									${member.memberName} </font></li>
 							<li id="cate_D" class="expanded"><H1>功能列表</H1>
 								<ul class="main">
 									<li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
@@ -85,6 +87,7 @@ th, td {
 								<div>
 									<label>實體課程評論：</label><br>
 									<br>
+									<input type="text" name="courseNo" placeholder="請輸入課程編號"><br>
 									<textarea name="commentContent"><%=(phyCourseCommentVO==null)? "" : phyCourseCommentVO.getCommentContent()%></textarea>
 									<br> <input type="hidden" name="action" value="add">
 									<input type="submit" value="送出資料">

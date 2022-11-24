@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mem.model.MemberVO;
 import com.phyCourseComment.model.phyCourseCommentService;
 import com.phyCourseComment.model.phyCourseCommentVO;
-
 
 @WebServlet("/phyCourseComment")
 public class phyCourseComment extends HttpServlet {
@@ -24,11 +24,11 @@ public class phyCourseComment extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	
+
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		res.setContentType("text/html; charset=UTF-8");
-		
+
 		if ("getMember_For_Display".equals(action)) {
 			// 會員專區查看自己所有的線上課程評論
 			List<String> errorMsgs = new LinkedList<String>();
@@ -36,53 +36,51 @@ public class phyCourseComment extends HttpServlet {
 
 			/*************************** 1.接收請求參數 ****************************************/
 			HttpSession session = req.getSession();
-		    Object No = session.getAttribute("MemberNo");
-		    String str = No.toString();
+			MemberVO memberVO = (MemberVO) session.getAttribute("member");
 
-			Integer memberNo = null;
-			try {
-				memberNo = Integer.valueOf(str);
-			} catch (Exception e) {}
+			Integer memberNo = memberVO.getMemberNo();
+
 			
+		
+
 			/*************************** 2.開始查詢資料 ****************************************/
 			phyCourseCommentService phyCourseCommentSvc = new phyCourseCommentService();
 			List<phyCourseCommentVO> list = phyCourseCommentSvc.getPhyCommentsByMemberNo(memberNo);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("getOne_For_Display", list); // 資料庫取出的list物件,存入request
-			String url = "/phyCourComment/listAllMemberComments.jsp"; // 成功轉交
+			String url = "/phyCourComment/listPhyComments.jsp"; // 成功轉交
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		
+
 		if ("add".equals(action)) { // 來自add.jsp的請求
 			// 會員新增線上課程評論
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/		
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			HttpSession session = req.getSession();
-		    Object No = session.getAttribute("MemberNo");
-		    String no = No.toString();
+			Object No = session.getAttribute("MemberNo");
+			String no = No.toString();
 
 			Integer memberNo = null;
 			try {
 				memberNo = Integer.valueOf(no);
-			} catch (Exception e) {}
-			
-			Integer courseNo=5;
-			//String courseNo = req.getParameter("courseNo");
-			
+			} catch (Exception e) {
+			}
+
+			 Integer courseNo = Integer.valueOf(req.getParameter("courseNo").trim());
+
 			String commentCentent = req.getParameter("commentContent");
 			if (commentCentent == null || commentCentent.trim().length() == 0) {
 				errorMsgs.add("請輸入評論內容");
 			}
-				
+
 			phyCourseCommentVO phyVO = new phyCourseCommentVO();
 			phyVO.setMemberNo(memberNo);
 			phyVO.setCourseNo(courseNo);
 			phyVO.setCommentContent(commentCentent);
-			
 
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("phyCourseCommentVO", phyVO); // 含有輸入格式錯誤的物件,也存入req
@@ -92,7 +90,7 @@ public class phyCourseComment extends HttpServlet {
 			}
 			/*************************** 2.開始新增資料 ***************************************/
 			phyCourseCommentService phyCourseCommentSvc = new phyCourseCommentService();
-			phyVO = phyCourseCommentSvc.addPhyCourseComment(memberNo,courseNo,commentCentent);
+			phyVO = phyCourseCommentSvc.addPhyCourseComment(memberNo, courseNo, commentCentent);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/phyCourseComment?action=getMember_For_Display";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交

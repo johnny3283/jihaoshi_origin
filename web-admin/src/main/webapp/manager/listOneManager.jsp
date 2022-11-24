@@ -58,8 +58,8 @@ table, th, td {
 				<dl class="block_W">
 					<dd id="CategoryContainer">
 						<ul class="treeview">
-							<li>管理員:<font color=red> ${ManagerAcc} </font><br> <font>權限編號:
-									${AuthorityNo} </font>
+							<li>管理員:<font color=red> ${manager.managerName} </font><br>
+								權限編號:<font> ${manager.authorityNo} </font>
 							</li>
 							<li><a href="../index.jsp">到首頁</a></li>
 							<li id="cate_D" class="expanded"><H1>員工管理</H1>
@@ -102,7 +102,7 @@ table, th, td {
 										<td>${ManagerVO.managerIp}</td>
 										<td>${ManagerVO.managerStatus}</td>
 										<td><FORM METHOD="post"
-												ACTION="../manager/ManamgerServlet"
+												ACTION="../manager/ManagerServlet"
 												style="margin-bottom: 0px;">
 												<input type="submit" value="修改"> <input
 													type="hidden" name="managerNo"

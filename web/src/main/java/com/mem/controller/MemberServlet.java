@@ -166,7 +166,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			MemService memSvc = new MemService();
-			memVO = memSvc.updateEmp(memberacc, memberno, memberpas, membername, memberpho, membernick, memberadd,
+			memVO = memSvc.updateMem(memberacc, memberno, memberpas, membername, memberpho, membernick, memberadd,
 					memberemail);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/

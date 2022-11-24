@@ -1,8 +1,8 @@
-<%@ page import="com.cart.model.CartProdVO" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.cart.model.CartProdVO"%>
+<%@ page import="java.util.List"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>
@@ -74,49 +74,49 @@ th, td {
 </style>
 </head>
 <body>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-<div class="block_N" style="margin:0px auto;">
-</div>
-<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-  <div id="CONTENT" class="layout-wrapper">
-    <div class="layout-center" style="text-align:center">
-      <!--側邊欄區塊開始-->
-      <dl class="block_W">
-        <dd id="CategoryContainer">
-          <ul class="treeview">
-          	<li>
-							<c:if test="${not empty errorMsgs}">
-								<font style="color: red">請修正以下錯誤:</font>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red">${message}</li>
-									</c:forEach>
-								</ul>
-							</c:if>
-							</li>
-							<li>歡迎:<font color=blue> ${Guest} </font><font color=blue> ${member.memberAccount} </font>您好 <br> <font>會員編號:
-									${member.memberNo} </font> <br> <font>會員姓名: ${member.memberName} </font></li>
-							<li id="logout"><a
-								href="./member/MemberServlet?action=Logout">登出</a></li>
-							<li><a href="./member/login.jsp">登入</a></li>
-            <li id="cate_D" class="expanded"><H1>功能列表</H1>
-              <ul class="main">
-                <li class="drop"><a href="#">會員專區</a>
+	<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg"
+		id="pageHead">
+	<div class="block_N" style="margin: 0px auto;"></div>
+	<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
+		<div id="CONTENT" class="layout-wrapper">
+			<div class="layout-center" style="text-align: center">
+				<!--側邊欄區塊開始-->
+				<dl class="block_W">
+					<dd id="CategoryContainer">
+						<ul class="treeview">
+							<li><c:if test="${not empty errorMsgs}">
+									<font style="color: red">請修正以下錯誤:</font>
+									<ul>
+										<c:forEach var="message" items="${errorMsgs}">
+											<li style="color: red">${message}</li>
+										</c:forEach>
+									</ul>
+								</c:if></li>
+							<li>歡迎:<font color=blue> ${Guest} </font><font color=blue>
+									${member.memberAccount} </font>您好 <br> <font>會員編號:
+									${member.memberNo} </font> <br> <font>會員姓名:
+									${member.memberName} </font></li>
+							<li><c:if test="${not empty member}">
+									<a href="<%=request.getContextPath()%>/member/MemberServlet?action=Logout">登出</a>
+								</c:if></li>
+							<li><c:if test="${empty member}">
+									<a href="./member/login.jsp">登入</a>
+								</c:if></li>
+							<li id="cate_D" class="expanded"><H1>功能列表</H1>
+								<ul class="main">
+									<li class="drop"><a href="#">會員專區</a>
 										<ul class="submenu">
 											<li class="submenu-item"><button id="info">個人資料</button></li>
 											<li class="submenu-item"><a href="#">訂單查詢</a></li>
 											<li class="submenu-item"><a
 												href="phyCourComment/addPhyComment.jsp">新增實體課程評價</a></li>
 											<li class="submenu-item"><a
-												href="phyCourComment/listAllMemberComments.jsp">我的實體課程評價</a></li>
-											<li class="submenu-item"><a
+												href="<%=request.getContextPath()%>/phyCourseComment?action=getMember_For_Display">我的實體課程評價</a></li>
+                        <li class="submenu-item"><a
 												href="<%=request.getContextPath()%>/OnlineCourseCommentServlet?action=getMember_For_Display">我的線上課程評價</a></li>
-										</ul>
-				</li>
-                <li class="drop">
-                  <a href="#">網站簡介</a>
-                </li>
-
+										</ul></li>
+                    
+									<li class="drop"><a href="#">網站簡介</a></li>
                 <li class="drop">
                   <a href="${pageContext.request.contextPath}/latest_news/select_page.jsp">最新消息</a>         
                 </li>
@@ -157,6 +157,7 @@ th, td {
           </ul>
         </dd>
       </dl>
+
 
 				<!--側邊欄區塊結束-->
 				<div class="block_C s_list" id="cardWrapper">

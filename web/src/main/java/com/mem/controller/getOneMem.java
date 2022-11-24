@@ -35,21 +35,20 @@ public class getOneMem extends HttpServlet {
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			HttpSession session = req.getSession();
-
-			Object No = session.getAttribute("member.memberNo");
+			MemberVO memberVO =(MemberVO) session.getAttribute("member");
+			
+			Integer No = memberVO.getMemberNo();
 			if(No == null) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/member/login.jsp");
 				failureView.forward(req, res);
 				return;
 			}
-			String str = No.toString();
-			Integer memberNo = null;
-				memberNo = Integer.valueOf(str);
+			
 			
 
 			/********************************************************************/
 			MemService memSvc = new MemService();
-			MemberVO member = memSvc.getOneMem(memberNo);
+			MemberVO member = memSvc.getOneMem(No);
 
 
 			Gson gson = new Gson();

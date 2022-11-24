@@ -154,6 +154,11 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	}
 
 	@Override
+	public void mngMember(MemberVO memberVO) {
+
+	}
+
+	@Override
 	public MemberVO findByPrimaryKey(Integer member_no) {
 		MemberVO MemberVO = null;
 		Connection con = null;

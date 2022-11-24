@@ -52,6 +52,12 @@ public class phyCourseCommentVO implements Serializable {
 	public void setCommentStatus(Integer commentStatus) {
 		this.commentStatus = commentStatus;
 	}
+	public String getCourseName() {
+		return courseName;
+	}
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}	
 	// for join memberAccount from memberNo
   public MemberVO getMemberVO() {
 	   	MemService memberSvc = new MemService();
@@ -64,10 +70,4 @@ public class phyCourseCommentVO implements Serializable {
 	    PhyCouVO PhyCouVO = PhyCouSvc.getOneCou(courseNo);
 	    return PhyCouVO;
   }
-public String getCourseName() {
-	return courseName;
-}
-public void setCourseName(String courseName) {
-	this.courseName = courseName;
-}	
 }
