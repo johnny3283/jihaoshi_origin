@@ -18,6 +18,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import com.course.model.PhyCouService;
 import com.course.model.PhyCouVO;
+import com.mem.model.MemberVO;
 import com.signupcourse.model.PhyCouSignUpService;
 import com.signupcourse.model.PhyCouSignUpVO;
 
@@ -37,7 +38,8 @@ public class PCouCheckoutController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         phyCouVO = (PhyCouVO)session.getAttribute("phyCouVO");
-        member_no = (Integer)session.getAttribute("member_no");
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        member_no = (Integer)member.getMemberNo();
         Integer totalPrice = phyCouVO.getCourse_price();
         Integer course_no = phyCouVO.getCourse_no();
 		Integer signUpNum = phyCouVO.getCurrent_sign_up_people();	

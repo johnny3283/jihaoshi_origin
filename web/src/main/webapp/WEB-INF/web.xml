@@ -83,4 +83,12 @@
 		<filter-name>loginFilter</filter-name>
 		<url-pattern>/onlinecustomerservice/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>onlyLoginFilter</filter-name>
+		<url-pattern>/course/listAllSignUpCou.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>onlyLoginFilter</filter-name>
+		<url-pattern>/course/SingUpForConfirm.jsp</url-pattern>
+	</filter-mapping>
 </web-app>
