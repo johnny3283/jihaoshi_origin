@@ -14,8 +14,8 @@ import com.mem.model.MemberVO;
 
 @WebServlet("/customerServiceServlet")
 public class CustomerServiceServlet extends HttpServlet {
-	
-	int count=1;
+
+	int count = 1;
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -23,22 +23,24 @@ public class CustomerServiceServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		res.setContentType("text/html; charset=UTF-8");
 
-		if ("getConnection".equals(action)) { 
+		if ("getConnection".equals(action)) {
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			HttpSession session = req.getSession();
-			MemberVO member=(MemberVO)session.getAttribute("member");
-		    String name = (String) member.getMemberAccount();
-			if(name==null){ 
-				name="Visitor"+count;
+			String name = "";
+			MemberVO member = (MemberVO) session.getAttribute("member");
+			if (member != null) {
+				name = (String) member.getMemberAccount();
+			} else {
+				name = "Visitor" + count;
 				count++;
 			}
-			
+
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			session.setAttribute("username", name);
 			String url = "/onlinecustomerservice/OnlineCustomerService.jsp";
