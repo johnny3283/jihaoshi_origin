@@ -26,6 +26,7 @@ public class FindByMemIdServlet extends HttpServlet {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		Integer memberNo = member.getMemberNo();
 
+
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		Gson gson = new Gson();

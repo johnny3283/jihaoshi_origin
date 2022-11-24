@@ -33,10 +33,11 @@ public class OnlineCourseOrderServlet extends HttpServlet {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		Integer memberNo = member.getMemberNo();
 		String action = req.getParameter("action");
+	
 		
 
 		if ("orderlist".equals(action)) {
-			List<OnlineCourseOrderVO> list = courseorderSV.getOnlineCourseOrderbyMem(memberNo); //整合的時候要改，串到登入的資料
+			List<OnlineCourseOrderVO> list = courseorderSV.getOnlineCourseOrderbyMem(memberNo); 
 			req.setAttribute("list", list);
 			req.getRequestDispatcher("/onlineCourseOrder/ListMemOnlineCourseOrder.jsp").forward(req, res);
 

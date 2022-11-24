@@ -145,11 +145,13 @@ public class OnlineCourseOrderJDBCDAO implements OnlineCourseOrderDAO_interface 
 
 	@Override
 	public OnlineCourseOrderVO getOrderDetail(String orderNo) {
-		String sql = "select o.*, od.course_no, od.course_price, od.order_photo "
+		String sql = "select o.*, od.course_no, od.course_price, od.order_photo, c.COURSE_NAME "
 				+ "from"
 				+ "	Online_course_order o"
 				+ "    join Online_course_order_detail od"
-				+ "		on o.order_no = od.order_no "
+				+ "		on o.order_no = od.order_no"
+				+ "    join ONLINE_COURSE c"
+				+ "     on od.COURSE_NO = c.COURSE_NO "
 				+ "where o.order_no = ?";
 		try (
 				Connection conn = ds.getConnection();
@@ -176,6 +178,7 @@ public class OnlineCourseOrderJDBCDAO implements OnlineCourseOrderDAO_interface 
 					OnlineCourseOrderDetailVO detailVo = new OnlineCourseOrderDetailVO();
 					detailVo.setCourseNo(rs.getInt("course_no"));
 					detailVo.setCoursePrice(rs.getInt("course_price"));
+					detailVo.setCourseName(rs.getString("course_name"));
 					detailVo.setOrderPhoto(rs.getBytes("order_photo"));
 					detailList.add(detailVo);
 				}
