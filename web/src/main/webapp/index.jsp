@@ -114,7 +114,7 @@ th, td {
 
 												href="<%=request.getContextPath()%>/phyCourseComment?action=getMember_For_Display">我的實體課程評價</a></li>
                         <li class="submenu-item"><a
-												href="<%=request.getContextPath()%>/OnlineCourseCommentServlet?action=getMember_For_Display">我的線上課程評價</a></li>
+												href="<%=request.getContextPath()%>/MemberOnlineCourseCommentServlet?action=getMember_For_Display">我的線上課程評價</a></li>
 										</ul></li>
                     
 									<li class="drop"><a href="#">網站簡介</a></li>
