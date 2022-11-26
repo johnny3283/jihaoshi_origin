@@ -10,7 +10,7 @@ public class PhyCouService {
 	private PhyCouDAO_interface dao;
 
 	public PhyCouService() {
-		dao = new PhyCouDAO();
+		dao = new PhyCouJNDIDAO();
 	}
 
 

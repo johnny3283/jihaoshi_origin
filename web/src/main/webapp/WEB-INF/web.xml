@@ -77,4 +77,9 @@
 		<filter-name>onlyLoginFilter</filter-name>
 		<url-pattern>/course/SingUpForConfirm.jsp</url-pattern>
 	</filter-mapping>
+    <filter-mapping>
+        <filter-name>onlyLoginFilter</filter-name>
+        <url-pattern>/signup/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

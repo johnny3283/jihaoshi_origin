@@ -1,7 +1,6 @@
 package hibernate.util;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -16,6 +15,7 @@ public class HibernateUtil {
         try {
         	// create SessionFactory
         	sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+//            sessionFactory = new Configuration().buildSessionFactory();
         } catch (Throwable ex) {
         	// The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
     		// so destroy it manually.

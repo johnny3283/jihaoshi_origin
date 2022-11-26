@@ -15,7 +15,7 @@ public class CollectionDetailService {
 //        this.dao = dao;
 //    }
     public CollectionDetailVO findByMemberNoAndMealNo(Integer memberNo,Integer mealNo) {
-        return dao.findByMemberNoAndAndMealNo(memberNo, mealNo);
+        return dao.findByMemberNoAndMealNo(memberNo, mealNo);
     }
     public void insert(CollectionDetailVO collectionDetail) {
         dao.save(collectionDetail);
