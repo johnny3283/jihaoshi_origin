@@ -11,10 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
-
-
-    <!-- <link type="text/css" -->
-    <!-- 	href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet"> -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.1.0/jquery.smartmenus.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js'></script>
     <style>
         .add-to-cart-button {
             background: #e6a247;
@@ -149,7 +149,91 @@
         	
         }
         
-        
+        #comments-list {
+            list-style-type: none;
+        }
+
+        .comments-list {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .comments-list li {
+            margin-bottom: 15px;
+            display: block;
+            position: relative;
+        }
+
+        .comments-list .comment-box {
+        	border-style:ridge;
+            width: 680px;
+            float: right;
+            position: relative;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+        }
+
+        .comment-box .comment-head {
+            background: #FCFCFC;
+            padding: 10px 12px;
+            border-bottom: 1px solid #E5E5E5;
+            overflow: hidden;
+            -webkit-border-radius: 4px 4px 0 0;
+            -moz-border-radius: 4px 4px 0 0;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .comment-box .comment-name {
+            color: #03658c;
+            font-size: 14px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .comment-box span {
+            float: left;
+            color: #999;
+            font-size: 13px;
+            position: relative;
+            top: 1px;
+        }
+
+        .comment-box .comment-content {
+            background: #FFF;
+            padding: 12px;
+            font-size: 15px;
+            color: #595959;
+            -webkit-border-radius: 0 0 4px 4px;
+            -moz-border-radius: 0 0 4px 4px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .comment-box .comment-name.by-author:after {
+            background: #03658c;
+            color: #FFF;
+            font-size: 12px;
+            padding: 3px 5px;
+            font-weight: 700;
+            margin-left: 10px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        @media only screen and (max-width: 766px) {
+            .comments-container {
+                width: 480px;
+            }
+
+            .comments-list .comment-box {
+                width: 390px;
+            }
+
+            .reply-list .comment-box {
+                width: 320px;
+            }
+        }
     </style>
 
 
@@ -158,95 +242,110 @@
 </head>
 
 <body bgcolor='white'>
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"> <img src="../css/LOGO(去背).png" alt="Logo" width="90" height="90">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="${pageContext.request.contextPath}/latest_news/select_page.jsp">最新消息</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="${ctxPath}/meal/MealProductIndex.jsp" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">好食產品專區</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車<c:if
-                                        test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"
-                            href="${pageContext.request.contextPath}/onlineCourse/ListAllOnlineCourse.jsp" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">線上課程專區</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if
-                                        test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">實體課程專區</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href=""></a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">康健新知論壇</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"
-                            href="<%=request.getContextPath()%>/faqservlet?action=getAll" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">FAQ及客服專區</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="">FAQ</a></li>
-                            <li><a class="dropdown-item" href="">線上客服</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">會員專區</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="">資料管理</a></li>
-                            <li><a class="dropdown-item" href="">訂單管理</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="">商品訂單</a></li>
-                                    <li><a class="dropdown-item" href="">線上課程訂單</a></li>
-                                </ul>
-                            </li>
-                            <li><a class="dropdown-item" href="">我的課程</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="">線上課程</a></li>
-                                    <li><a class="dropdown-item" href="">實體課程</a></li>
-                                </ul>
-                            </li>
-                            <li><a class="dropdown-item" href="">收藏清單</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./member/login.jsp">登入 | 註冊</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- Navbar End -->
-
-
-
-
+   <!-- Navbar Start -->
+	<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container-fluid">
+			<!-- LOGO -->
+			<a class="navbar-brand" href="../index2.jsp"> 
+				<img src="../css/LOGO.png" alt="Logo" width="80" height="90">
+			</a>
+			<!-- 螢幕縮小時導覽列會縮小成右上按鈕點開會直向呈現 -->
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<!-- collapse：無論任何螢幕大小，你都不會看到有選單在頂部。 -->
+			<!-- nav-collapse：當螢幕變小時，選單會改為直行顯示。 -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="../latest_news/select_page.jsp">最新消息</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">好食產品專區</a>
+							<ul class="dropdown-menu">
+								<li>
+                  					<a class="dropdown-item" href="../meal/mealController?action=listAll">產品清單</a>
+               	 				</li>
+                				<li>
+                 		     		<a class="dropdown-item" href="../meal/RandomAssign.jsp">隨機配餐</a>
+      				            </li>
+                				<li>
+                  					<a class="dropdown-item" href="../cart/MealCart.jsp">商品購物車</a>
+               					</li>
+							</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">課程專區</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="ListAllOnlineCourse.jsp">線上課程專區</a></li>
+								<li><a class="dropdown-item" href="../cart/OnlineCourseCart.jsp">線上課程購物車</a></li>
+								<li><a class="dropdown-item" href="">實體課程專區</a></li>
+							</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="../forum_article/forum_article_select_page.jsp">康健新知論壇</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="../faqservlet?action=getAll" role="button" data-bs-toggle="dropdown" aria-expanded="false">FAQ及客服專區</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="../faqservlet?action=getAll">FAQ</a></li>
+								<li><a class="dropdown-item" href="../customerServiceServlet?action=getConnection">線上客服</a></li>
+							</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">會員專區</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="">個人資料管理</a></li>	
+								<li class="dropdown-submenu">
+									<a class="dropdown-item">訂單管理&emsp;></a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="../order/orderController?action=orderList">商品訂單</a></li>
+										<li><a class="dropdown-item" href="../onlineCourseOrderServlet?action=orderlist">線上課程訂單</a></li>
+									</ul>
+								</li>
+								<li><a class="dropdown-item">我的課程&emsp;></a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="onlineCourse/ManageCourse.jsp">線上課程</a></li>
+										<li><a class="dropdown-item" href="">實體課程</a></li>
+									</ul>
+								</li>
+								<li>
+                  					<a class="dropdown-item" href="../mealCollect/list">我的收藏</a>
+                				</li>
+                				<li><a class="dropdown-item">我的評價&emsp;></a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="../MemberOnlineCourseCommentServlet?action=getMember_For_Display">線上課程</a></li>
+										<li><a class="dropdown-item" href="../phyCourseComment?action=getMember_For_Display">實體課程</a></li>
+									</ul>
+								</li>
+							</ul>
+					</li>
+					&emsp;&emsp;
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="../cart/MealCart.jsp">商品購物車</a>
+					</li>
+					&emsp;
+					<li class="nav-item">
+						<li><a class="nav-link active" aria-current="page" href="../cart/OnlineCourseCart.jsp">線上課程購物車</a></li>
+					</li>
+					&emsp;&emsp;
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="../member/login.jsp">登入 | 註冊</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Navbar End -->
+	
     <div id="cardWrapper">
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const cardWrapper = document.querySelector('#cardWrapper');
         const id = sessionStorage.getItem('courseNo');
@@ -265,12 +364,12 @@
 	 							<div>
 	 								<b>線上課程編號</b> :${course.courseNo}<br><br>
 	 								<b>線上課程名稱</b> :${course.courseName}<br><br>
-	 								<b>線上課程價格</b> :${course.coursePrice}<br><br>
+	 								<b>線上課程價格</b> : ${course.coursePrice}<br><br>
 	 								<b>線上課程時數</b> :${course.courseHr}<br><br>
 	 								<b>線上課程老師</b> :${course.courseTeacher}<br><br>
 	 								<b>線上課程資訊</b> :${course.courseInfo}<br><br>
-	 								<b>線上課程評論人數</b> :${course.commentPeople}<br><br>
-	 								<b>線上課程評論分數</b> :${course.commentScore}<br><br>
+	 								<b>線上課程評論人數</b> : ${comment.length}<br><br>
+	 								<b id="score">線上課程評論分數 : </b><br><br>
 	 								
 	 							</div>
 	 							
@@ -305,28 +404,53 @@
 								</div>
 							</div>
 						</div>
-						<div id="commentarea" style="">
+						<div id="commentarea" class="comments-container">
+							<ul id="comments-list" class="comments-list">
+							</ul>
 						</div>
  						</div>`)
-                getComment(comment)
+                getComment(comment);
             });
         // coursePhoto
-
+		var sum=0;
         function getComment(list) {
-            const commentarea = document.querySelector('#commentarea');
+            const commentarea = document.querySelector('#comments-list');
             commentarea.innerHTML = '評論專區<br>';
+            const score = document.querySelector('#score');
             if (list.length == 0) {
                 commentarea.innerHTML = '評論專區<br>尚無評價';
+                score.insertAdjacentHTML('beforeend',"0 / 10");
             }
             for (comment of list) {
+            	sum+=comment.commentScore;
                 commentarea.insertAdjacentHTML('beforeend', `
- 						<span>
-                        	評論編號 :${comment.commentNo}
-							帳號 : ${comment.memberNo}
-							評語 : ${comment.commentContent}
-							分數 : ${comment.commentScore}
-						</span><br>
+                            <li>
+                                <div class="comment-main-level">
+                                	<form action="../onlinecoursecommentreport/addOnlineCourseCommentReport.jsp">
+                                    <div class="comment-box">
+                                        <div class="comment-head" style="display:flex;justify-content:Space-between;align-item:center;">
+                                            <div><h6 class="comment-name">評論分數:${comment.commentScore}</h6></div>                                         
+                                            <div>
+                                            <span>commentNo.${comment.commentNo}</span>
+                                            &emsp;
+                                            <input type="hidden" name="commentNo" value="${comment.commentNo}">
+                    						<input type="submit" value="我要檢舉" style="border-radius:1rem;border: 1px solid #ccc;">
+                    						</div>
+                                        </div>
+                                        <div class="comment-content">${comment.commentContent}
+                                        <br>
+                                        <span>memID.${comment.memberNo}</span>
+                                        </div>
+                                    </div> 
+            						</form>
+                                </div>
+                            </li>
 					`)
+            }
+            var avg=(sum/list.length).toFixed(1);
+            if(isNaN(avg)){
+            }else{
+            	score.insertAdjacentHTML('beforeend',avg+" / 10");
             }
         }
 
@@ -340,8 +464,8 @@
                 }, 2000);
             });
         });
-
-    </script>
+        	
+	</script>
 </body>
 
 </html>

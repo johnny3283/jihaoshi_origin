@@ -8,93 +8,79 @@ List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute(
 %>
 <html>
 <head>
-<title>購物車</title>
-<link type="text/css" href="${ctxPath}/css/jihaoshi.css"
-	rel="stylesheet">
+<title>線上課程購物車</title>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style type="text/css">
+#content {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+}
+#cart{
+	width:100%;
+	display: flex; 
+	flex-direction: column;
+	align-items: center;
+}
+#all{
+	width:90%;
+	display: flex; 
+	justify-content: Space-between; 	
+	align-items: center;
+	
+}
+
+</style>
 </head>
 <body>
-	<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
-	<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-		<div id="CONTENT" class="layout-wrapper">
-			<div class="layout-center" style="text-align: center">
-				<!--側邊欄區塊開始-->
-				<dl class="block_W">
-					<dd id="CategoryContainer">
-						<ul class="treeview">
-							<li id="cate_D" class="expanded"><H1>功能列表</H1>
-								<ul class="main">
-									<li><a
-										href="${ctxPath}/onlineCourse/ListAllOnlineCourse.jsp">線上課程瀏覽專區</a>
-									</li>
-									<li>
-										<a href="${pageContext.request.contextPath}/onlineCourse/ManageCourse.jsp">會員線上課程管理</a>
-									</li>
-									<li><a href="${ctxPath}/index.jsp">回首頁</a></li>
-								</ul>
-						</ul>
-					</dd>
-				</dl>
-				<!--側邊欄區塊結束-->
-				<div class="block_C s_list">
-					<div class="Cm">
-						<div id="ItemContainer" class="Cm_C">
-							<c:forEach var="cartCourse" items="${cartCourses}" varStatus="loop">
-								<dl class="col3f" id="DRAA0A-A900BUT82">
-									<dd class="c1f" style="height: 100%;">
-										<img src="data:image/png;base64,${cartCourse.course.onlineCoursePhotoBaseStr64}" onclick="showDetail(${cartCourse.course.courseNo})">
-									</dd>
-									<dd class="c2f">
-										<ul class="tag_box s_label"></ul>
-										<h3 class="prod_name" onclick="showDetail(${cartCourse.course.courseNo})">
-											${cartCourse.course.courseName}
-										</h3>
-									</dd>
-									<dd class="c3f" id="button_DRAA0A-A900BUT82">
-										<ul class="price_box">
-											<li>
-												<span style="font-size: 18px">價格NT$${cartCourse.course.coursePrice}</span>
-											</li>
-										</ul>
-
-										<br>
-										<form method="post" action="cartCourseController" enctype="application/x-www-form-urlencoded"
-										 id="cartDelete${loop.index}">
-											<input name="action" type="hidden" value="cartDelete" >
-											<input name="cartCourseIndex" type="hidden" value="${loop.index}">
-										</form>
-										<button type="submit" form="cartDelete${loop.index}">移除</button>
-										<br>
-										<br>
-									</dd>
-								</dl>
-							</c:forEach>
-							<div id="totalPrice">
-								<c:choose>
-									<c:when test="${totalCoursePrice==0|| empty totalCoursePrice}">
-										<span style="font-size: 16px;">購物車中還沒有東西喔</span>
-										<span style="font-size: 16px;"><a href="<%=request.getContextPath()%>/onlineCourse/ListAllOnlineCourse.jsp">去選購</a></span>
-										<br>
-									</c:when>
-									<c:otherwise>
-										<span style="font-size: 16px;">總價：${totalCoursePrice}元 </span>
-										<span style="font-size: 16px;">共<%=cartCourses.size()%>門課程 </span>
-										<button type="submit" form="checkout">去結帳</button>
-										<form method="post" action="${ctxPath}/checkout/checkoutCourseController"
-											id="checkout" enctype="application/x-www-form-urlencoded">
-											<input type="hidden" name="action" value="checkout">
-										</form>
-									</c:otherwise>
-								</c:choose>
-
-							</div>
-						</div>
-					</div>
-				</div>
+<%@ include file="../navbar.file" %>
+<br>
+<div id="content">
+	<div id="cart">		
+		<c:forEach var="cartCourse" items="${cartCourses}" varStatus="loop">
+		<div id="all">		
+			<div>
+				<img src="data:image/png;base64,${cartCourse.course.onlineCoursePhotoBaseStr64}" onclick="showDetail(${cartCourse.course.courseNo})">
 			</div>
-
+			<div>
+				<h3 class="prod_name" onclick="showDetail(${cartCourse.course.courseNo})"> ${cartCourse.course.courseName}</h3>
+				<span style="font-size: 18px">價格NT$${cartCourse.course.coursePrice}</span>
+			</div>
+			<div>
+				<form method="post" action="cartCourseController"
+					enctype="application/x-www-form-urlencoded"
+					id="cartDelete${loop.index}">
+					<input name="action" type="hidden" value="cartDelete"> 
+					<input name="cartCourseIndex" type="hidden" value="${loop.index}">
+					<button type="submit" form="cartDelete${loop.index}" style="border-radius:1rem; border: 1px solid #ccc;">移除</button>
+				</form>
+			</div>
 		</div>
+		</c:forEach>
+		
+	<div id="totalPrice">
+		<c:choose>
+			<c:when test="${totalCoursePrice==0|| empty totalCoursePrice}">
+				<span style="font-size: 16px;">購物車中還沒有東西喔</span>
+				<span style="font-size: 16px;"><a
+					href="<%=request.getContextPath()%>/onlineCourse/ListAllOnlineCourse.jsp">去選購</a></span>
+				<br>
+			</c:when>
+			<c:otherwise>
+				<span style="font-size: 16px;">總價：${totalCoursePrice}元 </span>
+				<span style="font-size: 16px;">共<%=cartCourses.size()%>門課程
+				</span>
+				<button type="submit" form="checkout" style="border-radius:1rem; border: 1px solid #ccc;">去結帳</button>
+				<form method="post"
+					action="${ctxPath}/checkout/checkoutCourseController" id="checkout"
+					enctype="application/x-www-form-urlencoded">
+					<input type="hidden" name="action" value="checkout">
+				</form>
+			</c:otherwise>
+		</c:choose>
 	</div>
+</div>
+
 	<script>
 	function showDetail(courseNo) {
 		sessionStorage.setItem('courseNo', courseNo);

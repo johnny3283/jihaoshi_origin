@@ -7,98 +7,136 @@
 <html>
 <head>
   <title>我的線上課程評價</title>
-  <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
   <style>
-    #pageHead {
-      width: 100%;
-      height: 30%;
-    }
+  #content {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+}
+#Commenttable {
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 95%;
+  table-layout: fixed;
+}
 
-    a {
-      font-size: 20px;
-    }
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
 
-	table {
-		width: 1050px;
-		margin-top: 5px;
-		margin-bottom: 5px;
-	}
-	
-	table, th, td {
-		border: 1px solid #CCCCFF;
-	}
-	
-	th, td {
-		padding: 8px;
-		text-align: center;
-	}
-</style>
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+
+  </style>
 </head>
 <body>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-<div class="block_N" style="margin:0px auto;">
-</div>
-<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-  <div id="CONTENT" class="layout-wrapper">
-    <div class="layout-center" style="text-align:center">
-      <!--側邊欄區塊開始-->
-      <dl class="block_W">
-        <dd id="CategoryContainer">
-          <ul class="treeview">
-            <li id="cate_D" class="expanded"><H1>功能列表</H1>
-              <ul class="main">
-                <li>
-                  <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
-                </li>
-               </ul>
-          </ul>
-        </dd>
-      </dl>
-      <!--側邊欄區塊結束-->
-      <div class="block_C s_list">
-        <div class="Cm">
-          <div id="ItemContainer" class="Cm_C">
-          <table>
-		<tr>
-			<th>線上課程評論編號</th>
-			<th>線上課程編號 | 名稱</th>
-			<th>評論內容</th>
-			<th>評分</th>
-			<th>修改</th>
-			<th>刪除</th>
-		<c:forEach var="onlineCourseCommentVO" items="${getOne_For_Display}">
-			<tr>
-				<td>${onlineCourseCommentVO.commentNo}</td>
-				<td>${onlineCourseCommentVO.courseNo} | ${onlineCourseCommentVO.onlineCourseVO.courseName}</td> 
-				<td>${onlineCourseCommentVO.commentContent}</td>
-				<td>${onlineCourseCommentVO.commentScore}</td>
-				<td>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/OnlineCourseCommentServlet" style="margin-bottom: 0px;">
-					<input type="submit" value="修改"> 
-					<input type="hidden" name="commentNo" value="${onlineCourseCommentVO.commentNo}"> 
-					<input type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-				<td>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/OnlineCourseCommentServlet" style="margin-bottom: 0px;">
-					<input type="submit" value="刪除">
-					<input type="hidden" name="commentNo" value="${onlineCourseCommentVO.commentNo}"> 
-					<input type="hidden" name="action" value="delete">
-					</FORM>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-            <dl class="col3f" id="DRAA0A-A900BUT82">
-
-            </dl>
-
+	<%@ include file="navbar.file" %>
+    <br>
+	<div id="CONTENT">
+		<div id="Commenttable">
+			<table style="margin: 0px auto;">   
+				<tr>
+					<th>線上課程評論編號</th>
+					<th>線上課程編號 | 名稱</th>
+					<th>評論內容</th>
+					<th>評分</th>
+					<th>修改</th>
+					<th>刪除</th>
+			<c:forEach var="onlineCourseCommentVO" items="${getOne_For_Display}">
+				<tr>
+					<td>${onlineCourseCommentVO.commentNo}</td>
+					<td>${onlineCourseCommentVO.courseNo} | ${onlineCourseCommentVO.onlineCourseVO.courseName}</td> 
+					<td>${onlineCourseCommentVO.commentContent}</td>
+					<td>${onlineCourseCommentVO.commentScore}</td>
+					<td>
+						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/OnlineCourseCommentServlet" style="margin-bottom: 0px;">
+						<input type="submit" value="修改"> 
+						<input type="hidden" name="commentNo" value="${onlineCourseCommentVO.commentNo}"> 
+						<input type="hidden" name="action" value="getOne_For_Update">
+						</FORM>
+					</td>
+					<td>
+						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/OnlineCourseCommentServlet" style="margin-bottom: 0px;">
+						<input type="submit" value="刪除">
+						<input type="hidden" name="commentNo" value="${onlineCourseCommentVO.commentNo}"> 
+						<input type="hidden" name="action" value="delete">
+						</FORM>
+					</td>
+				</tr>
+			</c:forEach>
+			</table>            
           </div>
         </div>
-      </div>
-    </div>
-
-  </div>
-</div>
 </body>
 </html>

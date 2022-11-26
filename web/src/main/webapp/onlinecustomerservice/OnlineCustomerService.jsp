@@ -8,78 +8,48 @@
 <head>
 <title>線上即時客服</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/user.css" type="text/css" />
-<link type="text/css"
-	href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
 <style>
-#pageHead {
-	width: 100%;
-	height: 30%;
+#content {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	
 }
-
-a {
-	font-size: 20px;
+#box {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	flex-direction: column;
 }
 </style>
 </head>
 <body onload="connect();" onunload="disconnect();">
-	<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg"
-		id="pageHead">
-	<div class="block_N" style="margin: 0px auto;"></div>
-	<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-		<div id="CONTENT" class="layout-wrapper">
-			<div class="layout-center" style="text-align: center">
-				<!--側邊欄區塊開始-->
-				<dl class="block_W">
-					<dd id="CategoryContainer">
-						<ul class="treeview">
-							<li id="cate_D" class="expanded"><H1>功能列表</H1>
-								<ul class="main">
-									<li>
-										<a href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ列表</a>
-									</li>
-									<li>
-										<a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<!--側邊欄區塊結束-->
-				<div class="block_C s_list">
-					<div class="Cm">
-						<div id="ItemContainer" class="Cm_C">
-							<h3 id="statusOutput" class="statusOutput"></h3>
-							<div id="messagesArea" class="panel message-area"></div>
-							<div class="panel input-area">
-								<span style="padding-left: 140px;">請輸入訊息 : </span> <input
-									id="message" class="text-field" type="text"
-									placeholder="Message"
-									onkeydown="if (event.keyCode == 13) sendMessage();" />
-								<!-- 鍵盤代碼13(Enter) -->
-								<input type="submit" id="sendMessage" class="button" value="傳送"
-									onclick="sendMessage();" /> <input type="button"
-									id="disconnect" class="button" value="離開對話"
-									onclick="disconnect();" />
-							</div>
-							<dl class="col3f" id="DRAA0A-A900BUT82">
-							</dl>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
+<%@ include file="navbar.file" %>
+<br>
+<div id="content">
+<div id="box">
+	<div>
+	<h4 id="statusOutput" class="statusOutput"></h4>
 	</div>
+	<div id="messagesArea" class="panel message-area"></div>
+	<div class="panel input-area">
+		<span>請輸入訊息 : </span> 
+		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" />
+		<!-- 鍵盤代碼13(Enter) -->
+		<input type="submit" id="sendMessage" class="button" value="傳送" onclick="sendMessage();" style="border-radius:1rem; border: 1px solid #ccc;"/> 
+		<input type="button" id="disconnect" class="button" value="離開對話" onclick="disconnect();" style="border-radius:1rem; border: 1px solid #ccc;"/>
+	</div>
+<div>
+</div>
 	<script>
 		var MyPoint = "/CustomerServerWS/${username}";
 		var host = window.location.host;
 		var path = window.location.pathname;
 		var webCtx = path.substring(0, path.indexOf('/', 1));
-		var endPointURL = "ws://" + window.location.host + "/web-admin" + MyPoint;
+		var endPointURL = "ws://" + window.location.host + "/web-admin"
+				+ MyPoint;
 		console.log(host);
 		console.log(webCtx);
 		// ws是Socket自己的通訊協定

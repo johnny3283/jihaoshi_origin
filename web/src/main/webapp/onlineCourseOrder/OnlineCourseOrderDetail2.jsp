@@ -63,7 +63,7 @@
 								    菜單照片<img src="data:image/*;base64, ${detail.orderPhotoBaseStr64}"><br>
                   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/onlinecoursecomment/addOnlineCourseComment.jsp">
 										評價:<input type="submit" value="我要評價">
-										<input type="hidden" name="${detail.courseNo}">
+										<input type="hidden" name="${detail.courseNo}" value="${detail.courseName}">
 									</FORM>
 
 								</div>

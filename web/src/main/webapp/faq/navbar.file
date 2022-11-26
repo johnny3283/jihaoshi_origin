@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.faq.model.*"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +23,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap"
 	rel="stylesheet">	
-<link rel="stylesheet" href="./css/styles.css">
+<link rel="stylesheet" href="${ctxPath}/css/styles.css">
 
 
 
@@ -66,11 +67,8 @@
                  		     		<a class="dropdown-item" href="${ctxPath}/meal/RandomAssign.jsp">隨機配餐</a>
       				            </li>
                 				<li>
-                  					<a class="dropdown-item" href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
+                  					<a class="dropdown-item" href="${ctxPath}/cart/MealCart.jsp">商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
                					</li>
-               				    <li>
-                  					<a class="dropdown-item" href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
-                				</li>
 							</ul>
 					</li>
 					<li class="nav-item dropdown">
@@ -113,14 +111,15 @@
                 				</li>
 							</ul>
 					</li>
-					&emsp;
+					&emsp;&emsp;
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="${ctxPath}/cart/MealCart.jsp">商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
 					</li>
+					&emsp;
 					<li class="nav-item">
 						<li><a class="nav-link active" aria-current="page" href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a></li>
 					</li>
-					&emsp;
+					&emsp;&emsp;
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="${ctxPath}/member/login.jsp">登入 | 註冊</a>
 					</li>
@@ -129,6 +128,7 @@
 		</div>
 	</nav>
 	<!-- Navbar End -->
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
