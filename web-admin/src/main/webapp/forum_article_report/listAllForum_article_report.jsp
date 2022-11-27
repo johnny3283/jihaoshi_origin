@@ -71,7 +71,7 @@ th, td {
 
 	<table style="width: 97.5vw">
 		<tr>
-			<th>論壇文章檢舉編號</th>
+<!-- 			<th>論壇文章檢舉編號</th> -->
 			<th>論壇文章編號</th>
 			<th>會員編號</th>
 			<th>檢舉事由</th>
@@ -84,7 +84,7 @@ th, td {
 
 
 			<tr>
-				<td>${forum_article_reportVO.article_report_no}</td>
+<%-- 				<td>${forum_article_reportVO.article_report_no}</td> --%>
 				<td>${forum_article_reportVO.article_no}</td>
 				<td>${forum_article_reportVO.member_no}</td>
 				<td>${forum_article_reportVO.report_reason}</td>

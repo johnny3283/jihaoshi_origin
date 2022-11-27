@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_article.model.*"%>
@@ -137,22 +137,23 @@
 </head>
 
 <body bgcolor='white'>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+<%@ include file="navbar.file" %>
 
-<div id="WRAPPER" class="">
-    <div class="divflex">
-        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
+
+<!-- <div id="WRAPPER" class=""> -->
+<!--     <div class="divflex"> -->
+<!--         <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;"> -->
            
-                    <ul class="treeview">
-                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
-                            <ul class="main">
-                                <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
-                                </li>
-                            </ul>
-                      </li>
-                 </ul>
-          </div>   
+<!--                     <ul class="treeview"> -->
+<!--                         <li id="cate_D" class="expanded"><H1>功能列表</H1> -->
+<!--                             <ul class="main"> -->
+<!--                                 <li> -->
+<%--                                     <a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a> --%>
+<!--                                 </li> -->
+<!--                             </ul> -->
+<!--                       </li> -->
+<!--                  </ul> -->
+<!--           </div>    -->
            
  <div style="display:flex;flex-direction:column;width:100%">
 
@@ -162,7 +163,7 @@
    <tr style="text-align: center;"><td><h3>論壇文章首頁: Home</h3><h4>( Forum_article )</h4></td></tr>
 </table>
 
-<p>This is the Home page for Forum_article: Home</p>
+
 </div>
 
 <div class="container">
@@ -193,10 +194,10 @@
 
 <ul>
 <br>
-<h3 style="padding-left: 12.5%">論壇文章新增</h3>
-<br>
+<h6 style="padding-left: 15.5%">論壇文章新增</h6>
+
 <ul>
-  <li><a  style="padding-left: 12.5%;" href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>Add</a> a new Forum_article.</li>
+  <li><a  style="padding-left: 13.5%;" href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>Add</a> a new Forum_article.</li>
 </ul>
 
 </body>

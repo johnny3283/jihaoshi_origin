@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_article.model.*"%>
@@ -7,15 +7,11 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
+<meta>
 <title>論壇文章新增</title>
 
 <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
-        #pageHead { 
-            width: 100%;
-            height: 30%; 
-        }
         div.divflex{
         display:flex;
         width:100%;
@@ -36,24 +32,8 @@
 </head>
 
 <body bgcolor='white'>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-
-
+<%@ include file="navbar.file" %>
 <div id="WRAPPER" class="">
-    <div class="divflex">
-        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
-            <!--側邊欄區塊開始-->
-                    <ul class="treeview">
-                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
-                            <ul class="main">
-                                <li>
-                                    	<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回論壇文章首頁</a>
-                                </li>
-                            </ul>
-                      </li>
-                 </ul>
-          </div>   
-            <!--側邊欄區塊結束-->
  <div style="display:flex;flex-direction:column;width:100%">
 	<h1 style="align-self:center;margin: 2rem 0">論壇文章新增</h1>
 	
@@ -77,8 +57,8 @@
  ClassicEditor
     .create(document.querySelector('.editor'), {
         cloudServices: {
-            tokenUrl: 'https://93322.cke-cs.com/token/dev/f61fb72c46962eeef89212e54452b4a95a6198649d6d844997f8a0be111e?limit=10',
-            uploadUrl: 'https://93322.cke-cs.com/easyimage/upload/'
+            tokenUrl: 'https://93940.cke-cs.com/token/dev/91a66de3b51363daded4bc4c728bc0c521dfcfff6dc0a75d8f54767efd03?limit=10',
+            uploadUrl: 'https://93940.cke-cs.com/easyimage/upload/'
         },
         toolbar: {
             items: [
