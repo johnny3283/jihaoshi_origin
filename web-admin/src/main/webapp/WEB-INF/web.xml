@@ -11,6 +11,16 @@
     </resource-ref>
     
     <filter>
+        <filter-name>indexFilter</filter-name>
+        <filter-class>com.manager.Filters.indexFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>indexFilter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+
+    </filter-mapping>
+    
+    <filter>
         <filter-name>mealmgrFilter</filter-name>
         <filter-class>com.manager.Filters.mealMgrFilter</filter-class>
     </filter>

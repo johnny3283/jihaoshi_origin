@@ -36,9 +36,9 @@ public class phyCourseComment extends HttpServlet {
 
 			/*************************** 1.接收請求參數 ****************************************/
 			HttpSession session = req.getSession();
-			MemberVO memberVO = (MemberVO) session.getAttribute("member");
+			MemberVO member = (MemberVO) session.getAttribute("member");
 
-			Integer memberNo = memberVO.getMemberNo();
+			Integer memberNo = member.getMemberNo();
 
 			
 		
