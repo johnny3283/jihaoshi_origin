@@ -117,7 +117,7 @@ table th {
 </style>
 </head>
 <body>
-	<%@ include file="navbar.file" %>
+	<%@ include file="../navbar.file" %>
 	<div id="searchArea" style="margin: 0px auto; display: flex; justify-content: center; align-items: center;">
 		<!--搜尋欄開始-->
 		<div id="search">

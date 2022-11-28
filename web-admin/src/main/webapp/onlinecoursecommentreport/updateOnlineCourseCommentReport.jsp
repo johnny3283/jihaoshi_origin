@@ -17,44 +17,45 @@ request.setAttribute("number", number);
 <html>
 <head>
 <title>線上課程評論檢舉</title>
-<link type="text/css"
-	href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
-#pageHead {
-	width: 100%;
-	height: 30%;
+#content {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	flex-direction: column;
 }
-
-a {
-	font-size: 20px;
+#search {
+	border-style:double;
+	border-color:#ecb714;
+	border-radius:10px;
+	width:250px;
+	height:40px;
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
 }
-
-table {
-	width: 1050px;
-	margin-top: 5px;
-	margin-bottom: 5px;
+.searchfield {
+	margin: 0px auto;
 }
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 8px;
-	text-align: center;
+#form {
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius:0.6rem; 
+    border: 3px solid #ccc;
+    width:450px;
+    height:500px;
+    border-style:outset;
 }
 </style>
 </head>
 <body>
-	<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg"
-		id="pageHead">
-	<div class="block_N" style="margin: 0px auto;">
+	<%@ include file="../navbar.file" %>
+	<div id="searchArea" style="margin: 0px auto; display: flex; justify-content: center; align-items: center;">
 		<!--搜尋欄開始-->
-		<div class="Nm"
-			style="display: flex; justify-content: center; align-items: center;">
-			<FORM class="searchfield" METHOD="post"
-				ACTION="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet">
+		<div id="search">
+			<FORM class="searchfield" METHOD="post" ACTION="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet">
 				<select name="reportStatus" class="text ac_input">
 					<option disabled selected>請選擇狀態</option>
 					<option value=0>未處理</option>
@@ -63,55 +64,56 @@ th, td {
 				</select> <input type="hidden" name="action" value="getStatus_For_Display">
 				<input class="button" type="submit" value="送出">
 			</FORM>
-			<br> <br>
 		</div>
 		<!--搜尋欄結束-->
 	</div>
-	<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-		<div id="CONTENT" class="layout-wrapper">
-			<div class="layout-center" style="text-align: center">
-				<!--側邊欄區塊開始-->
-				<dl class="block_W">
-					<dd id="CategoryContainer">
-						<ul class="treeview">
-							<li id="cate_D" class="expanded"><H1>功能列表</H1>
-								<ul class="main">
-									<li><a
-										href="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet?action=getAll">線上課程評論檢舉</a>
-									</li>
-								</ul>
-						</ul>
-					</dd>
-				</dl>
-				<!--側邊欄區塊結束-->
-				<div class="block_C s_list">
-					<div class="Cm">
-						<div id="ItemContainer" class="Cm_C">
-							<form id="form">
-								<br> <label>線上課程評論檢舉編號：<%=onlineCourseCommentReportVO.getReportNo()%></label><br>
-								<br> <label>檢舉者帳號：${onlineCourseCommentReportVO.memberVO.memberAccount}</label><br>
-								<br> <label>線上課程評論編號：<%=onlineCourseCommentReportVO.getCommentNo()%></label><br>
-								<br> <label>線上課程評論內容：<br>
-								<br>${onlineCourseCommentReportVO.onlineCourseCommentVO.commentContent}</label><br>
-								<br> <label>檢舉原因：<br>
-								<br><%=onlineCourseCommentReportVO.getReportReason()%></label><br>
-								<br> <label>審核結果 </label>
-								<c:forEach var="reportStatus" items="${number}">
-									<input type="radio" name="status" value="${reportStatus}"
-										${(reportStatus==(onlineCourseCommentReportVO.reportStatus))?'checked':''}>${status.get(reportStatus)}
-							</c:forEach>
-								<br><br>
-								<input type="hidden" name="action" value="updateStatus"> 
-								<input type="hidden" name="reportNo" value="${onlineCourseCommentReportVO.reportNo}">
-								<input type="hidden" name="commentNo" value="${onlineCourseCommentReportVO.commentNo}">
-								<input id="btn" type="submit" value="確定送出">
-							</form>
-							<dl class="col3f" id="DRAA0A-A900BUT82"></dl>
-						</div>
-					</div>
-				</div>
+	<br>
+	<div id="CONTENT">	
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet">
+		<div id="form">
+			<br>
+			<div style="margin: 0px auto;">		 
+			<label>線上課程評論檢舉編號：<%=onlineCourseCommentReportVO.getReportNo()%></label>
+			</div>
+			<br>
+			<div style="margin: 0px auto;">		
+			<label>檢舉者帳號：${onlineCourseCommentReportVO.memberVO.memberAccount}</label>
+			</div>
+			<br>
+			<div style="margin: 0px auto;">		
+			<label>線上課程評論編號：<%=onlineCourseCommentReportVO.getCommentNo()%></label>
+			</div>
+			<br>
+			<div style="margin: 0px auto;">		
+			<label>線上課程評論內容：</label>
+			</div>
+			<div style="margin: 0px auto;">
+			${onlineCourseCommentReportVO.onlineCourseCommentVO.commentContent}			
+			</div>
+			<br>
+			<div style="margin: 0px auto;">		
+			<label>檢舉原因：</label>
+			</div>
+			<div style="margin: 0px auto;">	
+			<%=onlineCourseCommentReportVO.getReportReason()%>
+			</div>
+			<br>
+			<div style="margin: 0px auto;">		
+			<label>審核結果 </label>
+			<c:forEach var="reportStatus" items="${number}">
+				<input type="radio" name="status" value="${reportStatus}"
+				${(reportStatus==(onlineCourseCommentReportVO.reportStatus))?'checked':''}>${status.get(reportStatus)}
+			</c:forEach>
+			</div>
+			<br>
+			<div style="margin: 0px auto;">		
+			<input type="hidden" name="action" value="updateStatus"> 
+			<input type="hidden" name="reportNo" value="${onlineCourseCommentReportVO.reportNo}">
+			<input type="hidden" name="commentNo" value="${onlineCourseCommentReportVO.commentNo}">
+			<input id="btn" type="submit" value="確定送出" class="button">
 			</div>
 		</div>
+		</form>
 	</div>
 	<script type="text/javascript">
 		$(function() {

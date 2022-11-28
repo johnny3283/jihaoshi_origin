@@ -26,7 +26,7 @@ OnlineCourseCommentVO onlineCourseCommentVO = (OnlineCourseCommentVO) request.ge
 </style>
 </head>
 <body>
-	<%@ include file="navbar.file" %>
+	<%@ include file="../navbar.file" %>
 	<br>
 	<div id="content">
 	<br>

@@ -2,25 +2,25 @@
 <div style="display: inline-block;">
  <%if (rowsPerPage<rowNumber) {%>
     <%if(pageIndex>=rowsPerPage){%>
-        <A href="faqservlet?action=getAll&whichPage=1"><button>至第一頁</button></A>&nbsp;
-        <A href="faqservlet?action=getAll&whichPage=<%=whichPage-1%>"><button>上一頁</button></A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=1"><button style="border-radius:1rem;border: 1px solid #ccc;">第一頁</button></A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>"><button style="border-radius:1rem;border: 1px solid #ccc;">上一頁</button></A>&nbsp;
     <%}%>
   
     <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
-        <A href="faqservlet?action=getAll&whichPage=<%=whichPage+1%>"><button>下一頁</button></A>&nbsp;
-        <A href="faqservlet?action=getAll&whichPage=<%=pageNumber%>"><button>至最後一頁</button></A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>"><button style="border-radius:1rem;border: 1px solid #ccc;">下一頁</button></A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>"><button style="border-radius:1rem;border: 1px solid #ccc;">最後一頁</button></A>&nbsp;
     <%}%>
   <%}%>  
 </div>
 <div style="display: inline-block;">
   <%if (pageNumber>1) {%>
-    <FORM METHOD="post" ACTION="faqservlet?action=selectFAQ">   
+    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
        <select size="1" name="whichPage">
          <%for (int i=1; i<=pageNumber; i++){%>
             <option value="<%=i%>">跳至第<%=i%>頁
          <%}%> 
        </select>&nbsp;
-       <input type="submit" value="確定" >  
+       <input type="submit" value="確定" style="border: 1px solid #ccc;">  
     </FORM>
   <%}%>
  </div>

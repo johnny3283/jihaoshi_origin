@@ -3,44 +3,130 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.faq.model.*"%>
 <%
-List<FAQVO> list = (List<FAQVO>) request.getAttribute("lists"); //EmpServlet.java(Concroller), 存入req的empVO物件
+FAQService faqSvc = new FAQService();
+List<FAQVO> list = faqSvc.getAll();
+pageContext.setAttribute("list", list);
 %>
 <html>
 <head>
 <title>FAQ</title>
-<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
 <style>
-#pageHead {
-	width: 100%;
-	height: 30%;
+#search {
+	border-style:double;
+	border-color:#ecb714;
+	border-radius:10px;
+	width:250px;
+	height:40px;
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
 }
-
-a {
-	font-size: 20px;
+.searchfield {
+	margin: 0px auto;
+}
+#content {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+}
+#FAQtable {
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 table {
-	width: 1050px;
-	margin-top: 5px;
-	margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 95%;
+  table-layout: fixed;
 }
 
-table, th, td {
-	border: 1px solid #CCCCFF;
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
 }
 
-th, td {
-	padding: 8px;
-	text-align: center;
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+.button {
+	border-radius:1rem; 
+	border: 1px solid #ccc;
 }
 </style>
 </head>
 <body>
-	<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-	<div class="block_N" style="margin: 0px auto;">
+	<%@ include file="../navbar.file" %>
+	<div id="searchArea" style="margin: 0px auto; display: flex; justify-content: center; align-items: center;">
 		<!--搜尋欄開始-->
-		<div class="Nm" style="display: flex; justify-content: center; align-items: center;">
+		<div id="search">
 			<FORM class="searchfield" METHOD="post" ACTION="<%=request.getContextPath()%>/faqservlet">
-				<select name="faqClass" class="text ac_input">
+				<select name="faqClass">
 					<option disabled selected>請選擇FAQ類別</option>
 					<option value="購物 Shopping">購物 Shopping</option>
 					<option value="折價券 Coupon">折價券 Coupon</option>
@@ -49,84 +135,57 @@ th, td {
 					<option value="包裹寄送 Delivery">包裹寄送 Delivery</option>
 				</select> 
 				<input type="hidden" name="action" value="getClass_For_Display">
-				<input class="button" type="submit" value="送出">
+				<input class="button" type="submit" value="送出" style="border-radius:1rem; border: 1px solid #ccc;">
 			</FORM>
 		</div>
 		<!--搜尋欄結束-->
 	</div>
-	<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-		<div id="CONTENT" class="layout-wrapper">
-			<div class="layout-center" style="text-align: center">
-				<!--側邊欄區塊開始-->
-				<dl class="block_W">
-					<dd id="CategoryContainer">
-						<ul class="treeview">
-							<li id="cate_D" class="expanded"><H1>功能列表</H1>
-								<ul class="main">
-									<li>
-									<a href="<%=request.getContextPath()%>/faq/addFAQ.jsp">新增FAQ</a>
-									</li>
-									<li>
-									<a href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ列表</a>
-									</li>
-									<li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
-                                	</li>
-								</ul>
-						</ul>
-					</dd>
-				</dl>
-				<!--側邊欄區塊結束-->
-				<div class="block_C s_list">
-					<div class="Cm">
-						<div id="ItemContainer" class="Cm_C">
-							<table>
-								<tr>
-									<th>FAQ編號</th>
-									<th>FAQ問題</th>
-									<th>FAQ答案</th>
-									<th>FAQ類別</th>
-									<th>修改</th>
-									<th>刪除</th>
-								</tr>
-								<%@ include file="page1FAQ.file" %> 
-								<c:forEach var="faqVO" items="${lists}" 
-								 begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>">
-									<tr>
-										<td>${faqVO.faqNo}</td>
-										<td>${faqVO.faqQue}</td>
-										<td>${faqVO.faqAns}</td>
-										<td>${faqVO.faqClass}</td>
-										<td>
-											<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/faqservlet"
-												style="margin-bottom: 0px;">
-												<input type="submit" value="修改"> <input
-													type="hidden" name="faqNo" value="${faqVO.faqNo}">
-												<input type="hidden" name="action" value="getOne_For_Update">
-											</FORM>
-										</td>
-										<td>
-											<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/faqservlet"
-												style="margin-bottom: 0px;">
-												<input type="submit" value="刪除" onclick="check();"> 
-												<input type="hidden" name="faqNo" value="${faqVO.faqNo}">
-												<input type="hidden" name="action" value="delete">
-											</FORM>
-										</td>
-									</tr>
-								</c:forEach>								
-							</table>
-							<%@ include file="page2FAQ.file" %> 
-							<dl class="col3f" id="DRAA0A-A900BUT82">
-							</dl>
-						</div>
-					</div>
-				</div>
+	<br>
+	<div id="CONTENT">
+		<div id="FAQtable">
+			<table style="margin: 0px auto;">
+				<tr>
+					<th>FAQ編號</th>
+					<th>FAQ問題</th>
+					<th>FAQ答案</th>
+					<th>FAQ類別</th>
+					<th>修改</th>
+					<th>刪除</th>
+				</tr>
+			<div style="margin: 0px auto;">
+				<%@ include file="page1FAQ.file" %>
 			</div>
+			<br> 
+			<c:forEach var="faqVO" items="${list}" begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>">
+				<tr>
+					<td>${faqVO.faqNo}</td>
+					<td>${faqVO.faqQue}</td>
+					<td>${faqVO.faqAns}</td>
+					<td>${faqVO.faqClass}</td>
+					<td>
+						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/faqservlet" style="margin-bottom: 0px;">
+						<input type="submit" value="修改"> 
+						<input type="hidden" name="faqNo" value="${faqVO.faqNo}">
+						<input type="hidden" name="action" value="getOne_For_Update">
+						</FORM>
+					</td>
+					<td>
+						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/faqservlet" style="margin-bottom: 0px;">
+						<input type="submit" value="刪除" onclick="check();"> 
+						<input type="hidden" name="faqNo" value="${faqVO.faqNo}">
+						<input type="hidden" name="action" value="delete">
+						</FORM>
+					</td>
+				</tr>
+			</c:forEach>								
+			</table>
+			<br>
+			<div style="margin: 0px auto;">
+				<%@ include file="page2FAQ.file" %>
+			</div> 
 		</div>
 	</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 	function check() {
 		var yes=confirm("確定刪除?");

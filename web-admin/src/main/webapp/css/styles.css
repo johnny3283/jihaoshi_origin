@@ -1,0 +1,40 @@
+#feature-img {
+	max-width: 100%;
+}
+
+#feature {
+	position: relative;
+}
+
+#feature-text {
+	height: 300px;
+	background-color: rgba(86, 85, 85, .5);
+	padding: 20px;
+	position: absolute;
+	left: 15%;
+	bottom: 40%;
+}
+
+.name {
+	font-family: 'Oxygen', sans-serif;
+	font-size: 1.2cm;
+	color: white;
+	position: center;
+}
+
+#indexbutton {
+    position:relative;
+    overflow:hidden;
+    width:7rem;
+    color:#FFE1CA;
+    border:2px solid #FFE1CA;
+    background-color:transparent;
+    cursor:pointer;
+    line-height:2;
+    margin:0;
+    padding:0;
+    border-radius:1.5rem;
+    font-size:1.125rem;
+    outline:none;
+    transition:transform .125s;
+}

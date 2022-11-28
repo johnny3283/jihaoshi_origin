@@ -75,11 +75,12 @@ public class CustomerServerWS {
 		
 		
 		Session receiverSession = sessionsMap.get(receiver);
-		if (receiverSession != null && receiverSession.isOpen()) {
+		
+		if (userSession != null && userSession.isOpen()) {
 			receiverSession.getAsyncRemote().sendText(message);
 			userSession.getAsyncRemote().sendText(message);
 			JedisHandleMessage.saveChatMessage(sender, receiver, message);
-		}
+		}		
 		System.out.println("Message received: " + message);
 	}
 

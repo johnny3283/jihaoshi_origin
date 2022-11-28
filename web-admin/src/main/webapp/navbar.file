@@ -144,17 +144,6 @@
 		</div>
 	</nav>
 	<!-- Navbar End -->
-	<!-- Feature Section Start-->
-	<div class="mx-auto" id="feature">
-		<img class="mx-auto d-block" id="feature-img" src="./css/feature.jpg" alt="">
-		<div id="feature-text" style="">
-			<p class="name">JiHaoShi<br>後台首頁</p>
-		</div>
-	</div>
-	<!-- Feature Section End-->
-
-
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

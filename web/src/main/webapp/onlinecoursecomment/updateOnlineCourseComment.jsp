@@ -27,7 +27,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="navbar.file" %>
+	<%@ include file="../navbar.file" %>
 	<br>
 	<div id="content">
 	<br>
@@ -60,7 +60,7 @@
 				</div>
 				<br>
 				<div style="margin: 0px auto;">
-				<textarea name="commentContent"><%=onlineCourseCommentVO.getCommentContent()%></textarea>
+				<textarea rows="5" cols="25" name="commentContent"><%=onlineCourseCommentVO.getCommentContent()%></textarea>
 				</div>
 				<br>
 				<div style="margin: 0px auto;">
@@ -73,7 +73,7 @@
 				&emsp;
 				<span id="show"><%=onlineCourseCommentVO.getCommentScore()%></span>
 				</div>
-	            <br><br>
+	            <br>
 	            <div style="margin: 0px auto;"> 
 				<input type="hidden" name="action" value="update">
 				<input type="hidden" name="memberNo" value="<%=onlineCourseCommentVO.getMemberNo()%>">
