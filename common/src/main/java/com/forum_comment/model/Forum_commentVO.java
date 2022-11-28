@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Forum_commentVO implements java.io.Serializable{
 	private Integer comment_no;
 	private Integer article_no;
+	private String article_name;
 	private Integer member_no;
 	private Date comment_time;
 	private String comment_content;
@@ -21,6 +22,12 @@ public class Forum_commentVO implements java.io.Serializable{
 	}
 	public void setArticle_no(Integer article_no) {
 		this.article_no = article_no;
+	}
+	public String getArticle_name() {
+		return article_name;
+	}
+	public void setArticle_name(String article_name) {
+		this.article_name = article_name;
 	}
 	public Integer getMember_no() {
 		return member_no;

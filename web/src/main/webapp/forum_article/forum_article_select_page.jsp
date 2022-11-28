@@ -14,8 +14,12 @@
 <html>
 <head>
 <title>論壇文章首頁: Home</title>
-
- <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
+<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
         #pageHead { 
             width: 100%;
@@ -40,8 +44,6 @@
 
 
   <style>
-	
-		
         .evenarticle {
             background-color: white;
             width: 75%;
@@ -138,7 +140,12 @@
 
 <body bgcolor='white'>
 <%@ include file="navbar.file" %>
-
+<!-- <nav class="navbar navbar-light bg-light"> -->
+<!--   <form class="form-inline"> -->
+<!--     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/> -->
+<!--     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+<!--   </form> -->
+<!-- </nav> -->
 
 <!-- <div id="WRAPPER" class=""> -->
 <!--     <div class="divflex"> -->

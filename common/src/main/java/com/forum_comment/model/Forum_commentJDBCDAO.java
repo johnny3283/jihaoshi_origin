@@ -20,7 +20,7 @@ public class Forum_commentJDBCDAO implements Forum_commentDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO FORUM_COMMENT(ARTICLE_NO,MEMBER_NO, COMMENT_CONTENT) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT COMMENT_NO,ARTICLE_NO,MEMBER_NO,COMMENT_TIME,COMMENT_CONTENT,COMMENT_STATUS FROM FORUM_COMMENT WHERE ARTICLE_NO = ? ORDER BY COMMENT_NO";
-	private static final String GET_ALL_STMTALL =  "SELECT COMMENT_NO,ARTICLE_NO,MEMBER_NO,COMMENT_TIME,COMMENT_CONTENT,COMMENT_STATUS FROM FORUM_COMMENT ORDER BY COMMENT_NO";
+	private static final String GET_ALL_STMTALL =  "SELECT COMMENT_NO,main.ARTICLE_NO,ARTICLE_NAME,main.MEMBER_NO,COMMENT_TIME,COMMENT_CONTENT,COMMENT_STATUS FROM FORUM_COMMENT main,forum_article sub WHERE main.ARTICLE_NO = sub.ARTICLE_NO ORDER BY COMMENT_NO";
 	private static final String GET_ONE_STMT = "SELECT COMMENT_NO,ARTICLE_NO,MEMBER_NO,COMMENT_TIME,COMMENT_CONTENT,COMMENT_STATUS FROM FORUM_COMMENT WHERE COMMENT_NO = ?";
 	private static final String DELETE = "DELETE FROM FORUM_COMMENT WHERE COMMENT_NO = ?";
 	private static final String UPDATE = "UPDATE FORUM_COMMENT SET ARTICLE_NO=?, MEMBER_NO=?, COMMENT_CONTENT=?, COMMENT_STATUS=? WHERE COMMENT_NO = ?";
@@ -303,6 +303,7 @@ public class Forum_commentJDBCDAO implements Forum_commentDAO_interface {
 				forum_commentVO = new Forum_commentVO();
 				forum_commentVO.setComment_no(rs.getInt("comment_no"));
 				forum_commentVO.setArticle_no(rs.getInt("article_no"));
+				forum_commentVO.setArticle_name(rs.getString("article_name"));
 				forum_commentVO.setMember_no(rs.getInt("member_no"));
 				forum_commentVO.setComment_time(rs.getDate("comment_time"));
 				forum_commentVO.setComment_content(rs.getString("comment_content"));

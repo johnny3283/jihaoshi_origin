@@ -85,7 +85,9 @@ th, td {
 
 			<tr>
 <%-- 				<td>${forum_article_reportVO.article_report_no}</td> --%>
-				<td>${forum_article_reportVO.article_no}</td>
+<%-- 				<td>${forum_article_reportVO.article_no}</td>  --%>
+				
+				<td>${forum_article_reportVO.article_name}</td>
 				<td>${forum_article_reportVO.member_no}</td>
 				<td>${forum_article_reportVO.report_reason}</td>
 				<td>[${forum_article_reportVO.report_status}]

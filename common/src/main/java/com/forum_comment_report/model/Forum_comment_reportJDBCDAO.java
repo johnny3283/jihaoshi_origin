@@ -21,7 +21,7 @@ public class Forum_comment_reportJDBCDAO implements Forum_comment_reportDAO_inte
 	String passwd = "password";
 
 	private static final String INSERT_STMT = "INSERT INTO FORUM_COMMENT_REPORT(COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT_FULL = "SELECT COMMENT_REPORT_NO, COMMENT_NO, ARTICLE_NO, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT WHERE REPORT_STATUS = 0 OR REPORT_STATUS = 1 ORDER BY COMMENT_REPORT_NO";
+	private static final String GET_ALL_STMT_FULL = "SELECT COMMENT_REPORT_NO, COMMENT_NO, main.ARTICLE_NO, sub.ARTICLE_NAME, main.MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT main,FORUM_ARTICLE sub WHERE main.ARTICLE_NO = sub.ARTICLE_NO AND (REPORT_STATUS = 0 OR REPORT_STATUS = 1) ORDER BY COMMENT_REPORT_NO";
 	private static final String GET_ALL_STMT = "SELECT COMMENT_REPORT_NO, COMMENT_NO, main.ARTICLE_NO, ARTICLE_NAME, main.MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT main, FORUM_ARTICLE sub WHERE main.article_no = sub.article_no and main.MEMBER_NO = ? ORDER BY COMMENT_REPORT_NO";
 	private static final String GET_ONE_STMT = "SELECT COMMENT_REPORT_NO, COMMENT_NO, ARTICLE_NO, ARTICLE_NAME, MEMBER_NO, REPORT_REASON, REPORT_STATUS FROM FORUM_COMMENT_REPORT WHERE COMMENT_REPORT_NO = ?";
 	private static final String DELETE = "DELETE FROM FORUM_COMMENT_REPORT WHERE COMMENT_REPORT_NO = ?";
@@ -242,7 +242,7 @@ public class Forum_comment_reportJDBCDAO implements Forum_comment_reportDAO_inte
 				forum_comment_reportVO.setComment_report_no(rs.getInt("comment_report_no"));
 				forum_comment_reportVO.setComment_no(rs.getInt("comment_no"));
 				forum_comment_reportVO.setArticle_no(rs.getInt("article_no"));
-//				forum_comment_reportVO.setArticle_name(rs.getString("article_name"));
+				forum_comment_reportVO.setArticle_name(rs.getString("article_name"));
 				forum_comment_reportVO.setMember_no(rs.getInt("member_no"));
 				forum_comment_reportVO.setReport_reason(rs.getString("report_reason"));
 				forum_comment_reportVO.setReport_status(rs.getInt("report_status"));

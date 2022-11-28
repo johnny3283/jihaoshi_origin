@@ -203,12 +203,12 @@ public class Forum_articleServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("123".equals(action)) {
-
-			String url = "/forum_comment/InsertForum_comment.jsp";
-			RequestDispatcher successview = req.getRequestDispatcher(url);
-			successview.forward(req, res);
-		}
+//		if ("123".equals(action)) {
+//
+//			String url = "/forum_comment/InsertForum_comment.jsp";
+//			RequestDispatcher successview = req.getRequestDispatcher(url);
+//			successview.forward(req, res);
+//		}
 
 		if ("change_status_0".equals(action)) { // 來自listAllForum_article.jsp
 

@@ -77,8 +77,8 @@ console.log(pageNumber);
 
 	<table>
 		<tr>
-			<th>論壇文章檢舉編號</th>
-			<th>論壇文章留言編號</th>
+<!-- 			<th>論壇文章檢舉編號</th> -->
+<!-- 			<th>論壇文章留言編號</th> -->
 			<th>論壇文章編號</th>
 			<th>會員編號</th>
 			<th>檢舉事由</th>
@@ -91,9 +91,9 @@ console.log(pageNumber);
 
 
 			<tr>
-				<td>${forum_comment_reportVO.comment_report_no}</td>
-				<td>${forum_comment_reportVO.comment_no}</td>
-				<td>${forum_comment_reportVO.article_no}</td>
+<%-- 				<td>${forum_comment_reportVO.comment_report_no}</td> --%>
+<%-- 				<td>${forum_comment_reportVO.comment_no}</td> --%>
+				<td>${forum_comment_reportVO.article_name}</td>
 				<td>${forum_comment_reportVO.member_no}</td>
 				<td>${forum_comment_reportVO.report_reason}</td>
 				<td>[${forum_comment_reportVO.report_status}]

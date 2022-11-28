@@ -15,7 +15,12 @@ String type = request.getParameter("type");
 
 <html>
 <head>
- <link href="/web-admin/bootstrap-4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+<!--  <link href="/web-admin/bootstrap-4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" > -->
+ <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
   <script src="/web-admin/js/jquery-3.6.1.min.js" ></script>
   <script src="/web-admin/bootstrap-4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
 <title>論壇留言資料</title>
@@ -109,8 +114,8 @@ th, td {
 
 	<table>
 		<tr>
-			<th>論壇文章留言編號</th>
-			<th>論壇文章編號</th>
+<!-- 			<th>論壇文章留言編號</th> -->
+			<th>論壇文章標題</th>
 			<th>會員編號</th>
 			<th>編輯時間</th>
 			<th>留言內容</th>
@@ -123,8 +128,8 @@ th, td {
 
 
 			<tr>
-				<td>${forum_commentVO.comment_no}</td>
-				<td>${forum_commentVO.article_no}</td>
+<%-- 				<td>${forum_commentVO.comment_no}</td> --%>
+				<td>${forum_commentVO.article_name}</td>
 				<td>${forum_commentVO.member_no}</td>
 				<td>${forum_commentVO.comment_time}</td>
 				<td>${forum_commentVO.comment_content}</td>

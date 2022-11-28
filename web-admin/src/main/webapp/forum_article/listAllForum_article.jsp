@@ -17,7 +17,12 @@ String type = request.getParameter("type");
     //Integer member_no = (Integer)session.getAttribute("member_no"); %>
 <html>
 <head>
-  <link href="/web-admin/bootstrap-4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+<!--   <link href="/web-admin/bootstrap-4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" > -->
+  <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
   <script src="/web-admin/js/jquery-3.6.1.min.js" ></script>
   <script src="/web-admin/bootstrap-4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
 <title>論壇文章資料</title>
