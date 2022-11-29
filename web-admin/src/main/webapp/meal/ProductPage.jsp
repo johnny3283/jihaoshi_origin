@@ -63,18 +63,12 @@
                                     <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
                                         <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }" style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
                                     </c:forEach>
-                                </span><br>
+                                </span><br><br>
                             <label>過敏源：</label><span>${meal.mealAllergen}</span>
                                 </p> <br>
                             <label>價格：</label><span>${meal.mealPrice}</span>
                                 </p> <br>
                             <label>食譜：</label><span>${meal.mealRecipe}</span>
-                                </p> <br>
-                            <label>銷售量：</label><span>${meal.saleVolume}</span>
-                                </p> <br>
-                            <label>評論人數：</label><span>${meal.commentPeople}</span>
-                                </p> <br>
-                            <label>評分：</label><span>${meal.commentScore}</span>
                                 </p> <br>
                                 <label>是否上架：</label><span>${meal.launch==1?"上架中" : "未上架"}</span>
                                 </p> <br>

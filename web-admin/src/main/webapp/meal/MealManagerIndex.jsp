@@ -18,19 +18,7 @@
 <img src="../images/JihaoshiPageHead.jpg" id="pageHead">
 <div class="block_N" style="margin:0px auto;">
     <!--搜尋欄開始-->
-    <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
-        <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded" id="searceKeyword">
-        <ul class="searchfield">
-            <li>
-                <input id="keyword" type="text" class="text ac_input" name="nameKeyword" placeholder="請輸入關鍵字" >
-                <input name="action" value="nameKeywordSearch" hidden>
-            </li>
-            <li>
-                <button type="submit" form="searceKeyword" >找菜單</button>
-            </li>
-        </ul>
-        </form>
-    </div>
+
     <!--搜尋欄結束-->
 </div>
 <div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
@@ -62,9 +50,19 @@
             <div class="block_C s_list">
                 <div class="Cm">
                     <div id="ItemContainer" class="Cm_C">
-                        <dl class="col3f" id="DRAA0A-A900BUT82">
-
-                        </dl>
+                        <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
+                            <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded" id="searceKeyword">
+                                <ul class="searchfield">
+                                    <li>
+                                        <input id="keyword" type="text" class="text ac_input" name="nameKeyword" placeholder="請輸入關鍵字" >
+                                        <input name="action" value="nameKeywordSearch" hidden>
+                                    </li>
+                                    <li>
+                                        <button type="submit" form="searceKeyword" >找菜單</button>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
 
                     </div>
                 </div>
