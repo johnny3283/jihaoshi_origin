@@ -14,6 +14,7 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 
 	private static final String GET_ALL_STMT = "from com.phyCouPromotionDetail.model.PhyCouPromotionDetailVO order by project_no";
 	private static final String GET_ONE_STMT = "from PhyCouPromotionDetailVO where project_no=:project_no and course_no=:course_no";
+	private static final String GET_MIN_PRICE_STMT = "select min(prom_price) from physical_course_promotion_detail d join physical_course_promotion_project p where p.prom_status=:prom_status and d.course_no=:course_no ";
 
 	@Override
 	public void insert(PhyCouPromotionDetailVO phyCouPromotionDetailVO) {
@@ -140,6 +141,26 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 	}
 
 	@Override
+	public Integer getMinPrice(Integer course_no) {
+		Integer minPrice = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createNativeQuery(GET_MIN_PRICE_STMT);
+			query.setParameter("prom_status", 0);
+			query.setParameter("course_no", course_no);
+			minPrice  = (Integer) query.list().get(0);
+//			phyCouPromotionDetailVO = (PhyCouPromotionDetailVO) session.get(PhyCouPromotionDetailVO.class, project_no);
+			session.getTransaction().commit();
+		} catch (RuntimeException ex) {
+			session.getTransaction().rollback();
+			throw ex;
+		}
+		return minPrice;
+		
+	}
+	
+	@Override
 	public List<PhyCouPromotionDetailVO> getAll() {
 		List<PhyCouPromotionDetailVO> list = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -185,66 +206,12 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 		phyCouPromotionDetailVO.setPhyCouPromotionVO(phyCouPromotionVO);
 		phyCouPromotionDetailVO.setPhyCouVO(phycouVO);
 		
-		dao.deleteOneCou(61, 2);
-		dao.deleteOnePro(61);
-	}
-//		EmpVO empVO1 = new EmpVO();
-//		empVO1.setEname("�d�ç�1");
-//		empVO1.setJob("MANAGER");
-//		empVO1.setHiredate(java.sql.Date.valueOf("2005-01-01"));
-//		empVO1.setSal(new Double(50000));
-//		empVO1.setComm(new Double(500));
-//		empVO1.setDeptVO(deptVO);
-//		dao.insert(empVO1);
-
-
-
-		//�� �ק�
-//		EmpVO empVO2 = new EmpVO();
-//		empVO2.setEmpno(7001);
-//		empVO2.setEname("�d�ç�2");
-//		empVO2.setJob("MANAGER2");
-//		empVO2.setHiredate(java.sql.Date.valueOf("2002-01-01"));
-//		empVO2.setSal(new Double(20000));
-//		empVO2.setComm(new Double(200));
-//		empVO2.setDeptVO(deptVO);
-//		dao.update(empVO2);
-
-
-
-		//�� �R��(�p��cascade - �h��emp2.hbm.xml�p�G�]�� cascade="all"��
-		// cascade="delete"�N�|�R���Ҧ��������-�]�A���ݳ����P�P�������䥦���u�N�|�@�ֳQ�R��)
-//		dao.delete(7014);
-
-
-
-		//�� �d��-findByPrimaryKey (�h��emp2.hbm.xml�����]��lazy="false")(�u!)
-//		EmpVO empVO3 = dao.findByPrimaryKey(7001);
-//		System.out.print(empVO3.getEmpno() + ",");
-//		System.out.print(empVO3.getEname() + ",");
-//		System.out.print(empVO3.getJob() + ",");
-//		System.out.print(empVO3.getHiredate() + ",");
-//		System.out.print(empVO3.getSal() + ",");
-//		System.out.print(empVO3.getComm() + ",");
-//		// �`�N�H�U�T�檺�g�k (�u!)
-//		System.out.print(empVO3.getDeptVO().getDeptno() + ",");
-//		System.out.print(empVO3.getDeptVO().getDname() + ",");
-//		System.out.print(empVO3.getDeptVO().getLoc());
-//		System.out.println("\n---------------------");
-
-
-
-		//�� �d��-getAll (�h��emp2.hbm.xml�����]��lazy="false")(�u!)
-//		List<PhyCouPromotionDetailVO> list = dao.getAll();
+//		Double price = dao.getMinPrice(5);
+//		System.out.println("price: "+ price);
 //		
-//		for (PhyCouPromotionDetailVO aPro : list) {
-//			// �`�N�H�U�T�檺�g�k (�u!)
-//			System.out.print(aPro.getPhyCouPromotionVO().getProject_no() + ",");
-//			System.out.print(aPro.getPhyCouPromotionVO().getProject_name() + ",");
-//			System.out.print(aPro.getPhyCouVO().getCourse_no() + ",");
-//			System.out.print(aPro.getPhyCouVO().getCourse_name() + ",");
-//			System.out.print(aPro.getProm_price() + ",");
-//			System.out.println();
-//		}
-//	}
+//		dao.deleteOneCou(61, 2);
+//		dao.deleteOnePro(61);
+	}
+
+
 }

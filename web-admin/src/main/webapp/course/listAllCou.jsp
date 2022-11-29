@@ -61,7 +61,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>所有課程資料 <a href="select_page.jsp"> ~回首頁</a></h3> 
+		 <h3>所有課程資料 <a href="select_page.jsp"> ~回課程管理首頁</a></h3> 
 	</td></tr>
 </table>
 

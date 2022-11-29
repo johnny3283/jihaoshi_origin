@@ -37,6 +37,11 @@ public class PhyCouSignUpService {
     public List<PhyCouSignUpVO> getAllSignUpCou(Integer member_no) {
 	    return dao.findByMemberNo(member_no);
 	}
+    
+    public PhyCouSignUpVO getOneOrder(Integer order_no) {
+    	return dao.findByOrderNo(order_no);
+    }
+    
 	
     public void deleteCou(Integer order_no, Integer signUpNum, Integer course_no) {
     	dao.delete(order_no, signUpNum, course_no);

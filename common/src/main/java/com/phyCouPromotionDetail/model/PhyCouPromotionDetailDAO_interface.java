@@ -7,6 +7,7 @@ public interface PhyCouPromotionDetailDAO_interface {
           public void update(PhyCouPromotionDetailVO phyCouPromotionDetailVO);
           public void deleteOnePro(Integer project_no);
           public void deleteOneCou(Integer project_no, Integer course_no);
+          public Integer getMinPrice(Integer course_no);
           public List<PhyCouPromotionDetailVO> findByPrimaryKey(Integer project_no, Integer course_no);
           public List<PhyCouPromotionDetailVO> getAll();
           

@@ -59,7 +59,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>所有促銷明細資料 <a href="<%= request.getContextPath()%>/phyCouPromotion/select_page.jsp"> ~回首頁</a></h3> 
+		 <h3>所有促銷明細資料 <a href="<%= request.getContextPath()%>/phyCouPromotion/select_page.jsp"> ~回課程促銷首頁</a></h3> 
 	</td></tr>
 </table>
 

@@ -59,10 +59,15 @@ public class PhyCouPromotionDetailService {
 	public void deleteOnePro(Integer project_no) {
 		dao.deleteOnePro(project_no);
 	}
+	
 	public List<PhyCouPromotionDetailVO> getOneDetail(Integer project_no, Integer course_no) {
 		return dao.findByPrimaryKey(project_no, course_no);
 	}
 
+	public Integer getMinPrice(Integer course_no) {
+		return dao.getMinPrice(course_no);
+	}
+	
 	public List<PhyCouPromotionDetailVO> getAll() {
 		return dao.getAll();
 	}

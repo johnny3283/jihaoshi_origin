@@ -3,12 +3,16 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.course.model.*"%>
 <%@ page import="com.signupcourse.model.*"%>
+<%@ page import="com.signupcourse.model.*"%>
+<%@ page import="com.mem.model.MemberVO"%>
+
 
 <%
-    Integer member_no=1;
+	HttpSession psession = request.getSession();
+	MemberVO member = (MemberVO) psession.getAttribute("member");
 	/*  List<PhyCouSignUpVO> list = (List<PhyCouSignUpVO>) request.getAttribute("list");*/
     PhyCouSignUpService phyCouSignUpSvc = new PhyCouSignUpService();
-	List<PhyCouSignUpVO> list = phyCouSignUpSvc.getAllSignUpCou(member_no);
+	List<PhyCouSignUpVO> list = phyCouSignUpSvc.getAllSignUpCou(member.getMemberNo());
     pageContext.setAttribute("list",list);
 
 %>

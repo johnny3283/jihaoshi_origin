@@ -1,6 +1,7 @@
 <%@page import="com.course.model.PhyCouVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -36,7 +37,7 @@
 <img src="<%= request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
 <table id="table-1">
-   <tr><td><h3>JiHaoJa 實體課程</h3></td></tr>
+   <tr><td><h3>JiHaoJa 實體課程<a href="${pageContext.request.contextPath}/index.jsp"> ~回首頁</a></h3></td></tr>
 </table>
 
 <h3>課程資料查詢:</h3>
@@ -112,9 +113,16 @@
      </FORM>
   </li>
 </ul> --%>
+<h3>新增課程資料：</h3>
 
 <ul>
   <li><a href='addCou.jsp'>新增</a>  一個實體課程</li>
+</ul>
+
+<h3>課程促銷資料管理：</h3>
+
+<ul>
+  <li><a href='${pageContext.request.contextPath}/phyCouPromotion/select_page.jsp'>管理</a>課程促銷資料</li>
 </ul>
 
 </body>

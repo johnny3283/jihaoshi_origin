@@ -49,6 +49,12 @@ public class PhyCouVO implements java.io.Serializable{
 	public void setCourse_no(Integer course_no) {
 		this.course_no = course_no;
 	}
+	@Override
+	public String toString() {
+		return "PhyCouVO [course_no=" + course_no + ", course_name=" + course_name + ", course_price=" + course_price
+				+ ", course_teacher=" + course_teacher + ", course_status=" + course_status
+				+ ", current_sign_up_people=" + current_sign_up_people + "]";
+	}
 	public Integer getCourse_no() {
 		return course_no;
 	}

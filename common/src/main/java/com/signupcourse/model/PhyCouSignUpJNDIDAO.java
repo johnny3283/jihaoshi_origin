@@ -296,6 +296,12 @@ public class PhyCouSignUpJNDIDAO implements PhyCouSignUpDAO_interface {
 		
 	}
 
+	@Override
+	public PhyCouSignUpVO findByOrderNo(Integer order_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 

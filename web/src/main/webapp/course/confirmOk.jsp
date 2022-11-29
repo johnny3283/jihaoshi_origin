@@ -4,8 +4,15 @@
 
 
 <%
-  PhyCouVO phyCouVO = (PhyCouVO) request.getAttribute("phyCouVO"); 
+/*   PhyCouVO phyCouVO = (PhyCouVO) request.getAttribute("phyCouVO");  */
   PhyCouSignUpVO phyCouSignUpVO = (PhyCouSignUpVO) request.getAttribute("phyCouSignUpVO"); 
+  PhyCouService phyCouSvc = new PhyCouService();
+  PhyCouVO phyCouVO = phyCouSvc.getOneCou(phyCouSignUpVO.getCourse_no());
+  
+/*   
+  pageContext.setAttribute("phyCouSignUpVO", phyCouSignUpVO);
+  pageContext.setAttribute("phyCouVO", phyCouVO); */
+
 %>                                
 
 <html>
@@ -64,11 +71,10 @@
 	    <tr><th>課程編號</th><td><%=phyCouVO.getCourse_no()%></td></tr>
 		<tr><th>課程名稱</th><td><%=phyCouVO.getCourse_name()%></td></tr>
 		<tr><th>上課時數</th><td><%=phyCouVO.getCourse_hr()%></td></tr>
-		<tr><th>課程費用</th><td><%=phyCouVO.getCourse_price()%></td></tr>
+		<tr><th>課程費用</th><td><%=phyCouSignUpVO.getOrder_price()%></td></tr>
 		<tr><th>授課老師</th><td><%=phyCouVO.getCourse_teacher()%></td></tr>
 		<tr><th>上課日期</th><td><%=phyCouVO.getCourse_date()%></td></tr>
 		<tr><th>上課地點</th><td><%=phyCouVO.getCourse_location()%></td></tr>
-		<tr><th>照片</th><td><img src="http://localhost:8081/myproject/course/DBGifReader?course_no=<%=phyCouVO.getCourse_no()%>"></td></tr>
 </table>
 
 </body>

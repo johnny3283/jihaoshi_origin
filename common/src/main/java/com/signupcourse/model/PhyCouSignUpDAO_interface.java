@@ -11,6 +11,7 @@ public interface PhyCouSignUpDAO_interface {
     public void delete(Integer order_no, Integer signUpNum, Integer course_no);
 //    public PhyCouVO findByPrimaryKey(Integer course_no);
     public List<PhyCouSignUpVO> getAll();
+    public PhyCouSignUpVO findByOrderNo(Integer order_no);
 
 //    public List<PhyCouSignUpVO> getAll(Map<String, String[]> map); 
 //	public List<PhyCouVO> getAll(Map<String, String[]> map);

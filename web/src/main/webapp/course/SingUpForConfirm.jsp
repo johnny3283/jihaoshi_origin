@@ -5,7 +5,7 @@
   PhyCouVO phyCouVO = (PhyCouVO) request.getAttribute("phyCouVO");
   HttpSession pCousession = request.getSession();
   pCousession.setAttribute("phyCouVO", phyCouVO);  
-  pCousession.setAttribute("member_no", 1);  
+  /* pCousession.setAttribute("member_no", 1);  */
 
 %>
 
@@ -63,20 +63,18 @@
 </table>
 
 <table>
-	    <tr><th>course_no</th><td><%=phyCouVO.getCourse_no()%></td></tr>
-		<tr><th>course_name</th><td><%=phyCouVO.getCourse_name()%></td></tr>
-		<tr><th>course_hr</th><td><%=phyCouVO.getCourse_hr()%></td></tr>
-		<tr><th>course_price</th><td><%=phyCouVO.getCourse_price()%></td></tr>
-		<tr><th>course_teacher</th><td><%=phyCouVO.getCourse_teacher()%></td></tr>
-		<tr><th>course_date</th><td><%=phyCouVO.getCourse_date()%></td></tr>
-		<tr><th>course_location</th><td><%=phyCouVO.getCourse_location()%></td></tr>
-		<tr><th>pic</th><td><img src="http://localhost:8081/myproject/course/DBGifReader?course_no=<%=phyCouVO.getCourse_no()%>"></td></tr>
+	    <tr><th>課程編號</th><td><%=phyCouVO.getCourse_no()%></td></tr>
+		<tr><th>課程名稱</th><td><%=phyCouVO.getCourse_name()%></td></tr>
+		<tr><th>課程時數</th><td><%=phyCouVO.getCourse_hr()%></td></tr>
+		<tr><th>促銷價格</th><td><%=phyCouVO.getCourse_price()%></td></tr>
+		<tr><th>援課老師</th><td><%=phyCouVO.getCourse_teacher()%></td></tr>
+		<tr><th>上課日期</th><td><%=phyCouVO.getCourse_date()%></td></tr>
+		<tr><th>上課教室</th><td><%=phyCouVO.getCourse_location()%></td></tr>
 		<tr><td>		
 			   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pCouCheckout/PCoucheckoutController" style="margin-bottom: 0px;">
 			     <input type="submit" value="確認報名">
 			     <input type="hidden" name="course_no"  value=<%=phyCouVO.getCourse_no() %>>
-			     <input type="hidden" name="member_no"  value="1">
-			     <input type="hidden" name="order_price"  value="<%=phyCouVO.getCourse_price()%>">
+			     <input type="hidden" name="dPrice"  value=<%=phyCouVO.getCourse_price()%>>
 			     <input type="hidden" name="action"	value="checkout"></FORM>
 			</td></tr>
 </table>

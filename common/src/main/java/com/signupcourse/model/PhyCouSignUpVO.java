@@ -9,6 +9,13 @@ import com.course.model.PhyCouVO;
 public class PhyCouSignUpVO implements java.io.Serializable{
 	
 
+	@Override
+	public String toString() {
+		return "PhyCouSignUpVO [order_no=" + order_no + ", member_no=" + member_no + ", sign_up_date=" + sign_up_date
+				+ ", update_time=" + update_time + ", order_price=" + order_price + ", order_status=" + order_status
+				+ ", course_no=" + course_no + "]";
+	}
+
 	private Integer order_no;
 	private Integer member_no;
 	private Date sign_up_date;

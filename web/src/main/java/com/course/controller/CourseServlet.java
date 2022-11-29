@@ -34,6 +34,8 @@ public class CourseServlet extends HttpServlet {
 	
 
 		if ("apply".equals(action)) { // 來自select_page.jsp的請求
+			System.out.println("========================================");
+			System.out.println("enter apply controller");
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -43,15 +45,23 @@ public class CourseServlet extends HttpServlet {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 			Integer course_no = Integer.valueOf(req.getParameter("course_no"));
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/course/select_page.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/course/listAllCou.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
+			Double temp = Double.valueOf(req.getParameter("dPrice"));
+			System.out.println("========================================");
+			System.out.println("set temp "+ temp);
+			int dPrice = temp.intValue();
+			System.out.println("========================================");
+			System.out.println("set dPrice "+ dPrice);
+		
+			
 				/***************************2.開始查詢資料*****************************************/
 				PhyCouService phyCouSvc = new PhyCouService();
+				
 				PhyCouVO phyCouVO = phyCouSvc.getOneCou(course_no);
 				if (phyCouVO== null) {
 					errorMsgs.add("查無資料");
@@ -63,7 +73,7 @@ public class CourseServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
-				
+				phyCouVO.setCourse_price(dPrice);
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("phyCouVO", phyCouVO); 
 				String url = "/course/SingUpForConfirm.jsp";

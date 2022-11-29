@@ -28,8 +28,8 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 		"SELECT * FROM PHYSICAL_COURSE_SIGNUP_LIST ORDER BY ORDER_NO";
 	private static final String GET_ALL_BY_MEMID_STMT= 
 		"SELECT * FROM PHYSICAL_COURSE_SIGNUP_LIST WHERE MEMBER_NO = ? ORDER BY ORDER_NO";
-	private static final String GET_ONE_STMT = 
-		"SELECT * FROM PHYSICAL_COURSE_SIGNUP_LIST WHERE MEMBER_NO = ?";
+	private static final String GET_ONE_BY_ORDER_NO_STMT = 
+		"SELECT * FROM PHYSICAL_COURSE_SIGNUP_LIST WHERE ORDER_NO = ?";
 	private static final String DELETE = 
 		"UPDATE PHYSICAL_COURSE_SIGNUP_LIST SET ORDER_STATUS = ? WHERE ORDER_NO = ?" ;
 	private static final String UPDATE_SIGNUP_NUM = 
@@ -216,6 +216,61 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 		return list;
 	}
 
+	@Override
+	public PhyCouSignUpVO findByOrderNo(Integer order_no) {
+		PhyCouSignUpVO phyCouSignUpVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);	
+			pstmt = con.prepareStatement(GET_ONE_BY_ORDER_NO_STMT);
+			pstmt.setInt(1,order_no);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				phyCouSignUpVO = new PhyCouSignUpVO();
+				phyCouSignUpVO.setOrder_no(rs.getInt("order_no"));
+				phyCouSignUpVO.setUpdate_time(rs.getDate("update_time"));
+				phyCouSignUpVO.setMember_no(rs.getInt("member_no"));
+				phyCouSignUpVO.setOrder_price(rs.getInt("order_price"));
+				phyCouSignUpVO.setOrder_status(rs.getInt("order_status"));
+				phyCouSignUpVO.setCourse_no(rs.getInt("course_no"));					
+				
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+				
+		return phyCouSignUpVO;
+		
+	}
 	@Override
 	public void delete(Integer order_no, Integer signUpNum, Integer course_no) {
 		Connection con = null;

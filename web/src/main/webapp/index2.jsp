@@ -309,17 +309,81 @@
 								test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
 					</li> &emsp;
 					<li class="nav-item">
-					<li><a class="nav-link active" aria-current="page"
-						href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if
-								test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a></li>
-					</li> &emsp;&emsp;
-					<li class="nav-item"><c:if test="${empty member}"><a class="nav-link active"
-						aria-current="page" href="${ctxPath}/member/login.jsp">登入 | 註冊</a></c:if>
-					</li>	
-					<li class="nav-item"><c:if test="${not empty member}">
-							<a class="nav-link active" aria-current="page"
-								href="<%=request.getContextPath()%>/member/MemberServlet?action=Logout">登出</a>
-						</c:if></li>
+<<<<<<< HEAD
+						<a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/latest_news/select_page.jsp">最新消息</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">好食產品專區</a>
+							<ul class="dropdown-menu">
+								<li>
+                  					<a class="dropdown-item" href="${ctxPath}/meal/mealController?action=listAll">產品清單</a>
+               	 				</li>
+                				<li>
+                 		     		<a class="dropdown-item" href="${ctxPath}/meal/RandomAssign.jsp">隨機配餐</a>
+      				            </li>
+                				<li>
+                  					<a class="dropdown-item" href="${ctxPath}/cart/MealCart.jsp">商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
+               					</li>
+							</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">課程專區</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="${pageContext.request.contextPath}/onlineCourse/ListAllOnlineCourse.jsp">線上課程專區</a></li>
+								<li><a class="dropdown-item" href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a></li>
+								<li><a class="dropdown-item" href="${pageContext.request.contextPath}/course/SignUpCouMgn.jsp">實體課程專區</a></li>
+							</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">康健新知論壇</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="<%=request.getContextPath()%>/faqservlet?action=getAll" role="button" data-bs-toggle="dropdown" aria-expanded="false">FAQ及客服專區</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/faqservlet?action=getAll">FAQ</a></li>
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerServiceServlet?action=getConnection">線上客服</a></li>
+							</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">會員專區</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="">個人資料管理</a></li>	
+								<li class="dropdown-submenu">
+									<a class="dropdown-item">訂單管理&emsp;></a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="${ctxPath}/order/orderController?action=orderList">商品訂單</a></li>
+										<li><a class="dropdown-item" href="${pageContext.request.contextPath}/onlineCourseOrderServlet?action=orderlist">線上課程訂單</a></li>
+									</ul>
+								</li>
+								<li><a class="dropdown-item">我的課程&emsp;></a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="${pageContext.request.contextPath}/onlineCourse/ManageCourse.jsp">線上課程</a></li>
+										<li><a class="dropdown-item" href="">實體課程</a></li>
+									</ul>
+								</li>
+								<li>
+                  					<a class="dropdown-item" href="${ctxPath}/mealCollect/list">我的收藏</a>
+                				</li>
+                				<li><a class="dropdown-item">我的評價&emsp;></a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="<%=request.getContextPath()%>/MemberOnlineCourseCommentServlet?action=getMember_For_Display">線上課程</a></li>
+										<li><a class="dropdown-item" href="<%=request.getContextPath()%>/phyCourseComment?action=getMember_For_Display">實體課程</a></li>
+									</ul>
+								</li>
+							</ul>
+					</li>
+					&emsp;&emsp;
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="${ctxPath}/cart/MealCart.jsp">商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
+					</li>
+					&emsp;
+					<li class="nav-item">
+						<li><a class="nav-link active" aria-current="page" href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a></li>
+					</li>
+					&emsp;&emsp;
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="${ctxPath}/member/login.jsp">登入 | 註冊</a>
+					</li>
 				</ul>
 			</div>
 		</div>
