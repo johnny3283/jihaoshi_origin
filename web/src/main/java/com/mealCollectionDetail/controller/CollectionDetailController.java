@@ -3,6 +3,7 @@ package com.mealCollectionDetail.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mealCollectionDetail.model.CollectionDetailService;
 import com.mealCollectionDetail.model.CollectionDetailVO;
+import com.mem.model.MemberVO;
 
 @Controller
 @RequestMapping("/mealCollect")
@@ -22,10 +24,12 @@ public class CollectionDetailController {
 
 //    @Autowired
     private HttpServletRequest req;
+    private HttpSession session;
 
-    public CollectionDetailController(CollectionDetailService collectionDetailSV, HttpServletRequest req) {
+    public CollectionDetailController(CollectionDetailService collectionDetailSV, HttpServletRequest req, HttpSession session) {
         this.collectionDetailSV = collectionDetailSV;
         this.req = req;
+        this.session = session;
     }
 
     @RequestMapping("/insert")
@@ -46,7 +50,8 @@ public class CollectionDetailController {
 
     @RequestMapping("/list")
     public String ListCollection(Model model) {
-        Integer memberNo=1;
+        MemberVO member =(MemberVO) session.getAttribute("member");
+        Integer memberNo=member.getMemberNo();
         List<CollectionDetailVO> collectionDetails = collectionDetailSV.listAll(memberNo);
         model.addAttribute("collectionDetails", collectionDetails);
         return "mealCollect/ListCollection.jsp";

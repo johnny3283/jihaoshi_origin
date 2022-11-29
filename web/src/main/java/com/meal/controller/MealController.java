@@ -52,7 +52,8 @@ public class MealController extends HttpServlet {
                 productPage = req.getRequestDispatcher("/nutrient/prodDetailList");
                 productPage.forward(req, res);
             } else {
-                res.sendRedirect("ProductNotFound.jsp");
+                productPage = req.getRequestDispatcher("ProductNotFound.jsp");
+                productPage.forward(req, res);
             }
 
         }
