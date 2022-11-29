@@ -196,9 +196,10 @@ table#table-1 {
 
 		</c:forEach>
 	</table>
-	<div style="margin: 0px auto;">
+	<br>
+	
 	<%@ include file="forum_article_page2.file"%>
-	</div>
+	
 </div>
 </body>
 </html>

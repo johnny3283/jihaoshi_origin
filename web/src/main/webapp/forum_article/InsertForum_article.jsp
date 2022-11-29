@@ -33,7 +33,7 @@
 
 <body bgcolor='white'>
 <%@ include file="../navbar.file" %>
-<div id="WRAPPER" class="">
+<div>
  <div style="display:flex;flex-direction:column;width:100%">
 	<h1 style="align-self:center;margin: 2rem 0">論壇文章新增</h1>
 	

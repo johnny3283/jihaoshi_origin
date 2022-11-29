@@ -30,6 +30,40 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.1.0/jquery.smartmenus.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js'></script>
 <title>JiHaoShi</title>
+<style>
+#inbutton {
+    position:relative;
+    overflow:hidden;
+    width:7rem;
+    color:black;
+    border:2px solid black;
+    background-color:transparent;
+    cursor:pointer;
+    line-height:2;
+    margin:0;
+    padding:0;
+    border-radius:1.5rem;
+    font-size:1.125rem;
+    outline:none;
+    transition:transform .125s;
+}
+#outbutton {
+    position:relative;
+    overflow:hidden;
+    width:5rem;
+    color:black;
+    border:2px solid black;
+    background-color:transparent;
+    cursor:pointer;
+    line-height:2;
+    margin:0;
+    padding:0;
+    border-radius:1.5rem;
+    font-size:1.125rem;
+    outline:none;
+    transition:transform .125s;
+}
+</style>
 </head>
 
 <body>
@@ -80,14 +114,17 @@
 								<li class="dropdown-submenu">
 									<a class="dropdown-item">最新消息管理&emsp;></a>
 									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="<%=request.getContextPath()%>/latest_news/select_page.jsp">最新消息列表</a></li>
-										<li><a class="dropdown-item" href="">新刪修</a></li>
+										<li><a class="dropdown-item" href="<%=request.getContextPath()%>/latest_news/listAllLatest_news.jsp">最新消息列表</a></li>
+										<li><a class="dropdown-item" href="<%=request.getContextPath()%>/latest_news/select_page.jsp">最新消息查詢</a></li>
+										<li><a class="dropdown-item" href="<%=request.getContextPath()%>/latest_news/InsertLatest_news.jsp">最新消息新增</a></li>
+										<li><a class="dropdown-item" href="<%=request.getContextPath()%>/latest_news/InsertLatest_news.jsp">最新消息修改</a></li>
 									</ul>
 								</li>
 								<li><a class="dropdown-item">康健新知論壇管理&emsp;></a>
 									<ul class="dropdown-menu">
 										<li><a class="dropdown-item" href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">康健新知論壇列表</a></li>
-										<li><a class="dropdown-item" href="">新刪修</a></li>
+										<li><a class="dropdown-item" href="<%= request.getContextPath() %>/forum_article/listAllForum_article.jsp">康健新知論壇文章列表</a></li>
+										<li><a class="dropdown-item" href="<%= request.getContextPath() %>/forum_comment/listAllForum_comment.jsp">康健新知論壇留言列表</a></li>
 									</ul>
 								</li>
                 				<li><a class="dropdown-item">FAQ管理&emsp;></a>
@@ -134,11 +171,19 @@
                	 				</li>
 							</ul>					
 					</li>
-					&emsp;&emsp;
-					
+					&emsp;
+					<c:if test="${not empty manager}">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="">登入 | 註冊</a>
+						&emsp;
+						管理員 : &emsp; ${manager.managerName}
+						&emsp;
+						權限編號 : &emsp; ${manager.authorityNo}
+						&emsp; 
+						<button id="outbutton">
+						<a href="./manager/ManagerServlet?action=Logout" style="display:inline-block; text-decoration:none;color:black;">登出</a>
+						</button>
 					</li>
+					</c:if>
 				</ul>
 			</div>
 		</div>
@@ -152,8 +197,6 @@
 		</div>
 	</div>
 	<!-- Feature Section End-->
-
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

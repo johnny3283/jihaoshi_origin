@@ -38,3 +38,20 @@
     outline:none;
     transition:transform .125s;
 }
+
+#onebutton {
+    position:relative;
+    overflow:hidden;
+    width:7rem;
+    color:#FFE1CA;
+    border:2px solid #FFE1CA;
+    background-color:transparent;
+    cursor:pointer;
+    line-height:2;
+    margin:0;
+    padding:0;
+    border-radius:1.5rem;
+    font-size:1.125rem;
+    outline:none;
+    transition:transform .125s;
+}

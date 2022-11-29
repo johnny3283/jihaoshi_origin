@@ -21,17 +21,6 @@ table#table-1 {
 	text-align: center;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
@@ -138,8 +127,7 @@ table th {
 		</c:forEach>
 	</table>
 	</div>
-	<div style="margin: 0px auto;">
+	<br>
 	<%@ include file="forum_comment_page2.file"%>
-	</div>
 </body>
 </html>

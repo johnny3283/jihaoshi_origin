@@ -25,6 +25,40 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.1.0/jquery.smartmenus.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.smartmenus/1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js'></script>
 <title>JiHaoShi</title>
+<style>
+#inbutton {
+    position:relative;
+    overflow:hidden;
+    width:7rem;
+    color:black;
+    border:2px solid black;
+    background-color:transparent;
+    cursor:pointer;
+    line-height:2;
+    margin:0;
+    padding:0;
+    border-radius:1.5rem;
+    font-size:1.125rem;
+    outline:none;
+    transition:transform .125s;
+}
+#outbutton {
+    position:relative;
+    overflow:hidden;
+    width:5rem;
+    color:black;
+    border:2px solid black;
+    background-color:transparent;
+    cursor:pointer;
+    line-height:2;
+    margin:0;
+    padding:0;
+    border-radius:1.5rem;
+    font-size:1.125rem;
+    outline:none;
+    transition:transform .125s;
+}
+</style>
 </head>
 
 <body>
@@ -109,18 +143,34 @@
 								</li>
 							</ul>
 					</li>
-					&emsp;&emsp;
+					&emsp;
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="${ctxPath}/cart/MealCart.jsp">商品購物車<c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
 					</li>
 					&emsp;
 					<li class="nav-item">
-						<li><a class="nav-link active" aria-current="page" href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a></li>
+						<a class="nav-link active" aria-current="page" href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a>
 					</li>
-					&emsp;&emsp;
+					&emsp;
+					<c:if test="${not empty member}">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="${ctxPath}/member/login.jsp">登入 | 註冊</a>
+						Hello!
+						${member.memberAccount}
+						&emsp;
+						<button id="outbutton">
+							<a href="<%=request.getContextPath()%>/member/MemberServlet?action=Logout" style="display:inline-block; text-decoration:none;color:black;">登出</a>
+						</button>
 					</li>
+					</c:if>
+					<c:if test="${empty member}">
+					<li class="nav-item">
+						&emsp;
+						${Guest}
+						<button id="inbutton">
+							<a href="${ctxPath}/member/login.jsp" style="display:inline-block; text-decoration:none;color:black;"> 登入 | 註冊</a>
+						</button>
+					</li>
+					</c:if>
 				</ul>
 			</div>
 		</div>
@@ -137,10 +187,7 @@
 			<button id="indexbutton"><a href="${ctxPath}/meal/mealController?action=listAll" style="text-decoration: none ; color:#FFE1CA ;">Get Start!</a></button>
 		</div>
 	</div>
-	<!-- Feature Section End-->
-
-
-
+	<!-- Feature Section End-->										
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

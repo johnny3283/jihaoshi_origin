@@ -19,10 +19,6 @@
     display: block;
     margin-bottom: 1px;
   }
-  h4 {
-    color: blue;
-    display: inline;
-  }
   #content {
 	display:flex;
 	flex-direction: column;

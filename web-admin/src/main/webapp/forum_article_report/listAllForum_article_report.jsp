@@ -1,5 +1,5 @@
 <%@ page import="com.forum_article_report.model.Forum_article_reportVO"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_article_report.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -17,58 +17,75 @@ String type = request.getParameter("type");
 
 <style>
 table#table-1 {
-	background-color:  #F0E68C;
 	border: 2px solid black;
 	text-align: center;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
 table {
-	width: 1280px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 95%;
+  table-layout: fixed;
 }
 
-table, th, td {
-	border: 1px solid #CCCCFF;
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
 }
 
-th, td {
-	padding: 5px;
-	text-align: center;
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
 }
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.button {
+	border-radius:1rem; 
+ 	border: 1px solid #ccc;
+}
+#content {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}
+#head {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}       
 </style>
 
 </head>
 <body bgcolor='white'>
-
-
-
-	<table id="table-1" style="width: 100%">
+<br>
+<div id="head">
+	<table id="table-1">
 		<tr>
 			<td>
 				<h3>論壇文章檢舉資料</h3>
-				<h4>
-					<a
-						href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
-				</h4>
+				<button class="button">
+					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp" style="text-decoration: none;color:#333;">回首頁</a>
+				</button>
 			</td>
 		</tr>
 	</table>
-
+</div>
+<div id="content">
 	<table style="width: 97.5vw">
 		<tr>
 <!-- 			<th>論壇文章檢舉編號</th> -->
@@ -78,7 +95,9 @@ th, td {
 			<th>檢舉狀態</th>
 			
 		</tr>
+		<div style="margin: 0px auto;">
 		<%@ include file="forum_article_report_page1.file"%>
+		</div>
 		<c:forEach var="forum_article_reportVO" items="${list}"
 			begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -99,7 +118,7 @@ th, td {
 				<td>
 					<FORM METHOD="post" ACTION="/web-admin/Forum_article_reportServlet" style="margin-bottom: 0px;">
 						 <c:if test="${forum_article_reportVO.report_status!=2}">	
-							<input type="submit" value="論壇文章檢舉處理">
+							<input type="submit" value="論壇文章檢舉處理" class="button">
 						 </c:if>
 						<input type="hidden" name="type" value="2">
 						<input type="hidden" name="whichPage" value="<%=whichPage%>"/>
@@ -124,8 +143,8 @@ th, td {
 
 		</c:forEach>
 	</table>
+	<br>
 	<%@ include file="forum_article_report_page2.file"%>
-
-	
+</div>	
 </body>
 </html>

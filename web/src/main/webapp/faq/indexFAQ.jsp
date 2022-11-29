@@ -160,9 +160,7 @@ table th {
 			</c:forEach>								
 			</table>
 			<br>
-			<div style="margin: 0px auto;">
-				<%@ include file="page2FAQ.file" %>
-			</div> 
+			<%@ include file="page2FAQ.file" %>
 		</div>
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,5 +1,5 @@
 <%@ page import="com.forum_comment.model.Forum_commentVO"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_comment.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,21 +24,12 @@ String type = request.getParameter("type");
   <script src="/web-admin/js/jquery-3.6.1.min.js" ></script>
   <script src="/web-admin/bootstrap-4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
 <title>論壇留言資料</title>
-<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
-    <style>
-        #pageHead { 
-            width: 100%;
-            height: 30%; 
-        }
+<style>
         div.divflex{
         display:flex;
         width:100%;
         margin:0;
         height:100vh-30%;
-        }
-        body{
-        height: 100vh;
-        background-color:#FFFAF0;
         }
         div.formdiv{
         style="width:80%%;
@@ -59,10 +50,6 @@ table#table-1 h4 {
 	margin-bottom: 1px;
 }
 
-h4 {
-	color: blue;
-	display: inline;
-}
 </style>
 
 <style>
@@ -85,13 +72,21 @@ th, td {
 .btn {
 	background-color: #FFBA3B;
 }
-
+.button {
+		border-radius:1rem; 
+ 		border: 1px solid #ccc;
+		}
+#head {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}    
 </style>
 
 </head>
 <body bgcolor='white'>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-
+<%@ include file="../navbar.file" %>
 <p>
    <a class="btn"  id="comment" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章留言狀態</a> 
   <button class="btn" id="forum_comment" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">文章留言檢舉處理</button>
@@ -101,17 +96,18 @@ th, td {
   <div class="col">
     <div class="collapse multi-collapse" id="multiCollapseExample1">
       <div class="card card-body">
+     	<div id="head">
      	<table id="table-1">
 		<tr>
 			<td>
 				<h3>論壇留言資料</h3>
-				<h4>
-					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
-				</h4>
+				<button class="button">
+					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp" style="text-decoration: none;color:#333;">回首頁</a>
+				</button>
 			</td>
 		</tr>
 	</table>
-
+</div>
 	<table>
 		<tr>
 <!-- 			<th>論壇文章留言編號</th> -->
@@ -122,7 +118,9 @@ th, td {
 			<th>留言狀態</th>
 			
 		</tr>
+		<div style="margin: 0px auto;">
 		<%@ include file="forum_comment_page1.file"%>
+		</div>
 		<c:forEach var="forum_commentVO" items="${list}"
 			begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -140,7 +138,7 @@ th, td {
 			<td>
 					<FORM METHOD="post" ACTION="/web-admin/Forum_commentServlet?whichPage=" <%=pageIndex%> style="margin-bottom: 0px;">
 						 
-						   <input type="submit" value="修改留言狀態"> 
+						   <input type="submit" value="修改留言狀態" class="button"> 
 						
 						<input type="hidden" name="type" value="1">
 						
@@ -161,7 +159,6 @@ th, td {
 		</c:forEach>
 	</table>
 	<%@ include file="forum_comment_page2.file"%>
-      </div>
     </div>
   </div>
   <div class="col">

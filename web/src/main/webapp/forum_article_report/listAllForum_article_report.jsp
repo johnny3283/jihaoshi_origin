@@ -13,25 +13,8 @@ pageContext.setAttribute("list", list);
 <html> 
 <head>
 <title>論壇文章檢舉資料</title>
-    <style>
-        div.divflex{
-        display:flex;
-        width:100%;
-        margin:0;
-        height:100vh-30%;
-        }
-        body{
-        height: 100vh;
-        background-color:#FFFAF0;
-        }
-        div.formdiv{
-        style="width:80%%;
-        background: #FFFAF0;
-        }
-    </style>
-    
-    <style>
-  table#table-1 {
+<style>
+table#table-1 {
     border: 2px solid black;
     text-align: center;
   }
@@ -40,22 +23,6 @@ pageContext.setAttribute("list", list);
     display: block;
     margin-bottom: 1px;
   }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
@@ -91,18 +58,21 @@ table th {
 	border-radius:1rem; 
  	border: 1px solid #ccc;
 }
-#content {
-	display:flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;"
-	margin: 0px auto;
-}
 #head {
 	display:flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;"
+}
+#content {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+}
+#forumtable {
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
 }       
 </style>
 
@@ -111,7 +81,7 @@ table th {
 <body bgcolor='white'>
 <%@ include file="../navbar.file" %>
 <br>
-	<div id="head">
+<div id="head">
 	<table id="table-1">
 		<tr>
 			<td>
@@ -122,9 +92,10 @@ table th {
 			</td>
 		</tr>
 	</table>
-	</div>
-	<div id="content">
-	<table>
+</div>
+<div id="content">
+	<div id="forumtable">
+		<table style="margin: 0px auto;">
 			<tr>
 			<!--  <th>論壇文章檢舉編號</th> -->
 				<th>論壇文章標題</th>
@@ -133,7 +104,7 @@ table th {
 			<!-- <th>檢舉狀態</th> -->				
 			</tr>
 			<div style="margin: 0px auto;">
-			<%@ include file="forum_article_report_page1.file"%>
+			<%@ include file="forum_article_report_page1.file" %>
 			</div>
 			<c:forEach var="forum_article_reportVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
@@ -144,12 +115,13 @@ table th {
 				<td>${forum_article_reportVO.member_no}</td>
 				<td>${forum_article_reportVO.report_reason}</td>
 			</tr>
-		</c:forEach>
-	</table>
+			</c:forEach>
+		</table>
+		<br>
+		<%@ include file="forum_article_report_page2.file" %>
 	</div>
+</div>
 	<br>
-	<div style="">
-	<%@ include file="forum_article_report_page2.file"%>
-	</div>
+	
 </body>
 </html>

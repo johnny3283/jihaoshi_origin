@@ -1,5 +1,5 @@
 <%@ page import="com.forum_article.model.Forum_articleVO"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="com.forum_article.model.*"%>
 
 <%
@@ -9,21 +9,12 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
 <html>
 <head>
 <title>論壇文章資料</title>
-<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
-    <style>
-        #pageHead { 
-            width: 100%;
-            height: 30%; 
-        }
+<style>    
         div.divflex{
         display:flex;
         width:100%;
         margin:0;
         height:100vh-30%;
-        }
-        body{
-        height: 100vh;
-        background-color:#FFFAF0;
         }
         div.formdiv{
         style="width:80%%;
@@ -43,49 +34,78 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
     display: block;
     margin-bottom: 1px;
   }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 95%;
+  table-layout: fixed;
+}
 
-<style>
-  table {
-	width: 1280px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.button {
+	border-radius:1rem; 
+ 	border: 1px solid #ccc;
+}
+#content {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}
+#head {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}       
 </style>
 
 </head>
 <body bgcolor='white'> 
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-
-
-
+<%@ include file="../navbar.file" %>
+<br>
+<div id="head">
 <table id="table-1">
 	<tr><td>
 		 <h3>論壇文章資料</h3>
-		 <h4><a href="<%= request.getContextPath() %>/forum_article/forum_article_select_page.jsp">回首頁</a></h4>
+		 <button class="button">
+			<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp" style="text-decoration: none;color:#333;">回最新消息查詢</a>
+		</button>
 	</td></tr>
 </table>
-
+</div>
+<br>
+<div id="content">
 <table>
 	<tr>
 		<th>論壇文章編號</th>
 		<th>文章標題</th>
 		<th>會員編號</th>
 		<th>編輯時間</th>
-		<th>文章內容</th>
-		
+		<th>文章內容</th>		
 	</tr>
 	<tr>
 		<td><%=forum_articleVO.getArticle_no()%></td>
@@ -96,6 +116,6 @@ Forum_articleVO forum_articleVO = (Forum_articleVO) request.getAttribute("forum_
 		
 	</tr>
 </table>
-
+</div>
 </body>
 </html>

@@ -135,7 +135,13 @@ table th {
 					</td>
 				</tr>
 			</c:forEach>
-			</table>            
+			</table>
+			<c:if test="${empty getOne_For_Display}">
+				<br>
+				<div style="margin: 0px auto;">
+				<span>尚無評價</span>
+				</div>
+			</c:if>            
           </div>
         </div>
 </body>

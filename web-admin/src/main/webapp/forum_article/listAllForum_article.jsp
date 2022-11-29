@@ -1,5 +1,5 @@
 <%@ page import="com.forum_article.model.Forum_articleVO"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_article.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -26,12 +26,7 @@ String type = request.getParameter("type");
   <script src="/web-admin/js/jquery-3.6.1.min.js" ></script>
   <script src="/web-admin/bootstrap-4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
 <title>論壇文章資料</title>
-<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
-    <style>
-        #pageHead { 
-            width: 100%;
-            height: 30%; 
-        }
+<style>  
         div.divflex{
         display:flex;
         width:100%;
@@ -49,7 +44,6 @@ String type = request.getParameter("type");
     </style>
 	<style>
 		table#table-1 {
-			background-color:  #F0E68C;
 			border: 2px solid f4f5e3;
 			text-align: center;
 		}
@@ -86,11 +80,16 @@ String type = request.getParameter("type");
 		.btn {
 			background-color: #FFBA3B;
 		}
+		.button {
+		border-radius:1rem; 
+ 		border: 1px solid #ccc;
+		}
 	</style>
 
 </head>
 <body bgcolor='white'> 
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+<%@ include file="../navbar.file" %>
+
 <p>
   <a class="btn"  id="article" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章狀態</a> 
   <button class="btn " id="article_forum" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">論壇文章檢舉處理</button>
@@ -99,16 +98,15 @@ String type = request.getParameter("type");
 <div class="row">
   <div class="">  <!-- 原本有class="col" -->
     <div class="collapse multi-collapse" id="multiCollapseExample1">
-      <div class="card card-body">
-      
+      <div class="card card-body">     
       
        <table id="table-1" style="width: 100%">
 		<tr>
 			<td>
 				<h3>論壇文章資料</h3>
-				<h4>
-					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
-				</h4>
+				<button class="button">
+					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp" style="text-decoration: none;color:#333;">回首頁</a>
+				</button>
 			</td>
 		</tr>
 	   </table>
@@ -123,9 +121,10 @@ String type = request.getParameter("type");
 			<th>文章狀態</th>
 			
 		</tr>
+		<div style="margin: 0px auto;">
 		<%@ include file="forum_article_page1.file"%>
-		<c:forEach var="forum_articleVO" items="${list}"
-			begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		</div>
+		<c:forEach var="forum_articleVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
 
 			<tr>
@@ -143,7 +142,7 @@ String type = request.getParameter("type");
 				<td>
 					<FORM METHOD="post" ACTION="/web-admin/Forum_articleServlet" <%=pageNumber%> style="margin-bottom: 0px;">
 						 
-						   <input type="submit" value="修改文章狀態"> 
+						   <input type="submit" value="修改文章狀態" class="button"> 
 						   
 					
 						<input type="hidden" name="type" value="1">
@@ -166,10 +165,9 @@ String type = request.getParameter("type");
 
 		</c:forEach>
 	</table>
-	<%@ include file="forum_article_page2.file"%>
-	
-	
-      </div>
+	<br>
+	<%@ include file="forum_article_page2.file"%>	
+    </div>
     </div>
   </div>
   <div class="">	<!-- 原本有class="col" -->

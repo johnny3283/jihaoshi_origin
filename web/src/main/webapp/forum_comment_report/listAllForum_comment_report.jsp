@@ -190,8 +190,7 @@ table th {
 		</c:forEach>
 	</table>
 	</div>
-	<div style="margin: 0px auto;">
+	<br>
 	<%@ include file="forum_comment_report_page2.file"%>
-	</div>
 </body>
 </html>
