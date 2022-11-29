@@ -2,6 +2,7 @@ package com.onlinecourseorder.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -50,21 +51,29 @@ public class OnlineCourseOrderServlet extends HttpServlet {
 		String orderNo = req.getParameter("orderNo");
 		OnlineCourseOrderVO order = courseorderSV.getOrderDetail(orderNo);
 		
-//		// 取得單筆訂單內的所有課程編號
-//		List<Integer> courseNo= new ArrayList<>();
-//		List<OnlineCourseOrderDetailVO> detail=order.getOrderDetailList();
-//		for(OnlineCourseOrderDetailVO all : detail) {
-//			courseNo.add(all.getCourseNo());
-//		}
-//		// 取得會員評論過的所有課程編號
-//		OnlineCourseCommentService commentSV= new OnlineCourseCommentService();
-//		List<OnlineCourseCommentVO> comment= commentSV.getOnlineCommentsByMemberNo(memberNo);
-//		List<Integer> memComment= new ArrayList<>();
-//		for(OnlineCourseCommentVO all : comment) {
-//			memComment.add(all.getCourseNo());
-//		}
-//		List<Integer> noComment= new ArrayList<>();
-				
+		// 取得單筆訂單內的所有課程編號
+		List<Integer> courseNo= new ArrayList<>();
+		List<OnlineCourseOrderDetailVO> detail=order.getOrderDetailList();
+		for(OnlineCourseOrderDetailVO all : detail) {
+			courseNo.add(all.getCourseNo());
+		}
+		// 取得會員評論過的所有課程編號
+		OnlineCourseCommentService commentSV= new OnlineCourseCommentService();
+		List<OnlineCourseCommentVO> comment= commentSV.getOnlineCommentsByMemberNo(memberNo);
+		List<Integer> memComment= new ArrayList<>();
+		for(OnlineCourseCommentVO all : comment) {
+			memComment.add(all.getCourseNo());
+		}
+		HashMap<Integer,Boolean> comments= new HashMap<Integer, Boolean>();
+		for(Integer course:courseNo) {
+			for(Integer memCom: memComment) {
+				if(course==memCom) {
+					comments.put(course,true);
+				}
+			}
+		}
+		
+		req.setAttribute("comments", comments);
 		req.setAttribute("order", order);
 		req.getRequestDispatcher("/onlineCourseOrder/OnlineCourseOrderDetail.jsp").forward(req, res);
 	}
