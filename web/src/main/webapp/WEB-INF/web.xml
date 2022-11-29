@@ -86,4 +86,14 @@
         <filter-name>onlyLoginFilter</filter-name>
         <url-pattern>/forum_article/InsertForum_article.jsp</url-pattern>
     </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>onlyLoginFilter</filter-name>
+        <url-pattern>/Forum_articleServlet</url-pattern>
+    </filter-mapping>
+ 
+ 
+    
+    
+    
 </web-app>

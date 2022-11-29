@@ -2,13 +2,13 @@
 
   <%if (rowsPerPage<rowNumber) {%>
     <%if(pageIndex>=rowsPerPage){%>
-        <A href="<%=request.getRequestURI()%>?whichPage=1"><button style="border-radius:1rem;border: 1px solid #ccc;">至第一頁</buttton></A>&nbsp;
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>"><button style="border-radius:1rem;border: 1px solid #ccc;">上一頁</buttton></A>&nbsp;
+        <button style="border-radius:1rem;border: 1px solid #ccc;"><A href="<%=request.getRequestURI()%>?whichPage=1" style="text-decoration: none;color:#333;">至第一頁</A></buttton>&nbsp;
+        <button style="border-radius:1rem;border: 1px solid #ccc;"><A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>" style="text-decoration: none;color:#333;">上一頁</A></buttton>&nbsp;
     <%}%>
   
     <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>"><button style="border-radius:1rem;border: 1px solid #ccc;">下一頁</buttton></A>&nbsp;
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>"><button style="border-radius:1rem;border: 1px solid #ccc;">至最後一頁</buttton></A>&nbsp;
+        <button style="border-radius:1rem;border: 1px solid #ccc;"><A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>" style="text-decoration: none;color:#333;">下一頁</A></buttton>&nbsp;
+        <button style="border-radius:1rem;border: 1px solid #ccc;"><A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>" style="text-decoration: none;color:#333;">至最後一頁</A></buttton>&nbsp;
     <%}%>
   <%}%>  
  

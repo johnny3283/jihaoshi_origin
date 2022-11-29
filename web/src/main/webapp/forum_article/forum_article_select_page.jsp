@@ -13,7 +13,7 @@
  
 <html>
 <head>
-<title>論壇文章首頁: Home</title>
+<title>論壇文章首頁</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -158,7 +158,7 @@
 
 <div style="text-align: center">
 <table id="table-1" style="margin: auto">
-   <tr style="text-align: center;"><td><h3>論壇文章首頁: Home</h3><h4>( Forum_article )</h4></td></tr>
+   <tr style="text-align: center;"><td><h3>論壇文章首頁</h3></td></tr>
 </table>
 <div style="margin:0 auto;text-align: center">
 <h6 style="">論壇文章新增</h6>

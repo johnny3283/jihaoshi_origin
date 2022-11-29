@@ -156,7 +156,7 @@ table#table-1 {
 			<td>
 			<h3>論壇文章資料</h3>
 			<button class="button">
-		 	<a href="<%= request.getContextPath() %>/forum_article/forum_article_select_page.jsp" style="text-decoration: none;color:#333;">回首頁</a>
+		 	<a href="<%= request.getContextPath() %>/forum_article/forum_article_select_page.jsp" style="text-decoration: none;color:#333;">回康健新知論壇首頁</a>
 		 	</button>
 			</td>
 		</tr>

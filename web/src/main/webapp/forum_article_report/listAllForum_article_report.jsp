@@ -96,6 +96,7 @@ table th {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;"
+	margin: 0px auto;
 }
 #head {
 	display:flex;
@@ -146,7 +147,8 @@ table th {
 		</c:forEach>
 	</table>
 	</div>
-	<div style="margin: 0px auto;">
+	<br>
+	<div style="">
 	<%@ include file="forum_article_report_page2.file"%>
 	</div>
 </body>
