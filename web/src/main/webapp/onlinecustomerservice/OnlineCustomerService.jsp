@@ -26,7 +26,7 @@
 </style>
 </head>
 <body onload="connect();" onunload="disconnect();">
-<%@ include file="navbar.file" %>
+<%@ include file="../navbar.file" %>
 <br>
 <div id="content">
 <div id="box">

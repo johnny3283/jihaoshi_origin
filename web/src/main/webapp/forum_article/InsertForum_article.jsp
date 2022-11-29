@@ -32,7 +32,7 @@
 </head>
 
 <body bgcolor='white'>
-<%@ include file="navbar.file" %>
+<%@ include file="../navbar.file" %>
 <div id="WRAPPER" class="">
  <div style="display:flex;flex-direction:column;width:100%">
 	<h1 style="align-self:center;margin: 2rem 0">論壇文章新增</h1>
@@ -47,7 +47,7 @@
 			<br>
 			<br> <input type="hidden" name="action" value="insert">
 			
-			<button type="submit" form="form1" value="送出">送出新增</button>
+			<button type="submit" form="form1" value="送出" style="border-radius:1rem; border: 1px solid #ccc;">送出新增</button>
 			
 		</div>
 	</form>

@@ -4,72 +4,53 @@
 <title>線上即時客服-客服人員</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link type="text/css" href="../css/jihaoshi.css" rel="stylesheet">
-<link rel="stylesheet" href="../css/customerService.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customerService.css" type="text/css" />
 <style>
-#pageHead {
-	width: 100%;
-	height: 30%;
+#content {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	
+}
+#row {
+	display: flex;
+	flex-direction: column;
+	overflow: auto; 
+}
+#box {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	flex-direction: column;
 }
 
-a {
-	font-size: 20px;
-}
 </style>
 </head>
 <body onload="connect();" onunload="disconnect();">
-
-	<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
-	<div class="block_N" style="margin: 0px auto;">
-		<!--搜尋欄開始-->
-		<div class="Nm"
-			style="display: flex; justify-content: center; align-items: center;">
-			<ul class="searchfield">
-				<li><input id="keyword" type="text" class="text ac_input"
-					placeholder="請輸入關鍵字" autocomplete="off"></li>
-				<li><input id="btn_search" type="button" class="button"
-					value="找菜單"></li>
-			</ul>
+<%@ include file="../navbar.file" %>
+<div id="content">
+	<br>
+	<div id="row"><!-- 列表 -->
+		<div>
+			<h4 class="statusOutput">LIST</h4>
 		</div>
-		<!--搜尋欄結束-->
-	</div>
-	<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-		<div id="CONTENT" class="layout-wrapper">
-			<div class="layout-center" style="text-align: center">
-				<!--側邊欄區塊開始-->
-				<dl class="block_W">
-					<dd id="CategoryContainer">
-						<ul class="treeview">
-							<li id="cate_D" class="expanded"><H1>功能列表</H1>
-								<ul class="main">
-									<li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
-									</li>
-								</ul>
-						</ul>
-					</dd>
-				</dl>
-				<!--側邊欄區塊結束-->
-				<div class="block_C s_list">
-					<div class="Cm">
-						<div id="ItemContainer" class="Cm_C">
-							<div id="row"></div> <!-- 列表 -->
-							<h3 id="statusOutput" class="statusOutput"></h3>
-							<div style="width:50vw;float:right">	<!-- 訊息欄+狀態欄的母層，設50%寬度 用float往右靠 -->			
-							<div id="messagesArea" style="width:100%;" class="panel message-area"></div>	 <!-- style="width:100%;"是為了撐滿母層 滿版 -->	
-							<div class="panel input-area" style="width:100%;">								<!-- style="width:100%;"是為了撐滿母層 滿版 -->
-								<span>請輸入訊息 : </span> 
-								<input id="message" class="text-field" type="text" placeholder="Message"
-								 onkeydown="if (event.keyCode == 13) sendMessage();" /> 
-								<input type="submit" id="sendMessage" class="button" value="傳送" onclick="sendMessage();" /> 
-								<input type="button" id="disconnect" class="button" value="離開對話" onclick="disconnect();" />
-							</div>
-							</div>	
-						</div>
-					</div>
-				</div>
-			</div>
+		<div id="list"></div>		
+	</div> 
+	<br>
+	<div id="box">
+		<div>
+			<h4 id="statusOutput" class="statusOutput"></h4>
+		</div>	
+		<div id="messagesArea" class="panel message-area"></div>
+		<div class="panel input-area">
+		<span>請輸入訊息 : </span> 
+		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" />
+		<!-- 鍵盤代碼13(Enter) -->
+		<input type="submit" id="sendMessage" class="button" value="傳送" onclick="sendMessage();" style="border-radius:1rem; border: 1px solid #ccc;"/> 
+		<input type="button" id="disconnect" class="button" value="離開對話" onclick="disconnect();" style="border-radius:1rem; border: 1px solid #ccc;"/>
 		</div>
-	</div>
+	</div>	
+</div>
 	<script>
 		//動態取得路徑
 		var MyPoint = "/CustomerServerWS/customerService";
@@ -167,14 +148,14 @@ a {
 		// 有好友上線或離線就更新列表
 		function refreshFriendList(jsonObj) {
 			var friends = jsonObj.users;
-			var row = document.getElementById("row");
+			var list = document.getElementById("row");
 			row.innerHTML = '';
 			for (var i = 0; i < friends.length; i++) {
 				if (friends[i] === self) {
 					continue;
 				} //如果user名稱是自己就跳過
-				row.innerHTML += '<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h2>'
-						+ friends[i] + '</h2></div>';
+				row.innerHTML += '<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h3 class="user">'
+						+ friends[i] + '</h3></div>';
 				// <div id= 1 class="column" name="friendName" value= member ><h2>member</h2></div>'
 			}
 			addListener();

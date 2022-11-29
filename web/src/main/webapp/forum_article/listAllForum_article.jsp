@@ -1,5 +1,5 @@
 <%@ page import="com.forum_article.model.Forum_articleVO"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_article.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -14,13 +14,7 @@ pageContext.setAttribute("list", list);
 <html>
 <head>
 <title>論壇文章資料</title>
-
- <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
-    <style>
-        #pageHead { 
-            width: 100%;
-            height: 30%; 
-        }
+<style>
         div.divflex{
         display:flex;
         width:100%;
@@ -35,63 +29,134 @@ pageContext.setAttribute("list", list);
         style="width:80%%;
         background: #FFFAF0;
         }
-    </style>
-
-
-<style>
+#head {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}
+#content {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}       
 table#table-1 {
-	background-color: #F0E68C;
 	border: 2px solid black;
 	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
 }
 
 h4 {
 	color: blue;
 	display: inline;
 }
-</style>
 
-<style>
 table {
-	width: 1280px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 95%;
+  table-layout: fixed;
 }
 
-table, th, td {
-	border: 1px solid #CCCCFF;
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
 }
 
-th, td {
-	padding: 5px;
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+table#table-1 {	
+	border: 2px solid black;
 	text-align: center;
+}
+.button {
+ 	border-radius:1rem; 
+ 	border: 1px solid #ccc;
+}
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
 }
 </style>
 
 </head>
-
 <body bgcolor='white'>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-
-
+<%@ include file="../navbar.file" %>
+<br>
+	<div id="head">
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>論壇文章資料</h3>
-				<h4>
-					<a href="<%=request.getContextPath()%>/forum_article/forum_article_select_page.jsp">回首頁</a>
-				</h4>
+			<h3>論壇文章資料</h3>
+			<button style="border-radius:1rem; border: 1px solid #ccc;">
+		 	<a href="<%= request.getContextPath() %>/forum_article/forum_article_select_page.jsp" style="text-decoration: none;color:#333;">回首頁</a>
+		 	</button>
 			</td>
 		</tr>
 	</table>
-
+	</div>
+<div id="content">
 	<table>
 		<tr>
 			<th>論壇文章編號</th>
@@ -101,20 +166,16 @@ th, td {
 			<th>文章內容</th>
 			
 		</tr>
+		<div style="margin: 0px auto;">
 		<%@ include file="forum_article_page1.file"%>
-		<c:forEach var="forum_articleVO" items="${list}"
-			begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-
-
+		</div>
+		<c:forEach var="forum_articleVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
 				<td>${forum_articleVO.article_no}</td>
-				<td><a href="/web/Forum_articleServlet?article_no=${forum_articleVO.article_no}&action=getOne_For_Display">
-     					${forum_articleVO.article_name} </a></td>
+				<td><a href="/web/Forum_articleServlet?article_no=${forum_articleVO.article_no}&action=getOne_For_Display">${forum_articleVO.article_name} </a></td>
 				<td>${forum_articleVO.member_no}</td>
 				<td>${forum_articleVO.article_time}</td>
-				<td>${forum_articleVO.article_content}</td>
-				
-   
+				<td>${forum_articleVO.article_content}</td>				
 <!-- 				<td> -->
 <!-- 					<FORM METHOD="post" ACTION="/web/Forum_article_reportServlet" -->
 <!-- 						style="margin-bottom: 0px;"> -->
@@ -135,6 +196,9 @@ th, td {
 
 		</c:forEach>
 	</table>
+	<div style="margin: 0px auto;">
 	<%@ include file="forum_article_page2.file"%>
+	</div>
+</div>
 </body>
 </html>

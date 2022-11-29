@@ -1,5 +1,5 @@
 <%@ page import="com.forum_article.model.Forum_articleVO"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_article.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -14,13 +14,7 @@ pageContext.setAttribute("list", list);
 <html>
 <head>
 <title>論壇文章資料</title>
-
- <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
-        #pageHead { 
-            width: 100%;
-            height: 30%; 
-        }
         div.divflex{
         display:flex;
         width:100%;
@@ -40,7 +34,6 @@ pageContext.setAttribute("list", list);
 
 <style>
 table#table-1 {
-	background-color: #F0E68C;
 	border: 2px solid black;
 	text-align: center;
 }
@@ -78,20 +71,19 @@ th, td {
 </head>
 
 <body bgcolor='white'>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-
-
+<%@ include file="../navbar.file" %>
+<br>
 	<table id="table-1">
 		<tr>
 			<td>
 				<h3>論壇文章資料</h3>
-				<h4>
-					<a href="<%=request.getContextPath()%>/index.jsp">回即好食首頁</a>
-				</h4>
+				<button style="border-radius:1rem; border: 1px solid #ccc;">
+					<a href="<%=request.getContextPath()%>/index.jsp" style="text-decoration: none;color:#333;">回即好食首頁</a>
+				</button>
 			</td>
 		</tr>
 	</table>
-
+<div id="content" style="display:flex;flex-direction: column;">
 	<table>
 		<tr>
 			<th>論壇文章編號</th>
@@ -101,7 +93,9 @@ th, td {
 			<th>文章內容</th>
 			
 		</tr>
+		<div style="margin: 0px auto;">
 		<%@ include file="forum_article_page1.file"%>
+		</div>
 		<c:forEach var="forum_articleVO" items="${list}"
 			begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -134,6 +128,9 @@ th, td {
 
 		</c:forEach>
 	</table>
+	<div style="margin: 0px auto;">
 	<%@ include file="forum_article_page2.file"%>
+	</div>
+</div>
 </body>
 </html>

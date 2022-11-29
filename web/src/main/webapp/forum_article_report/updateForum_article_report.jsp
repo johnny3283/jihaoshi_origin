@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.forum_article_report.model.Forum_article_reportVO"%>
 
@@ -14,7 +14,6 @@ Forum_article_reportVO forum_article_reportVO = (Forum_article_reportVO) request
  
 <style>
 table#table-1 {
-	background-color: #CCCCFF;
 	border: 2px solid black;
 	text-align: center;
 }
@@ -25,10 +24,22 @@ table#table-1 h4 {
 	margin-bottom: 1px;
 }
 
-h4 {
-	color: blue;
-	display: inline;
+.button {
+	border-radius:1rem; 
+ 	border: 1px solid #ccc;
 }
+#content {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}
+#head {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;"
+}       
 </style>
 
 <style>
@@ -50,22 +61,24 @@ th, td {
 
 </head>
 <body bgcolor='white'>
-
+<%@ include file="../navbar.file" %>
+<br>
+<div id="head">
 	<table id="table-1">
 		<tr>
 			<td>
 				<h3>論壇留言修改</h3>
-				<h4>
-					<a
-						href="<%=request.getContextPath()%>/forum_article_report/forum_article_report_select_page.jsp">
-						<img src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
-				</h4>
+				<button class="button">
+					<a href="<%=request.getContextPath()%>/forum_article_report/forum_article_report_select_page.jsp">回首頁</a>
+				</button>
 			</td>
 		</tr>
 	</table>
-
-	<h3>資料修改:</h3>
-
+</div>
+<div>
+	<h3>資料修改</h3>
+</div>
+<div>
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -75,7 +88,7 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-
+</div>
 	<FORM METHOD="post" ACTION="/web-admin/Forum_article_reportServlet" name="form1">
 		<table>
 			<tr>

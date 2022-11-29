@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,7 @@
 	
 </head>
 <body>
-<%@ include file="navbar.file" %>
+<%@ include file="../navbar.file" %>
 						<div class="orderDetail">
 							<div>線上課程訂單編號:${order.orderNo}</div>
 							<div>會員編號:${order.memberNo}</div>
@@ -49,18 +50,30 @@
 					    <div>
 							<c:forEach var="detail" items="${order.orderDetailList}">
 								<div class="orderPhoto">
-									<form action="${ctxPath}/onlinecoursecomment/addOnlineCourseComment.jsp" >
+									
 									<div>
 										<div>線上課程編號:${detail.courseNo}</div>
 										<div>線上課程名稱:${detail.courseName}</div>
 										<div>線上課程價格:${detail.coursePrice}</div>
 										<br>
-										<div>&emsp;&emsp;<input type="submit" value="我要評價" style="border-radius:1rem; border: 1px solid #ccc;">
-										<input type="hidden" name="courseName" value="${detail.courseName}">
-										<input type="hidden" name="courseNo" value="${detail.courseNo}">
-										</div>
-									</div>
-									</form>
+										<c:choose>
+										<c:when test="">
+											<div>
+												<button style="border-radius:1rem; border: 1px solid #ccc;"><a href="<%=request.getContextPath()%>/MemberOnlineCourseCommentServlet?action=getMember_For_Display" style="text-decoration: none;color:#333;">查看我的評價</a></button>			
+											</div>
+										</c:when>
+										<c:otherwise>					
+											<form action="${ctxPath}/onlinecoursecomment/addOnlineCourseComment.jsp" >
+											<div>										
+											&emsp;&emsp;
+											<input type="submit" value="我要評價" style="border-radius:1rem; border: 1px solid #ccc;">
+											<input type="hidden" name="courseName" value="${detail.courseName}">
+											<input type="hidden" name="courseNo" value="${detail.courseNo}">
+											</div>
+											</form>
+										</c:otherwise>
+										</c:choose>										
+									</div>									
 								    <div>
 								    	<img src="data:image/*;base64, ${detail.orderPhotoBaseStr64}">
 								    </div>

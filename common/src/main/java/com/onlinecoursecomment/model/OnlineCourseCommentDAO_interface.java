@@ -16,6 +16,7 @@ public interface OnlineCourseCommentDAO_interface{
     public OnlineCourseCommentVO findByPrimaryKey(Integer commentNo);
     
     public List<OnlineCourseCommentVO> getAll();
+    
     // 查詢某課程的所有評價(一對多)(回傳 Set)
     public List<OnlineCourseCommentVO> getOnlineCommentsByCourseNo(Integer courseNo);
     // 查詢某會員寫的所有評價(一對多)(回傳 Set)
