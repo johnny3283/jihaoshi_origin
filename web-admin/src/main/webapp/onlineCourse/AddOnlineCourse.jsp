@@ -248,10 +248,10 @@ position: relative;
             <input class="input" type="text" id="teacher" name="courseTeacher" placeholder="線上課程師資" value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCourseTeacher()%>" />
 
             <label for="people"></label>
-            <input class="input" type="text" id="people" name="commentPeople" placeholder="評論人數" value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCommentPeople()%>" />
+            <input class="input" type="text" id="people" name="commentPeople" placeholder="評論人數" value="0" hidden />
 
             <label for="score"></label>
-            <input class="input" type="text" id="score" name="commentScore" placeholder="評論分數" value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCommentScore()%>" />
+            <input class="input" type="text" id="score" name="commentScore" placeholder="評論分數" value="0"  hidden />
             
             <label for="videostring"></label>
             <input class="input" type="text" id="videostring" name="courseVideo" placeholder="影片串流字串" value="<%=(onlinecourseVO == null) ? "" : onlinecourseVO.getCourseVideo()%>" />

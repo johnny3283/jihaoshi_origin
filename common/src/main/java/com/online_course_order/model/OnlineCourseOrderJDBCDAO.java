@@ -86,7 +86,8 @@ public class OnlineCourseOrderJDBCDAO implements OnlineCourseOrderDAO_interface 
 				+ "from Online_course_order o "
 				+ "join member m "
 				+ "on o.member_no = m.member_no "
-				+ "where o.member_no = ?";
+				+ "where o.member_no = ? "
+				+ "order by order_time desc";
 		try (Connection conn = ds.getConnection();
 			 PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, memberNo);

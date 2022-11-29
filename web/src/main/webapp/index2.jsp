@@ -309,8 +309,8 @@
 								test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
 					</li> &emsp;
 					<li class="nav-item">
-<<<<<<< HEAD
-						<a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/latest_news/select_page.jsp">最新消息</a>
+
+						<a class="nav-link active" aria-current="page" href="${ctxpath}/web/latest_news/listAllLatest_news.jsp">最新消息</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">好食產品專區</a>

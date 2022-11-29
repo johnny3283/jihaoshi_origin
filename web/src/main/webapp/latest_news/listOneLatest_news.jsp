@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="com.latest_news.model.*"%>
 
 <%
@@ -10,12 +10,7 @@ Latest_newsVO latest_newsVO = (Latest_newsVO) request.getAttribute("latest_newsV
 <head>
 <title>最新消息資料</title>
 
-<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
-        #pageHead { 
-            width: 100%;
-            height: 30%; 
-        }
         div.divflex{
         display:flex;
         width:100%;
@@ -71,35 +66,62 @@ h4 {
 
 <style>
   table {
-	width: 1280px;
+	
 	background-color: white;
-	margin-top: 5px;
+	margin-top: 50px;
 	margin-bottom: 5px;
   }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
+  
   th, td {
     padding: 5px;
     text-align: center;
   }
 </style>
 
+<style>
+
+.orderDetail{
+width: 80%;
+margin: auto;	
+}
+.orderDetail table tr {
+
+    	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    }
+    
+    .orderDetail table th {
+    	min-width: 130px;
+    	text-align: center;
+    }
+    
+    .orderDetail table td {
+    	width:auto;
+    }
+    
+    ul,li {
+    	list-style:none;
+    }
+    
+    li > form {
+    	margin-left: 50%;
+    	translate:-50%;
+    }
+    
+    h1 {
+    	text-align: center;
+    	font-size: 2.5rem;
+    	color: grey;
+    }
+</style>
+
 </head>
 
-<body bgcolor='white'>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
+<body>
+<%@ include file="index.file" %>
 
+<div class="orderDetail">
 
-<body bgcolor='white'>
-
-
-<table id="table-1">
-	<tr><td>
-		 <h3>最新消息資料</h3>
-		 <h4><a href="<%= request.getContextPath() %>/latest_news/select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
+<h1>單筆最新消息</h1>
 
 <table>
 	<tr>

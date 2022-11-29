@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.online_course.model.*"%>
@@ -11,13 +11,8 @@
 <head>
 <meta charset="UTF-8">
 <title>線上課程瀏覽專區</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
- <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
+
     <style>
-        #pageHead {
-            width: 100%;
-            height: 30%;
-        }
         div.divflex{
         display:flex;
         width:100%;
@@ -43,17 +38,18 @@
 	flex-wrap: wrap;
 /* 	border: 1px solid black; */
 	border-radius: 10px;
-	background: #fffcec;
+/* 	background: #fffcec; */
 }
 
 .block {
 	margin: 2% auto;
- 	border: 2px  #919f01 solid; 
+ 	border: 2px  #f4f5e3 solid; 
 	width: 30%;
 	height: auto%;
 	text-align: center;
 	border-radius: 10px;
-	background: #fffcec;
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    /* 	background: #fffcec; */
 	/*   line-height: 100px; */
 }
 
@@ -68,7 +64,7 @@
 .photo {
 
 	width: 100%;
-	height: 225px;
+	height: 250px;
 	border-radius: 10px;
 	line-height: 150px;
 }
@@ -104,28 +100,10 @@ height: 25px;
 }
 </style>
  
-
- 
 </head>
-<body bgcolor='white'>
-<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
+<body>
+<%@ include file="index.file" %>
 
-
-<div id="WRAPPER" class="">
-    <div class="divflex">
-        <div class="" style="text-align:center;background-color:#FFFAF0;widtH:13%; height:100vw; background-color:#F3E3C3;">
-            <!--側邊欄區塊開始-->
-                    <ul class="treeview">
-                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
-                            <ul class="main">
-                                 <li>
-                                    <a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
-                                </li>
-                            </ul>
-                      </li>
-                 </ul>
-          </div>   
-            <!--側邊欄區塊結束-->
     <div style="display:flex;flex-direction:column;width:100%;text-align: center">
 	<div>
 	<h1 style="align-self:center;margin: 2rem 0;text-align: center;font-size:3rem;color:grey;">我的課程管理</h1>
@@ -168,7 +146,7 @@ height: 25px;
         						<div class="content">
         							<div style="text-align:left;margin-left:10px;font-weight:bolder">課程編號 : \${onlineCourse.courseNo}</div>
         							<div style="text-align:left;margin-left:10px;font-weight:bolder">課程名稱 : \${onlineCourse.courseName}</div>
-        							<button onclick="showDetail(\${onlineCourse.courseNo})";class="look" style="text-align:right;font-weight:bolder;color:red;float: right; margin: 10px;">點我觀看</button>
+        							<button onclick="showDetail(\${onlineCourse.courseNo})";class="look" style="text-align:right;font-weight:bolder;color:gray;float: right; margin: 10px;border: 3px solid #F3E3C3;border-radius:10px">點我觀看</button>
         						</div>
         					</div>`);
         			}

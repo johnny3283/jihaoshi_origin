@@ -1,5 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.latest_news.model.*"%>
 
 <html>
 <head>
@@ -7,13 +8,7 @@
 <title>Jihaoshi</title>
 <title>最新消息首頁: Home</title> 
 
-
-<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
     <style>
-        #pageHead { 
-            width: 100%;
-            height: 30%; 
-        }
         a {
             font-size: 20px;
         }
@@ -37,23 +32,14 @@
 
 
 
-<body bgcolor='white'>
-<img src="<%=request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
-<div class="block_N" style="margin:0px auto;"></div>
-<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-  <div id="CONTENT" class="layout-wrapper">
-    <div class="layout-center" style="text-align:center">
-      <!--側邊欄區塊開始-->
-      <dl class="block_W">
-        <dd id="CategoryContainer">
-          <ul class="treeview">
-            <li id="cate_D" class="expanded"><H1>功能列表</H1>
-              <ul class="main">
-               <li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a></li>               
-        </dd>
-      </dl>
-      <!--側邊欄區塊結束-->
+<body>
+<%@ include file="index.file" %>
 
+<div class="block_N" style="margin:0px auto;"></div>
+<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search"></div>
+  <div id="CONTENT" class="layout-wrapper"></div>
+    <div class="layout-center" style="text-align:center"></div>
+   
 <h3>資料查詢:</h3>
 	
 <%-- 錯誤表列 --%>
@@ -66,9 +52,7 @@
 	</ul>
 </c:if>
 
-<ul>
-  <li><a href='<%= request.getContextPath() %>/latest_news/listAllLatest_news.jsp'>List</a> all Latest_news.  <br><br></li>
-  
+<ul> 
   
 <!--   <li> -->
 <!--     <FORM METHOD="post" ACTION="/web-admin/Latest_newsServlet" > -->
