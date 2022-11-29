@@ -104,7 +104,7 @@ img {
 </head>
 
 <body>	
-	<%@ include file="index.file" %>
+	<%@ include file="../navbar.file" %>
     <div
 		style="display: flex; flex-direction: column; width: 100%; text-align: center">
 	  <div>
