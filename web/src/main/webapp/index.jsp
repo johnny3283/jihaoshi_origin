@@ -161,7 +161,7 @@
 							<a href="<%=request.getContextPath()%>/member/MemberServlet?action=Logout" style="display:inline-block; text-decoration:none;color:black;">登出</a>
 						</button>
 					</li>
-
+					</c:if>
 					<c:if test="${empty member}">
 					<li class="nav-item">
 						&emsp;
@@ -193,9 +193,11 @@
 			<button id="indexbutton"><a href="${ctxPath}/meal/mealController?action=listAll" style="text-decoration: none ; color:#FFE1CA ;">Get Start!</a></button>
 		</div>
 	</div>
-	<!-- Feature Section End-->										
+	<!-- Feature Section End-->
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js">
+
+	</script>
 </body>
 
 </html>
