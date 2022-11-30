@@ -117,7 +117,7 @@ margin: auto;
 </head>
 
 <body>
-<%@ include file="index.file" %>
+<%@ include file="../navbar.file" %>
 
 <div class="orderDetail">
 

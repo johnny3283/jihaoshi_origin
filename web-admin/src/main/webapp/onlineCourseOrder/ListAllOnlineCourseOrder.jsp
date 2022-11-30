@@ -1,5 +1,5 @@
 <%@ page import="com.online_course_order.model.OnlineCourseOrderVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.online_course.model.*"%>
@@ -8,56 +8,157 @@
 <html>
 <head>
 	<title>所有訂單資料</title>
-	<link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
 	<style>
-		#pageHead {
-			width: 100%;
-			height: 30%;
-		}
+    ul,li {
+    	list-style:none;
+    }
 	</style>
+	 <style>
+        body {
+            background: #fafafa url(https://jackrugile.com/images/misc/noise-diagonal.png);
+            color: #444;
+            font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif;
+            
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        table {
+            background: #FFFCEC;
+            border-collapse: separate;
+            font-size: 12px;
+            line-height: 24px;
+            margin: 30px auto;
+            text-align: center;
+            
+          
+        }
+
+        th {
+            background-color:#faedcd;          
+            font-weight: bold;
+            padding: 10px 15px;
+            position: relative;          
+            color:black;
+        }
+
+           
+        td {
+            border-right: 1px solid #fff;
+            border-left: 1px solid #e8e8e8;
+            border-top: 1px solid #fff;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 10px 15px;
+            position: relative;
+            transition: all 300ms;
+        }
+
+        td:first-child {
+            box-shadow: inset 1px 0 0 #fff;
+        }
+
+        td:last-child {
+            border-right: 1px solid #e8e8e8;
+            box-shadow: inset -1px 0 0 #fff;
+        }
+
+        tr {
+            background: url(https://jackrugile.com/images/misc/noise-diagonal.png);
+        
+        }
+
+        tr:nth-child(odd) td {
+            background: white url(https://jackrugile.com/images/misc/noise-diagonal.png);
+               
+        }
+
+        tr:last-of-type td {
+            box-shadow: inset 0 -1px 0 #fff;
+        }
+
+        tr:last-of-type td:first-child {
+            box-shadow: inset 1px -1px 0 #fff;
+        }
+
+        tr:last-of-type td:last-child {
+            box-shadow: inset -1px -1px 0 #fff;
+        }
+
+        tbody:hover td {
+            color: transparent;
+            text-shadow: 0 0 3px #aaa;
+        }
+
+        tbody:hover tr:hover td {
+            color: #444;
+            text-shadow: 0 1px 0 #fff;
+        }
+        .h3,h3 {
+            font-size: calc(2rem + .8vw) !important;
+            line-height: 15px;
+            margin: auto;
+            text-align: center;
+            color:grey;      
+            background-color:white;
+            
+        }
+
+    </style>
+    
+    <style>
+    html, body {
+  height: 100%;
+}
+
+.wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  width: 100px;
+  height: 30px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  }
+  
+  
+    
+    </style>
 </head>
-<body bgcolor='white' style="position:relative">
-	<header>
-		<img src="./images/JihaoshiPageHead.jpg" id="pageHead">
-		<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-			<div id="CONTENT" class="layout-wrapper">
-				<div class="layout-center" style="text-align: center">
-				<!--側邊欄區塊開始-->
-					<dl class="block_W">
-						<dd id="CategoryContainer">
-							<ul class="treeview">
-								<li id="cate_D" class="expanded"><H1>功能列表</H1>
-									<ul class="main">
-										<li><a
-											href="<%=request.getContextPath()%>/meal/MealInsert.jsp">新增菜單</a>
-										</li>
-										<li><a href="<%=request.getContextPath()%>/index.jsp">回首頁</a>
-										</li>
-									</ul>
-							</ul>
-						</dd>
-					</dl>
-					<!--側邊欄區塊結束-->
-				</div>
-			</div>
-		</div>
-	</header>
-	<section style="position:absolute;top:75%;left:30%;">
+<body>
+<%@ include file="../navbar.file" %>
+	<section style="position:absolute;top:30%;left:15%;gap:10px; ">
 	<table>
-		<c:if test="${not empty errorMsgs}">
-			<font style="color: red">請修正以下錯誤:</font>
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message}</li>
-				</c:forEach>
-			</ul>
-		</c:if>
 		<ul>
-			<li style="margin-bottom: 20px; padding-left: 100px;">
-				<b>輸入會員編號 (如1):</b>
-				<input type="text" id="memberNo">
-				<button onclick="searchByMemberId()">送出</button>
+			<li style="margin-bottom: 20px;">
+				<b><span style="font-size:18px;">請輸入會員編號 (如1):</span></b>
+				<input type="text" style="border-radius: 50px;border: 2px solid #5B5B5B;" id="memberNo">
+<!-- 				<button onclick="searchByMemberId()">送出</button> -->
+				 <button onclick="searchByMemberId()" id='search' name="action" value="getOne_For_Display" style="margin-left: 5px;width:auto;border-radius: 10px; border: .5px solid #f4f5e3;background: #F3E3C3; height:28px"><svg style="" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="grey" class="bi bi-search" viewBox="0 0 16 16">
+    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+    </FORM>
 			</li>
+		</ul>
 	</table>
 	<table id="tableResult" style="display:none">
 		<thead>
@@ -120,11 +221,11 @@
 										<form method="post" action="onlineCourseOrderServlet">
 											<input type="hidden" name="action" value="searchOrderDetail">
 											<input type="hidden" name="orderNo" value="\${order.orderNo}">
-											<input type="submit" value="查看訂單明細">
+											<input class="wrap button" type="submit" value="查看訂單明細">
 										</form>
 									</td>
 									<td id="tdStatus\${order.orderNo}">
-										\${order.orderStatus == 0 ? '<button onclick="changeStatus(' + order.orderNo + ')">訂單已成立</button>' : ''}
+										\${order.orderStatus == 0 ? '<button class="wrap button" onclick="changeStatus(' + order.orderNo + ')">訂單已成立</button>' : ''}
 										\${order.orderStatus == 1 ? '訂單已取消' : ''}
 									</td>
 								</tr>

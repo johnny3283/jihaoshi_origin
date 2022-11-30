@@ -102,8 +102,8 @@
     </style>
     <style>
     html, body {
-  height: 100%;
-}
+    height: 100%;
+    }
 
 .wrap {
   height: 100%;
@@ -136,7 +136,9 @@
 </head>
 
 <body>
-	<%@ include file="../navbar.file" %>
+
+<%@ include file="../navbar.file" %>
+
 <!-- 	<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search"></div> -->
 <!-- 		<div id="CONTENT" class="layout-wrapper"></div> -->
 			
@@ -144,7 +146,7 @@
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>會員單筆線上課程訂單</h3>				
+				<h3>會員線上課程訂單</h3>				
 			</td>
 		</tr>
 	</table>

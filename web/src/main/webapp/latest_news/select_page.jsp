@@ -33,7 +33,7 @@
 
 
 <body>
-<%@ include file="index.file" %>
+<%@ include file="../navbar.file" %>
 
 <div class="block_N" style="margin:0px auto;"></div>
 <div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search"></div>

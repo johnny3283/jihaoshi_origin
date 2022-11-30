@@ -166,6 +166,9 @@
 								<li>
                   					<a class="dropdown-item" href="${pageContext.request.contextPath}/onlineCourse/searchAll">線上課程管理</a>
                	 				</li>
+               	 					<li>
+                  					<a class="dropdown-item" href="${pageContext.request.contextPath}/onlineCourseOrderServlet?action=orderlist">線上課程訂單管理</a>
+               	 				</li>
                	 				<li>
                   					<a class="dropdown-item" href="<%=request.getContextPath()%>/OnlineCourseCommentReportServlet?action=getAll">線上課程評論檢舉</a>
                	 				</li>
