@@ -118,7 +118,7 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">會員專區</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="">個人資料管理</a></li>	
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/getOneMem">個人資料管理</a></li>
 								<li class="dropdown-submenu">
 									<a class="dropdown-item">訂單管理&emsp;></a>
 									<ul class="dropdown-menu">
@@ -161,7 +161,7 @@
 							<a href="<%=request.getContextPath()%>/member/MemberServlet?action=Logout" style="display:inline-block; text-decoration:none;color:black;">登出</a>
 						</button>
 					</li>
-					</c:if>
+
 					<c:if test="${empty member}">
 					<li class="nav-item">
 						&emsp;
@@ -171,6 +171,12 @@
 						</button>
 					</li>
 					</c:if>
+          &emsp;&emsp;
+					<li class="nav-item"><c:if test="${not empty member}">
+						<a class="nav-link active" aria-current="page"
+						   href="<%=request.getContextPath()%>/member/MemberServlet?action=Logout">登出</a>
+					</c:if></li>
+
 				</ul>
 			</div>
 		</div>

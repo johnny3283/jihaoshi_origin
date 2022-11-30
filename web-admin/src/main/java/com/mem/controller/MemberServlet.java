@@ -213,7 +213,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
-			String url = "/listAllMember.jsp";
+			String url = "/member/listOneMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}

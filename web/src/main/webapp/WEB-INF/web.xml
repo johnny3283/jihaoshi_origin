@@ -22,12 +22,17 @@
 
     <filter-mapping>
         <filter-name>onlyLoginFilter</filter-name>
-        <url-pattern>/member/getOneMem</url-pattern>
+        <url-pattern>/getOneMem</url-pattern>
     </filter-mapping>
     
     <filter-mapping>
         <filter-name>onlyLoginFilter</filter-name>
         <url-pattern>/MemberOnlineCourseCommentServlet</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>onlyLoginFilter</filter-name>
+        <url-pattern>/phyCourseComment</url-pattern>
     </filter-mapping>
     
     <filter-mapping>

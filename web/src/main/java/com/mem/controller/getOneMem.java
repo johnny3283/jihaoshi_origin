@@ -51,9 +51,10 @@ public class getOneMem extends HttpServlet {
 			MemberVO member = memSvc.getOneMem(No);
 
 
-			Gson gson = new Gson();
-			res.setContentType("application/json; charset=UTF-8");
-			res.getWriter().write(gson.toJson(member));
+		req.setAttribute("MemberVO", member);
+		String url = "/member/listOneMember.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url);
+		successView.forward(req, res);
 
 		}
 	}

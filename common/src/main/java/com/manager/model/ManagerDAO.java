@@ -29,7 +29,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT * from backend_manager ";
 	private static final String GET_ONE_STMT = "SELECT manager_no, manager_name, manager_ip, manager_account, manager_password, manager_status FROM backend_manager where manager_no = ?";
 	private static final String DELETE = "DELETE FROM backend_manager where manager_no = ?";
-	private static final String UPDATE = "UPDATE backend_manager set manager_name=?,manager_ip=?,manager_account=?,manager_password=? where manager_no = ?";
+	private static final String UPDATE = "UPDATE backend_manager set manager_name=?,manager_account=?,manager_password=?,manager_ip=?, manager_status=? where manager_no = ?";
 	private static final String Login = "SELECT * FROM backend_manager where manager_account = ? and manager_password = ?";
 	private static final String GET_AUTHORITY = "SELECT b.manager_no,e.authority_no\r\n"
 			+ "	FROM authority_detail a \r\n"
@@ -91,10 +91,11 @@ public class ManagerDAO implements ManagerDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, ManagerVO.getManagerName());
-			pstmt.setString(2, ManagerVO.getManagerIp());
-			pstmt.setString(3, ManagerVO.getManagerAccount());
-			pstmt.setString(4, ManagerVO.getManagerPassword());
-			pstmt.setInt(5, ManagerVO.getManagerNo());
+			pstmt.setString(2, ManagerVO.getManagerAccount());
+			pstmt.setString(3, ManagerVO.getManagerPassword());
+			pstmt.setString(4, ManagerVO.getManagerIp());
+			pstmt.setInt(5, ManagerVO.getManagerStatus());
+			pstmt.setInt(6, ManagerVO.getManagerNo());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -285,45 +286,6 @@ public class ManagerDAO implements ManagerDAO_interface {
 		}
 		return null;
 	}
-
-	@Override
-	public void delete(Integer managerNo) {
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(DELETE);
-
-			pstmt.setInt(1, managerNo);
-
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			se.printStackTrace();
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
-	}
-
 	@Override
 	public List<ManagerVO> getAll() {
 		List<ManagerVO> list = new ArrayList<ManagerVO>();

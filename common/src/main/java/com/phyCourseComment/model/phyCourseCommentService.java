@@ -22,17 +22,16 @@ public class phyCourseCommentService {
 
 		return phyCourseCommentVO;
 	}
-	public phyCourseCommentVO updatePhyCourseComment(Integer commentNo,Integer memberNo,Integer courseNo,String commentCentent,Integer commentScore) {
+	public phyCourseCommentVO updatePhyCourseComment(Integer commentNo,Integer memberNo,Integer courseNo,String commentContent) {
 
-		phyCourseCommentVO onlineCourseCommentVO = new phyCourseCommentVO();
-		onlineCourseCommentVO.setCommentNo(commentNo);
-		onlineCourseCommentVO.setMemberNo(memberNo);
-		onlineCourseCommentVO.setCourseNo(courseNo);
-		onlineCourseCommentVO.setCommentContent(commentCentent);
-		onlineCourseCommentVO.setCommentScore(commentScore);
-		dao.update(onlineCourseCommentVO);
+		phyCourseCommentVO phyVO = new phyCourseCommentVO();
+		phyVO.setCommentNo(commentNo);
+		phyVO.setMemberNo(memberNo);
+		phyVO.setCourseNo(courseNo);
+		phyVO.setCommentContent(commentContent);
+		dao.update(phyVO);
 
-		return onlineCourseCommentVO;
+		return phyVO;
 	}
 	public void deletePhyCourseComment(Integer commentNo) {
 		dao.delete(commentNo);

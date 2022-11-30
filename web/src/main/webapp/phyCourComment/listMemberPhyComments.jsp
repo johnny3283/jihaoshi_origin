@@ -1,31 +1,23 @@
+<%@ page import="com.cart.model.CartProdVO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.*" %>
-<%@ page import="com.manager.model.*" %>
-
-<%
-    ManagerService mgrSvc = new ManagerService();
-    ManagerVO MemberVO = (ManagerVO) request.getAttribute("ManagerVO");
-%>
-<!DOCTYPE html>
+<%@ page import="com.phyCourseComment.model.*"%>
 <html>
 <head>
-
-
-    <title>listOneManager</title>
+    <title>我的線上課程評價</title>
     <style>
         #content {
             display: flex;
             justify-content: center;
             align-items: center;
         }
-
         #Commenttable {
             display: flex;
             justify-content: center;
             flex-direction: column;
         }
-
         table {
             border: 1px solid #ccc;
             border-collapse: collapse;
@@ -105,6 +97,7 @@
             table td:last-child {
                 border-bottom: 0;
             }
+
     </style>
 </head>
 <body>
@@ -112,58 +105,39 @@
 <br>
 <div id="CONTENT">
     <div id="Commenttable">
-
-        <c:if test="${not empty errorMsgs}">
-            <font style="color: red">請修正以下錯誤:</font>
-            <ul>
-                <c:forEach var="message" items="${errorMsgs}">
-                    <li style="color: red">${message}</li>
-                </c:forEach>
-            </ul>
-        </c:if>
-        <table>
+        <table style="margin: 0px auto;">
             <tr>
-                <th>管理員編號</th>
-                <th>管理員姓名</th>
-                <th>管理員帳號</th>
-                <th>管理員IP</th>
-                <th>管理員狀態</th>
-
-
-            </tr>
+                <th>實體課程評論編號</th>
+                <th>實體課程編號</th>
+                <th>實體課程名稱</th>
+                <th>評論內容</th>
+                <th>修改</th>
+                <th>刪除</th>
+                <c:forEach var="phyCourseCommentVO" items="${getOne_For_Display}">
             <tr>
+            <td>${phyCourseCommentVO.commentNo}</td>
+            <td>${phyCourseCommentVO.courseNo}</td>
+            <td>${phyCourseCommentVO.courseName}</td>
 
-                <td>${ManagerVO.managerNo}</td>
-                <td>${ManagerVO.managerName}</td>
-                <td>${ManagerVO.managerAccount}</td>
-                <td>${ManagerVO.managerIp}</td>
-                <td>${ManagerVO.managerStatus}</td>
-                <td>
-                    <FORM METHOD="post"
-                          ACTION="../manager/ManagerServlet"
-                          style="margin-bottom: 0px;">
-                        <input type="submit" value="修改"> <input
-                            type="hidden" name="managerNo"
-                            value="${ManagerVO.managerNo}"> <input
-                            type="hidden" name="action" value="getOne_For_Update">
-
-                    </FORM>
-                </td>
-
-
+            <td>${phyCourseCommentVO.commentContent}</td>
+            <td>
+                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/phyCourseComment" style="margin-bottom: 0px;">
+                    <input type="submit" value="修改">
+                    <input type="hidden" name="commentNo" value="${phyCourseCommentVO.commentNo}">
+                    <input type="hidden" name="action" value="getOne_For_Update">
+                </FORM>
+            </td>
+            <td>
+                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/phyCourseComment" style="margin-bottom: 0px;">
+                    <input type="submit" value="刪除">
+                    <input type="hidden" name="commentNo" value="${phyCourseCommentVO.commentNo}">
+                    <input type="hidden" name="action" value="delete">
+                </FORM>
+            </td>
             </tr>
+            </c:forEach>
         </table>
-
-        </dl>
     </div>
 </div>
-</div>
-</div>
-
-</div>
-</div>
-<!-- 	<a href='frontPage.jsp'>到首頁</a> -->
-
-
 </body>
 </html>

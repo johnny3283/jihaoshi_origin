@@ -14,7 +14,7 @@
 	<div class="wrapper fadeInDown">
 		<div id="formContent">
 			<!-- Tabs Titles -->
-			<h2 class="active">Sign In</h2>
+			<h2 class="active">管理員登入</h2>
 			<br>
 			<c:if test="${not empty errorMsgs}">
 				<font style="color: red">請修正以下錯誤:</font>

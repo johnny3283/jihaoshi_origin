@@ -1,92 +1,151 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
-<%@ page import="com.mem.model.*"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.mem.model.*" %>
 
 <%
-MemService memSvc = new MemService();
-MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
+    MemService memSvc = new MemService();
+    MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-	background-color: lightgray;
-}
+    <title>listOneMember</title>
+    <style>
+        #content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-h1 {
-	color: blue;
-	display: inline;
-	margin-left: 43%;
-}
-</style>
+        #Commenttable {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
 
-<style>
-table {
-	width: 800px;
-	/* 	background-color: #79798c; */
-	margin-top: 5px;
-	margin-bottom: 5px;
-	margin-left: auto;
-	margin-right: auto;
-}
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 95%;
+            table-layout: fixed;
+        }
 
-table, th, td {
-	border: 1px solid black;
-}
+        table caption {
+            font-size: 1.5em;
+            margin: .5em 0 .75em;
+        }
 
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-</style>
-<style>
-#td.password {
-	color: red;
-}
-</style>
+        table tr {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: .35em;
+        }
 
-<title>listOneMember</title>
+        table th,
+        table td {
+            padding: .625em;
+            text-align: center;
+        }
+
+        table th {
+            font-size: .85em;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                border: 0;
+            }
+
+            table caption {
+                font-size: 1.3em;
+            }
+
+            table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid #ddd;
+                display: block;
+                margin-bottom: .625em;
+            }
+
+            table td {
+                border-bottom: 1px solid #ddd;
+                display: block;
+                font-size: .8em;
+                text-align: right;
+            }
+
+            table td::before {
+                /*
+                * aria-label has no advantage, it won't be read inside a table
+                content: attr(aria-label);
+                */
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+    </style>
+
+
 </head>
 <body>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<table>
-		<tr>
-			<th>會員編號</th>
-			<th>會員姓名</th>
-			<th>會員電話</th>
-			<th>會員暱稱</th>
-			<th>會員地址</th>
-			<th>會員e-mail</th>
-			<th>會員狀態</th>
+<%@ include file="../navbar.file" %>
+<br>
+<div id="CONTENT">
+    <div id="Commenttable">
 
-		</tr>
-		<tr>
+        <c:if test="${not empty errorMsgs}">
+            <font style="color: red">請修正以下錯誤:</font>
+            <ul>
+                <c:forEach var="message" items="${errorMsgs}">
+                    <li style="color: red">${message}</li>
+                </c:forEach>
+            </ul>
+        </c:if>
+        <table>
+            <tr>
+                <th>會員編號</th>
+                <th>會員姓名</th>
+                <th>會員電話</th>
+                <th>會員暱稱</th>
+                <th>會員地址</th>
+                <th>會員e-mail</th>
+                <th>會員狀態</th>
 
-			<td>${MemberVO.memberNo}</td>
-			<td>${MemberVO.memberName}</td>
-			<td>${MemberVO.memberPhone}</td>
-			<td>${MemberVO.memberNickname}</td>
-			<td>${MemberVO.memberAddress}</td>
-			<td>${MemberVO.memberEmail}</td>
-			<td>${MemberVO.memberState}</td>
+            </tr>
+            <tr>
 
+                <td>${MemberVO.memberNo}</td>
+                <td>${MemberVO.memberName}</td>
+                <td>${MemberVO.memberPhone}</td>
+                <td>${MemberVO.memberNickname}</td>
+                <td>${MemberVO.memberAddress}</td>
+                <td>${MemberVO.memberEmail}</td>
+                <td>${MemberVO.memberState}</td>
+            </tr>
+        </table>
+    </div>
+</div>
 
-
-
-		</tr>
-	</table>
-	<a href='frontPage.jsp'>到首頁</a>
-	<br>
-	<br>
 
 </body>
 </html>

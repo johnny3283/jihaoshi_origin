@@ -13,7 +13,7 @@
   <div class="wrapper fadeInDown">
         <div id="formContent">
             <!-- Tabs Titles -->
-            <h2 class="active"> Sign In </h2>
+            <h2 class="active">會員登入</h2>
             <a href="<%=request.getContextPath()%>/member/addmember.jsp">
             <h2 class="inactive underlineHover">Sign Up
             </h2>

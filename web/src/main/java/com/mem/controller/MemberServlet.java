@@ -223,8 +223,6 @@ public class MemberServlet extends HttpServlet {
 			}
 
 			MemberVO member = new MemberVO();
-//			memVO.setMemberAccount(memberacc);
-//			memVO.setMemberPassword(memberpas);
 
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memberVO", member);
@@ -250,17 +248,13 @@ public class MemberServlet extends HttpServlet {
 			session.setAttribute("member", member);
 			session.setAttribute("memberNo", member.getMemberNo());
 	
-//			Gson gson = new Gson();
-//			res.setContentType("application/json; charset=UTF-8");
-//			res.getWriter().write(gson.toJson(member));
-//			String location = (String) session.getAttribute("location");
-//			if (location != null) {
-//				session.removeAttribute("location");
-//				res.sendRedirect(location);
-//			}
 
+			String location = (String) session.getAttribute("location");
+			if (location != null) {
+				session.removeAttribute("location");
+				res.sendRedirect(location);
+			}
 			res.sendRedirect(req.getContextPath() + "/index.jsp");
-
 		}
 
 		// 登出

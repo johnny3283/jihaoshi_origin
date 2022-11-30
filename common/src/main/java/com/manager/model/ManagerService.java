@@ -23,24 +23,18 @@ public class ManagerService {
 		return mgrVO;
 	}
 
-	public ManagerVO updateEmp(Integer managerNo,String managerName, String managerIp,
-			String managerAccount, String managerPassword,Integer managerStatus) {
-
+	public ManagerVO updateEmp(Integer managerNo,String managerAccount,String managerPassword,
+							   String managerName, String managerIp,Integer managerStatus) {
 		ManagerVO ManagerVO = new ManagerVO();
 		ManagerVO.setManagerNo(managerNo);
-		ManagerVO.setManagerName(managerName);
-		ManagerVO.setManagerIp(managerIp);
 		ManagerVO.setManagerAccount(managerAccount);
 		ManagerVO.setManagerPassword(managerPassword);
+		ManagerVO.setManagerName(managerName);
+		ManagerVO.setManagerIp(managerIp);
 		ManagerVO.setManagerStatus(managerStatus);
 		dao.update(ManagerVO);
 		return ManagerVO;
 	}
-
-	public void deleteEmp(Integer managerNo) {
-		dao.delete(managerNo);
-	}
-
 	public List<ManagerVO> getAll() {
 		return dao.getAll();
 	}

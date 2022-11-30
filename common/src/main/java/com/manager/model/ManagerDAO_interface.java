@@ -7,8 +7,6 @@ public interface ManagerDAO_interface {
 
 	public void update(ManagerVO ManagerVO);
 
-	public void delete(Integer managerNo);
-
 	public ManagerVO findByPrimaryKey(Integer managerNo);
 
 	public List<ManagerVO> getAll();

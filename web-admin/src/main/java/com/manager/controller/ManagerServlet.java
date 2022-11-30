@@ -78,7 +78,7 @@ public class ManagerServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		
+
 		if ("getOne_For_Update".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -106,21 +106,21 @@ public class ManagerServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		
+
 		if ("update".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-			
+
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer managerno = Integer.valueOf(req.getParameter("managerNo").trim());
-			String manageracc = req.getParameter("managerAccount");		
-			String managerpwd = req.getParameter("managerPassword");		
+			String manageracc = req.getParameter("managerAccount");
+			String managerpwd = req.getParameter("managerPassword");
 			String managername = req.getParameter("managerName");
 			String managerip = req.getParameter("managerIp");
 			Integer managerstate = Integer.valueOf(req.getParameter("managerStatus").trim());
-																	
+
 			if (manageracc == null || manageracc.trim().length() == 0) {
 				errorMsgs.add("員工帳號: 請勿空白");
 			}
@@ -141,7 +141,7 @@ public class ManagerServlet extends HttpServlet {
 
 			ManagerVO mgrVO = new ManagerVO();
 			mgrVO.setManagerNo(managerno);
-			mgrVO.setManagerName(manageracc);
+			mgrVO.setManagerAccount(manageracc);
 			mgrVO.setManagerPassword(managerpwd);
 			mgrVO.setManagerName(managername);
 			mgrVO.setManagerIp(managerip);
@@ -164,7 +164,7 @@ public class ManagerServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		
+
 		if ("insert".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -212,47 +212,6 @@ public class ManagerServlet extends HttpServlet {
 			successView.forward(req, res);
 
 		}
-		
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 ***************************************/
-			Integer managerNo = Integer.valueOf(req.getParameter("managerNo"));
-
-			/*************************** 2.開始刪除資料 ***************************************/
-			ManagerService mgrSvc = new ManagerService();
-			mgrSvc.deleteEmp(managerNo);
-
-			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/manager/listAllManager.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-			successView.forward(req, res);
-		}
-		
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 ***************************************/
-			Integer managerNo = Integer.valueOf(req.getParameter("managerNo"));
-
-			/*************************** 2.開始刪除資料 ***************************************/
-			ManagerService mgrSvc = new ManagerService();
-			mgrSvc.deleteEmp(managerNo);
-
-			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/manager/listAllManager.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
-		
 		if ("Login".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -295,11 +254,11 @@ public class ManagerServlet extends HttpServlet {
 			
 			session.setAttribute("manager", manager);
 			
-			String location = (String) session.getAttribute("location");
-			if (location != null) {
-				session.removeAttribute("location");
-				res.sendRedirect(location);
-			}
+//			String location = (String) session.getAttribute("location");
+//			if (location != null) {
+//				session.removeAttribute("location");
+//				res.sendRedirect(location);
+//			}
 			res.sendRedirect(req.getContextPath() + "/index.jsp");
 
 		}
