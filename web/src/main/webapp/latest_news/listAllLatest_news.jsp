@@ -145,8 +145,9 @@ pageContext.setAttribute("list", list);
 			
 
 		</tr>
+		<div style="margin: 0px auto;">
 		<%@ include file="page1.file"%>
-	
+	    </div>
 		<c:forEach var="latest_newsVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
@@ -156,8 +157,6 @@ pageContext.setAttribute("list", list);
 				<td>${latest_newsVO.update_date}</td>
 				<td>${latest_newsVO.news_content}</td>
 				<td ><img style="margin: 20px " src="${latest_newsVO.showPhoto}"></td>
-
-
 
 			</tr>
 		</c:forEach>
