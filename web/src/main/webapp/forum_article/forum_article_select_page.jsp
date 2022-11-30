@@ -161,8 +161,8 @@
    <tr style="text-align: center;"><td><h3>論壇文章首頁</h3></td></tr>
 </table>
 <div style="margin:0 auto;text-align: center">
-<h6 style="">論壇文章新增</h6>
-<button style="border-radius:1rem; border: 1px solid #ccc;"><a style="text-decoration: none;color:#333;" href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>Add a new Forum_article.</a></button>
+
+<button style="border-radius:1rem; border: 1px solid #ccc;"><a style="text-decoration: none;color:#333;" href='<%= request.getContextPath() %>/forum_article/InsertForum_article.jsp'>論壇文章新增</a></button>
 </div>
 <br>
 </div>

@@ -72,7 +72,16 @@ th, td {
 .btn {
 	background-color: #FFBA3B;
 }
-.button {
+
+
+.btn:hover {
+		    color: var(--bs-btn-hover-color);
+		    background-color: #FFBA3B;
+		    border-color: var(--bs-btn-hover-border-color);
+		}
+
+
+<!-- .button {
 		border-radius:1rem; 
  		border: 1px solid #ccc;
 		}
@@ -81,7 +90,8 @@ th, td {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;"
-}    
+}    -->
+
 </style>
 
 </head>

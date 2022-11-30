@@ -27,7 +27,7 @@ public class Forum_article_reportServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		String whichPage = req.getParameter("whichPage");
 		System.out.println("page:" + whichPage);
-		String type = req.getParameter("type");
+		String type = req.getParameter("type") == null? "1": req.getParameter("type");
 		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
