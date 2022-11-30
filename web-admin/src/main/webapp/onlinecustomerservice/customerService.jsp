@@ -12,18 +12,18 @@
 	align-items: center;
 	
 }
-#row {
-	display: flex;
-	flex-direction: column;
-	overflow: auto; 
-}
 #box {
 	display: flex; 
 	justify-content: center; 
 	align-items: center;
 	flex-direction: column;
 }
-
+/* 列表上面 */
+.settings-tray {
+	background: #eee;
+	padding: 10px 15px;
+    border-radius: 7px;
+}
 </style>
 </head>
 <body onload="connect();" onunload="disconnect();">
@@ -31,10 +31,8 @@
 <div id="content">
 	<br>
 	<div id="row"><!-- 列表 -->
-		<div>
-			<h4 class="statusOutput">LIST</h4>
-		</div>
-		<div id="list"></div>		
+		<div class="settings-tray">	
+        </div>
 	</div> 
 	<br>
 	<div id="box">
@@ -149,14 +147,28 @@
 		function refreshFriendList(jsonObj) {
 			var friends = jsonObj.users;
 			var list = document.getElementById("row");
-			row.innerHTML = '';
+			list.innerHTML = '';
 			for (var i = 0; i < friends.length; i++) {
+				//如果user名稱是自己就跳過
 				if (friends[i] === self) {
 					continue;
-				} //如果user名稱是自己就跳過
-				row.innerHTML += '<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h3 class="user">'
-						+ friends[i] + '</h3></div>';
+				} 
+				//list.innerHTML += '<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h3 class="user">'
+ 				//		+ friends[i] + '</h3></div>';
 				// <div id= 1 class="column" name="friendName" value= member ><h2>member</h2></div>'
+				var u = document.createElement('div');
+				u.setAttribute('class','friend-drawer friend-drawer--onhover');
+				list.appendChild(u);
+				
+				var user = document.createElement('div');
+				user.setAttribute('class','text');
+				u.appendChild(user);
+				
+				var userName = document.createElement('h6');
+				userName.textContent = friends[i];
+				var hr = document.createElement('hr');
+				user.appendChild(userName);
+				user.appendChild(hr);
 			}
 			addListener();
 		}

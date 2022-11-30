@@ -55,6 +55,8 @@
 	width: 30%;
 	display: flex;
   	margin-right:5px;
+	flex-direction: column;
+	overflow: auto; 
   	      
 }
 

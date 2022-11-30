@@ -10,134 +10,142 @@
 
 <html>
 <head>
-    <title>Title</title>
-    <link type="text/css" href="${ctxPath}/css/jihaoshi.css" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<title>產品清單</title>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+#search {
+	border-style:double;
+	border-color:#ecb714;
+	border-radius:10px;
+	width:300px;
+	height:50px;
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+}
+.searchfield {
+	margin: 0px auto;
+}
+#content {
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	flex-direction: column;
+	width: 95%;
+    margin: auto;
+}
+.product{
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	padding:0px 10px;
+}
+.img{
+	width:60%;
+	height:80%;
+}
+.pic {
+	width: 30%;
+}
+.info {
+	width: 40%;
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	flex-direction: column;
+}
+.buy {
+	width: 30%;
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+	flex-direction: column;
+}
+.button {
+ 	border-radius:1rem; 
+ 	border: 1px solid #ccc;
+}
+</style>
 </head>
 <body>
-<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
-<div class="block_N" style="margin:0px auto;">
+<%@ include file="../navbar.file" %>
+<div id="searchArea" style="margin: 0px auto; display: flex; justify-content: center; align-items: center;">
     <!--搜尋欄開始-->
-    <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
-        <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded"
-              id="searceKeyword">
-            <ul class="searchfield">
-                <li>
-                    <input name="action" value="nameKeywordSearch" hidden>
-                    <input id="keyword" type="text" class="text ac_input" name="nameKeyword" placeholder="請輸入關鍵字">
-
-                </li>
-                <li>
-                    <button type="submit" form="searceKeyword">查找商品</button>
-                </li>
-            </ul>
+    <div id="search">
+        <form method="post" class="searchfield" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded" id="searceKeyword">
+                <input name="action" value="nameKeywordSearch" type="hidden">
+                <input id="keyword" type="text" class="text ac_input" name="nameKeyword" placeholder="請輸入關鍵字">            
+                <button type="submit" form="searceKeyword" style="border-radius:1rem; border: 1px solid #ccc;">查找商品</button>           
         </form>
     </div>
     <!--搜尋欄結束-->
 </div>
-<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-    <div id="CONTENT" class="layout-wrapper">
-        <div class="layout-center" style="text-align:center">
-            <!--側邊欄區塊開始-->
-            <dl class="block_W">
-                <dd id="CategoryContainer">
-                    <ul class="treeview">
-                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
-                            <ul class="main">
-                                <li>
-                                    <a href="${ctxPath}/meal/mealController?action=listAll">產品清單</a>
-                                </li>
-                                <li>
-                                    <a href="${ctxPath}/meal/RandomAssign.jsp">隨機配餐</a>
-                                </li>
-                                <li>
-                                    <a href="${ctxPath}/cart/MealCart.jsp">菜單商品購物車
-                                        <c:if test="${not empty cartProds}"> (${fn:length(cartProds)})</c:if></a>
-                                </li>
-                                <li>
-                                    <a href="${ctxPath}/order/orderController?action=orderList">訂單管理</a>
-                                </li>
-                                <li>
-                                    <a href="${ctxPath}/mealCollect/list">我的收藏</a>
-                                </li>
-                                <li>
-                                    <a href="${ctxPath}/index.jsp">回首頁</a>
-                                </li>
-                            </ul>
-                    </ul>
-                </dd>
-            </dl>
-            <!--側邊欄區塊結束-->
-            <div class="block_C s_list">
-                <div class="Cm">
-                    <div id="ItemContainer" class="Cm_C">
-                        <!--商品欄開始-->
-                        <%@ include file="page1.jsp" %>
-                        <br>
-                        <span style="color: red">${empty collectionResult?"":collectionResult}</span>
-                        <c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>"
-                                   end="<%= pageIndex+rowsPerPage-1 %>" varStatus="loop">
-                            <dl class="col3f" id="DRAA0A-A900BUT82">
-                                <dd class="c1f"><a class="prod_img"
-                                                   href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${meal.mealNo}">
-                                    <img src="${not empty meal.showPhoto? meal.showPhoto:"../images/noImg.jpg"}"></a>
-                                </dd>
-                                <dd class="c2f">
-                                    <ul class="tag_box s_label"></ul>
-                                    <h5 class="prod_name"><a
-                                            href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a>
-                                    </h5>
-                                    <br>
-                                    <span style="font-size: 18px">簡易食譜：${meal.mealRecipe}</span>
-                                    <br>
-                                    <span style="font-size: 18px">熱量：${meal.mealCal}</span>
-                                    <br>
-                                    <span style="font-size: 18px">可能過敏原：${meal.mealAllergen}</span><br>
-                                    <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
-                                        <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }"
-                                           style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
-                                    </c:forEach>
-                                </dd>
-                                <dd class="c3f" id="button_DRAA0A-A900BUT82">
-                                    <ul class="price_box">
-                                        <li><span style="font-size: 18px">價格NT$${meal.mealPrice}</span>
-                                        </li>
-                                    </ul>
-
-                                    <form method="post" action="${ctxPath}/cart/cartController"
-                                          enctype="application/x-www-form-urlencoded" id="cart${meal.mealNo}">
-                                        <input type="text" name="action" value="cartAdd" hidden>
-                                        <input type="text" name="mealName" value="${meal.mealName}" hidden>
-                                        <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
-                                        <input type="text" name="quantityCart" id="quantityCart" value="1" hidden>
-                                        <label style="font-size: 18px">請輸入購買數量：<span
-                                                id="amount_value_${loop.index}">1</span></label>
-                                        <input name="amount" type="range" min="1" max="99" value="1"
-                                               id="amount${loop.index}">
-                                        <p>(若需調整份量，請進入商品頁面)</p>
-                                    </form>
-                                        <%--@elvariable id="collectionDetail" type="com.mealCollectionDetail.model.CollectionDetailVO"--%>
-                                    <form:form method="post" action="${ctxPath}/mealCollect/insert"
-                                               enctype="application/x-www-form-urlencoded"
-                                               id="fromCollect${meal.mealNo}" modelAttribute="collectionDetail">
-                                        <input type="text" name="memberNo" value="${member.memberNo}" hidden>
-                                        <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
-                                        <input type="text" name="mealName" value="${meal.mealName}" hidden>
-                                    </form:form>
-                                    <br>
-                                    <button type="submit" form="cart${meal.mealNo}">加入購物車</button>
-                                    <button type="submit" form="fromCollect${meal.mealNo}">加入收藏</button>
-                                    <br><br>
-                                </dd>
-                            </dl>
-                        </c:forEach>
-                        <%@ include file="page2.jsp" %>
-                        <!--商品欄結束-->
-                    </div>
-                </div>
-            </div>
-        </div>
+<br>
+<div id="CONTENT">
+<!--商品欄開始-->
+	<div style="margin: 0px auto;">
+    <%@ include file="page1.jsp" %>
     </div>
+    <br>
+    <div>
+   	<span style="color: red">${empty collectionResult?"":collectionResult}</span>
+   	</div>
+   	<div>
+       <c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>" varStatus="loop">
+             <div class="product">
+             	<div class="pic">
+             		<a class="prod_img" href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${meal.mealNo}">
+                	<img class="img" src="${not empty meal.showPhoto? meal.showPhoto:"../images/noImg.jpg"}"></a>
+                </div>
+                <div class="info">               	
+                    <h5 class="prod_name">
+                    <a href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a>
+                    </h5>
+                    <br>
+                    <span style="font-size: 18px">簡易食譜：${meal.mealRecipe}</span>
+                    <br>
+                    <span style="font-size: 18px">熱量：${meal.mealCal}</span>
+                    <br>
+                    <span style="font-size: 18px">可能過敏原：${meal.mealAllergen}</span><br>
+                    <div>
+                    <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
+                    <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }"style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
+                    </c:forEach>
+                    </div>
+                 </div>
+                 <div class="buy">          
+                    <form method="post" action="${ctxPath}/cart/cartController" enctype="application/x-www-form-urlencoded" id="cart${meal.mealNo}">                   
+                    <input name="action" value="cartAdd" type="hidden">
+                    <input name="mealName" value="${meal.mealName}" type="hidden">
+                    <input value="${meal.mealNo}" name="mealNo" type="hidden">
+                    <input name="quantityCart" id="quantityCart" value="1" type="hidden">
+                    
+                    <span style="font-size: 18px">價格NT$${meal.mealPrice}</span><br>
+                    <label style="font-size: 18px">請輸入購買數量：
+                    <span id="amount_value_${loop.index}">1</span></label><br>
+                    <input name="amount" type="range" min="1" max="99" value="1" id="amount${loop.index}">
+                    <p>(若需調整份量，請進入商品頁面)</p>
+                    </form>
+	                <%--@elvariable id="collectionDetail" type="com.mealCollectionDetail.model.CollectionDetailVO"--%>
+                    <form:form method="post" action="${ctxPath}/mealCollect/insert" enctype="application/x-www-form-urlencoded"
+                     id="fromCollect${meal.mealNo}" modelAttribute="collectionDetail">
+                    <input name="memberNo" value="${member.memberNo}" type="hidden">
+                    <input name="mealNo" value="${meal.mealNo}" type="hidden">
+                    <input name="mealName" value="${meal.mealName}" type="hidden">
+                    </form:form>
+                    <div>
+                    <button type="submit" form="cart${meal.mealNo}" class="button">加入購物車</button>
+                   	&nbsp;
+                    <button type="submit" form="fromCollect${meal.mealNo}" class="button">加入收藏</button>
+                    </div>
+                  </div>
+              </div>
+              <hr>              
+              </c:forEach>
+              <br>
+              <%@ include file="page2.jsp" %>
+              <!--商品欄結束-->
+      </div>
 </div>
 <script>
     $(document).ready(function () {
