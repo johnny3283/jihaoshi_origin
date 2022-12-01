@@ -225,7 +225,7 @@
 										</form>
 									</td>
 									<td id="tdStatus\${order.orderNo}">
-										\${order.orderStatus == 0 ? '<button class="wrap button" onclick="changeStatus(' + order.orderNo + ')">訂單已成立</button>' : ''}
+									    \${order.orderStatus == 0 ? '<button class ="wrap button" onclick="changeStatus(\'' + order.orderNo + '\')">訂單已成立</button>' : ''}
 										\${order.orderStatus == 1 ? '訂單已取消' : ''}
 									</td>
 								</tr>
