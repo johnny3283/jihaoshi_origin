@@ -19,8 +19,8 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 	border-radius:10px;
 	width:300px;
 	height:50px;
-	display: flex; 
-	justify-content: center; 
+	display: flex;
+	justify-content: center;
 	align-items: center;
 }
 .searchfield {
@@ -46,7 +46,7 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 	border-style: outset;
 }
 .button {
- 	border-radius:1rem; 
+ 	border-radius:1rem;
  	border: 1px solid #ccc;
 }
 .img {
@@ -133,12 +133,12 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 			</div>
 		</div>
 </div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js">
+	<script>
+
 		$(document).ready(function() {
 
 			$('#reAsssign').click(function() {
-
-				$('#reAssignArea').show();
+				$('#reAssignArea').removeAttr("hidden");
 
 			});
 			$('#mealAmount').mousemove(function() {
@@ -154,4 +154,5 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 		});
 	</script>
 </body>
+
 </html>
