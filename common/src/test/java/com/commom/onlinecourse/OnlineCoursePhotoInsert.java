@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public class OnlineCoursePhotoInsert {
     public static void main(String[] args) throws IOException {
         String INSERT_PHOTO = "UPDATE ONLINE_COURSE SET COURSE_PHOTO = ? WHERE COURSE_NO = ? ;";
-        for (int i = 1; i<=6 ; i++) {
-            File file = new File("data/onlinecoursephoto/"+i+".jfif");
+        for (int i = 1; i<=12 ; i++) {
+            File file = new File("C:/onlinecoursephoto/"+i+".jfif");
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
             try (Connection conn= DriverManager.getConnection(URL,USER,PASSWORD);
                  PreparedStatement ps= conn.prepareStatement(INSERT_PHOTO)) {
