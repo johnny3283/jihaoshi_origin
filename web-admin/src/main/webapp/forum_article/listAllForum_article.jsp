@@ -77,14 +77,14 @@ String type = request.getParameter("type");
 			text-align: center;
 		}
 		
-		.btn {
-			background-color: #FFBA3B;
-		}
-/* 		.btn:hover { */
-/* 		    color: var(--bs-btn-hover-color); */
-/* 		    background-color: #FFBA3B; */
-/* 		    border-color: var(--bs-btn-hover-border-color); */
-/*         } */
+ 		.btn {
+			background-color: #FFBA3B; 
+     	} 
+/*  		.btn:hover {  */
+/*  		    color: var(--bs-btn-hover-color);  */
+/*  		    background-color: #FFBA3B;  */
+/*  		    border-color: var(--bs-btn-hover-border-color);  */
+/*         }  */
 		.button {
 		border-radius:1rem; 
  		border: 1px solid #ccc;
@@ -96,8 +96,9 @@ String type = request.getParameter("type");
 <%@ include file="../navbar.file" %>
 
 <p>
-  <a class="btn"  id="article" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章狀態</a> 
-  <button class="btn " id="article_forum" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">論壇文章檢舉處理</button>
+<!--   <a class="btn"  id="article" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章狀態</a>  -->
+  <button class="btn " id="article" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1" style="background-color: #FFBA3B">修改文章狀態</button>
+  <button class="btn " id="article_forum" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" style="background-color: #FFC14F">論壇文章檢舉處理</button>
 <!--   <button class="btn " type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">修改文章與論壇文章檢舉處理</button> -->
 </p>
 <div class="row">
@@ -177,9 +178,10 @@ String type = request.getParameter("type");
   </div>
   <div class="">	<!-- 原本有class="col" -->
     <div class="collapse multi-collapse" id="multiCollapseExample2">
-      <div class="card card-body">
-         <jsp:include page="/forum_article_report/listAllForum_article_report.jsp" />
-    </div>
+	    <div class="card card-body">
+	         <jsp:include page="/forum_article_report/listAllForum_article_report.jsp" />
+	    </div>
+  	</div>
   </div>
 </div>
 <script>

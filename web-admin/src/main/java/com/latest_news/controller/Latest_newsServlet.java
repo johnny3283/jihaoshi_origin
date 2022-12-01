@@ -181,7 +181,7 @@ public class Latest_newsServlet extends HttpServlet {
 		
 		
 		if ("update".equals(action)) { // 來自update_latest_news_input.jsp的請求
-
+			System.out.println("update");
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
@@ -221,14 +221,19 @@ public class Latest_newsServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			Latest_newsService latest_newsSvc = new Latest_newsService();
-			latest_newsVO = latest_newsSvc.updateLatest_news(news_name,news_content,news_pic , news_no);
+			latest_newsSvc.updateLatest_news(news_name, news_content, news_pic,  news_no);
+			latest_newsVO = latest_newsSvc.getOneLatest_news(news_no);
+			byte[] new_pic = latest_newsVO.getNews_pic();
+			if(new_pic != null) {
+				latest_newsVO.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(latest_newsVO.getNews_pic()));
+			}
+			req.setAttribute("update_flag", true);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("latest_newsVO", latest_newsVO); // 資料庫update成功後,正確的的latest_newsVO物件,存入req
-			String url = "/latest_news/listAllLatest_news.jsp";
+			String url = "/latest_news/listOneLatest_news.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneLatest_news.jsp
 			successView.forward(req, res);
 		}
-		
 		
 		
 		if ("delete".equals(action)) {

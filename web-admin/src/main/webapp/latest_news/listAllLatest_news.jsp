@@ -131,7 +131,7 @@ img {
 			<th>刪除</th>
 		</tr>
 		<div style="margin: 0px auto;">
-		<%@ include file="page1.file"%>
+			<%@ include file="page1.file"%>
 		</div>
 		<c:forEach var="latest_newsVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>

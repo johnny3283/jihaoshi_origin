@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>論壇文章首頁: Home</title>
+<title>論壇文章首頁</title>
 <style>
         div.divflex{
         display:flex;
@@ -55,7 +55,7 @@
 <div id="content">
 	<div>
 		<table id="table-1">
-  		 	<tr><td><h3 >論壇文章首頁: Home</h3><h4>( Forum_article )</h4></td></tr>
+  		 	<tr><td><h3 >論壇文章首頁</h3><h4></h4></td></tr>
 		</table>
 	</div>
 	<div>

@@ -89,6 +89,9 @@ img {
 	<c:if test="${insert_flag}">
 		<h1 style="color:red">新增成功</h1>
 	</c:if>
+	<c:if test="${update_flag}">
+		<h1 style="color:red">修改成功</h1>
+	</c:if>
 <table>
 	<tr>
 		<th>消息編號</th>

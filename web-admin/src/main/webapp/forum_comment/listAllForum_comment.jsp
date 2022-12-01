@@ -99,8 +99,9 @@ th, td {
 <body bgcolor='white'>
 <%@ include file="../navbar.file" %>
 <p>
-   <a class="btn"  id="comment" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章留言狀態</a> 
-  <button class="btn" id="forum_comment" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">文章留言檢舉處理</button>
+<!--    <a class="btn"  id="comment" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">修改文章留言狀態</a>  -->
+    <button class="btn"  id="comment" type="button" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1" style="background-color: #FFBA3B">修改文章留言狀態</button> 
+  	<button class="btn" id="forum_comment" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" style="background-color: #FFC14F">文章留言檢舉處理</button>
 <!--   <button class="btn" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">修改文章留言狀態與文章留言檢舉處理</button> -->
 </p>
 <div class="row">
