@@ -164,6 +164,9 @@
 								<li>
                   					<a class="dropdown-item" href="${ctxPath}/phyCouPromotion/select_page.jsp">查詢修改實體課程促銷專案</a>
                	 				</li>
+								<li>
+                  					<a class="dropdown-item" href="${ctxPath}/phyCouSignUpMgn/listAllSignUpCou.jsp">實體課程報名管理</a>
+               	 				</li>
 							</ul>
 					</li>								
 					<li class="nav-item dropdown">

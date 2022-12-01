@@ -102,7 +102,7 @@
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="${pageContext.request.contextPath}/onlineCourse/ListAllOnlineCourse.jsp">線上課程專區</a></li>
 								<li><a class="dropdown-item" href="${ctxPath}/cart/OnlineCourseCart.jsp">線上課程購物車<c:if test="${not empty cartCourses}"> (${fn:length(cartCourses)})</c:if></a></li>
-								<li><a class="dropdown-item" href="">實體課程專區</a></li>
+								<li><a class="dropdown-item" href="${pageContext.request.contextPath}/course/ListAllCourse.jsp">實體課程專區</a></li>
 							</ul>
 					</li>
 					<li class="nav-item">
@@ -124,6 +124,7 @@
 									<ul class="dropdown-menu">
 										<li><a class="dropdown-item" href="${ctxPath}/order/orderController?action=orderList">商品訂單</a></li>
 										<li><a class="dropdown-item" href="${pageContext.request.contextPath}/onlineCourseOrderServlet?action=orderlist">線上課程訂單</a></li>
+										<li><a class="dropdown-item" href="${pageContext.request.contextPath}/course/listAllSignUpCou.jsp">已報名實體課程清單</a></li>
 									</ul>
 								</li>
 								<li><a class="dropdown-item">我的課程&emsp;></a>

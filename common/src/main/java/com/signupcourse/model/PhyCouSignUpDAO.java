@@ -121,10 +121,11 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 			while (rs.next()) {
 				phyCouSignUpVO = new PhyCouSignUpVO();
 				phyCouSignUpVO.setOrder_no(rs.getInt("order_no"));
-				phyCouSignUpVO.setMember_no(rs.getInt("membe_no"));
+				phyCouSignUpVO.setMember_no(rs.getInt("member_no"));
+				phyCouSignUpVO.setUpdate_time(rs.getDate("Update_time"));
 				phyCouSignUpVO.setOrder_price(rs.getInt("order_price"));
 				phyCouSignUpVO.setOrder_status(rs.getInt("order_status"));
-				phyCouSignUpVO.setCourse_no(rs.getInt("Couse_no"));
+				phyCouSignUpVO.setCourse_no(rs.getInt("Course_no"));
 				list.add(phyCouSignUpVO);
 			}			
 			
