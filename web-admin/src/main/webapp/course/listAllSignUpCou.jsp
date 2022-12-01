@@ -68,7 +68,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>所有已報名實體課程<a href="<%=request.getContextPath()%>/index.jsp"> <br>回首頁</a></h3>
+		 <h3>所有已報名實體課程<a href="<%=request.getContextPath()%>/course/SignUpCouMgn.jsp"> <br>回首頁</a></h3>
 	</td></tr>
 </table>
 <c:if test="${not empty errorMsgs}">

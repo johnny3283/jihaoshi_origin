@@ -3,6 +3,8 @@ package com.course.model;
 import java.util.List;
 import java.util.Map;
 
+import com.meal.model.MealVO;
+
 
 public class PhyCouService {
 
@@ -69,9 +71,16 @@ public class PhyCouService {
 		dao.delete(course_no);
 	}
 
+	public void changeStatus(Integer course_no, Integer course_status) {
+		dao.updateStatus(course_no, course_status);
+	}
 	public PhyCouVO getOneCou(Integer course_no) {
 		return dao.findByPrimaryKey(course_no);
 	}
+	
+    public List<PhyCouVO> findByNameKeyword(String nameKeyword) {
+        return dao.findByNameKeyword(nameKeyword);
+    }
 
 	public List<PhyCouVO> getAll() {
 		return dao.getAll();

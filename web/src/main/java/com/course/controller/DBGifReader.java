@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/signup/DBGifReader")
+@WebServlet("/sign/DBGifReader")
 public class DBGifReader extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +34,8 @@ public class DBGifReader extends HttpServlet {
 		try {
 			Statement stmt = con.createStatement();
 			String course_no = req.getParameter("course_no").trim();
+			System.out.println("==================================");
+			System.out.println("course_no: " + course_no);
 			ResultSet rs = stmt.executeQuery(
 				"SELECT PIC FROM PHYSICAL_COURSE WHERE COURSE_NO ="+course_no);
 

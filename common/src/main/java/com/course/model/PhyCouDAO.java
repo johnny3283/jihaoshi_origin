@@ -159,7 +159,7 @@ public class PhyCouDAO implements PhyCouDAO_interface {
 	}
 
 	@Override
-	public void updateStatus(Integer course_no) {
+	public void updateStatus(Integer course_no, Integer course_status) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
@@ -245,6 +245,16 @@ public class PhyCouDAO implements PhyCouDAO_interface {
 			throw ex;
 		}
  	}
+
+
+	
+
+
+	@Override
+	public List<PhyCouVO> findByNameKeyword(String nameKeyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 //	public static void main(String[] args) {
 //

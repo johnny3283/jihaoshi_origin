@@ -73,7 +73,9 @@ public class CourseServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
-				phyCouVO.setCourse_price(dPrice);
+				if (dPrice!=0) {
+					phyCouVO.setCourse_price(dPrice);
+				} 
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("phyCouVO", phyCouVO); 
 				String url = "/course/SingUpForConfirm.jsp";
@@ -144,7 +146,7 @@ public class CourseServlet extends HttpServlet {
 				Integer course_no = Integer.valueOf(req.getParameter("course_no"));
 				Integer order_status = Integer.valueOf(req.getParameter("order_status"));
 				if (order_status == 2) {
-					errorMsgs.add("已退費，不能再退費");
+					errorMsgs.add("已取消，不能再取消");
 				}
 				
 				if (!errorMsgs.isEmpty()) {
@@ -190,6 +192,18 @@ public class CourseServlet extends HttpServlet {
 			successView.forward(req, res);
 	}	
 	
+    if ("nameKeywordSearch".equals(action)) {
+        String nameKeyword = req.getParameter("nameKeyword");
+        PhyCouService phyCouSvc = new PhyCouService();
+        List<PhyCouVO> list = phyCouSvc.findByNameKeyword(nameKeyword);
+        System.out.println(list);
+   
+            req.setAttribute("searchResult", list);
+			String url = "/course/listSearchCourse.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);
+        
+    }
 
 }
 }

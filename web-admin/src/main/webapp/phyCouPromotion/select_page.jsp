@@ -36,7 +36,9 @@
 <img src="<%= request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 
 <table id="table-1">
-   <tr><td><h3>JiHaoShi 實體課程促銷</h3><a href="${pageContext.request.contextPath}/course/select_page.jsp"> 回課程首頁</a></td></tr>
+   <tr><td><h3>JiHaoShi 實體課程促銷</h3></td></tr>
+	<tr><td><a href="${pageContext.request.contextPath}/course/select_page.jsp" style="text-decoration: none; color: blue; font-weight: 700">回課程管理頁</a>
+	<a href="${pageContext.request.contextPath}/index.jsp" style="margin: auto 30px;text-decoration: none; color: blue; font-weight: 700">回首頁</a></td></tr> 
 </table>
 
 <h3>實體課程促銷資料查詢:</h3>

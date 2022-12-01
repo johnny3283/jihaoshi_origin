@@ -74,6 +74,7 @@
 		<th>報名欄</th>
 		<th>課程編號</th>
 		<th>諌程名稱</th>
+		<th>照片</th>	
 		<th>上課時數</th>
 		<th>原價</th>
 		<th>促銷價格</th>
@@ -86,8 +87,7 @@
 		<th>報名結束日期</th>
 		<th>人數上限</th>
 		<th>最少開課人數</th>
-		<th>目前報名人數</th>
-		<th>照片</th>		
+		<th>目前報名人數</th>	
 	</tr>
 	<%-- <%@ include file="page1.file" %>  --%> 
 	<jsp:useBean id="detailSvc" class="com.phyCouPromotionDetail.model.PhyCouPromotionDetailService" />
@@ -104,23 +104,42 @@
 			</td>		
 			<td>${phyCouVO.course_no}</td>
 			<td>${phyCouVO.course_name}</td>
+			<td><img src="<%=request.getContextPath()%>/signup/DBGifReader?course_no=${phyCouVO.course_no}" width="100px"></td>
 			<td>${phyCouVO.course_hr}</td>
 			<td>${phyCouVO.course_price}</td>
 			<%-- <td>${(detailSvc.getMinPrice(phyCouVO.getCourse_no()) * phyCouVO.getCourse_price())/100}</td> --%>
-			<td><fmt:formatNumber 
-                value="${(detailSvc.getMinPrice(phyCouVO.getCourse_no()) * phyCouVO.getCourse_price())/100}" 
-                maxFractionDigits="0"/></td>
+			<td><c:if test="${(detailSvc.getMinPrice(phyCouVO.getCourse_no()) * phyCouVO.getCourse_price())==0}" >
+					<fmt:formatNumber 
+		                value="${phyCouVO.getCourse_price()}" 
+		                maxFractionDigits="0"
+		             />
+		        </c:if>
+			    <c:if test="${(detailSvc.getMinPrice(phyCouVO.getCourse_no()) * phyCouVO.getCourse_price())!=0}" >
+					<fmt:formatNumber 
+		                value="${(detailSvc.getMinPrice(phyCouVO.getCourse_no()) * phyCouVO.getCourse_price())/100}" 
+		                maxFractionDigits="0"
+		             />
+		        </c:if>  
+            </td>
 			<td>${phyCouVO.course_teacher}</td>
 			<td>${phyCouVO.course_date}</td> 
 			<td>${phyCouVO.course_location}</td>
 			<td>${phyCouVO.course_info}</td>
-			<td>${phyCouVO.course_status}</td>
+			<td><c:if test="${phyCouVO.course_status==0}">
+							待上架
+						</c:if>
+						<c:if test="${phyCouVO.course_status==1}">
+							上架中
+						</c:if>
+						<c:if test="${phyCouVO.course_status==2}">
+							已下架
+						</c:if>
+			</td>
 			<td>${phyCouVO.sign_up_start_day}</td>
 			<td>${phyCouVO.sign_up_end_day}</td>
 			<td>${phyCouVO.max_sign_up_people}</td>
 			<td>${phyCouVO.min_sign_up_people}</td>
-			<td>${phyCouVO.current_sign_up_people}</td>
-			<td><img src="<%=request.getContextPath()%>/signup/DBGifReader?course_no=${phyCouVO.course_no}" width="100px"></td>
+			<td>${phyCouVO.current_sign_up_people}</td>		
 		</tr>
 	</c:forEach>
 </table>

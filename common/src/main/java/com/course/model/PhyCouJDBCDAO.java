@@ -404,10 +404,17 @@ public class PhyCouJDBCDAO implements PhyCouDAO_interface {
 		return null;
 	}
 
+
 	@Override
-	public void updateStatus(Integer course_no) {
+	public void updateStatus(Integer course_no, Integer course_status) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<PhyCouVO> findByNameKeyword(String nameKeyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 //	public static void main(String[] args) {

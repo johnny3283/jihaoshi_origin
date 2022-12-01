@@ -8,8 +8,9 @@ public interface PhyCouDAO_interface {
     public void insert(PhyCouVO phyCouVO);
     public void update(PhyCouVO phyCouVO);
     public void delete(Integer course_no);
-    public void updateStatus(Integer course_no);
+    public void updateStatus(Integer course_no, Integer course_status);
     public PhyCouVO findByPrimaryKey(Integer course_no);
+    public List<PhyCouVO> findByNameKeyword(String nameKeyword);
     public List<PhyCouVO> getAll();
     public List<PhyCouVO> getCanSignUp();
 //  public List<EmpVO> getAll(Map<String, String[]> map); 

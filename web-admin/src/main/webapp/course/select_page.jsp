@@ -53,7 +53,7 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllCou.jsp'>列出</a> 所有實體課程  <br><br></li>
+  <li><a href='ListAllCourse.jsp'>列出</a> 所有實體課程  <br><br></li>
   
   
   <li>

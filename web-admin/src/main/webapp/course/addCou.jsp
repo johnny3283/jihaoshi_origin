@@ -53,10 +53,10 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>實體課程資料新增</h3></td><td>
-		 <h4><a href="select_page.jsp">回課程管理首頁</a></h4>
+		 <h3>新增實體課程</h3></td><td><br>		
 	</td></tr>
-</table>
+	<tr><td> <h4><a href="select_page.jsp" style="margin: 20px auto;">回課程管理頁</a></h4>
+</table> 
 
 <h3>資料新增:</h3>
 

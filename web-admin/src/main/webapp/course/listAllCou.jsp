@@ -98,7 +98,16 @@
 			<td>${phyCouVO.course_date}</td> 
 			<td>${phyCouVO.course_location}</td>
 			<td>${phyCouVO.course_info}</td>
-			<td>${phyCouVO.course_status}</td>
+			<td><c:if test="${phyCouVO.course_status==0}">
+					待上架
+				</c:if>
+				<c:if test="${phyCouVO.course_status==1}">
+					上架中
+				</c:if>
+				<c:if test="${phyCouVO.course_status==2}">
+					已下架
+				</c:if>
+			</td>
 			<td>${phyCouVO.create_date}</td>
 			<td>${phyCouVO.update_time}</td>
 			<td>${phyCouVO.sign_up_start_day}</td>
@@ -115,9 +124,10 @@
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/cou.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <input type="submit" value="上架/下架">
 			     <input type="hidden" name="course_no"  value="${phyCouVO.course_no}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="course_status"  value="${phyCouVO.course_status}">
+			     <input type="hidden" name="action" value="changeStatus"></FORM>
 			</td>
 		</tr>
 	</c:forEach>

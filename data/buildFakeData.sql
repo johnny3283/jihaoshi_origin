@@ -156,19 +156,19 @@ VALUES ('1', '1', '簡單,快速,好吃'),
        ('3', '4', '在家做出餐廳級別的料理');
 
 insert into Physical_course_promotion_project(project_name, start_date, end_date, prom_description, update_time)
-values ('週年慶促銷', str_to_date('2022-10-01', '%Y-%m-%d'), str_to_date('2022-11-15', '%Y-%m-%d'),
+values ('週年慶促銷', str_to_date('2022-10-01', '%Y-%m-%d'), str_to_date('2022-12-31', '%Y-%m-%d'),
         '針對1週年慶，全站課程打9折', now()),
        ('一起健康專案', str_to_date('2022-10-01', '%Y-%m-%d'), str_to_date('2022-12-31', '%Y-%m-%d'), '舒肥系列打85折',
         now()),
-       ('懷舊之味', str_to_date('2022-10-01', '%Y-%m-%d'), str_to_date('2022-10-15', '%Y-%m-%d'), '古早味滷肉飯打95折',
+       ('懷舊之味', str_to_date('2022-10-01', '%Y-%m-%d'), str_to_date('2022-12-31', '%Y-%m-%d'), '古早味滷肉飯打95折',
         now());
 
 insert into Physical_course_promotion_detail(project_no, course_no, prom_price)
-values (1, 1, 9),
-       (1, 2, 9),
-       (1, 3, 9),
-       (1, 4, 9),
-       (1, 5, 9),
+values (1, 1, 90),
+       (1, 2, 90),
+       (1, 3, 90),
+       (1, 4, 90),
+       (1, 5, 90),
        (2, 2, 85),
        (3, 5, 95);
 

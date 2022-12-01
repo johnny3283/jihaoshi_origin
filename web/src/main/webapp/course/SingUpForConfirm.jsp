@@ -58,7 +58,8 @@
 <img src="<%= request.getContextPath()%>/images/JihaoshiPageHead.jpg" id="pageHead">
 <table id="table-1">
 	<tr><td>
-		 <h3>請確認報名資訊 <a href="<%=request.getContextPath()%>/course/SignUpCouMgn.jsp"> <br>回首頁</a></h3>
+		 <h2>請確認報名資訊</h2>
+		 <h3> <a href="<%=request.getContextPath()%>/course/ListAllCourse.jsp">回課程瀏覽</a></h3>
 	</td></tr>
 </table>
 

@@ -31,15 +31,8 @@ public class PhyCouVO implements java.io.Serializable{
 	private Integer current_sign_up_people;
 	private byte[] pic;
 	private Set<PhyCouPromotionDetailVO> phyCouPromotionDetails = new HashSet<PhyCouPromotionDetailVO>();
-//	private PhyCouPromotionDetailVO phyCouPromotionDetailVO = new PhyCouPromotionDetailVO();
 	
-	
-//	public PhyCouPromotionDetailVO getPhyCouPromotionDetailVO() {
-//		return phyCouPromotionDetailVO;
-//	}
-//	public void setPhyCouPromotionDetailVO(PhyCouPromotionDetailVO phyCouPromotionDetailVO) {
-//		this.phyCouPromotionDetailVO = phyCouPromotionDetailVO;
-//	}
+
 	public Set<PhyCouPromotionDetailVO> getPhyCouPromotionDetails() {
 		return phyCouPromotionDetails;
 	}
