@@ -19,7 +19,8 @@ public class Latest_newsService {
 		latest_newsVO.setNews_name(news_name);
 		latest_newsVO.setNews_content(news_content);
 		latest_newsVO.setNews_pic(news_pic);
-		dao.insert(latest_newsVO);
+		int id = dao.insert(latest_newsVO);
+		latest_newsVO.setNews_no(id);
 		return latest_newsVO;
 	}
 

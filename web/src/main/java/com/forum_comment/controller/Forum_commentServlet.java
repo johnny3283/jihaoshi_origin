@@ -29,7 +29,7 @@ public class Forum_commentServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOne_For_Display".equals(action)) { // 來自forum_comment_select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 //			 Store this set in the request scope, in case we need to
@@ -76,14 +76,14 @@ public class Forum_commentServlet extends HttpServlet {
 				return;// 程式中斷
 			}
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("forum_commentVO", forum_commentVO); // 資料庫取出的forum_articleVO物件,存入req
+			req.setAttribute("forum_commentVO", forum_commentVO); // 資料庫取出的forum_commentVO物件,存入req
 			String url = "/forum_comment/listOneForum_comment.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneForum_article.jsp
 			successView.forward(req, res);
 		
 		
 		}
-		if ("insert".equals(action)) { // 來自addForum_article.jsp的請求
+		if ("insert".equals(action)) { // 來自InsertForum_article.jsp的請求
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -145,9 +145,9 @@ public class Forum_commentServlet extends HttpServlet {
 //			String param "&article_content=" + forum_articleVO.getArticle_content() ;
 //			=	"?article_name=" + forum_articleVO.getarticle_name() + 
 //							
-			req.setAttribute("forum_commentVO", forum_commentVO); // 資料庫取出的empVO物件,存入req
+			req.setAttribute("forum_commentVO", forum_commentVO); // 資料庫取出的forum_commentVO物件,存入req
 			String url = "/forum_comment/updateForum_comment.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 updateForum_comment.jsp
 			successView.forward(req, res);
 
 //			String url = "xxxxxxxxxxxxxxxxxxxxx" + param;
@@ -189,9 +189,9 @@ public class Forum_commentServlet extends HttpServlet {
 			Forum_commentService forum_commentSvc = new Forum_commentService();
 			forum_commentVO = forum_commentSvc.updateForum_comment(article_no, member_no, comment_content, comment_status);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("forum_commentVO", forum_commentVO); // 資料庫update成功後,正確的的latest_newsVO物件,存入req
+			req.setAttribute("forum_commentVO", forum_commentVO); // 資料庫update成功後,正確的的forum_commentVO物件,存入req
 			String url = "/forum_comment/listAllForum_comment.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneLatest_news.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneForum_comment.jsp
 			successView.forward(req, res);
 		}
 		if ("delete".equals(action)) { // 來自listAllForum_article.jsp

@@ -32,7 +32,7 @@ public class Forum_articleServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOne_For_Display".equals(action)) { // 來自forum_article_select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 //			 Store this set in the request scope, in case we need to
@@ -129,7 +129,7 @@ public class Forum_articleServlet extends HttpServlet {
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/forum_article/listAllForum_article.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllForum_article.jsp
 			successView.forward(req, res);
 		}
 
@@ -149,9 +149,9 @@ public class Forum_articleServlet extends HttpServlet {
 //			String param "&article_content=" + forum_articleVO.getArticle_content() ;
 //			=	"?article_name=" + forum_articleVO.getarticle_name() + 
 //							
-			req.setAttribute("forum_articleVO", forum_articleVO); // 資料庫取出的empVO物件,存入req
+			req.setAttribute("forum_articleVO", forum_articleVO); // 資料庫取出的forum_articleVO物件,存入req
 			String url = "/forum_article/updateForum_article.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 updateForum_article.jsp
 			successView.forward(req, res);
 
 //			String url = "xxxxxxxxxxxxxxxxxxxxx" + param;
@@ -159,7 +159,7 @@ public class Forum_articleServlet extends HttpServlet {
 //			successView.forward(req, res);
 		}
 
-		if ("update".equals(action)) { // 來自updateLatest_news.jsp的請求
+		if ("update".equals(action)) { // 來自updateForum_article.jsp的請求
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -197,9 +197,9 @@ public class Forum_articleServlet extends HttpServlet {
 			Forum_articleService forum_articleSvc = new Forum_articleService();
 			forum_articleVO = forum_articleSvc.updateForum_article(article_name, article_content, article_no);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("forum_articleVO", forum_articleVO); // 資料庫update成功後,正確的的latest_newsVO物件,存入req
+			req.setAttribute("forum_articleVO", forum_articleVO); // 資料庫update成功後,正確的的forum_articleVO物件,存入req
 			String url = "/forum_article/listAllForum_article.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneLatest_news.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneForum_article.jsp
 			successView.forward(req, res);
 		}
 

@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.*;
 
 public interface Latest_newsDAO_interface {
-	public void insert(Latest_newsVO latest_newsVO);
+	public int insert(Latest_newsVO latest_newsVO);
 	public void update(Latest_newsVO latest_newsVO);
 	public void delete(Integer news_no);
 	public Latest_newsVO findByPrimarykey(Integer news_no);

@@ -61,7 +61,12 @@ table th {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;"
-}       
+}  
+
+img {
+	width: 220px;
+} 
+     
 </style>
 
 </head>
@@ -81,6 +86,9 @@ table th {
 </div>
 <br>
 <div id="content">
+	<c:if test="${insert_flag}">
+		<h1 style="color:red">新增成功</h1>
+	</c:if>
 <table>
 	<tr>
 		<th>消息編號</th>

@@ -95,7 +95,11 @@ table th {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;"
-}       
+}      
+
+img {
+	width: 180px;
+} 
 </style>
 
 </head>

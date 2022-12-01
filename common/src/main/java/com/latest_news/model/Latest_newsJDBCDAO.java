@@ -27,6 +27,7 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 			"DELETE FROM LATEST_NEWS WHERE NEWS_NO = ?";
 		private static final String UPDATE = 
 			"UPDATE LATEST_NEWS SET NEWS_NAME=?, NEWS_CONTENT=?,  NEWS_PIC=? WHERE NEWS_NO = ?";
+		private static final String GET_CURRENT_ID = "SELECT last_insert_id()";
 //		private static final String UPLOADFILE =
 		
 //			"INSERT INTO LATEST_NEWS(NEWS_NAME, NEWS_CONTENT, NEWS_PIC)VALUES (1,1, ?)";
@@ -34,7 +35,7 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 		// %r%
 		// ps.setString(1, "\%"+r+"\%");
 	@Override
-	public void insert(Latest_newsVO latest_newsVO) {
+	public int insert(Latest_newsVO latest_newsVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -42,6 +43,7 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
+			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, latest_newsVO.getNews_name());
@@ -49,7 +51,15 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 			pstmt.setBytes(3, latest_newsVO.getNews_pic());
 			
 			pstmt.executeUpdate();
-
+			
+			pstmt = con.prepareStatement(GET_CURRENT_ID);
+			ResultSet rs = pstmt.executeQuery();
+			con.commit();
+			int currentId = 0;
+			if(rs.next()) {
+				currentId = rs.getInt(1);
+			}
+			return currentId;
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "

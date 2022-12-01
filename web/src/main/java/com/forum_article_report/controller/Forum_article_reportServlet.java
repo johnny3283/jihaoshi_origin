@@ -27,7 +27,7 @@ public class Forum_article_reportServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
 		
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOne_For_Display".equals(action)) { // 來自forum_article_report_select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 //			 Store this set in the request scope, in case we need to

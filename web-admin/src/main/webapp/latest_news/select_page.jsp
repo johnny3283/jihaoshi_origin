@@ -52,8 +52,7 @@ table#table-1 h4 {
 		<div>
 			<table id="table-1">
 				<tr>
-					<td><h3>最新消息首頁: Home</h3>
-						<h4>( Latest_news )</h4></td>
+					<td><h3>最新消息首頁</h3></td>
 				</tr>
 			</table>
 		</div>

@@ -47,15 +47,58 @@
 		         <textarea name="news_content" value="${param.news_content}" required></textarea><br><br>
 		         <div>			
 		         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		         <input type="file" name="news_pic">
+		         <input type="file" name="news_pic" id="the_file">
+		         <ul class="picture_list"></ul>
 		         </div>
 		         <br>
-				 <input type="hidden" name="action" value="insert">
+				 <input type="hidden" name="action" value="insert" multiple>
 		<!--  <input type="hidden" name="news_no" value=1> -->
 		         <button type="submit" form="form1" value="送出" class="button">送出新增</button>
 		<!--  <button type="reset" form="form1">清除資料</button> -->
 	</form>	
 	</div> 	
 </div>
+
+
+    <ul class="picture_list"></ul>
+
+    <script>
+        window.addEventListener("load", function () {
+
+            var the_file_element = document.getElementById("the_file");
+            the_file_element.addEventListener("change", function (e) {
+
+
+                let my_ul = document.getElementsByClassName("picture_list")[0];
+                my_ul.innerHTML = "";
+                // 寫在這
+                // console.log(this.file[0]);
+
+                for (let i = 0; i < this.files.length; i++) {
+                    let reader = new FileReader(); // 用來讀取檔案的物件
+
+                    reader.readAsDataURL(this.files[i]); // 讀取檔案
+
+                    // 檔案讀取完畢時觸發
+                    reader.addEventListener("load", function () {
+
+                        // 可以透過 reader.result 取得圖片讀取完成時的 Base64 編碼格式
+                        // console.log(reader.result);
+                        // ... other code ...
+                        let li_str = '<li><img src="' + reader.result + '" class="preview"></li>'
+                        // let li_str = `<li></li>`
+                        let ul_el = document.getElementsByClassName("picture_list")[0];
+
+                        ul_el.insertAdjacentHTML("beforeend", li_str);
+
+                    });
+                };
+
+
+            });
+
+
+        });
+    </script>
 </body>
 </html>

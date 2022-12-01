@@ -123,9 +123,6 @@ public class Latest_newsServlet extends HttpServlet {
 				errorMsgs.put("news_pic", "消息照片請勿空白");
 				
 			}
-	       
-	        
-			
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -138,11 +135,17 @@ public class Latest_newsServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			Latest_newsService latest_newsSvc = new Latest_newsService();
-			latest_newsSvc.addLatest_news(news_name, news_content, news_pic);
+			int insertId = latest_newsSvc.addLatest_news(news_name, news_content, news_pic).getNews_no();
 //			System.out.println(4);
-
+			Latest_newsVO latest_newsVO = latest_newsSvc.getOneLatest_news(insertId);
+			byte[] new_pic = latest_newsVO.getNews_pic();
+			if(new_pic != null) {
+				latest_newsVO.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(latest_newsVO.getNews_pic()));
+			}
+			req.setAttribute("insert_flag", true);
+			req.setAttribute("latest_newsVO", latest_newsVO);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/latest_news/listAllLatest_news.jsp";
+			String url = "/latest_news/listOneLatest_news.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}

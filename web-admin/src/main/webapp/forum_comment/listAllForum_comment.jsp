@@ -74,23 +74,24 @@ th, td {
 }
 
 
-.btn:hover {
-		    color: var(--bs-btn-hover-color);
-		    background-color: #FFBA3B;
-		    border-color: var(--bs-btn-hover-border-color);
-		}
+/* .btn:hover { */
+/* 		    color: var(--bs-btn-hover-color); */
+/* 		    background-color: #FFBA3B; */
+/* 		    border-color: var(--bs-btn-hover-border-color); */
+/* 		} */
 
 
-<!-- .button {
+ .button {
 		border-radius:1rem; 
  		border: 1px solid #ccc;
 		}
+		
 #head {
 	display:flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;"
-}    -->
+}    
 
 </style>
 
