@@ -115,7 +115,7 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 			<label>商品總價為：</label>${totalPrice}元，是否需要重新幫您配餐？
 
 			<button type="submit" form="goCart" class="button">否，請幫我加入購物車</button>
-			<button type="button" id="reAsssign" class="button">是</button>
+			<button type="button" id="reAsssign" class="button" >是</button>
 			<div id="reAssignArea" hidden>
 				<form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded" id="formRandom">
 					<input type="hidden" name="action" value="randomAssign" >
@@ -133,7 +133,7 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 			</div>
 		</div>
 </div>
-	<script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js">
 		$(document).ready(function() {
 
 			$('#reAsssign').click(function() {

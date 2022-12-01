@@ -9,74 +9,66 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 <html>
 <head>
 <title>產品清單</title>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 #search {
-	border-style: double;
-	border-color: #ecb714;
-	border-radius: 10px;
-	width: 300px;
-	height: 50px;
-	display: flex;
-	justify-content: center;
+	border-style:double;
+	border-color:#ecb714;
+	border-radius:10px;
+	width:300px;
+	height:50px;
+	display: flex; 
+	justify-content: center; 
 	align-items: center;
 }
-
 .searchfield {
 	margin: 0px auto;
 }
-
 #content {
-	display: flex;
-	justify-content: center;
+	display: flex; 
+	justify-content: center; 
 	align-items: center;
 	flex-direction: column;
 	width: 95%;
-	margin: auto;
+    margin: auto;
 }
-
-.product {
-	display: flex;
-	justify-content: center;
+.product{
+	display: flex; 
+	justify-content: center; 
 	align-items: center;
-	padding: 0px 10px;
+	padding:0px 10px;
 }
-
-.img {
-	width: 60%;
-	height: 80%;
+.img{
+	width:60%;
+	height:80%;
 }
-
 .pic {
 	width: 30%;
 }
-
 .info {
 	width: 40%;
-	display: flex;
-	justify-content: center;
+	display: flex; 
+	justify-content: center; 
 	align-items: center;
 	flex-direction: column;
 }
-
 .buy {
 	width: 30%;
-	display: flex;
-	justify-content: center;
+	display: flex; 
+	justify-content: center; 
 	align-items: center;
 	flex-direction: column;
 }
-
 .button {
-	border-radius: 1rem;
-	border: 1px solid #ccc;
+ 	border-radius:1rem; 
+ 	border: 1px solid #ccc;
 }
 </style>
 </head>
 <body>
 	<%@ include file="../navbar.file"%>
 	<br>
-	<div id="searchArea"
-		style="margin: 0px auto; display: flex; justify-content: center; align-items: center;">
+	<div id="searchArea" style="margin: 0px auto; display: flex; justify-content: center; align-items: center;">
 		<!--搜尋欄開始-->
 		<div id="search">
 			<form method="post" class="searchfield"
@@ -91,18 +83,17 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 		<!--搜尋欄結束-->
 	</div>
 	<br>
-	<div id="CONTENT">
+	<div id="content">
 		<!--商品欄開始-->
 		<div style="margin: 0px auto;">
 			<%@ include file="page1.jsp"%>
 		</div>
 		<br>
-		<c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>"
-			end="<%= pageIndex+rowsPerPage-1 %>">
+		<div>
+		<c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>">
 			<div class="product">
 				<div class="pic">
-					<a class="prod_img"
-						href="mealController?action=findByprod&mealNo=${meal.mealNo}">
+					<a class="prod_img" href="mealController?action=findByprod&mealNo=${meal.mealNo}">
 						<img class="img" src="${meal.showPhoto}">
 					</a>
 				</div>
@@ -110,45 +101,42 @@ List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
 					<h5 class="prod_name">
 						<a href="mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a>
 					</h5>
-					<br> <span style="font-size: 18px">${meal.mealRecipe}</span> <br>
+					<br> 
+					<span style="font-size: 18px">${meal.mealRecipe}</span> 
+					<br>
+					<span style="font-size: 18px">價格NT$${meal.mealPrice}</span>
+					<br>
 					<span style="font-size: 18px">狀態：${launchStatus[meal.launch]}</span>
 					<br>
 					<div>
-						<c:forEach var="nutrientFeatureDetail"
-							items="${meal.nutrientFeatureDetails}">
-							<a
-								href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }"
-								style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
+						<c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
+							<a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }"
+							style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
 						</c:forEach>
 					</div>
 				</div>
-				<div class="buy">
-					<span style="font-size: 18px">價格NT$${meal.mealPrice}</span>
-					<form method="post" action="mealController?action=toUpdate"
-						enctype="application/x-www-form-urlencoded"
-						id="edit${meal.mealNo}">
+				<div class="buy">	
+					<form method="post" action="mealController?action=toUpdate" enctype="application/x-www-form-urlencoded" id="edit${meal.mealNo}">
 						<input type="hidden" value="${meal.mealNo}" name="mealNo">
-
 					</form>
-					<br>
-					<form method="post" action="mealController"
-						enctype="application/x-www-form-urlencoded"
-						id="launch${meal.mealNo}">
+					<form method="post" action="mealController" enctype="application/x-www-form-urlencoded" id="launch${meal.mealNo}">
 						<input type="hidden" name="mealNo" value="${meal.mealNo}">
 						<input type="hidden" name="launch" value="${meal.launch eq 0?1:0}">
 						<input type="hidden" name="action" value="launch">
 					</form>
-					<button type="submit" form="edit${meal.mealNo}">修改商品</button>
-					<button type="submit" form="launch${meal.mealNo}"
-						class="launchSwitch">${meal.launch eq 0?"上架":"下架"}</button>
+					<div>
+					<button type="submit" form="edit${meal.mealNo}" class="button">修改商品</button>&nbsp;
+					<button type="submit" form="launch${meal.mealNo}" class="launchSwitch" style="border-radius: 1rem;border: 1px solid #ccc;">${meal.launch eq 0?"上架":"下架"}</button>
+					</div>
 				</div>
-				<hr>
+			</div>
+			<hr>	
 		</c:forEach>
 		<br>
 		<%@ include file="page2.jsp"%>
 		<!--商品欄結束-->
-	</div>
-	</div>
+		</div>
+</div>
 	<script></script>
 </body>
 </html>

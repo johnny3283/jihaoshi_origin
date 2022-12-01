@@ -14,15 +14,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap"
-	rel="stylesheet">	
+<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap" rel="stylesheet">	
 <link rel="stylesheet" href="${ctxPath}/css/styles.css">
 
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -142,10 +138,13 @@
 						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">菜單管理</a>
 							<ul class="dropdown-menu">
 								<li>
-                  					<a class="dropdown-item" href="${ctxPath}/meal/MealManagerIndex.jsp">菜單管理</a>
+                  					<a class="dropdown-item" href="${ctxPath}/meal/mealController?action=listAll">菜單商品列表</a>
                	 				</li>
 								<li>
-                  					<a class="dropdown-item" href="${ctxPath}/ztest/mealsManag.jsp">菜單管理test</a>
+                  					<a class="dropdown-item" href="${ctxPath}/meal/MealInsert.jsp">新增菜單商品</a>
+               	 				</li>
+               	 				<li>
+                  					<a class="dropdown-item" href="${ctxPath}/nutrient/insert">新增營養特色<a>
                	 				</li>
 							</ul>
 					</li>						

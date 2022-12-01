@@ -82,7 +82,7 @@
     <!--搜尋欄結束-->
 </div>
 <br>
-<div id="CONTENT">
+<div id="content">
 <!--商品欄開始-->
 	<div style="margin: 0px auto;">
     <%@ include file="page1.jsp" %>
