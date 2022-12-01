@@ -36,6 +36,7 @@
 <body>
 
 <%@ include file="../navbar.file" %>
+<br>
 <div id="content">
     <FORM METHOD="post" ACTION="member/MemberServlet">
         <div id="form">

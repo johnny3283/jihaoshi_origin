@@ -33,6 +33,7 @@
 </head>
 <body>
 <%@ include file="../navbar.file" %>
+<br>
 <c:if test="${not empty errorMsgs}">
     <font style="color: red">請修正以下錯誤:</font>
     <ul>

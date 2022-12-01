@@ -172,12 +172,6 @@
 						</button>
 					</li>
 					</c:if>
-          &emsp;&emsp;
-					<li class="nav-item"><c:if test="${not empty member}">
-						<a class="nav-link active" aria-current="page"
-						   href="<%=request.getContextPath()%>/member/MemberServlet?action=Logout">登出</a>
-					</c:if></li>
-
 				</ul>
 			</div>
 		</div>

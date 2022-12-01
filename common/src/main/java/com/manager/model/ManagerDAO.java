@@ -237,7 +237,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 
 	@Override
 	public List<Integer> GetAuthority(Integer managerNo) {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -257,7 +257,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 			}
 			return authorityNo;
 
-			
+
 		} catch (Exception se) {
 			se.printStackTrace();
 
@@ -308,7 +308,6 @@ public class ManagerDAO implements ManagerDAO_interface {
 				manVO.setManagerNo(rs.getInt("manager_no"));
 				manVO.setManagerName(rs.getString("manager_name"));
 				manVO.setManagerAccount(rs.getString("manager_account"));
-//				managerVO.setManagerPassword(rs.getString("manager_password"));
 				manVO.setManagerStatus(rs.getInt("manager_status"));
 
 				list.add(manVO);

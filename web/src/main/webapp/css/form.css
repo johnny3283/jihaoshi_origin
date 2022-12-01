@@ -3,7 +3,7 @@
         /* BASIC */
 
         html {
-            background-color: #56baed;
+            background-color: lightgray;
         }
 
         body {
@@ -75,7 +75,7 @@
 
         h2.active {
             color: #0d0d0d;
-            border-bottom: 2px solid #5fbae9;
+            border-bottom: 2px solid lightgray;
         }
 
 
@@ -85,7 +85,7 @@
         input[type=button],
         input[type=submit],
         input[type=reset] {
-            background-color: #56baed;
+            background-color: lightgray;
             border: none;
             color: white;
             padding: 15px 80px;
@@ -95,7 +95,7 @@
             text-transform: uppercase;
             font-size: 13px;
             -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
-            box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+            box-shadow: 0 10px 30px 0 lightgray;
             -webkit-border-radius: 5px 5px 5px 5px;
             border-radius: 5px 5px 5px 5px;
             margin: 5px 20px 40px 20px;
@@ -109,7 +109,7 @@
         input[type=button]:hover,
         input[type=submit]:hover,
         input[type=reset]:hover {
-            background-color: #39ace7;
+            background-color: dimgray;
         }
 
         input[type=button]:active,
@@ -123,7 +123,7 @@
         }
 
         input[type=text] {
-            background-color: #f6f6f6;
+            background-color: lightgray;
             border: none;
             color: #0d0d0d;
             padding: 15px 32px;
@@ -133,7 +133,7 @@
             font-size: 16px;
             margin: 5px;
             width: 85%;
-            border: 2px solid #f6f6f6;
+            border: 2px solid lightgray;
             -webkit-transition: all 0.5s ease-in-out;
             -moz-transition: all 0.5s ease-in-out;
             -ms-transition: all 0.5s ease-in-out;
@@ -145,14 +145,13 @@
 
         input[type=text]:focus {
             background-color: #fff;
-            border-bottom: 2px solid #5fbae9;
         }
 
         input[type=text]:placeholder {
             color: #cccccc;
         }
         input[type=password] {
-            background-color: #f6f6f6;
+            background-color: lightgray;
             border: none;
             color: #0d0d0d;
             padding: 15px 32px;
@@ -162,7 +161,7 @@
             font-size: 16px;
             margin: 5px;
             width: 85%;
-            border: 2px solid #f6f6f6;
+            border: 2px solid lightgray;
             -webkit-transition: all 0.5s ease-in-out;
             -moz-transition: all 0.5s ease-in-out;
             -ms-transition: all 0.5s ease-in-out;
@@ -174,7 +173,6 @@
 
         input[type=password]:focus {
             background-color: #fff;
-            border-bottom: 2px solid #5fbae9;
         }
 
         input[type=password]:placeholder {
@@ -300,7 +298,7 @@
             bottom: -10px;
             width: 0;
             height: 2px;
-            background-color: #56baed;
+            background-color: lightgray;
             content: "";
             transition: width 0.2s;
         }

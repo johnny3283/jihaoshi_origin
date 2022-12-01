@@ -15,7 +15,7 @@
             <!-- Tabs Titles -->
             <h2 class="active">會員登入</h2>
             <a href="<%=request.getContextPath()%>/member/addmember.jsp">
-            <h2 class="inactive underlineHover">Sign Up
+            <h2 class="inactive underlineHover">註冊
             </h2>
             </a>
 			<br><c:if test="${not empty errorMsgs}">
