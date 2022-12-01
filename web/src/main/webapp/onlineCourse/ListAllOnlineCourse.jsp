@@ -67,7 +67,7 @@ div.formdiv {
 
 .photo {
 	width: 100%;
-	height: 250px;
+	height: auto;
 	border-radius: 10px;
 	line-height: 150px;
 }

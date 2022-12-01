@@ -28,7 +28,15 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
+            list-style: none;
         }
+        
+            .picture_list img {
+        	width:300px;
+            display: block;
+            margin: 20px 40px;
+        }
+       
 
         body {
             font-family: 'Nunito', sans-serif;
@@ -156,9 +164,8 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 			font-weight: 700; 
 			font-size: 1rem;
 			margin: auto 5%;
-
-box-shadow: 5px 7px 5px #333333;
-position: relative;
+            box-shadow: 5px 7px 5px #333333;
+            position: relative;
 		}
 		
 		.submit-input:hover{
@@ -174,6 +181,11 @@ position: relative;
             }
 
         }
+        
+         ::placeholder {
+                color: #6d6875;
+          }
+  
    
 
 
@@ -189,6 +201,15 @@ position: relative;
 <input  type="hidden" name="courseNo" size="45" value= "${onlinecourseVO.courseNo}" />
 
 <h3 style="font-size:2.5rem;">線上課程資料修改</h3>
+<div>
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+		<font style="color:red">請修正以下錯誤:</font><br>
+		<c:forEach var="message" items="${errorMsgs}">
+			<span style="color:red">${message}</span><br>
+		</c:forEach>
+		</c:if>
+	</div>	
 
 
 
@@ -213,10 +234,10 @@ position: relative;
             <input type="text" id="teacher" name="coursePrice" placeholder="線上課程價格" value="${onlinecourseVO.coursePrice}" /></td>
 
             <label for="people"></label>
-            <input type="text" id="people" name="commentPeople" placeholder="評論人數" value="${onlinecourseVO.commentPeople}" /></td>
+            <input type="hidden" id="people" name="commentPeople" placeholder="評論人數"  value="${onlinecourseVO.commentPeople}" /></td>
 
             <label for="score"></label>
-            <input type="text" id="score" name="commentScore" placeholder="評論分數" value="${onlinecourseVO.commentScore}" /></td>
+            <input type="hidden" id="score" name="commentScore" placeholder="評論分數"  value="${onlinecourseVO.commentScore}" /></td>
  
             <label for="video"></label>
             <input type="text" id="video" name="courseVideo" placeholder="影片串流字串" value="${onlinecourseVO.courseVideo}" /></td>
@@ -225,13 +246,14 @@ position: relative;
         <fieldset>
             <legend style="position: relative; top: 10%;"><span class="number">2</span>線上課程簡介:</legend>
             <label for="courseInfo" ></label>
-            <textarea id="courseInfo" name="courseInfo" placeholder="內容"></textarea>
+            <textarea id="courseInfo" name="courseInfo" placeholder="內容">${onlinecourseVO.courseInfo}</textarea>
         </fieldset>
 
 	<div class="photoupload" style="width:100%; margin: 30px auto">
         <tr>
-		<td><input type="file" name="photo"  style="width:50%;margin-left:20%"></td>
+		<td><input type="file" name="photo" id="the_file"  style="width:50%;margin-left:20%"></td>
 		<span>圖片上傳</span>
+		<ul class="picture_list"></ul>		
 		</tr>
 	</div>
 
@@ -253,6 +275,47 @@ position: relative;
    
 					
 	</div>
+	<ul class="picture_list"></ul>
+
+    <script>
+        window.addEventListener("load", function () {
+
+            var the_file_element = document.getElementById("the_file");
+            the_file_element.addEventListener("change", function (e) {
+
+
+                let my_ul = document.getElementsByClassName("picture_list")[0];
+                my_ul.innerHTML = "";
+                // 寫在這
+                // console.log(this.file[0]);
+
+                for (let i = 0; i < this.files.length; i++) {
+                    let reader = new FileReader(); // 用來讀取檔案的物件
+
+                    reader.readAsDataURL(this.files[i]); // 讀取檔案
+
+                    // 檔案讀取完畢時觸發
+                    reader.addEventListener("load", function () {
+
+                        // 可以透過 reader.result 取得圖片讀取完成時的 Base64 編碼格式
+                        // console.log(reader.result);
+                        // ... other code ...
+                        let li_str = '<li><img src="' + reader.result + '" class="preview"></li>'
+                        // let li_str = `<li></li>`
+                        let ul_el = document.getElementsByClassName("picture_list")[0];
+
+                        ul_el.insertAdjacentHTML("beforeend", li_str);
+
+                    });
+                };
+
+
+            });
+
+
+        });
+    </script>
+	
 	
 	</FORM>
 

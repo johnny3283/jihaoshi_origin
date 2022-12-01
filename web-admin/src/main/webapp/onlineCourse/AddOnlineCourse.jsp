@@ -30,6 +30,13 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
+            list-style: none;
+        }
+        
+        .picture_list img {
+        	width:300px;
+            display: block;
+            margin: 20px 40px;
         }
 
         body {
@@ -155,9 +162,8 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 			font-weight: 700; 
 			font-size: 1rem;
 			margin: auto 5%;
-
-box-shadow: 5px 7px 5px #333333;
-position: relative;
+            box-shadow: 5px 7px 5px #333333;
+            position: relative;
 		}
 		
 		.submit-input:hover{
@@ -174,6 +180,9 @@ position: relative;
             }
 
         }
+        ::placeholder {
+                color: #6d6875;
+}
    
 </style>
 
@@ -186,6 +195,16 @@ position: relative;
 		 <FORM METHOD="post" ACTION="onlineCourse" name="form1" enctype="multipart/form-data">
 	
         <h1>線上課程資料</h1>
+        
+        <div>
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+		<font style="color:red">請修正以下錯誤:</font><br>
+		<c:forEach var="message" items="${errorMsgs}">
+			<span style="color:red">${message}</span><br>
+		</c:forEach>
+		</c:if>
+	</div>	
 
         <fieldset>
             <legend style="position: relative; top: 10%;"><span class="number">1</span>新增:</legend>
@@ -219,8 +238,9 @@ position: relative;
 
 	<div class="photoupload" style="width:100%; margin: 30px auto">
         <tr>		
-		<td><input type="file" name="photo" style="width:50%;margin-left:20%"></td>
+		<td><input type="file" name="photo" id="the_file" style="width:50%;margin-left:20%"></td>
 		<span>圖片上傳</span>
+		 <ul class="picture_list"></ul>
 		</tr>
 	</div>
 	
@@ -242,6 +262,47 @@ position: relative;
 		<input class="submit-input" type="submit" value="送出新增">
 					
 	</div>
+	
+	 <ul class="picture_list"></ul>
+
+    <script>
+        window.addEventListener("load", function () {
+
+            var the_file_element = document.getElementById("the_file");
+            the_file_element.addEventListener("change", function (e) {
+
+
+                let my_ul = document.getElementsByClassName("picture_list")[0];
+                my_ul.innerHTML = "";
+                // 寫在這
+                // console.log(this.file[0]);
+
+                for (let i = 0; i < this.files.length; i++) {
+                    let reader = new FileReader(); // 用來讀取檔案的物件
+
+                    reader.readAsDataURL(this.files[i]); // 讀取檔案
+
+                    // 檔案讀取完畢時觸發
+                    reader.addEventListener("load", function () {
+
+                        // 可以透過 reader.result 取得圖片讀取完成時的 Base64 編碼格式
+                        // console.log(reader.result);
+                        // ... other code ...
+                        let li_str = '<li><img src="' + reader.result + '" class="preview"></li>'
+                        // let li_str = `<li></li>`
+                        let ul_el = document.getElementsByClassName("picture_list")[0];
+
+                        ul_el.insertAdjacentHTML("beforeend", li_str);
+
+                    });
+                };
+
+
+            });
+
+
+        });
+    </script>
 
 
         
