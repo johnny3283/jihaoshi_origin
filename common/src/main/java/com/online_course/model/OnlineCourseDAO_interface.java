@@ -26,4 +26,6 @@ public interface OnlineCourseDAO_interface {
 	public List<OnlineCourseVO> selectByMemId(Integer memId);
 	
 	public List<OnlineCourseVO> selectByCourseNameAndMemId(String courseName, Integer memId);
+	
+	public List<OnlineCourseVO> getFree();
 }

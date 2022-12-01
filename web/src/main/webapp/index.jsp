@@ -171,7 +171,7 @@
 							<a href="${ctxPath}/member/login.jsp" style="display:inline-block; text-decoration:none;color:black;"> 登入 | 註冊</a>
 						</button>
 					</li>
-					</c:if>
+				</c:if>
 				</ul>
 			</div>
 		</div>

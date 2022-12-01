@@ -38,7 +38,9 @@ List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute(
 .romove {
 	width:20%;
 }
-
+.img {
+	width:100%;
+}
 </style>
 </head>
 <body>
@@ -49,7 +51,7 @@ List<CartCourseVO> cartCourses = (ArrayList<CartCourseVO>) session.getAttribute(
 		<c:forEach var="cartCourse" items="${cartCourses}" varStatus="loop">
 		<div class="all" style="border-style:outset;">		
 			<div class="pic">
-				<img src="data:image/png;base64,${cartCourse.course.onlineCoursePhotoBaseStr64}" onclick="showDetail(${cartCourse.course.courseNo})">
+				<img class="img" src="data:image/png;base64,${cartCourse.course.onlineCoursePhotoBaseStr64}" onclick="showDetail(${cartCourse.course.courseNo})">
 			</div>
 			<div class="info">
 				<h3 class="prod_name" onclick="showDetail(${cartCourse.course.courseNo})"> ${cartCourse.course.courseName}</h3>

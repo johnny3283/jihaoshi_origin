@@ -153,22 +153,22 @@
 				if (friends[i] === self) {
 					continue;
 				} 
-				//list.innerHTML += '<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h3 class="user">'
- 				//		+ friends[i] + '</h3></div>';
+				list.innerHTML += '<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h3 class="user">'
+ 						+ friends[i] + '</h3></div>';
 				// <div id= 1 class="column" name="friendName" value= member ><h2>member</h2></div>'
-				var u = document.createElement('div');
-				u.setAttribute('class','friend-drawer friend-drawer--onhover');
-				list.appendChild(u);
+// 				var u = document.createElement('div');
+// 				u.setAttribute('class','friend-drawer friend-drawer--onhover');
+// 				list.appendChild(u);
 				
-				var user = document.createElement('div');
-				user.setAttribute('class','text');
-				u.appendChild(user);
+// 				var user = document.createElement('div');
+// 				user.setAttribute('class','text');
+// 				u.appendChild(user);
 				
-				var userName = document.createElement('h6');
-				userName.textContent = friends[i];
-				var hr = document.createElement('hr');
-				user.appendChild(userName);
-				user.appendChild(hr);
+// 				var userName = document.createElement('h6');
+// 				userName.textContent = friends[i];
+// 				var hr = document.createElement('hr');
+// 				user.appendChild(userName);
+// 				user.appendChild(hr);
 			}
 			addListener();
 		}

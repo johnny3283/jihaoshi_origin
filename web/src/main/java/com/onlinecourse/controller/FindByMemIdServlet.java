@@ -33,8 +33,13 @@ public class FindByMemIdServlet extends HttpServlet {
 		OnlineCourseVO vo = gson.fromJson(req.getReader(), OnlineCourseVO.class);
 		String courseName = vo.getCourseName();
 		List<OnlineCourseVO> list;
+		List<OnlineCourseVO> list2;
+		
+		
 		if (courseName == null || courseName.isEmpty()) {
 			list = service.selectByMemId(memberNo);
+			list2 = service.getFree();
+			list.addAll(list2);
 		} else {
 			list = service.selectByCourseNameAndMemId(courseName, memberNo);
 		}

@@ -317,6 +317,42 @@ public class OnlineCourseJDBCDAO implements OnlineCourseDAO_interface {
     }
     
     @Override
+    public List<OnlineCourseVO> getFree() {
+        String sql = "select * "
+        		+ "from"
+        		+ "	ONLINE_COURSE "
+        		+ "where COURSE_PRICE = 0";
+        try (
+        	Connection conn = ds.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)
+        ) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                List<OnlineCourseVO> list = new ArrayList<>();
+                while (rs.next()) {
+                    OnlineCourseVO vo = new OnlineCourseVO();
+                    vo.setCourseNo(rs.getInt("course_no"));
+                    System.out.print(vo.getCourseNo());
+                    vo.setCourseName(rs.getString("course_name"));
+                    vo.setCourseHr(rs.getString("course_hr"));
+                    vo.setCourseTeacher(rs.getString("course_teacher"));
+                    vo.setCourseInfo(rs.getString("course_info"));
+                    vo.setCoursePrice(rs.getInt("course_price"));
+                    vo.setCourseStatus(rs.getInt("course_status"));
+                    vo.setUpdateDate(rs.getTimestamp("update_date"));
+                    vo.setCommentPeople(rs.getInt("comment_people"));
+                    vo.setCommentScore(rs.getInt("comment_score"));
+                    vo.setOnlineCoursePhoto(rs.getBytes("course_photo"));
+                    list.add(vo);
+                }
+                return list;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    @Override
     public List<OnlineCourseVO> selectByCourseNameAndMemId(String courseName, Integer memId) {
         String sql = "select c.* "
         		+ "from"

@@ -116,4 +116,18 @@ public class OnlineCourseService {
 		}
     	return list;
     }
+    
+    public List<OnlineCourseVO> getFree() {
+    	Encoder encoder = Base64.getEncoder();
+		List<OnlineCourseVO> list = dao.getFree();
+		for (OnlineCourseVO vo : list) {
+			byte[] photo = vo.getOnlineCoursePhoto();
+			if (photo == null) {
+				continue;
+			}
+			String photoBase64Str = encoder.encodeToString(photo);
+			vo.setOnlineCoursePhotoBaseStr64(photoBase64Str);
+		}
+    	return list;
+    }
 }
