@@ -69,6 +69,7 @@
 </head>
 <body>
 <%@ include file="../navbar.file" %>
+<br>
 <div id="searchArea" style="margin: 0px auto; display: flex; justify-content: center; align-items: center;">
     <!--搜尋欄開始-->
     <div id="search">

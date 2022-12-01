@@ -24,6 +24,7 @@
 	display: flex;
 	justify-content: Space-around;
 	align-items: center;
+	border-style: outset;
 }
 .button {
  	border-radius:1rem; 
@@ -31,13 +32,19 @@
 }
 
 .pic {
+	padding-left: 10px;
 	width:30%;
 }
 .info {
 	width:50%;
+	padding-bottom: 40px;
+	padding-top: 20px;
 }
 .update {
 	width:20%;
+}
+.img {
+	width:80%;
 }
 </style>
 </head>
@@ -47,23 +54,24 @@
 	<div id="content">
 		<div id="cart">
 			<c:forEach var="cartProd" items="${cartProds}" varStatus="loop">
-				<div class="all" style="border-style: outset;">
+				<div class="all">
 					<div class="pic">
-						<a class="img" href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${cartProd.meal.mealNo}">
-							<img src="${cartProd.meal.showPhoto}">
+						<a  href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${cartProd.meal.mealNo}">
+							<img class="img" src="${cartProd.meal.showPhoto}">
 						</a>
 					</div>
 
 					<div class="info">
+						<br>
 						<h5>
 							<a href="${ctxPath}/meal/mealController?action=findByprod&mealNo=${cartProd.meal.mealNo}">${cartProd.meal.mealName}</a>
 						</h5>
 						<br> <span style="font-size: 18px">分量：${cartProd.quantity}</span>
 						<br> <span style="font-size: 18px">熱量：${cartProd.cal}</span>
 						<br> <span style="font-size: 18px">簡易食譜：${cartProd.meal.mealRecipe}</span>
-						<span style="font-size: 18px">單價NT$${cartProd.meal.mealPrice}</span>
-						<span style="font-size: 18px">總價NT$${cartProd.price}</span> <span
-							style="font-size: 18px">數量：</span> <span style="font-size: 18px"
+						<br> <span style="font-size: 18px">單價NT$${cartProd.meal.mealPrice}</span>
+						<br> <span style="font-size: 18px">總價NT$${cartProd.price}</span> 
+						<br> <span style="font-size: 18px">數量：</span> <span style="font-size: 18px"
 							id="amount_value_${loop.index}">${cartProd.amount}</span>
 					</div>
 					<div class="update">
@@ -84,10 +92,10 @@
 						</form>
 						<button type="submit" form="cart${loop.index}" class="button">修改數量</button>
 						<button type="submit" form="cartDelete${loop.index}" class="button">從購物車刪除</button>
-						<br><br>
+						<br>
 					</div>
 				</div>
-				<br>
+
 			</c:forEach>
 			<div id="totalPrice">
 				<c:choose>
@@ -103,9 +111,12 @@
 					</c:when>
 					<c:otherwise>
 						<br>
-						<br>
-						<span style="font-size: 16px;">商品總價：${totalPrice}元 </span>
-
+					<div style="display: flex; justify-content: center; align-items: center;flex-direction: column;">
+						<div>
+						<span style="font-size: 16px;">商品總價：${totalPrice}元 </span>&nbsp;
+						<button type="submit" form="checkout" class="button">去結帳</button>
+						<button type="submit" form="clearCart" class="button">清空購物車</button>
+						</div>						
 						<form method="post"
 							action="${ctxPath}/checkout/checkoutController" id="checkout"
 							enctype="application/x-www-form-urlencoded">
@@ -114,10 +125,9 @@
 						<form method="post" action="${ctxPath}/cart/cartController"
 							enctype="application/x-www-form-urlencoded" id="clearCart">
 							<input type="hidden" value="clearCart" name="action">
-						</form>
-						<button type="submit" form="checkout" class="button">去結帳</button>
-						<button type="submit" form="clearCart" class="button">清空購物車</button>
-
+						</form>						
+						
+					</div>
 					</c:otherwise>
 				</c:choose>
 		</div>

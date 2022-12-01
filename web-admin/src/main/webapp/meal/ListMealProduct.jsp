@@ -1,131 +1,154 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.meal.model.MealVO" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
- <%
-    List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
- %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.meal.model.MealVO"%>
+<%@ page import="java.util.List"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+List<MealVO> meals = (List<MealVO>) request.getAttribute("meals");
+%>
 
 <html>
 <head>
-    <title>Title</title>
-    <link type="text/css" href="<%=request.getContextPath()%>/css/jihaoshi.css" rel="stylesheet">
-    <style>
-    * {
-  margin: 0;
-  padding:0;
-  box-sizing: border-box;
+<title>產品清單</title>
+<style>
+#search {
+	border-style: double;
+	border-color: #ecb714;
+	border-radius: 10px;
+	width: 300px;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-.layout-center{
-width:100%
+
+.searchfield {
+	margin: 0px auto;
 }
-        #pageHead {
-            width: 100%;
-            height: 30%;
-        }
-    </style>
+
+#content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 95%;
+	margin: auto;
+}
+
+.product {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 10px;
+}
+
+.img {
+	width: 60%;
+	height: 80%;
+}
+
+.pic {
+	width: 30%;
+}
+
+.info {
+	width: 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.buy {
+	width: 30%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.button {
+	border-radius: 1rem;
+	border: 1px solid #ccc;
+}
+</style>
 </head>
 <body>
-<img src="../images/JihaoshiPageHead.jpg" id="pageHead">
-<div class="block_N" style="margin:0px auto;">
-    <!--搜尋欄開始-->
-    <div class="Nm" style="display: flex; justify-content: center; align-items: center; ">
-        <form method="post" action="${ctxPath}/meal/mealController" enctype="application/x-www-form-urlencoded" id="searceKeyword">
-            <ul class="searchfield">
-                <li>
-                    <input name="action" value="nameKeywordSearch" hidden>
-                    <input id="keyword" type="text" class="text ac_input" name="nameKeyword" placeholder="請輸入關鍵字" >
+	<%@ include file="../navbar.file"%>
+	<br>
+	<div id="searchArea"
+		style="margin: 0px auto; display: flex; justify-content: center; align-items: center;">
+		<!--搜尋欄開始-->
+		<div id="search">
+			<form method="post" class="searchfield"
+				action="${ctxPath}/meal/mealController"
+				enctype="application/x-www-form-urlencoded" id="searceKeyword">
+				<input name="action" value="nameKeywordSearch" hidden> <input
+					id="keyword" type="text" class="text ac_input" name="nameKeyword"
+					placeholder="請輸入關鍵字">
+				<button type="submit" form="searceKeyword" class="button">查找商品</button>
+			</form>
+		</div>
+		<!--搜尋欄結束-->
+	</div>
+	<br>
+	<div id="CONTENT">
+		<!--商品欄開始-->
+		<div style="margin: 0px auto;">
+			<%@ include file="page1.jsp"%>
+		</div>
+		<br>
+		<c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>"
+			end="<%= pageIndex+rowsPerPage-1 %>">
+			<div class="product">
+				<div class="pic">
+					<a class="prod_img"
+						href="mealController?action=findByprod&mealNo=${meal.mealNo}">
+						<img class="img" src="${meal.showPhoto}">
+					</a>
+				</div>
+				<div class="info">
+					<h5 class="prod_name">
+						<a href="mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a>
+					</h5>
+					<br> <span style="font-size: 18px">${meal.mealRecipe}</span> <br>
+					<span style="font-size: 18px">狀態：${launchStatus[meal.launch]}</span>
+					<br>
+					<div>
+						<c:forEach var="nutrientFeatureDetail"
+							items="${meal.nutrientFeatureDetails}">
+							<a
+								href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }"
+								style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="buy">
+					<span style="font-size: 18px">價格NT$${meal.mealPrice}</span>
+					<form method="post" action="mealController?action=toUpdate"
+						enctype="application/x-www-form-urlencoded"
+						id="edit${meal.mealNo}">
+						<input type="hidden" value="${meal.mealNo}" name="mealNo">
 
-                </li>
-                <li>
-                    <button type="submit" form="searceKeyword" >查找商品</button>
-                </li>
-            </ul>
-        </form>
-    </div>
-    <!--搜尋欄結束-->
-</div>
-<div id="WRAPPER" class="ecsite-layout style_shopping ecsite-search">
-    <div id="CONTENT" class="layout-wrapper">
-        <div class="layout-center" style="text-align:center">
-            <!--側邊欄區塊開始-->
-            <dl class="block_W">
-                <dd id="CategoryContainer">
-                    <ul class="treeview">
-                        <li id="cate_D" class="expanded"><H1>功能列表</H1>
-                            <ul class="main">
-                                <li>
-                                    <a href="${ctxPath}/meal/MealInsert.jsp">新增菜單</a>
-                                </li>
-                                <li>
-                                    <a href="${ctxPath}/nutrient/insert" >新增營養特色</a>
-                                </li>
-                                <li>
-                                    <a href="${ctxPath}/meal/MealManagerIndex.jsp">回菜單商品管理首頁</a>
-                                </li>
-                                <li>
-                                    <a href="${ctxPath}">回首頁</a>
-                                </li>
-                            </ul>
-                    </ul>
-                </dd>
-            </dl>
-            <!--側邊欄區塊結束-->
-            <div class="block_C s_list">
-                <div class="Cm">
-                    <div id="ItemContainer" class="Cm_C">
-                        <!--商品欄開始-->
-                         <%@ include file="page1.jsp" %>
-                         <c:forEach var="meal" items="${meals}" begin="<%= pageIndex %>"
-                                    end="<%= pageIndex+rowsPerPage-1 %>">
-                            <dl class="col3f" id="DRAA0A-A900BUT82">
-                                <dd class="c1f"><a class="prod_img" href="mealController?action=findByprod&mealNo=${meal.mealNo}">
-                                    <img src="${meal.showPhoto}"></a></dd>
-                                <dd class="c2f">
-                                    <ul class="tag_box s_label"></ul>
-                                    <h5 class="prod_name"><a
-                                            href="mealController?action=findByprod&mealNo=${meal.mealNo}">${meal.mealName}</a></h5>
-                                    <br>
-                                    <span style="font-size: 18px">${meal.mealRecipe}</span>
-                                    <br>
-                                    <span style="font-size: 18px">狀態：${launchStatus[meal.launch]}</span><br>
-                                    <span style="font-size: 18px">
-                                    <c:forEach var="nutrientFeatureDetail" items="${meal.nutrientFeatureDetails}">
-                                        <a href="${ctxPath}/meal/mealController?action=hashtag&featureName=${nutrientFeatureDetail.featureName }" style="font-style: italic">#${nutrientFeatureDetail.featureName}&ensp;</a>
-                                    </c:forEach>
-                                    </span>
-                                </dd>
-                                <dd class="c3f" id="button_DRAA0A-A900BUT82">
-                                    <ul class="price_box">
-                                        <li><span style="font-size: 18px">價格NT$${meal.mealPrice}</span>
-                                        </li>
-                                    </ul>
-                                    <form method="post" action="mealController?action=toUpdate"
-                                          enctype="application/x-www-form-urlencoded" id="edit${meal.mealNo}">
-                                        <input type="text" value="${meal.mealNo}" name="mealNo" hidden>
-
-                                    </form>
-                                    <br>
-                                    <form method="post" action="mealController" enctype="application/x-www-form-urlencoded" id="launch${meal.mealNo}">
-                                        <input type="text" name="mealNo" value="${meal.mealNo}" hidden>
-                                        <input type="text" name="launch" value="${meal.launch eq 0?1:0}" hidden>
-                                        <input type="text" name="action" value="launch" hidden>
-                                    </form>
-                                    <button type="submit" form="edit${meal.mealNo}">修改商品</button>
-                                    <button type="submit" form="launch${meal.mealNo}" class="launchSwitch">${meal.launch eq 0?"上架":"下架"}</button>
-                                </dd>
-                            </dl>
-                         </c:forEach>
-                         <%@ include file="page2.jsp" %>
-                        <!--商品欄結束-->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-<script>
-</script>
+					</form>
+					<br>
+					<form method="post" action="mealController"
+						enctype="application/x-www-form-urlencoded"
+						id="launch${meal.mealNo}">
+						<input type="hidden" name="mealNo" value="${meal.mealNo}">
+						<input type="hidden" name="launch" value="${meal.launch eq 0?1:0}">
+						<input type="hidden" name="action" value="launch">
+					</form>
+					<button type="submit" form="edit${meal.mealNo}">修改商品</button>
+					<button type="submit" form="launch${meal.mealNo}"
+						class="launchSwitch">${meal.launch eq 0?"上架":"下架"}</button>
+				</div>
+				<hr>
+		</c:forEach>
+		<br>
+		<%@ include file="page2.jsp"%>
+		<!--商品欄結束-->
+	</div>
+	</div>
+	<script></script>
 </body>
 </html>
