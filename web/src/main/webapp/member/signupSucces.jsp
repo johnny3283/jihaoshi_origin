@@ -27,7 +27,7 @@ span {
 　　setInterval("refer()",1000); 
 　　function refer(){
 　　　　if(t==0){
-　　　　　　window.location =  "../login.jsp";
+　　　　　　window.location =  "${pageContext.request.contextPath}/member/login.jsp";
 　　　　}
 　　　　document.getElementById('show').innerHTML="修改成功"+t+"秒後跳轉到登入頁面";
 　　　　t--; 

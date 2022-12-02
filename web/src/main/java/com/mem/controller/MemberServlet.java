@@ -99,7 +99,7 @@ public class MemberServlet extends HttpServlet {
 			memVO = memSvc2.addmember(memberacc, memberpas, membername, memberpho, membernick, memberadd, memberemail);
 
 			req.setAttribute("MemberVO", memVO);
-			String url = "/signupSucces.jsp";
+			String url = "signupSucces.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 

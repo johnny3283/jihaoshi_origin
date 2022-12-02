@@ -71,7 +71,8 @@ public class ManagerServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-
+			List<Integer> authorityNo= mgrSvc.getAuthority(mgrVO.getManagerNo());
+			mgrVO.setAuthorityNo(authorityNo);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("ManagerVO", mgrVO);
 			String url = "/manager/listOneManager.jsp";

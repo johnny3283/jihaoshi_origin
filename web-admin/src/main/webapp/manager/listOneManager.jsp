@@ -10,8 +10,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
     <title>listOneManager</title>
     <style>
         #content {
@@ -29,9 +27,9 @@
         table {
             border: 1px solid #ccc;
             border-collapse: collapse;
-            margin: 0;
+            margin-left: 20%;
             padding: 0;
-            width: 95%;
+            width: 60%;
             table-layout: fixed;
         }
 
@@ -111,59 +109,51 @@
 <%@ include file="../navbar.file" %>
 <br>
 <div id="CONTENT">
-    <div id="Commenttable">
-
-        <c:if test="${not empty errorMsgs}">
-            <font style="color: red">請修正以下錯誤:</font>
-            <ul>
-                <c:forEach var="message" items="${errorMsgs}">
-                    <li style="color: red">${message}</li>
-                </c:forEach>
-            </ul>
-        </c:if>
-        <table>
-            <tr>
-                <th>管理員編號</th>
-                <th>管理員姓名</th>
-                <th>管理員帳號</th>
-                <th>管理員IP</th>
-                <th>管理員狀態</th>
 
 
-            </tr>
-            <tr>
-
-                <td>${ManagerVO.managerNo}</td>
-                <td>${ManagerVO.managerName}</td>
-                <td>${ManagerVO.managerAccount}</td>
-                <td>${ManagerVO.managerIp}</td>
-                <td>${ManagerVO.managerStatus}</td>
-                <td>
-                    <FORM METHOD="post"
-                          ACTION="../manager/ManagerServlet"
-                          style="margin-bottom: 0px;">
-                        <input type="submit" value="修改"> <input
-                            type="hidden" name="managerNo"
-                            value="${ManagerVO.managerNo}"> <input
-                            type="hidden" name="action" value="getOne_For_Update">
-
-                    </FORM>
-                </td>
-
-
-            </tr>
-        </table>
-
-        </dl>
+    <c:if test="${not empty errorMsgs}">
+        <font style="color: red">請修正以下錯誤:</font>
+        <ul>
+            <c:forEach var="message" items="${errorMsgs}">
+                <li style="color: red">${message}</li>
+            </c:forEach>
+        </ul>
+    </c:if>
+    <div id="form">
+        <form METHOD="post" ACTION="../manager/ManagerServlet" style="margin-bottom: 0px;">
+            <table>
+                <tr>
+                    <td>管理員編號</td>
+                    <td>${ManagerVO.managerNo}</td>
+                </tr>
+                <tr>
+                    <td>管理員姓名</td>
+                    <td>${ManagerVO.managerName}</td>
+                </tr>
+                <tr>
+                    <td>管理員帳號</td>
+                    <td>${ManagerVO.managerAccount}</td>
+                </tr>
+                <tr>
+                    <td>管理員IP</td>
+                    <td>${ManagerVO.managerIp}</td>
+                </tr>
+                <tr>
+                    <td>管理員狀態</td>
+                    <td>${ManagerVO.managerStatus}</td>
+                </tr>
+                <tr>
+                    <td>管理員權限</td>
+                    <td><c:forEach var="no" items="${ManagerVO.authorityNo}">${authorityName[no]}&emsp;</c:forEach></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="修改" style="border-radius:1rem; border: 1px solid #ccc;">
+                    <input type="hidden" name="managerNo" value="${ManagerVO.managerNo}">
+                    <input type="hidden" name="action" value="getOne_For_Update"></td>
+                </tr>
+            </table>
+        </form>
     </div>
 </div>
-</div>
-</div>
-
-</div>
-</div>
-<!-- 	<a href='frontPage.jsp'>到首頁</a> -->
-
-
 </body>
 </html>
