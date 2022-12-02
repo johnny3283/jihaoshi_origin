@@ -64,7 +64,7 @@ OnlineCourseVO onlinecourseVO = (OnlineCourseVO) request.getAttribute("onlinecou
 		<td>${onlinecourseVO.courseTeacher}</td>
 		<td>${onlinecourseVO.courseInfo}</td>
 		<td>${onlinecourseVO.coursePrice}</td>
-		<td>${onlinecourseVO.courseStatus}</td>
+		<td>${courseStatus[onlinecourseVO.courseStatus]}</td>
 		<td>${onlinecourseVO.commentPeople}</td>
 		<td>${onlinecourseVO.commentScore}</td>
 		<td>
