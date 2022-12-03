@@ -97,7 +97,7 @@ public class Latest_newsJDBCDAO implements Latest_newsDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			con.setAutoCommit(false);
+			
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, latest_newsVO.getNews_name());

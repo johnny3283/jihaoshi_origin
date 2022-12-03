@@ -161,6 +161,10 @@ public class Latest_newsServlet extends HttpServlet {
 			/*************************** 2.開始查詢資料 ****************************************/
 			Latest_newsService latest_newsSvc = new Latest_newsService();
 			Latest_newsVO latest_newsVO = latest_newsSvc.getOneLatest_news(news_no);
+			byte[] new_pic = latest_newsVO.getNews_pic();
+			if(new_pic != null) {
+				latest_newsVO.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(latest_newsVO.getNews_pic()));
+			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 //			String param "&news_content=" + latest_newsVO.getNews_content() ;
@@ -194,6 +198,7 @@ public class Latest_newsServlet extends HttpServlet {
 			}
 
 			String news_content = req.getParameter("news_content").trim();
+			System.out.println(news_content);
 			if (news_content == null || news_content.trim().length() == 0) {
 				errorMsgs.put("news_content", "消息內容請勿空白");
 			}
@@ -228,6 +233,7 @@ public class Latest_newsServlet extends HttpServlet {
 				latest_newsVO.setShowPhoto("data:image/png;base64,"+Base64.getEncoder().encodeToString(latest_newsVO.getNews_pic()));
 			}
 			req.setAttribute("update_flag", true);
+			System.out.println(latest_newsVO);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("latest_newsVO", latest_newsVO); // 資料庫update成功後,正確的的latest_newsVO物件,存入req
 			String url = "/latest_news/listOneLatest_news.jsp";

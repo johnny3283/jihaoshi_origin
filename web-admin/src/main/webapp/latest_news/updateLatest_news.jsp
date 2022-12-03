@@ -114,6 +114,7 @@ th, td {
 				<label>消息內文:</label><br><br>
 				<textarea type="TEXT" name="news_content" size="45" value="<%=latest_newsVO.getNews_content()%>" required /></textarea><br><br>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div><img src="${latest_newsVO.showPhoto}"></div>
 				<input type="file" name="news_pic" id="the_file" multiple> 
 				 <ul class="picture_list"></ul>
 				<input type="hidden" name="action" value="update">
