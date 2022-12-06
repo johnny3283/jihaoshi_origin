@@ -62,7 +62,9 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h1>報名成功  ！！<a href="<%=request.getContextPath()%>/course/SignUpCouMgn.jsp"> <br>回首頁</a></h1>
+		 <h1>報名成功  ！！</h1> <br>
+		 <a href="${ctxPath}/course/listAllSignUpCou.jsp" style="margin: 10px auto;text-decoration: none; color: blue; font-weight: 700">查詢己報名課程</a>
+		 <a href="${ctxPath}/index.jsp" style="margin: auto 30px;text-decoration: none; color: blue; font-weight: 700">回首頁 </a>
 	</td></tr>
 </table>
 

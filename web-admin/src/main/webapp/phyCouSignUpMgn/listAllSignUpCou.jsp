@@ -98,7 +98,16 @@
 			<td>${phyCouSignUpVO.order_no}</td>
 			<td>${phyCouSignUpVO.member_no}</td>
 			<td>${phyCouSignUpVO.update_time}</td>
-			<td>${phyCouSignUpVO.order_status}</td>
+			<td><c:if test="${phyCouSignUpVO.order_status==0}">
+				待確認
+			</c:if>
+			<c:if test="${phyCouSignUpVO.order_status==1}">
+				報名成功
+			</c:if>
+			<c:if test="${phyCouSignUpVO.order_status==2}">
+				報名取消
+			</c:if>
+      </td>
 			<td>${phyCouSignUpVO.course_no}</td>
 			<td>${phyCouSignUpVO.phyCouVO.course_name}</td>
 			<td>${phyCouSignUpVO.phyCouVO.course_date}</td> 

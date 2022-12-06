@@ -68,7 +68,9 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>所有已報名實體課程<a href="<%=request.getContextPath()%>/index.jsp"> <br>回首頁</a></h3>
+		 <h3>所有已報名實體課程</h3>
+		 <a href="${ctxPath}/course/ListAllCourse.jsp" style="margin: 10px auto;text-decoration: none; color: blue; font-weight: 700">回課程瀏覽</a>
+		 <a href="${ctxPath}/index.jsp" style="margin: auto 30px;text-decoration: none; color: blue; font-weight: 700">回首頁 </a>
 	</td></tr>
 </table>
 <c:if test="${not empty errorMsgs}">
@@ -83,7 +85,7 @@
 	<tr>
 		<th>訂單編號</th>
 		<th>日期</th>
-		<th>訂單狀態</th>
+		<th>狀態</th>
 		<th>課程編號</th>
 		<th>課程名稱</th>
 		<th>上課日期</th>
@@ -99,7 +101,15 @@
 		
 			<td>${phyCouSignUpVO.order_no}</td>
 			<td>${phyCouSignUpVO.update_time}</td>
-			<td>${phyCouSignUpVO.order_status}</td>
+			<td><c:if test="${phyCouSignUpVO.order_status==0}">
+				待確認
+			</c:if>
+			<c:if test="${phyCouSignUpVO.order_status==1}">
+				報名成功
+			</c:if>
+			<c:if test="${phyCouSignUpVO.order_status==2}">
+				報名取消
+			</c:if>
 			<td>${phyCouSignUpVO.course_no}</td>
 			<td>${phyCouSignUpVO.phyCouVO.course_name}</td>
 			<td>${phyCouSignUpVO.phyCouVO.course_date}</td> 

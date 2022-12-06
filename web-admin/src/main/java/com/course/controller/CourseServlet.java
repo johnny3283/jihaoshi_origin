@@ -447,7 +447,7 @@ public class CourseServlet extends HttpServlet {
 				phyCouSvc.addCou(course_name, course_hr, course_price, course_teacher, course_date, course_location, course_info, course_status, sign_up_start_day, sign_up_end_day, max_sign_up_people, min_sign_up_people, current_sign_up_people, buf);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/course/listAllCou.jsp";
+				String url = "/course/ListAllCourse.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);				
 		}
@@ -468,7 +468,7 @@ public class CourseServlet extends HttpServlet {
 				phyCouSvc.deleteCou(course_no);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/course/listAllCou.jsp";
+				String url = "/course/ListAllCourse.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 		}
@@ -490,7 +490,7 @@ public class CourseServlet extends HttpServlet {
 			phyCouSvc.changeStatus(course_no, course_status);
 			
 			/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-			String url = "/course/listAllCou.jsp";
+			String url = "/course/ListAllCourse.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}

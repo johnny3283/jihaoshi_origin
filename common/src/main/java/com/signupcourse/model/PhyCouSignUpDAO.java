@@ -23,7 +23,7 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 	String passwd = "password";
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO PHYSICAL_COURSE_SIGNUP_LIST (MEMBER_NO, COURSE_NO, ORDER_PRICE) VALUES ( ?, ?, ?)";
+		"INSERT INTO PHYSICAL_COURSE_SIGNUP_LIST (MEMBER_NO, COURSE_NO, ORDER_PRICE, ORDER_STATUS) VALUES ( ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT= 
 		"SELECT * FROM PHYSICAL_COURSE_SIGNUP_LIST ORDER BY ORDER_NO";
 	private static final String GET_ALL_BY_MEMID_STMT= 
@@ -54,6 +54,7 @@ public class PhyCouSignUpDAO implements PhyCouSignUpDAO_interface {
 				pstmt.setInt(1, phyCouSignUpVO.getMember_no());
 				pstmt.setInt(2, phyCouSignUpVO.getCourse_no());
 				pstmt.setInt(3, phyCouSignUpVO.getOrder_price());
+				pstmt.setInt(4, 1);
 
 				pstmt.executeUpdate();
 				long next_order = -1;

@@ -56,7 +56,9 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>課程資料</h3>
-		 <h4><a href="select_page.jsp">回課程管理首頁</a></h4>
+		 <h4><a href="select_page.jsp" style="margin: 10px auto;text-decoration: none; color: blue; font-weight: 700">回課程管理頁</a>
+		 <a href="${ctxPath}/index.jsp" style="margin: auto 30px;text-decoration: none; color: blue; font-weight: 700"> 回首頁 </a>
+		 </h4>
 	</td></tr>
 </table>
 

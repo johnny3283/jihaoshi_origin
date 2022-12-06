@@ -106,7 +106,7 @@
 		value="${param.proCous}"/></td><td>${errorMsgs.proCous}</td>
 	</tr>
 	<tr>
-		<td>促銷打折內容（如：95折請輸入95）</td>
+		<td>促銷打折內容（如：9折請輸入90）</td>
 		<td><input type="TEXT" name="prom_price" size="45" 
 		value="${param.prom_price}"/></td><td>${errorMsgs.prom_price}</td>
 	</tr>

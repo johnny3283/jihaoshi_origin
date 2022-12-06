@@ -147,7 +147,7 @@ public class PhyCouPromotionDetailHibernateDAO implements PhyCouPromotionDetailD
 		try {
 			session.beginTransaction();
 			Query query = session.createNativeQuery(GET_MIN_PRICE_STMT);
-			query.setParameter("prom_status", 0);
+			query.setParameter("prom_status", 1);
 			query.setParameter("course_no", course_no);
 			minPrice  = (Integer) query.list().get(0);
 //			phyCouPromotionDetailVO = (PhyCouPromotionDetailVO) session.get(PhyCouPromotionDetailVO.class, project_no);
