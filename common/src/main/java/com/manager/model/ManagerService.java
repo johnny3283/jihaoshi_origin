@@ -9,7 +9,7 @@ public class ManagerService {
 		dao = new ManagerDAO();
 	}
 
-	public ManagerVO addmember(String managerName, String managerIp, String managerAccount, String managerPassword) {
+	public ManagerVO addMember(String managerName, String managerIp, String managerAccount, String managerPassword) {
 
 		ManagerVO mgrVO = new ManagerVO();
 		mgrVO.setManagerName(managerName);
@@ -23,7 +23,7 @@ public class ManagerService {
 		return mgrVO;
 	}
 
-	public ManagerVO updateEmp(Integer managerNo,String managerAccount,String managerPassword,
+	public ManagerVO updateMember(Integer managerNo,String managerAccount,String managerPassword,
 							   String managerName, String managerIp,Integer managerStatus) {
 		ManagerVO ManagerVO = new ManagerVO();
 		ManagerVO.setManagerNo(managerNo);
@@ -39,7 +39,7 @@ public class ManagerService {
 		return dao.getAll();
 	}
 
-	public ManagerVO getOneMem(Integer managerNo) {
+	public ManagerVO getOneMember(Integer managerNo) {
 		return dao.findByPrimaryKey(managerNo);
 	}
 
