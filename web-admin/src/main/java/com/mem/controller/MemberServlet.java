@@ -3,14 +3,12 @@ package com.mem.controller;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.mem.model.MemService;
 import com.mem.model.MemberVO;
 
@@ -32,7 +30,7 @@ public class MemberServlet extends HttpServlet {
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+			//*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 
 			String memberacc = req.getParameter("memberAccount");
 			String memberpas = req.getParameter("memberPassword");
@@ -83,25 +81,24 @@ public class MemberServlet extends HttpServlet {
 			}
 
 			MemService memSvc = new MemService();
-			memVO = memSvc.addmember(membername, memberacc, memberpas, memberpho, membernick, memberadd,
+			memVO = memSvc.addMember(membername, memberacc, memberpas, memberpho, membernick, memberadd,
 					memberemail);
 			
 			
 			req.setAttribute("MemberVO", memVO);
 			String url = "/member/listAllMember.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 
 		}
 
-		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+		if ("update".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
+
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			//*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer memberno = Integer.valueOf(req.getParameter("memberNo").trim());
 			String membername = req.getParameter("memberName");
 			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -111,9 +108,6 @@ public class MemberServlet extends HttpServlet {
 			String memberemail = req.getParameter("memberEmail");
 			Integer memberstate = Integer.valueOf(req.getParameter("memberState").trim());
 
-			                                     
-
-			
 			if (membername == null || membername.trim().length() == 0) {
 				errorMsgs.add("會員姓名: 請勿空白");
 			} else if (!membername.trim().matches(enameReg)) {
@@ -153,26 +147,25 @@ public class MemberServlet extends HttpServlet {
 				return; // 程式中斷
 			}
 
-			/*************************** 2.開始修改資料 *****************************************/
+			//*************************** 2.開始修改資料 *****************************************/
 			MemService memSvc = new MemService();
 			memVO = memSvc.mngMember( memberno, membername, memberpho, membernick, memberadd,
 					memberemail,memberstate);
 
-			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			//*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
 			String url = "/member/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-
-		// 查詢一個會員
+		// 查詢會員
 		if ("getOne_For_Display".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			//*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String str = req.getParameter("memberNo");
 			if (str == null || (str.trim()).length() == 0) {
 				errorMsgs.add("請輸入會員編號");
@@ -197,9 +190,9 @@ public class MemberServlet extends HttpServlet {
 				return;// 程式中斷
 			}
 
-			/*************************** 2.開始查詢資料 *****************************************/
+			//*************************** 2.開始查詢資料 *****************************************/
 			MemService memSvc = new MemService();
-			MemberVO memVO = memSvc.getOneMem(memberNo);
+			MemberVO memVO = memSvc.getOneMember(memberNo);
 			if (memVO == null) {
 				errorMsgs.add("查無資料");
 
@@ -211,7 +204,7 @@ public class MemberServlet extends HttpServlet {
 				return;// 程式中斷
 			}
 
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			//*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
 			String url = "/member/listOneMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -224,12 +217,12 @@ public class MemberServlet extends HttpServlet {
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*************************** 1.接收請求參數 ****************************************/
+			//*************************** 1.接收請求參數 ****************************************/
 			Integer memberNo = Integer.valueOf(req.getParameter("memberNo"));
 
-			/*************************** 2.開始查詢資料 ****************************************/
+			//*************************** 2.開始查詢資料 ****************************************/
 			MemService memSvc = new MemService();
-			MemberVO memVO = memSvc.getOneMem(memberNo);
+			MemberVO memVO = memSvc.getOneMember(memberNo);
 			if (memVO == null) {
 				errorMsgs.add("查無資料");
 
@@ -239,28 +232,26 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			//*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("MemberVO", memVO);
 			String url = "/member/update_mem_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
 
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+		if ("delete".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*************************** 1.接收請求參數 ***************************************/
+			//*************************** 1.接收請求參數 ***************************************/
 			Integer memberNo = Integer.valueOf(req.getParameter("memberNo"));
 
-			/*************************** 2.開始刪除資料 ***************************************/
+			//*************************** 2.開始刪除資料 ***************************************/
 			MemService memSvc = new MemService();
-			memSvc.deleteEmp(memberNo);
+			memSvc.deleteMember(memberNo);
 
-			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			//*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 			String url = "/member/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);

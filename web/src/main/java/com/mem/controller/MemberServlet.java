@@ -33,7 +33,7 @@ public class MemberServlet extends HttpServlet {
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+			//*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 
 			String memberacc = req.getParameter("memberAccount");
 			String memberpas = req.getParameter("memberPassword");
@@ -96,7 +96,7 @@ public class MemberServlet extends HttpServlet {
 			}
 
 			MemService memSvc2 = new MemService();
-			memVO = memSvc2.addmember(memberacc, memberpas, membername, memberpho, membernick, memberadd, memberemail);
+			memVO = memSvc2.addMember(memberacc, memberpas, membername, memberpho, membernick, memberadd, memberemail);
 
 			req.setAttribute("MemberVO", memVO);
 			String url = "signupSucces.jsp";
@@ -105,14 +105,12 @@ public class MemberServlet extends HttpServlet {
 
 		}
 
-		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+		if ("update".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			//*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer memberno = Integer.valueOf(req.getParameter("memberNo").trim());
 			String membername = req.getParameter("memberName");
 			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -164,32 +162,30 @@ public class MemberServlet extends HttpServlet {
 				return; // 程式中斷
 			}
 
-			/*************************** 2.開始修改資料 *****************************************/
+			//*************************** 2.開始修改資料 *****************************************/
 			MemService memSvc = new MemService();
-			memVO = memSvc.updateMem(memberacc, memberno, memberpas, membername, memberpho, membernick, memberadd,
+			memVO = memSvc.updateMember(memberacc, memberno, memberpas, membername, memberpho, membernick, memberadd,
 					memberemail);
 
-			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			//*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("MemberVO", memVO);
 			String url = "editSucces.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-
-		// 查詢一個會員
-
+		// 查詢會員
 		if ("getOne_For_Update".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*************************** 1.接收請求參數 ****************************************/
+			//*************************** 1.接收請求參數 ****************************************/
 			Integer memberNo = Integer.valueOf(req.getParameter("memberNo"));
 
-			/*************************** 2.開始查詢資料 ****************************************/
+			//*************************** 2.開始查詢資料 ****************************************/
 			MemService memSvc = new MemService();
-			MemberVO memVO = memSvc.getOneMem(memberNo);
+			MemberVO memVO = memSvc.getOneMember(memberNo);
 			if (memVO == null) {
 				errorMsgs.add("查無資料");
 
@@ -199,7 +195,7 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			//*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("MemberVO", memVO);
 			String url = "update_mem_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
@@ -259,12 +255,10 @@ public class MemberServlet extends HttpServlet {
 			}catch (Exception ignored) { }
 			res.sendRedirect(req.getContextPath() + "/index.jsp");
 		}
-
 		// 登出
 		if ("Logout".equals(action)) {
 			final HttpSession session = req.getSession();
 			session.removeAttribute("member");
-
 			res.sendRedirect(req.getContextPath() + "/index.jsp");
 		}
 		// -------------------登出結束------------------------------------

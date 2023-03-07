@@ -3,7 +3,6 @@ package com.mem.controller;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,14 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.google.gson.Gson;
 import com.mem.model.MemService;
 import com.mem.model.MemberVO;
 
 @WebServlet("/getOneMem")
 public class getOneMem extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -33,7 +29,7 @@ public class getOneMem extends HttpServlet {
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			//*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			HttpSession session = req.getSession();
 			MemberVO memberVO =(MemberVO) session.getAttribute("member");
 			
@@ -46,9 +42,9 @@ public class getOneMem extends HttpServlet {
 			
 			
 
-			/********************************************************************/
+			//********************************************************************/
 			MemService memSvc = new MemService();
-			MemberVO member = memSvc.getOneMem(No);
+			MemberVO member = memSvc.getOneMember(No);
 
 
 		req.setAttribute("MemberVO", member);

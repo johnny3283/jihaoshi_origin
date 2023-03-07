@@ -12,10 +12,10 @@ public class MemberVO implements java.io.Serializable{
 	private Integer memberState;
 	
 
-	public MemberVO(Integer member_no,String member_accound, String member_password, 
-			String member_name, String member_phone, String member_nickname,String member_address,
-			String member_email,Integer member_state) {
-	}
+///	public MemberVO(Integer member_no,String member_account, String member_password,
+//			String member_name, String member_phone, String member_nickname,String member_address,
+//			String member_email,Integer member_state) {
+//	}
 	public MemberVO() {
 		// TODO Auto-generated constructor stub
 	}

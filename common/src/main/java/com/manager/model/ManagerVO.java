@@ -47,12 +47,6 @@ public class ManagerVO implements java.io.Serializable{
 	public void setManagerStatus(Integer managerStatus) {
 		this.managerStatus = managerStatus;
 	}
-	public String getAuthorityName() {
-		return authorityName;
-	}
-	public void setAuthorityName(String authorityName) {
-		this.authorityName = authorityName;
-	}
 	public List<Integer> getAuthorityNo() {
 		return authorityNo;
 	}

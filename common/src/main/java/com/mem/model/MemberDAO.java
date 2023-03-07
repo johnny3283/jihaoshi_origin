@@ -6,18 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import com.phyCourseComment.model.phyCourseCommentVO;
-import com.phyCourseCommentReport.model.phyCourseCommentReportVO;
-import com.onlinecoursecomment.model.OnlineCourseCommentVO;
-import com.onlinecoursecommentreport.model.OnlineCourseCommentReportVO;
-
-
-
 public class MemberDAO implements MemberDAO_interface {
 	private static DataSource ds = null;
 	static {
@@ -89,7 +81,6 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 
 	}
-
 	@Override
 	public void update(MemberVO memberVO) {
 		// TODO Auto-generated method stub
@@ -173,7 +164,6 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 		
 	}
-
 	@Override
 	public MemberVO findByPrimaryKey(Integer memberNo) {
 		MemberVO MemberVO = null;
@@ -233,7 +223,6 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 		return MemberVO;
 	}
-
 	@Override
 	public MemberVO selectForLogin(String memberAccount, String memberPassword) {
 		MemberVO MemberVO = null;
@@ -289,7 +278,6 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 		return MemberVO;
 	}
-
 	@Override
 	public void delete(Integer memberNo) {
 
@@ -327,7 +315,6 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 
 	}
-
 	@Override
 	public List<MemberVO> getAll() {
 		List<MemberVO> list = new ArrayList<MemberVO>();
@@ -386,8 +373,6 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 		return list;
 	}
-
-
 	@Override
 	public MemberVO findByAccount(String memberAccount) {
 
@@ -489,270 +474,5 @@ public class MemberDAO implements MemberDAO_interface {
 			}
 		}
 		return memberVO;
-	}
-	public List<phyCourseCommentVO> getPhyCourseCommentsByMemberNo(Integer memberNo) {
-		List<phyCourseCommentVO> list = new ArrayList<>();
-		phyCourseCommentVO phyCourseCommentVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_PhyCourseComments_ByMemberNo_STMT);
-			pstmt.setInt(1, memberNo);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				phyCourseCommentVO = new phyCourseCommentVO();
-				phyCourseCommentVO.setCommentNo(rs.getInt(1));
-				phyCourseCommentVO.setCourseNo(rs.getInt(2));
-				phyCourseCommentVO.setMemberNo(rs.getInt(3));
-				phyCourseCommentVO.setCommentContent(rs.getString(4));
-				phyCourseCommentVO.setCommentStatus(rs.getInt(5));
-				list.add(phyCourseCommentVO); // Store the row in the vector
-			}
-			// Handle any SQL errors
-		} catch (Exception se) {
-			se.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-
-	public List<phyCourseCommentReportVO> getPhyCourseCommentReportsByMemberNo(Integer memberNo) {
-		List<phyCourseCommentReportVO> list = new ArrayList<>();
-		phyCourseCommentReportVO phyCourseCommentReportVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_PhyCourseCommentReports_ByMemberNo_STMT);
-			pstmt.setInt(1, memberNo);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				phyCourseCommentReportVO = new phyCourseCommentReportVO();
-				phyCourseCommentReportVO.setReportNo(rs.getInt(1));
-				phyCourseCommentReportVO.setMemberNo(rs.getInt(2));
-				phyCourseCommentReportVO.setCommentNo(rs.getInt(3));
-				phyCourseCommentReportVO.setReportReason(rs.getString(4));
-				phyCourseCommentReportVO.setReportStatus(rs.getInt(5));
-				list.add(phyCourseCommentReportVO); // Store the row in the vector
-			}
-			// Handle any SQL errors
-		} catch (Exception se) {
-			se.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-	
-//	@Override
-//	public Integer findByAccount(String memberAccount) {
-//
-//		MemberVO memberVO = null;
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//
-//		try {
-//
-//			con = ds.getConnection();
-//			pstmt = con.prepareStatement(GET_ACCOUNT_STMT);
-//
-//			pstmt.setString(1, memberAccount);
-//
-//			rs = pstmt.executeQuery();
-//
-//			while (rs.next()) {
-//				memberVO = new MemberVO();
-//				memberVO.setMemberNo(rs.getInt(1));
-//				memberVO.setMemberAccount(rs.getString(2));
-//			}
-//			// Handle any SQL errors
-//		} catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. "
-//					+ se.getMessage());
-//			// Clean up JDBC resources
-//		} finally {
-//			if (rs != null) {
-//				try {
-//					rs.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (Exception e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//		return memberVO.getMemberNo();
-//	}
-	public List<OnlineCourseCommentVO> getOnlineCourseCommentsByMemberNo(Integer memberNo) {
-		List<OnlineCourseCommentVO> list = new ArrayList<>();
-		OnlineCourseCommentVO onlineCourseCommentVO = null;
-	
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-	
-		try {
-	
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_OnlineCourseComments_ByMemberNo_STMT);
-			pstmt.setInt(1, memberNo);
-			rs = pstmt.executeQuery();
-	
-			while (rs.next()) {
-				onlineCourseCommentVO = new OnlineCourseCommentVO();
-				onlineCourseCommentVO.setCommentNo(rs.getInt(1));
-				onlineCourseCommentVO.setMemberNo(rs.getInt(2));
-				onlineCourseCommentVO.setCourseNo(rs.getInt(3));
-				onlineCourseCommentVO.setCommentContent(rs.getString(4));
-				onlineCourseCommentVO.setCommentScore(rs.getInt(5));
-				onlineCourseCommentVO.setCommentStatus(rs.getInt(6));
-				list.add(onlineCourseCommentVO); // Store the row in the vector
-			}
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-	public List<OnlineCourseCommentReportVO> getOnlineCourseCommentReportsByMemberNo(Integer memberNo) {
-		List<OnlineCourseCommentReportVO> list = new ArrayList<>();
-		OnlineCourseCommentReportVO onlineCourseCommentReportVO = null;
-	
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-	
-		try {
-	
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_OnlineCourseCommentReports_ByMemberNo_STMT);
-			pstmt.setInt(1, memberNo);
-			rs = pstmt.executeQuery();
-	
-			while (rs.next()) {
-				onlineCourseCommentReportVO = new OnlineCourseCommentReportVO();
-				onlineCourseCommentReportVO.setReportNo(rs.getInt(1));
-				onlineCourseCommentReportVO.setMemberNo(rs.getInt(2));
-				onlineCourseCommentReportVO.setCommentNo(rs.getInt(3));
-				onlineCourseCommentReportVO.setReportReason(rs.getString(4));
-				onlineCourseCommentReportVO.setReportStatus(rs.getInt(5));
-				list.add(onlineCourseCommentReportVO); // Store the row in the vector
-			}
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
 	}
 }
