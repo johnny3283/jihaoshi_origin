@@ -28,4 +28,12 @@ public class NutrientFeatureVO implements Serializable {
     @Column(name = "FEATURE_NAME")
     String featureName;
 
+	public String getFeatureName() {
+		return featureName;
+	}
+
+	public void setFeatureName(String featureName) {
+		this.featureName = featureName;
+	}
+
 }
