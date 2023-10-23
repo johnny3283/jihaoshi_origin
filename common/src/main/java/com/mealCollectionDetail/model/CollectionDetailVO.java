@@ -31,28 +31,5 @@ public class CollectionDetailVO implements Serializable {
     @Column(name = "MEAL_NAME")
     private String mealName;
 
-	public Integer getMemberNo() {
-		return memberNo;
-	}
 
-	public void setMemberNo(Integer memberNo) {
-		this.memberNo = memberNo;
-	}
-
-	public Integer getMealNo() {
-		return mealNo;
-	}
-
-	public void setMealNo(Integer mealNo) {
-		this.mealNo = mealNo;
-	}
-
-	public String getMealName() {
-		return mealName;
-	}
-
-	public void setMealName(String mealName) {
-		this.mealName = mealName;
-	}
-    
 }

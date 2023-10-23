@@ -33,29 +33,4 @@ public class NutrientFeatureDetailVO implements Serializable {
 
     @Column(name = "FEATURE_NAME")
     private String featureName;
-
-	public Integer getMealNo() {
-		return mealNo;
-	}
-
-	public void setMealNo(Integer mealNo) {
-		this.mealNo = mealNo;
-	}
-
-	public Integer getFeatureNo() {
-		return featureNo;
-	}
-
-	public void setFeatureNo(Integer featureNo) {
-		this.featureNo = featureNo;
-	}
-
-	public String getFeatureName() {
-		return featureName;
-	}
-
-	public void setFeatureName(String featureName) {
-		this.featureName = featureName;
-	}
-
 }
