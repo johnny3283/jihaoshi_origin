@@ -1,5 +1,10 @@
 package com.mem.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class MemberVO implements java.io.Serializable{
 	private Integer memberNo;
 	private String memberAccount;
