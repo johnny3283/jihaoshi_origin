@@ -1,16 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.employee.model.*" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.manager.model.*" %>
 
 <%
-    ManagerService mgrSvc = new ManagerService();
-    ManagerVO MemberVO = (ManagerVO) request.getAttribute("ManagerVO");
+    EmployeeService empSvc = new EmployeeService();
+    EmployeeVO EmployeeVO = (EmployeeVO) request.getAttribute("empVO");
 %>
-<!DOCTYPE html>
+
 <html>
 <head>
-    <title>listOneManager</title>
+    <title>listOneEmployee</title>
     <style>
         #content {
             display: flex;
@@ -103,6 +103,7 @@
             table td:last-child {
                 border-bottom: 0;
             }
+            }
     </style>
 </head>
 <body>
@@ -124,31 +125,27 @@
             <table>
                 <tr>
                     <td>管理員編號</td>
-                    <td>${ManagerVO.managerNo}</td>
+                    <td>${EmployeeVO.managerNo}</td>
                 </tr>
                 <tr>
                     <td>管理員姓名</td>
-                    <td>${ManagerVO.managerName}</td>
+                    <td>${EmployeeVO.managerName}</td>
                 </tr>
                 <tr>
                     <td>管理員帳號</td>
-                    <td>${ManagerVO.managerAccount}</td>
-                </tr>
-                <tr>
-                    <td>管理員IP</td>
-                    <td>${ManagerVO.managerIp}</td>
+                    <td>${EmployeeVO.managerAccount}</td>
                 </tr>
                 <tr>
                     <td>管理員狀態</td>
-                    <td>${ManagerVO.managerStatus}</td>
+                    <td>${EmployeeVO.managerStatus}</td>
                 </tr>
                 <tr>
                     <td>管理員權限</td>
-                    <td><c:forEach var="no" items="${ManagerVO.authorityNo}">${authorityName[no]}&emsp;</c:forEach></td>
+                    <td><c:forEach var="no" items="${EmployeeVO.authorityNo}">${authorityName[no]}&emsp;</c:forEach></td>
                 </tr>
                 <tr>
                     <td><input type="submit" value="修改" style="border-radius:1rem; border: 1px solid #ccc;">
-                    <input type="hidden" name="managerNo" value="${ManagerVO.managerNo}">
+                    <input type="hidden" name="managerNo" value="${EmployeeVO.managerNo}">
                     <input type="hidden" name="action" value="getOne_For_Update"></td>
                 </tr>
             </table>

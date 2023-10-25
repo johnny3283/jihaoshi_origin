@@ -1,11 +1,10 @@
-<%@ page import="com.cart.model.CartProdVO"%>
-<%@ page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.cart.model.CartProdVO"%>
+<%@ page import="java.util.List"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.faq.model.*"%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +17,7 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap" rel="stylesheet">	
+<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${ctxPath}/css/styles.css">
 
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -67,7 +66,7 @@
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
 			<!-- LOGO -->
-			<a class="navbar-brand" href="${ctxPath}/index.jsp"> 
+			<a class="navbar-brand" href="${ctxPath}/index.jsp">
 				<img src="${ctxPath}/css/LOGO.png" alt="Logo" width="80" height="90">
 			</a>
 			<!-- 螢幕縮小時導覽列會縮小成右上按鈕點開會直向呈現 -->
@@ -80,8 +79,8 @@
 			<!-- collapse：無論任何螢幕大小，你都不會看到有選單在頂部。 -->
 			<!-- nav-collapse：當螢幕變小時，選單會改為直行顯示。 -->
 			<div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content:space-around;">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">					
-					<li class="nav-item dropdown">					
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">員工管理</a>
 							<ul class="dropdown-menu">
 								<li>
@@ -91,7 +90,7 @@
                  		     		<a class="dropdown-item" href="${ctxPath}/manager/listAllManager.jsp">員工查詢</a>
       				            </li>
 							</ul>
-					</li>										
+					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">會員管理</a>
 							<ul class="dropdown-menu">
@@ -102,11 +101,11 @@
                   					<a class="dropdown-item" href="${ctxPath}">修改會員</a>
                					</li>
 							</ul>
-					</li>					
+					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">網站管理</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="${ctxPath}/ztest/webManag.jsp">網站管理test</a></li>	
+								<li><a class="dropdown-item" href="${ctxPath}/ztest/webManag.jsp">網站管理test</a></li>
 								<li class="dropdown-submenu">
 									<a class="dropdown-item">最新消息管理&emsp;></a>
 									<ul class="dropdown-menu">

@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.manager.model.*" %>
+<%@ page import="com.employee.model.*" %>
 
 
 <%
-    ManagerVO mgrVO = (ManagerVO) request.getAttribute("mgrVO");
+    EmployeeVO empVO = (EmployeeVO) request.getAttribute("empVO");
 %>
 <!DOCTYPE html>
 <html>
@@ -48,27 +48,24 @@
         <div id="form">
             <h2 class="active">修改員工</h2><br>
             <div style="margin: 0px auto;">員工編號:
-                <label><%=mgrVO.getManagerNo()%>
+                <label><%=empVO.getManagerNo()%>
                 </label>
             </div>
             <div style="margin: 0px auto;">員工帳號:
                 <input type="TEXT" name="managerAccount" size="45"
-                       value="<%=mgrVO.getManagerAccount()%>"/></div>
+                       value="<%=empVO.getManagerAccount()%>"/></div>
             <div style="margin: 0px auto;">員工密碼:
                 <input type="password" name="managerPassword" size="45"
-                       value="<%=mgrVO.getManagerPassword()%>"/></div>
+                       value="<%=empVO.getManagerPassword()%>"/></div>
             <div style="margin: 0px auto;">員工姓名:
                 <input type="TEXT" name="managerName" size="45"
-                       value="<%=mgrVO.getManagerName()%>"/></div>
-            <div style="margin: 0px auto;">員工IP:
-                <input type="TEXT" name="managerIp" size="45"
-                       value="<%= mgrVO.getManagerIp()%>"/></div>
+                       value="<%=empVO.getManagerName()%>"/></div>
             <div style="margin: 0px auto;">員工狀態:
                 <input type="TEXT" name="managerStatus" size="45"
-                       value="<%= mgrVO.getManagerStatus()%>"/></div>
+                       value="<%= empVO.getManagerStatus()%>"/></div>
             <div style="margin: 0px auto;">
                 <input type="hidden" name="action" value="update">
-                <input type="hidden" name="managerNo" value="<%=mgrVO.getManagerNo()%>">
+                <input type="hidden" name="managerNo" value="<%=empVO.getManagerNo()%>">
                 <input type="submit" value="送出修改" style="border-radius:1rem; border: 1px solid #ccc;">
             </div>
         </div>

@@ -247,6 +247,7 @@ public class MemberDAO implements MemberDAO_interface {
 //				MemberVO.setMemberPassword(rs.getString("member_password"));
 				MemberVO.setMemberName(rs.getString("member_name"));
 				MemberVO.setMemberNo(rs.getInt("member_no"));
+				MemberVO.setMemberState(rs.getInt("member_state"));
 			}
 
 			// Handle any driver errors

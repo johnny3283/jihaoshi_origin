@@ -1,4 +1,4 @@
-package com.manager.Filters;
+package com.employee.Filters;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.manager.model.ManagerVO;
-import com.mem.model.MemberVO;
-
-public class serviceMgrFilter  implements Filter {
+public class courseMgrFilter  implements Filter {
 
 	private FilterConfig config;
 
@@ -36,14 +33,14 @@ public class serviceMgrFilter  implements Filter {
 		// 【取得 session】
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
-		ManagerVO manager =(ManagerVO) session.getAttribute("manager");
+		com.employee.model.EmployeeVO manager =(com.employee.model.EmployeeVO) session.getAttribute("manager");
 		if(manager == null) {
 			res.sendRedirect(req.getContextPath() + "/manager/login.jsp");
 			return;
 		}
 		List<Integer> authority = manager.getAuthorityNo();
 		
-		boolean sts  = authority.contains(2);
+		boolean sts  = authority.contains(3);
 		System.out.println(sts);
 		if(sts != true) {
 			

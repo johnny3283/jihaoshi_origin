@@ -21,7 +21,7 @@ public interface MemberDAO_interface {
 
 	public List<MemberVO> getAll();
 
-	public MemberVO selectForLogin(String mamberAccount, String mamberPassword);
+	public MemberVO selectForLogin(String memberAccount, String memberPassword);
 	
 	public MemberVO findByEmail(String memberEmail);
 

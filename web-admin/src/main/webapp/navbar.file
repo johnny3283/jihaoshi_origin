@@ -194,7 +194,7 @@
 						權限編號 : &emsp; ${manager.authorityNo}
 						&emsp; 
 						<button id="outbutton">
-						<a href="./manager/ManagerServlet?action=Logout" style="display:inline-block; text-decoration:none;color:black;">登出</a>
+						<a href="../manager/ManagerServlet?action=Logout" style="display:inline-block; text-decoration:none;color:black;">登出</a>
 						</button>
 					</li>
 					</c:if>

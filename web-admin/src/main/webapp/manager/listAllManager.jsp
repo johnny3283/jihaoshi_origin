@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.manager.model.*" %>
+<%@ page import="com.employee.model.*" %>
 
 <%
-    ManagerService manSvc = new ManagerService();
-    List<ManagerVO> list = manSvc.getAll();
+    EmployeeService empSvc = new EmployeeService();
+    List<EmployeeVO> list = empSvc.getAll();
     pageContext.setAttribute("list", list);
 %>
 
@@ -32,7 +32,7 @@
             border-collapse: collapse;
             margin: 0;
             padding: 0;
-            width: 95%;
+            width: 100%;
             table-layout: fixed;
         }
 
@@ -106,6 +106,7 @@
             table td:last-child {
                 border-bottom: 0;
             }
+        }
     </style>
 <body>
 <%@ include file="../navbar.file" %>
@@ -121,41 +122,45 @@
                 </c:forEach>
             </ul>
         </c:if>
-        <h1>管理員資料</h1>
-        <FORM METHOD="post" ACTION="../manager/ManagerServlet">
-            <b>查詢管理員資料 :</b> <input type="text" name="managerNo"> <input
+        <h1>員工資料</h1>
+        <FORM METHOD="post" ACTION="../employee/EmployeeServlet">
+            <b>查詢員工資料 :</b> <label>
+            <input type="text" name="managerNo">
+        </label> <input
                 type="hidden" name="action" value="getOne_For_Display">
             <input type="submit" value="送出">
         </FORM>
         <table>
             <tr>
-                <th>管理員編號</th>
-                <th>管理員姓名</th>
-                <th>管理員帳號</th>
-                <th>管理員狀態</th>
-
+                <th>員工編號</th>
+                <th>員工姓名</th>
+                <th>員工帳號</th>
+                <th>員工狀態</th>
+                <th>員工權限</th>
             </tr>
             <div style="margin: 0px auto;">
                 <%@ include file="page1Mgr.file" %>
             </div>
             <br>
-            <c:forEach var="ManagerVO" items="${list}" begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>">
+            <c:forEach var="EmployeeVO" items="${list}" begin="<%= pageIndex %>" end="<%= pageIndex+rowsPerPage-1 %>">
                 <tr>
-                    <td>${ManagerVO.managerNo}</td>
-                    <td>${ManagerVO.managerName}</td>
-                    <td>${ManagerVO.managerAccount}</td>
-                    <td>${ManagerVO.managerStatus}</td>
-                    <td>
-                        <FORM METHOD="post"
-                              ACTION="<%=request.getContextPath()%>/manager/ManagerServlet"
-                              style="margin-bottom: 0px;">
-                            <input type="submit" value="修改"> <input
-                                type="hidden" name="managerNo"
-                                value="${ManagerVO.managerNo}"> <input
-                                type="hidden" name="action" value="getOne_For_Update">
+                    <td>${EmployeeVO.managerNo}</td>
+                    <td>${EmployeeVO.managerName}</td>
+                    <td>${EmployeeVO.managerAccount}</td>
+                    <td>${EmployeeVO.managerStatus}</td>
+                    <td><c:forEach var="no" items="${EmployeeVO.authorityNo}">${authorityName[no]}&emsp;</c:forEach></td>
 
-                        </FORM>
-                    </td>
+                <td>
+                    <FORM METHOD="post"
+                          ACTION="<%=request.getContextPath()%>/manager/ManagerServlet"
+                          style="margin-bottom: 0px;">
+                        <input type="submit" value="修改"> <input
+                            type="hidden" name="managerNo"
+                            value="${EmployeeVO.managerNo}"> <input
+                            type="hidden" name="action" value="getOne_For_Update">
+
+                    </FORM>
+                </td>
                 </tr>
             </c:forEach>
         </table>
