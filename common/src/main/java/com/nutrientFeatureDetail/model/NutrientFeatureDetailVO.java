@@ -33,5 +33,4 @@ public class NutrientFeatureDetailVO implements Serializable {
 
     @Column(name = "FEATURE_NAME")
     private String featureName;
-
 }

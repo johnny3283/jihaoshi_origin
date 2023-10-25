@@ -17,9 +17,8 @@
     <filter-mapping>
         <filter-name>indexFilter</filter-name>
         <url-pattern>/index.jsp</url-pattern>
-
     </filter-mapping>
-    
+
     <filter>
         <filter-name>mealmgrFilter</filter-name>
         <filter-class>com.employee.Filters.mealMgrFilter</filter-class>
@@ -27,7 +26,6 @@
     <filter-mapping>
         <filter-name>mealmgrFilter</filter-name>
         <url-pattern>/ztest/mealsManag.jsp</url-pattern>
-
     </filter-mapping>
     
     <filter>
@@ -37,10 +35,8 @@
     <filter-mapping>
         <filter-name>webmgrFilter</filter-name>
         <url-pattern>/ztest/webManag.jsp</url-pattern>
-
     </filter-mapping>
-    
-    
+
     <filter>
         <filter-name>coursemgrFilter</filter-name>
         <filter-class>com.employee.Filters.courseMgrFilter</filter-class>
@@ -48,7 +44,6 @@
     <filter-mapping>
         <filter-name>coursemgrFilter</filter-name>
         <url-pattern>/ztest/courseManag.jsp</url-pattern>
-
     </filter-mapping>
     
     <filter>
@@ -57,8 +52,7 @@
     </filter>
     <filter-mapping>
         <filter-name>empmgrFilter</filter-name>
-        <url-pattern>/manager/listAllManager.jsp</url-pattern>
-
+        <url-pattern>/manager/addManager.jsp</url-pattern>
     </filter-mapping>
     
     <filter>
@@ -68,7 +62,6 @@
     <filter-mapping>
         <filter-name>servicemgrFilter</filter-name>
         <url-pattern>/ztest/serviceManag.jsp</url-pattern>
-
     </filter-mapping>
     <filter-mapping>
         <filter-name>servicemgrFilter</filter-name>

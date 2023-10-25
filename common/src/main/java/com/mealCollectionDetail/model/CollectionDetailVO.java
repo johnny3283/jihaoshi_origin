@@ -30,4 +30,6 @@ public class CollectionDetailVO implements Serializable {
 
     @Column(name = "MEAL_NAME")
     private String mealName;
+
+
 }

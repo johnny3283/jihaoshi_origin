@@ -44,7 +44,7 @@ public class MealVO implements Serializable {
     }
 
     public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, byte[] mealPhoto, Integer saleVolume, String mealRecipe, Integer commentPeople, Integer commentScore, Integer launch, Timestamp updateTime) {
-        this.mealNo = mealNo;
+        this.mealNo=mealNo;
         this.mealName = mealName;
         this.mealContent = mealContent;
         this.mealCal = mealCal;
@@ -60,7 +60,7 @@ public class MealVO implements Serializable {
     }
 
     public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, byte[] mealPhoto, String mealRecipe, Integer launch) {
-        this.mealNo = mealNo;
+		this.mealNo=mealNo;
         this.mealName = mealName;
         this.mealContent = mealContent;
         this.mealCal = mealCal;
@@ -72,7 +72,7 @@ public class MealVO implements Serializable {
     }
 
     public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealPrice, Integer launch) {
-        this.mealNo = mealNo;
+		this.mealNo=mealNo;
         this.mealName = mealName;
         this.mealContent = mealContent;
         this.mealPrice = mealPrice;
@@ -80,7 +80,7 @@ public class MealVO implements Serializable {
     }
 
     public MealVO(Integer mealNo, String mealName, String mealContent, Integer mealCal, String mealAllergen, Integer mealPrice, String mealRecipe, Integer launch) {
-        this.mealNo = mealNo;
+		this.mealNo=mealNo;
         this.mealName = mealName;
         this.mealContent = mealContent;
         this.mealCal = mealCal;
@@ -89,5 +89,6 @@ public class MealVO implements Serializable {
         this.mealRecipe = mealRecipe;
         this.launch = launch;
     }
+
 
 }
