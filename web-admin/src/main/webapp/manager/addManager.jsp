@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.manager.model.*" %>
+<%@ page import="com.employee.model.*" %>
 
 <%
-    ManagerVO mgrVO = (ManagerVO) request.getAttribute("ManagerVO");
+    EmployeeVO empVO = (EmployeeVO) request.getAttribute("employeeVO");
 %>
 
 <html>
@@ -44,22 +44,25 @@
 </c:if>
 <div id="content">
 
-    <FORM METHOD="post" ACTION="ManagerServlet" name="form1">
+    <FORM METHOD="post" ACTION="EmployeeServlet" name="form1">
         <div id="form">
-            <h2 class="active">新增管理員:</h2>
-            <div style="margin: 0px auto;">員工帳號:
-                <input type="TEXT" name="managerAccount" size="45"
-                       value="<%=(mgrVO == null) ? "" : mgrVO.getManagerAccount()%>"/></div>
-            <div style="margin: 0px auto;">員工密碼:
-                <input type="password" name="managerPassword" size="45"
-                       value="<%=(mgrVO == null) ? "" : mgrVO.getManagerPassword()%>"/></div>
-            <div style="margin: 0px auto;">員工姓名:
-                <input type="TEXT" name="managerName" size="45"
-                       value="<%=(mgrVO == null) ? "" : mgrVO.getManagerName()%>"/></div>
-            <div style="margin: 0px auto;">員工IP:
-                <input type="TEXT" name="managerIp" size="45"
-                       value="<%=(mgrVO == null) ? "" : mgrVO.getManagerIp()%>"/></div>
-            <div style="margin: 0px auto;">
+            <h2 class="active">新增員工:</h2>
+            <div style="margin: 0 auto;">員工帳號:
+                <label>
+                    <input type="TEXT" name="managerAccount" size="45"
+                           value="<%=(empVO == null) ? "" : empVO.getManagerAccount()%>"/>
+                </label></div>
+            <div style="margin: 0 auto;">員工密碼:
+                <label>
+                    <input type="password" name="managerPassword" size="45"
+                           value="<%=(empVO == null) ? "" : empVO.getManagerPassword()%>"/>
+                </label></div>
+            <div style="margin: 0 auto;">員工姓名:
+                <label>
+                    <input type="TEXT" name="managerName" size="45"
+                           value="<%=(empVO == null) ? "" : empVO.getManagerName()%>"/>
+                </label></div>
+            <div style="margin: 0 auto;">
                 <input type="hidden" name="action" value="insert">
                 <input type="submit" value="新增" id="submit" style="border-radius:1rem; border: 1px solid #ccc;">
             </div>

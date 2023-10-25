@@ -1,16 +1,18 @@
-package com.manager.model;
+package com.employee.model;
 import java.util.List;
 
-public class ManagerVO implements java.io.Serializable{
+public class EmployeeVO implements java.io.Serializable{
 	private Integer managerNo;
 	private String managerName;
-	private String managerIp;
 	private String managerAccount;
 	private String managerPassword;
 	private Integer managerStatus;
+
+
+
 	private String authorityName;
 	private List<Integer> authorityNo;
-	
+
 	public Integer getManagerNo() {
 		return managerNo;
 	}
@@ -22,12 +24,6 @@ public class ManagerVO implements java.io.Serializable{
 	}
 	public void setManagerName(String managerName) {
 		this.managerName = managerName;
-	}
-	public String getManagerIp() {
-		return managerIp;
-	}
-	public void setManagerIp(String managerIp) {
-		this.managerIp = managerIp;
 	}
 	public String getManagerAccount() {
 		return managerAccount;
@@ -46,6 +42,12 @@ public class ManagerVO implements java.io.Serializable{
 	}
 	public void setManagerStatus(Integer managerStatus) {
 		this.managerStatus = managerStatus;
+	}public String getAuthorityName() {
+		return authorityName;
+	}
+
+	public void setAuthorityName(String authorityName) {
+		this.authorityName = authorityName;
 	}
 	public List<Integer> getAuthorityNo() {
 		return authorityNo;

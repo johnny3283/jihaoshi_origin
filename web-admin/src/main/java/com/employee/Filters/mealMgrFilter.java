@@ -1,6 +1,7 @@
-package com.manager.Filters;
+package com.employee.Filters;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,9 +12,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.manager.model.ManagerVO;
 
-public class indexFilter  implements Filter {
+import com.employee.model.EmployeeVO;
+
+public class mealMgrFilter  implements Filter {
 
 	private FilterConfig config;
 
@@ -33,16 +35,24 @@ public class indexFilter  implements Filter {
 		// 【取得 session】
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
-		ManagerVO manager =(ManagerVO) session.getAttribute("manager");
-		if (manager == null) {
-			session.setAttribute("location", req.getRequestURI());
+		EmployeeVO employee =(EmployeeVO) session.getAttribute("manager");
+		if(employee == null) {
 			res.sendRedirect(req.getContextPath() + "/manager/login.jsp");
 			return;
 		}
-		else {
+		List<Integer> authority = employee.getAuthorityNo();
+		
+		boolean sts  = authority.contains(4);
+		System.out.println(sts);
+		if(!sts) {
 			
+			session.setAttribute("location", req.getRequestURI());
+			res.sendRedirect(req.getContextPath() + "/manager/notAllow.jsp");
+		}
+		else {
 			chain.doFilter(request, response);
 			
 		}
 	}
+
 }

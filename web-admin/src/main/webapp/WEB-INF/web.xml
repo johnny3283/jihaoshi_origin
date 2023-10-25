@@ -12,7 +12,7 @@
     
     <filter>
         <filter-name>indexFilter</filter-name>
-        <filter-class>com.manager.Filters.indexFilter</filter-class>
+        <filter-class>com.employee.Filters.indexFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>indexFilter</filter-name>
@@ -22,7 +22,7 @@
     
     <filter>
         <filter-name>mealmgrFilter</filter-name>
-        <filter-class>com.manager.Filters.mealMgrFilter</filter-class>
+        <filter-class>com.employee.Filters.mealMgrFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>mealmgrFilter</filter-name>
@@ -32,7 +32,7 @@
     
     <filter>
         <filter-name>webmgrFilter</filter-name>
-        <filter-class>com.manager.Filters.webMgrFilter</filter-class>
+        <filter-class>com.employee.Filters.webMgrFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>webmgrFilter</filter-name>
@@ -43,7 +43,7 @@
     
     <filter>
         <filter-name>coursemgrFilter</filter-name>
-        <filter-class>com.manager.Filters.courseMgrFilter</filter-class>
+        <filter-class>com.employee.Filters.courseMgrFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>coursemgrFilter</filter-name>
@@ -53,7 +53,7 @@
     
     <filter>
         <filter-name>empmgrFilter</filter-name>
-        <filter-class>com.manager.Filters.empMgrFilter</filter-class>
+        <filter-class>com.employee.Filters.empMgrFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>empmgrFilter</filter-name>
@@ -63,7 +63,7 @@
     
     <filter>
         <filter-name>servicemgrFilter</filter-name>
-        <filter-class>com.manager.Filters.serviceMgrFilter</filter-class>
+        <filter-class>com.employee.Filters.serviceMgrFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>servicemgrFilter</filter-name>

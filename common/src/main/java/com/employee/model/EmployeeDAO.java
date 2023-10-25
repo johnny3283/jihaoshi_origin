@@ -1,4 +1,4 @@
-package com.manager.model;
+package com.employee.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class ManagerDAO implements ManagerDAO_interface {
+public class EmployeeDAO implements EmployeeDAO_interface {
 	private static DataSource ds = null;
 	static {
 		try {
@@ -22,14 +22,12 @@ public class ManagerDAO implements ManagerDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	// manager_no, manager_name, manager_ip, manager_account,
-	// manager_password,manager_status
 
-	private static final String INSERT_STMT = "INSERT INTO backend_manager (manager_name,manager_ip,manager_account,manager_password) VALUES (?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO backend_manager (manager_name,manager_account,manager_password) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT * from backend_manager ";
-	private static final String GET_ONE_STMT = "SELECT manager_no, manager_name, manager_ip, manager_account, manager_password, manager_status FROM backend_manager where manager_no = ?";
+	private static final String GET_ONE_STMT = "SELECT manager_no, manager_name, manager_account, manager_password, manager_status FROM backend_manager where manager_no = ?";
 	private static final String DELETE = "DELETE FROM backend_manager where manager_no = ?";
-	private static final String UPDATE = "UPDATE backend_manager set manager_name=?,manager_account=?,manager_password=?,manager_ip=?, manager_status=? where manager_no = ?";
+	private static final String UPDATE = "UPDATE backend_manager set manager_name=?,manager_account=?,manager_password=?, manager_status=? where manager_no = ?";
 	private static final String Login = "SELECT * FROM backend_manager where manager_account = ? and manager_password = ?";
 	private static final String GET_AUTHORITY = "SELECT b.manager_no,e.authority_no\r\n"
 			+ "	FROM authority_detail a \r\n"
@@ -39,7 +37,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 			+ "	where b.manager_no = ?  ";
 
 	@Override
-	public void insert(ManagerVO ManagerVO) {
+	public void insert(EmployeeVO EmployeeVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -49,10 +47,9 @@ public class ManagerDAO implements ManagerDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, ManagerVO.getManagerAccount());
-			pstmt.setString(2, ManagerVO.getManagerPassword());
-			pstmt.setString(3, ManagerVO.getManagerName());
-			pstmt.setString(4, ManagerVO.getManagerIp());
+			pstmt.setString(1, EmployeeVO.getManagerAccount());
+			pstmt.setString(2, EmployeeVO.getManagerPassword());
+			pstmt.setString(3, EmployeeVO.getManagerName());
 
 			pstmt.executeUpdate();
 
@@ -80,7 +77,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 	}
 
 	@Override
-	public void update(ManagerVO ManagerVO) {
+	public void update(EmployeeVO EmployeeVO) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -90,12 +87,11 @@ public class ManagerDAO implements ManagerDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, ManagerVO.getManagerName());
-			pstmt.setString(2, ManagerVO.getManagerAccount());
-			pstmt.setString(3, ManagerVO.getManagerPassword());
-			pstmt.setString(4, ManagerVO.getManagerIp());
-			pstmt.setInt(5, ManagerVO.getManagerStatus());
-			pstmt.setInt(6, ManagerVO.getManagerNo());
+			pstmt.setString(1, EmployeeVO.getManagerName());
+			pstmt.setString(2, EmployeeVO.getManagerAccount());
+			pstmt.setString(3, EmployeeVO.getManagerPassword());
+			pstmt.setInt(4, EmployeeVO.getManagerStatus());
+			pstmt.setInt(5, EmployeeVO.getManagerNo());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -122,8 +118,8 @@ public class ManagerDAO implements ManagerDAO_interface {
 	}
 
 	@Override
-	public ManagerVO findByPrimaryKey(Integer managerNo) {
-		ManagerVO ManamgerVO = null;
+	public EmployeeVO findByPrimaryKey(Integer managerNo) {
+		EmployeeVO EmployeeVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -139,13 +135,12 @@ public class ManagerDAO implements ManagerDAO_interface {
 
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				ManamgerVO = new ManagerVO();
-				ManamgerVO.setManagerName(rs.getString("manager_name"));
-				ManamgerVO.setManagerIp(rs.getString("manager_ip"));
-				ManamgerVO.setManagerAccount(rs.getString("manager_account"));
-				ManamgerVO.setManagerPassword(rs.getString("manager_password"));
-				ManamgerVO.setManagerStatus(rs.getInt("manager_status"));;
-				ManamgerVO.setManagerNo(rs.getInt("manager_no"));
+				EmployeeVO = new EmployeeVO();
+				EmployeeVO.setManagerName(rs.getString("manager_name"));
+				EmployeeVO.setManagerAccount(rs.getString("manager_account"));
+				EmployeeVO.setManagerPassword(rs.getString("manager_password"));
+				EmployeeVO.setManagerStatus(rs.getInt("manager_status"));;
+				EmployeeVO.setManagerNo(rs.getInt("manager_no"));
 
 			}
 
@@ -176,12 +171,12 @@ public class ManagerDAO implements ManagerDAO_interface {
 				}
 			}
 		}
-		return ManamgerVO;
+		return EmployeeVO;
 	}
 
 	@Override
-	public ManagerVO selectForLogin(String mamberAccount, String mamberPassword) {
-		ManagerVO ManagerVO = null;
+	public EmployeeVO selectForLogin(String managerAccount, String managerPassword) {
+		EmployeeVO EmployeeVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -191,18 +186,18 @@ public class ManagerDAO implements ManagerDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(Login);
 
-			pstmt.setString(1, mamberAccount);
-			pstmt.setString(2, mamberPassword);
+			pstmt.setString(1, managerAccount);
+			pstmt.setString(2, managerPassword);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
-				ManagerVO = new ManagerVO();
-				ManagerVO.setManagerAccount(rs.getString("manager_account"));
-//				MemberVO.setManagerPassword(rs.getString("manager_password"));
-				ManagerVO.setManagerName(rs.getString("manager_name"));
-				ManagerVO.setManagerNo(rs.getInt("manager_no"));
+				EmployeeVO = new EmployeeVO();
+				EmployeeVO.setManagerAccount(rs.getString("manager_account"));
+				EmployeeVO.setManagerName(rs.getString("manager_name"));
+				EmployeeVO.setManagerNo(rs.getInt("manager_no"));
+				EmployeeVO.setManagerStatus(rs.getInt("manager_status"));
 			}
 
 			// Handle any driver errors
@@ -232,7 +227,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 				}
 			}
 		}
-		return ManagerVO;
+		return EmployeeVO;
 	}
 
 	@Override
@@ -287,9 +282,9 @@ public class ManagerDAO implements ManagerDAO_interface {
 		return null;
 	}
 	@Override
-	public List<ManagerVO> getAll() {
-		List<ManagerVO> list = new ArrayList<ManagerVO>();
-		ManagerVO manVO = null;
+	public List<EmployeeVO> getAll() {
+		List<EmployeeVO> list = new ArrayList<EmployeeVO>();
+		EmployeeVO empVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -304,13 +299,13 @@ public class ManagerDAO implements ManagerDAO_interface {
 
 			while (rs.next()) {
 
-				manVO = new ManagerVO();
-				manVO.setManagerNo(rs.getInt("manager_no"));
-				manVO.setManagerName(rs.getString("manager_name"));
-				manVO.setManagerAccount(rs.getString("manager_account"));
-				manVO.setManagerStatus(rs.getInt("manager_status"));
+				empVO = new EmployeeVO();
+				empVO.setManagerNo(rs.getInt("manager_no"));
+				empVO.setManagerName(rs.getString("manager_name"));
+				empVO.setManagerAccount(rs.getString("manager_account"));
+				empVO.setManagerStatus(rs.getInt("manager_status"));
 
-				list.add(manVO);
+				list.add(empVO);
 			}
 
 		} catch (SQLException se) {

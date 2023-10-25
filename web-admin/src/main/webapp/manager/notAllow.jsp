@@ -1,12 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
-<%@ page import="com.mem.model.*"%>
 
-<%
-MemService memSvc = new MemService();
-MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
-%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
